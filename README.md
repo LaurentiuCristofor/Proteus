@@ -1,2 +1,2 @@
 # Proteus
-A growing library of data processing functions
+A growing library of data processing functions.
