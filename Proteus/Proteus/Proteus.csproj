@@ -6,10 +6,11 @@
     <Authors>Laurentiu Cristofor</Authors>
     <Description>Proteus data processing library.</Description>
     <RepositoryUrl>https://github.com/LaurentiuCristofor/Proteus</RepositoryUrl>
-    <Version>0.1.0</Version>
+    <Version>0.1.0.1</Version>
     <Copyright>Laurentiu Cristofor</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageReleaseNotes>First working release.</PackageReleaseNotes>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <AssemblyVersion>0.1.0.1</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
