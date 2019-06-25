@@ -9,9 +9,9 @@ using LaurentiuCristofor.Proteus.Common;
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// A pass-through processor that doesn't change data and doesn't output data.
+    /// A passthrough processor that doesn't change data and doesn't output data.
     /// </summary>
-    public class PassThroughProcessor : IDataProcessor<UnusedType, string>
+    public class PassthroughProcessor : IDataProcessor<UnusedType, string>
     {
         public void Initialize(UnusedType unusedProcessingParameters)
         {

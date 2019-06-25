@@ -29,15 +29,15 @@ namespace LaurentiuCristofor.Proteus.Common
             {
                 ulong countMillions = countExecutionUnits / OneMillion;
 
-                IOStream.Log($"{OneMillionMarker}({countMillions})");
+                OutputInterface.Log($"{OneMillionMarker}({countMillions})");
             }
             else if (countExecutionUnits % OneHundredThousand == 0)
             {
-                IOStream.Log(OneHundredThousandMarker);
+                OutputInterface.Log(OneHundredThousandMarker);
             }
             else if (countExecutionUnits % TenThousand == 0)
             {
-                IOStream.Log(TenThousandMarker);
+                OutputInterface.Log(TenThousandMarker);
             }
         }
 
@@ -46,7 +46,7 @@ namespace LaurentiuCristofor.Proteus.Common
         /// </summary>
         public static void Reset()
         {
-            IOStream.LogLine(string.Empty);
+            OutputInterface.LogLine(string.Empty);
         }
     }
 }

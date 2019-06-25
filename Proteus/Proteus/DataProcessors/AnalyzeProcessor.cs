@@ -8,31 +8,34 @@ using System;
 
 using LaurentiuCristofor.Proteus.Common;
 using LaurentiuCristofor.Proteus.DataExtractors;
-using LaurentiuCristofor.Proteus.FileOperations;
 
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// A data processor that checks the value of a column against a selection criterion,
-    /// to decide whether to output the row or not.
+    /// A data processor that performs data analysis to extract some basic stats.
     /// </summary>
-    public class ColumnValueSelectProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<ComparisonType>, StringParts>
+    public class AnalyzeProcessor : IDataProcessor<AnalyzeParameters, StringParts>
     {
         /// <summary>
         /// Parameters of this operation.
         /// </summary>
-        protected OperationTypeParameters<ComparisonType> Parameters { get; set; }
+        protected AnalyzeParameters Parameters { get; set; }
 
-        public void Initialize(OperationTypeParameters<ComparisonType> processingParameters)
+        /// <summary>
+        /// The DataAnalyzer instance that we will use to perform the analysis.
+        /// </summary>
+        public DataAnalyzer Analyzer { get; protected set; }
+
+        public void Initialize(AnalyzeParameters processingParameters)
         {
             this.Parameters = processingParameters;
 
-            this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath);
+            this.Analyzer = new DataAnalyzer();
         }
 
         public bool Execute(ulong lineNumber, StringParts inputData)
         {
-            // We may not always be able to extract a column.
+            // We may not always be able to extract data.
             // Ignore these cases; the extractor will already have printed a warning message.
             //
             if (inputData == null)
@@ -40,14 +43,16 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 return true;
             }
 
-            // Perform the comparison to decide whether to output the row.
-            //
-            if (inputData.ExtractedData.Compare(this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument))
-            {
-                this.OutputWriter.WriteLine(inputData.OriginalString);
-            }
+            this.Analyzer.AnalyzeData(inputData.ExtractedData);
 
             return true;
+        }
+
+        public void CompleteExecution()
+        {
+            this.Analyzer.OrderAnalyzedData();
+
+            this.Analyzer.OutputReport(this.Parameters.ValuesLimit);
         }
     }
 }

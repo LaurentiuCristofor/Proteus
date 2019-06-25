@@ -17,7 +17,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         /// The string that should be used as column separator.
         /// Despite this being an array, only one separator is ever provided.
         /// </summary>
-        public string[] Separators { get; set; }
+        public string[] Separators { get; protected set; }
 
         /// <summary>
         /// The number of the column, starting from 1.
@@ -31,7 +31,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
                 return this.columnNumber;
             }
 
-            set
+            protected set
             {
                 if (value <= 0)
                 {
@@ -45,7 +45,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         /// <summary>
         /// The data type that should be parsed from the column value.
         /// </summary>
-        public DataType ColumnDataType { get; set; }
+        public DataType ColumnDataType { get; protected set; }
 
         public ColumnExtractionParameters(
             string separator,

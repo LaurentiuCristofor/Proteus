@@ -11,7 +11,7 @@ namespace LaurentiuCristofor.Proteus.Common
     /// <summary>
     /// An abstraction to separate the library from the output streams.
     /// </summary>
-    internal abstract class IOStream
+    internal abstract class OutputInterface
     {
         internal static void Output(string s)
         {

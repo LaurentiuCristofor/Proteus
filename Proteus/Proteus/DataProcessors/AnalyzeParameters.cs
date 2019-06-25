@@ -7,19 +7,19 @@
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// Includes parameters for performing an operation that outputs results to a file.
+    /// Includes parameters for performing an analyze operation.
     /// </summary>
-    public class BaseOutputParameters
+    public class AnalyzeParameters
     {
         /// <summary>
-        /// The path where we should store the output of the operation.
+        /// The number of top/bottom values that the analyze report should output.
         /// </summary>
-        public string OutputFilePath { get; protected set; }
+        public int ValuesLimit { get; protected set; }
 
-        public BaseOutputParameters(
-            string outputFilePath)
+        public AnalyzeParameters(
+            int valuesLimit)
         {
-            this.OutputFilePath = outputFilePath;
+            this.ValuesLimit = valuesLimit;
         }
     }
 }

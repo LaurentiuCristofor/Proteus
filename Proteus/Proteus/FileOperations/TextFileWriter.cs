@@ -50,7 +50,7 @@ namespace LaurentiuCristofor.Proteus.FileOperations
         {
             this.OutputWriter.Close();
 
-            IOStream.LogLine($"\n{this.CountLinesWritten} lines were written to file { Path.GetFileName(this.OutputFilePath)}.");
+            OutputInterface.LogLine($"\n{this.CountLinesWritten} lines were written to file { Path.GetFileName(this.OutputFilePath)}.");
         }
     }
 }

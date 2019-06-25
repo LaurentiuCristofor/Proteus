@@ -16,17 +16,17 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// <summary>
         /// The type of the operation that should be performed.
         /// </summary>
-        public TOperationType OperationType { get; set; }
+        public TOperationType OperationType { get; protected set; }
 
         /// <summary>
         /// The first argument of the operation.
         /// </summary>
-        public string FirstArgument { get; set; }
+        public string FirstArgument { get; protected set; }
 
         /// <summary>
         /// The second argument of the operation.
         /// </summary>
-        public string SecondArgument { get; set; }
+        public string SecondArgument { get; protected set; }
 
         public OperationTypeParameters(
             string outputFilePath,

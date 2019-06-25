@@ -4,26 +4,22 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-
 using LaurentiuCristofor.Proteus.Common;
 
 namespace LaurentiuCristofor.Proteus.DataExtractors
 {
     /// <summary>
-    /// An extractor that packages each input line in a StringParts instance.
+    /// A passthrough line extractor.
     /// </summary>
-    public class LineExtractor : IDataExtractor<UnusedType, StringParts>
+    public class PassthroughLineExtractor : IDataExtractor<UnusedType, string>
     {
         public void Initialize(UnusedType unusedExtractionParameters)
         {
         }
 
-        public StringParts ExtractData(ulong lineNumber, string inputLine)
+        public string ExtractData(ulong lineNumber, string inputLine)
         {
-            DataTypeContainer lineContainer = new DataTypeContainer(DataType.String, inputLine);
-            StringParts lineParts = new StringParts(inputLine, lineContainer, string.Empty, string.Empty);
-            return lineParts;
+            return inputLine;
         }
     }
 }

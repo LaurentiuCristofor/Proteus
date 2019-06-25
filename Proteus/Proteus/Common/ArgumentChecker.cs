@@ -15,7 +15,7 @@ namespace LaurentiuCristofor.Proteus.Common
         {
             if (argument == null)
             {
-                throw new ProteusException($"Internal error: an expected argument is missing!");
+                throw new ProteusException($"An expected argument is missing!");
             }
         }
     }

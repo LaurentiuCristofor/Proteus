@@ -13,41 +13,41 @@ namespace LaurentiuCristofor.Proteus.Common
     /// This class can be used to compare strings in other orders than lexicographic.
     /// The data types supported are those defined in enum DataType.
     /// </summary>
-    public class DataTypeContainer
+    public class DataTypeContainer : IComparable
     {
         /// <summary>
         /// The data type of the string value.
         /// </summary>
-        public DataType DataType { get; set; }
+        public DataType DataType { get; protected set; }
 
         /// <summary>
         /// The original string value.
         /// </summary>
-        private string StringValue { get; set; }
+        protected string StringValue { get; set; }
 
         /// <summary>
         /// A signed integer value.
         /// Only used if specified by DataType.
         /// </summary>
-        private long IntegerValue { get; set; }
+        protected long IntegerValue { get; set; }
 
         /// <summary>
         /// An unsigned integer value.
         /// Only used if specified by DataType.
         /// </summary>
-        private ulong UnsignedIntegerValue { get; set; }
+        protected ulong UnsignedIntegerValue { get; set; }
 
         /// <summary>
         /// A floating point value.
         /// Only used if specified by DataType.
         /// </summary>
-        private double FloatingPointValue { get; set; }
+        protected double FloatingPointValue { get; set; }
 
         /// <summary>
         /// A DateTime value.
         /// Only used if specified by DataType.
         /// </summary>
-        private DateTime DateTimeValue { get; set; }
+        protected DateTime DateTimeValue { get; set; }
 
         public DataTypeContainer(DataType dataType)
         {
@@ -181,7 +181,7 @@ namespace LaurentiuCristofor.Proteus.Common
         {
             if (otherContainer.DataType != this.DataType)
             {
-                throw new ProteusException($"Internal error: Attempt to compare a container of type {this.DataType} with a container of type {otherContainer.DataType}!");
+                throw new ProteusException($"Attempt to compare a container of type {this.DataType} with a container of type {otherContainer.DataType}!");
             }
 
             switch (this.DataType)
@@ -200,6 +200,57 @@ namespace LaurentiuCristofor.Proteus.Common
 
                 case DataType.DateTime:
                     return this.DateTimeValue.CompareTo(otherContainer.DateTimeValue);
+
+                default:
+                    throw new ProteusException($"Internal error: Proteus is not handling data type: {this.DataType}!");
+            }
+        }
+
+        public int CompareTo(object otherObject)
+        {
+            if (otherObject == null || !(otherObject is DataTypeContainer))
+            {
+                throw new ProteusException($"Attempt to compare container {this} with object {otherObject}!");
+            }
+
+            DataTypeContainer otherContainer = (DataTypeContainer)otherObject;
+            return this.CompareTo(otherContainer);
+        }
+
+        public override bool Equals(Object otherObject)
+        {
+            int comparison;
+
+            try
+            {
+                comparison = this.CompareTo(otherObject);
+            }
+            catch (ProteusException)
+            {
+                return false;
+            }
+
+            return comparison == 0;
+        }
+
+        public override int GetHashCode()
+        {
+            switch (this.DataType)
+            {
+                case DataType.String:
+                    return this.StringValue.GetHashCode();
+
+                case DataType.Integer:
+                    return this.IntegerValue.GetHashCode();
+
+                case DataType.UnsignedInteger:
+                    return this.UnsignedIntegerValue.GetHashCode();
+
+                case DataType.FloatingPoint:
+                    return this.FloatingPointValue.GetHashCode();
+
+                case DataType.DateTime:
+                    return this.DateTimeValue.GetHashCode();
 
                 default:
                     throw new ProteusException($"Internal error: Proteus is not handling data type: {this.DataType}!");
