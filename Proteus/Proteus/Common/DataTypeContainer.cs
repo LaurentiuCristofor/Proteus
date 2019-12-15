@@ -295,6 +295,9 @@ namespace LaurentiuCristofor.Proteus.Common
                 case ComparisonType.NotBetween:
                     return this.ThresholdCompare(comparisonType, firstArgument, secondArgument);
 
+                case ComparisonType.NotStrictlyBetween:
+                    return this.ThresholdCompare(comparisonType, firstArgument, secondArgument);
+
                 default:
                     throw new ProteusException($"Internal error: Proteus is not handling comparison type: {comparisonType}!");
             }
@@ -368,6 +371,11 @@ namespace LaurentiuCristofor.Proteus.Common
                 case ComparisonType.NotBetween:
                     {
                         return lowerBoundComparisonResult < 0 || upperBoundComparisonResult > 0;
+                    }
+
+                case ComparisonType.NotStrictlyBetween:
+                    {
+                        return lowerBoundComparisonResult <= 0 || upperBoundComparisonResult >= 0;
                     }
 
                 default:

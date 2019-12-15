@@ -22,5 +22,6 @@ namespace LaurentiuCristofor.Proteus.Common
         Between = 7,
         StrictlyBetween = 8,
         NotBetween = 9,
+        NotStrictlyBetween = 10,
     }
 }
