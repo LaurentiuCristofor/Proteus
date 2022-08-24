@@ -118,7 +118,7 @@ namespace LaurentiuCristofor.Proteus.Common
         {
             // A quick sanity check.
             //
-            if (this.MapDataCounters.Keys.Count != (int)this.UniqueDataCount)
+            if ((ulong)this.MapDataCounters.Keys.Count != this.UniqueDataCount)
             {
                 throw new ProteusException($"Internal error: the number of tracked values {this.MapDataCounters.Keys.Count} does not match the unique data count {this.UniqueDataCount}!");
             }
@@ -171,7 +171,7 @@ namespace LaurentiuCristofor.Proteus.Common
             // If limitCount is 0 or if the limit is greater or equal than half the total count, we can output all values;
             // else we output just the first and last limitCount values.
             //
-            if (valuesLimit == 0 || 2 * valuesLimit >= (int) this.TotalDataCount)
+            if (valuesLimit == 0 || 2UL * (ulong)valuesLimit >= this.TotalDataCount)
             {
                 foreach (var tuple in this.ListCountedData)
                 {
