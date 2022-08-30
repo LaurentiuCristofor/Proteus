@@ -280,9 +280,9 @@ namespace LaurentiuCristofor.Proteus.Common
 
                 case StringEditType.DeleteContentBetweenMarkers:
                     {
-                        int indexFirstMarker = data.IndexOf(this.FirstArgument);
-                        int indexSecondMarker = data.IndexOf(this.SecondArgument);
-                        if (indexFirstMarker != -1 && indexSecondMarker != -1 && indexFirstMarker + this.FirstArgument.Length - 1 < indexSecondMarker)
+                        int indexFirstMarker;
+                        int indexSecondMarker;
+                        if (FindMarkers(data, this.FirstArgument, this.SecondArgument, out indexFirstMarker, out indexSecondMarker))
                         {
                             string dataPrefix = data.Substring(0, indexFirstMarker + this.FirstArgument.Length);
                             string dataSuffix = data.Substring(indexSecondMarker, data.Length - indexSecondMarker);
@@ -294,9 +294,9 @@ namespace LaurentiuCristofor.Proteus.Common
 
                 case StringEditType.KeepContentBetweenMarkers:
                     {
-                        int indexFirstMarker = data.IndexOf(this.FirstArgument);
-                        int indexSecondMarker = data.IndexOf(this.SecondArgument);
-                        if (indexFirstMarker != -1 && indexSecondMarker != -1 && indexFirstMarker + this.FirstArgument.Length - 1 < indexSecondMarker)
+                        int indexFirstMarker;
+                        int indexSecondMarker;
+                        if (FindMarkers(data, this.FirstArgument, this.SecondArgument, out indexFirstMarker, out indexSecondMarker))
                         {
                             editedData = data.Substring(indexFirstMarker + this.FirstArgument.Length, indexSecondMarker - indexFirstMarker - this.FirstArgument.Length);
                         }
@@ -305,9 +305,9 @@ namespace LaurentiuCristofor.Proteus.Common
 
                 case StringEditType.KeepContentOutsideMarkers:
                     {
-                        int indexFirstMarker = data.IndexOf(this.FirstArgument);
-                        int indexSecondMarker = data.IndexOf(this.SecondArgument);
-                        if (indexFirstMarker != -1 && indexSecondMarker != -1 && indexFirstMarker + this.FirstArgument.Length - 1 < indexSecondMarker)
+                        int indexFirstMarker;
+                        int indexSecondMarker;
+                        if (FindMarkers(data, this.FirstArgument, this.SecondArgument, out indexFirstMarker, out indexSecondMarker))
                         {
                             string dataPrefix = data.Substring(0, indexFirstMarker);
                             string dataSuffix = data.Substring(indexSecondMarker + this.SecondArgument.Length, data.Length - indexSecondMarker - this.SecondArgument.Length);
@@ -443,6 +443,34 @@ namespace LaurentiuCristofor.Proteus.Common
             }
 
             return data.Substring(contentStartIndex, contentLength);
+        }
+
+        /// <summary>
+        /// Finds the indexes of two string markers; the second marker is expected to be found after the first.
+        /// </summary>
+        /// <param name="data">The string in which to search for the markers.</param>
+        /// <param name="firstMarker">The first marker.</param>
+        /// <param name="secondMarker">The second marker.</param>
+        /// <param name="indexFirstMarker">The output parameter into which to write the index at which the first marker was found.</param>
+        /// <param name="indexSecondMarker">The output parameter into which to write the index at which the second marker was found.</param>
+        /// <returns>True if both markers were found and false otherwise.</returns>
+        protected static bool FindMarkers(string data, string firstMarker, string secondMarker, out int indexFirstMarker, out int indexSecondMarker)
+        {
+            indexSecondMarker = -1;
+
+            indexFirstMarker = data.IndexOf(firstMarker);
+            if (indexFirstMarker == -1 || indexFirstMarker + firstMarker.Length > data.Length - secondMarker.Length)
+            {
+                return false;
+            }
+
+            indexSecondMarker = data.IndexOf(secondMarker, indexFirstMarker + firstMarker.Length);
+            if (indexSecondMarker == -1)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
