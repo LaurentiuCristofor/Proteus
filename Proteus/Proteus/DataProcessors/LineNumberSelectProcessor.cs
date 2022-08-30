@@ -54,6 +54,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 case LineNumberSelectionType.NotFirst:
                 case LineNumberSelectionType.Last:
                 case LineNumberSelectionType.NotLast:
+                case LineNumberSelectionType.Each:
+                case LineNumberSelectionType.NotEach:
                     ArgumentChecker.CheckPresence(this.Parameters.FirstArgument);
 
                     this.FirstArgumentAsULong = ulong.Parse(this.Parameters.FirstArgument);
@@ -168,6 +170,24 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     //
                     if (lineNumber >= this.FirstArgumentAsULong
                         && lineNumber <= this.SecondArgumentAsULong)
+                    {
+                        return true;
+                    }
+                    break;
+
+                case LineNumberSelectionType.Each:
+                    // Skip the lines whose numbers are not multiples of our argument.
+                    //
+                    if (lineNumber % this.FirstArgumentAsULong > 0)
+                    {
+                        return true;
+                    }
+                    break;
+
+                case LineNumberSelectionType.NotEach:
+                    // Skip the lines whose numbers are multiples of our argument.
+                    //
+                    if (lineNumber % this.FirstArgumentAsULong == 0)
                     {
                         return true;
                     }

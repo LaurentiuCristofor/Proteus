@@ -19,5 +19,7 @@ namespace LaurentiuCristofor.Proteus.Common
         NotLast = 4, 
         Between = 5,
         NotBetween = 6,
+        Each = 7,
+        NotEach = 8,
     }
 }
