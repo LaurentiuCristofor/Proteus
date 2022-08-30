@@ -14,7 +14,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
     /// A data processor that checks the value of a column against a selection criterion,
-    /// to decide whether to output the row or not.
+    /// to decide whether to output the line or not.
     /// </summary>
     public class ColumnValueSelectProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<ComparisonType>, StringParts>
     {
@@ -40,7 +40,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 return true;
             }
 
-            // Perform the comparison to decide whether to output the row.
+            if (String.IsNullOrEmpty(inputData.OriginalString))
+            {
+                throw new ProteusException("Internal error: ColumnValueSelectProcessor was called on a null or empty line!");
+            }
+
+            // Perform the comparison to decide whether to output the line.
             //
             if (inputData.ExtractedData.Compare(this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument))
             {

@@ -6,22 +6,26 @@
 
 using LaurentiuCristofor.Proteus.Common;
 
-namespace LaurentiuCristofor.Proteus.DataExtractors
+namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// A plain line extractor.
+    /// A processor that doesn't change data and doesn't output data.
     /// </summary>
-    public class LineExtractor : IDataExtractor<UnusedType, string>
+    public class SinkProcessor : IDataProcessor<UnusedType, string>
     {
-        public void Initialize(UnusedType unusedExtractionParameters)
+        public void Initialize(UnusedType unusedProcessingParameters)
         {
         }
 
-        public string ExtractData(ulong lineNumber, string line)
+        public bool Execute(ulong lineNumber, string line)
         {
-            DataExtractorValidation.ValidateLine(line);
+            DataProcessorValidation.ValidateLine(line);
 
-            return line;
+            return true;
+        }
+
+        public void CompleteExecution()
+        {
         }
     }
 }

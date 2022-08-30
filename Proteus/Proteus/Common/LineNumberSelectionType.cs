@@ -4,22 +4,20 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using LaurentiuCristofor.Proteus.Common;
-
-namespace LaurentiuCristofor.Proteus.DataExtractors
+namespace LaurentiuCristofor.Proteus.Common
 {
     /// <summary>
-    /// A passthrough line extractor.
+    /// Types of line number comparisons supported by Proteus.
     /// </summary>
-    public class PassthroughLineExtractor : IDataExtractor<UnusedType, string>
+    public enum LineNumberSelectionType
     {
-        public void Initialize(UnusedType unusedExtractionParameters)
-        {
-        }
+        NotSet = 0,
 
-        public string ExtractData(ulong lineNumber, string inputLine)
-        {
-            return inputLine;
-        }
+        First = 1,
+        NotFirst = 2,
+        Last = 3,
+        NotLast = 4, 
+        Between = 5,
+        NotBetween = 6,
     }
 }

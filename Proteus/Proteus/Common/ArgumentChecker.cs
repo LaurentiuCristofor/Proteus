@@ -18,5 +18,29 @@ namespace LaurentiuCristofor.Proteus.Common
                 throw new ProteusException($"An expected argument is missing!");
             }
         }
+
+        internal static void CheckPositive(int argument)
+        {
+            if (argument <= 0)
+            {
+                throw new ProteusException($"An integer argument is negative or zero!");
+            }
+        }
+
+        internal static void CheckNotNegative(int argument)
+        {
+            if (argument < 0)
+            {
+                throw new ProteusException($"An integer argument is negative!");
+            }
+        }
+
+        internal static void CheckNotZero(ulong argument)
+        {
+            if (argument == 0)
+            {
+                throw new ProteusException($"An unsigned long integer argument is zero!");
+            }
+        }
     }
 }

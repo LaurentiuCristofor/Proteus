@@ -4,24 +4,23 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+using System;
+
 using LaurentiuCristofor.Proteus.Common;
 
 namespace LaurentiuCristofor.Proteus.DataExtractors
 {
     /// <summary>
-    /// A plain line extractor.
+    /// A class for providing validation methods for data extractors.
     /// </summary>
-    public class LineExtractor : IDataExtractor<UnusedType, string>
+    public static class DataExtractorValidation
     {
-        public void Initialize(UnusedType unusedExtractionParameters)
+        public static void ValidateLine(string line)
         {
-        }
-
-        public string ExtractData(ulong lineNumber, string line)
-        {
-            DataExtractorValidation.ValidateLine(line);
-
-            return line;
+            if (String.IsNullOrEmpty(line))
+            {
+                throw new ProteusException("Internal error: A data extractor was called with a null or empty line!");
+            }
         }
     }
 }

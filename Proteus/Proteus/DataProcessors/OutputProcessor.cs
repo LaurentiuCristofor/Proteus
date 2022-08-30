@@ -9,9 +9,9 @@ using LaurentiuCristofor.Proteus.FileOperations;
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// A passthrough plain text writer.
+    /// A plain text writer.
     /// </summary>
-    public class PassthroughOutputProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, string>
+    public class OutputProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, string>
     {
         /// <summary>
         /// Parameters of this processor.
@@ -25,17 +25,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath);
         }
 
-        public bool Execute(ulong lineNumber, string inputData)
+        public bool Execute(ulong lineNumber, string line)
         {
-            // We may not always be able to extract data.
-            // Ignore these cases; the extractor will already have printed a warning message.
-            //
-            if (inputData == null)
-            {
-                return true;
-            }
+            DataProcessorValidation.ValidateLine(line);
 
-            this.OutputWriter.WriteLine(inputData);
+            this.OutputWriter.WriteLine(line);
 
             return true;
         }

@@ -20,11 +20,11 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         void Initialize(TExtractionParameters extractionParameters);
 
         /// <summary>
-        /// Extract data from input string.
+        /// Extract data from a line.
         /// </summary>
-        /// <param name="lineNumber">The current line number corresponding to the input data.</param>
-        /// <param name="inputData">The input string; typically, a row from a text file.</param>
-        /// <returns>The data that could be extracted from the string or null if extraction was not possible.</returns>
-        TExtractedData ExtractData(ulong lineNumber, string inputData);
+        /// <param name="lineNumber">The current line number corresponding to the line.</param>
+        /// <param name="inputLine">The line to process.</param>
+        /// <returns>The data that could be extracted from the line or null if the extraction was not possible.</returns>
+        TExtractedData ExtractData(ulong lineNumber, string line);
     }
 }

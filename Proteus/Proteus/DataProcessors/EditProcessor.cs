@@ -22,9 +22,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// </summary>
         protected OperationTypeParameters<StringEditType> Parameters { get; set; }
 
+        protected DataEditor DataEditor { get; set; }
+
         public void Initialize(OperationTypeParameters<StringEditType> processingParameters)
         {
             this.Parameters = processingParameters;
+
+            this.DataEditor = new DataEditor();
+            this.DataEditor.Initialize(this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument);
 
             this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath);
         }
@@ -40,8 +45,15 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             }
 
             string data = inputData.ExtractedData.ToString();
-            string editedData = DataEditor.Edit(data, this.Parameters.OperationType, lineNumber, this.Parameters.FirstArgument, this.Parameters.SecondArgument);
+            string editedData = this.DataEditor.Edit(data, lineNumber);
             string editedLine = inputData.PrefixString + editedData + inputData.SuffixString;
+
+            // Do not output empty lines.
+            //
+            if (String.IsNullOrEmpty(editedLine))
+            {
+                return true;
+            }
 
             this.OutputWriter.WriteLine(editedLine);
 

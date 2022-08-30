@@ -96,6 +96,13 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
             this.LineCounter++;
             ProgressTracker.Track(this.LineCounter);
 
+            // Empty lines will be skipped.
+            //
+            if (String.IsNullOrEmpty(nextRow))
+            {
+                return true;
+            }
+
             // Perform the extraction step.
             //
             TData nextData = this.DataExtractor.ExtractData(this.LineCounter, nextRow);

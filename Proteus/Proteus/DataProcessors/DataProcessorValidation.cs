@@ -4,26 +4,23 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+using System;
+
 using LaurentiuCristofor.Proteus.Common;
 
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// A passthrough processor that doesn't change data and doesn't output data.
+    /// A class for providing validation methods for data processors.
     /// </summary>
-    public class PassthroughProcessor : IDataProcessor<UnusedType, string>
+    public static class DataProcessorValidation
     {
-        public void Initialize(UnusedType unusedProcessingParameters)
+        public static void ValidateLine(string line)
         {
-        }
-
-        public bool Execute(ulong lineNumber, string inputLine)
-        {
-            return true;
-        }
-
-        public void CompleteExecution()
-        {
+            if (String.IsNullOrEmpty(line))
+            {
+                throw new ProteusException("Internal error: A data processor was called with a null or empty line!");
+            }
         }
     }
 }

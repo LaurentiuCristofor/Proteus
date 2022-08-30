@@ -9,151 +9,132 @@ namespace LaurentiuCristofor.Proteus.Common
     /// <summary>
     /// A class that performs specific edit operations on input data.
     /// </summary>
-    public abstract class DataEditor
+    public class DataEditor
     {
         /// <summary>
-        /// Perform an edit operation of a string using the provided parameters.
+        /// The type of edit operation.
         /// </summary>
-        /// <param name="data">The data to edit.</param>
-        /// <param name="editType">The type of edit operation to perform.</param>
-        /// <param name="lineNumber">The line number of the data. It is produced internally.</param>
-        /// <param name="firstArgument">A first argument of the edit operation. It comes from an external source.</param>
-        /// <param name="secondArgument">A second argument of the edit operation. It comes for an external source.</param>
-        /// <returns></returns>
-        public static string Edit(string data, StringEditType editType, ulong lineNumber, string firstArgument, string secondArgument)
-        {
-            string editedData = data;
+        protected StringEditType EditType { get; set; }
 
+        /// <summary>
+        /// First operation argument.
+        /// </summary>
+        protected string FirstArgument { get; set; }
+
+        /// <summary>
+        /// Second operation argument.
+        /// </summary>
+        protected string SecondArgument { get; set; }
+
+        /// <summary>
+        /// First operation argument, as an integer value (set only if the operation expects an integer argument).
+        /// </summary>
+        protected int FirstArgumentAsInt { get; set; }
+
+        /// <summary>
+        /// Second operation argument, as an integer value (set only if the operation expects an integer argument).
+        /// </summary>
+        protected int SecondArgumentAsInt { get; set; }
+
+        /// <summary>
+        /// Initializes the edit operation parameters.
+        /// </summary>
+        /// <param name="editType">Type of operation.</param>
+        /// <param name="firstArgument">First operation argument.</param>
+        /// <param name="secondArgument">Second operation argument.</param>
+        public void Initialize(StringEditType editType, string firstArgument, string secondArgument)
+        {
+            this.EditType = editType;
+            this.FirstArgument = firstArgument;
+            this.SecondArgument = secondArgument;
+
+            // Validate arguments for the operation.
             switch (editType)
             {
                 case StringEditType.Rewrite:
-                    // Nothin to do, keep the data unchanged.
-                    break;
-
+                case StringEditType.Uppercase:
+                case StringEditType.Lowercase:
                 case StringEditType.Invert:
-                    editedData = InvertString(data);
                     break;
 
                 case StringEditType.PrefixLineNumbers:
-                    ArgumentChecker.CheckPresence(firstArgument);
-
-                    editedData = $"{lineNumber}{firstArgument}{data}";
-                    break;
-
                 case StringEditType.AddPrefix:
-                    ArgumentChecker.CheckPresence(firstArgument);
-
-                    editedData = $"{firstArgument}{data}";
-                    break;
-
                 case StringEditType.AddSuffix:
-                    ArgumentChecker.CheckPresence(firstArgument);
-
-                    editedData = $"{data}{firstArgument}";
-                    break;
-
                 case StringEditType.DeletePrefix:
-                    ArgumentChecker.CheckPresence(firstArgument);
-
-                    if (data.StartsWith(firstArgument))
-                    {
-                        int prefixLength = firstArgument.Length;
-                        editedData = data.Substring(prefixLength);
-                    }
-                    break;
-
                 case StringEditType.DeleteSuffix:
-                    ArgumentChecker.CheckPresence(firstArgument);
-
-                    if (data.EndsWith(firstArgument))
-                    {
-                        int suffixLength = firstArgument.Length;
-                        editedData = data.Substring(0, data.Length - suffixLength);
-                    }
-                    break;
-
-                case StringEditType.DeleteContent:
-                    {
-                        ArgumentChecker.CheckPresence(firstArgument);
-                        ArgumentChecker.CheckPresence(secondArgument);
-
-                        int contentStartIndex = int.Parse(firstArgument);
-                        int contentLength = int.Parse(secondArgument);
-
-                        editedData = RemoveContent(data, contentStartIndex, contentLength);
-                        break;
-                    }
-
                 case StringEditType.DeleteContentBeforeMarker:
-                    {
-                        ArgumentChecker.CheckPresence(firstArgument);
-
-                        int index = data.IndexOf(firstArgument);
-                        if (index != -1)
-                        {
-                            editedData = data.Substring(index);
-                        }
-                        break;
-                    }
-
                 case StringEditType.DeleteContentAfterMarker:
-                    {
-                        ArgumentChecker.CheckPresence(firstArgument);
-
-                        int index = data.LastIndexOf(firstArgument);
-                        if (index != -1)
-                        {
-                            index += firstArgument.Length;
-                            editedData = data.Substring(0, index);
-                        }
-                        break;
-                    }
-
-                case StringEditType.InsertContentBeforeMarker:
-                    {
-                        ArgumentChecker.CheckPresence(firstArgument);
-                        ArgumentChecker.CheckPresence(secondArgument);
-
-                        int index = data.IndexOf(secondArgument);
-                        if (index != -1)
-                        {
-                            editedData = data.Insert(index, firstArgument);
-                        }
-                        break;
-                    }
-
-                case StringEditType.InsertContentAfterMarker:
-                    {
-                        ArgumentChecker.CheckPresence(firstArgument);
-                        ArgumentChecker.CheckPresence(secondArgument);
-
-                        int index = data.LastIndexOf(secondArgument);
-                        if (index != -1)
-                        {
-                            index += secondArgument.Length;
-                            editedData = data.Insert(index, firstArgument);
-                        }
-                        break;
-                    }
-
-                case StringEditType.InsertContentAtIndex:
-                    {
-                        ArgumentChecker.CheckPresence(firstArgument);
-                        ArgumentChecker.CheckPresence(secondArgument);
-
-                        int index = int.Parse(secondArgument);
-                        if (index <= data.Length)
-                        {
-                            editedData = data.Insert(index, firstArgument);
-                        }
-                        break;
-                    }
+                case StringEditType.KeepContentBeforeMarker:
+                case StringEditType.KeepContentAfterMarker:
+                    ArgumentChecker.CheckPresence(firstArgument);
+                    break;
 
                 case StringEditType.ReplaceContent:
+                case StringEditType.InsertContentBeforeMarker:
+                case StringEditType.InsertContentAfterMarker:
+                case StringEditType.DeleteContentBetweenMarkers:
+                case StringEditType.KeepContentBetweenMarkers:
+                case StringEditType.KeepContentOutsideMarkers:
+                    ArgumentChecker.CheckPresence(firstArgument);
+                    ArgumentChecker.CheckPresence(secondArgument);
+                    break;
+
+                case StringEditType.DeleteFirstCharacters:
+                case StringEditType.DeleteLastCharacters:
+                case StringEditType.KeepFirstCharacters:
+                case StringEditType.KeepLastCharacters:
+                    ArgumentChecker.CheckPresence(firstArgument);
+
+                    this.FirstArgumentAsInt = int.Parse(firstArgument);
+
+                    ArgumentChecker.CheckNotNegative(this.FirstArgumentAsInt);
+                    break;
+
+                case StringEditType.DeleteContentAtIndex:
+                case StringEditType.KeepContentAtIndex:
                     ArgumentChecker.CheckPresence(firstArgument);
                     ArgumentChecker.CheckPresence(secondArgument);
 
-                    editedData = data.Replace(firstArgument, secondArgument);
+                    this.FirstArgumentAsInt = int.Parse(firstArgument);
+                    this.SecondArgumentAsInt = int.Parse(secondArgument);
+
+                    ArgumentChecker.CheckNotNegative(this.FirstArgumentAsInt);
+                    ArgumentChecker.CheckPositive(this.SecondArgumentAsInt);
+                    break;
+
+                case StringEditType.InsertContentAtIndex:
+                    ArgumentChecker.CheckPresence(firstArgument);
+                    ArgumentChecker.CheckPresence(secondArgument);
+
+                    this.SecondArgumentAsInt = int.Parse(secondArgument);
+
+                    ArgumentChecker.CheckNotNegative(this.FirstArgumentAsInt);
+                    break;
+
+                default:
+                    throw new ProteusException($"Internal error: Proteus is not handling data operation type '{editType}'!");
+            }
+        }
+
+        /// <summary>
+        /// Perform an edit operation of a string using the initializationg parameters.
+        /// </summary>
+        /// <param name="data">The data to edit.</param>
+        /// <param name="lineNumber">The line number of the data. It is produced internally.</param>
+        /// <returns></returns>
+        public string Edit(string data, ulong lineNumber)
+        {
+            if (data == null)
+            {
+                throw new ProteusException("Internal error: DataEditor has been called on null data!");
+            }
+
+            string editedData = data;
+
+            switch (this.EditType)
+            {
+                case StringEditType.Rewrite:
+                    // Nothing to do, keep the data unchanged.
                     break;
 
                 case StringEditType.Uppercase:
@@ -164,8 +145,180 @@ namespace LaurentiuCristofor.Proteus.Common
                     editedData = data.ToLowerInvariant();
                     break;
 
+                case StringEditType.Invert:
+                    editedData = InvertString(data);
+                    break;
+
+                case StringEditType.PrefixLineNumbers:
+                    editedData = $"{lineNumber}{this.FirstArgument}{data}";
+                    break;
+
+                case StringEditType.AddPrefix:
+                    editedData = $"{this.FirstArgument}{data}";
+                    break;
+
+                case StringEditType.AddSuffix:
+                    editedData = $"{data}{this.FirstArgument}";
+                    break;
+
+                case StringEditType.DeletePrefix:
+                    if (data.StartsWith(this.FirstArgument))
+                    {
+                        int prefixLength = this.FirstArgument.Length;
+                        editedData = data.Substring(prefixLength);
+                    }
+                    break;
+
+                case StringEditType.DeleteSuffix:
+                    if (data.EndsWith(this.FirstArgument))
+                    {
+                        int suffixLength = this.FirstArgument.Length;
+                        editedData = data.Substring(0, data.Length - suffixLength);
+                    }
+                    break;
+
+                case StringEditType.DeleteFirstCharacters:
+                    editedData = RemoveCharacters(data, this.FirstArgumentAsInt, deleteFromStart: true);
+                    break;
+
+                case StringEditType.DeleteLastCharacters:
+                    editedData = RemoveCharacters(data, this.FirstArgumentAsInt, deleteFromStart: false);
+                    break;
+
+                case StringEditType.KeepFirstCharacters:
+                    editedData = KeepCharacters(data, this.FirstArgumentAsInt, keepFromStart: true);
+                    break;
+
+                case StringEditType.KeepLastCharacters:
+                    editedData = KeepCharacters(data, this.FirstArgumentAsInt, keepFromStart: false);
+                    break;
+
+                case StringEditType.DeleteContentAtIndex:
+                    editedData = DeleteContent(data, this.FirstArgumentAsInt, this.SecondArgumentAsInt);
+                    break;
+
+                case StringEditType.KeepContentAtIndex:
+                    editedData = KeepContent(data, this.FirstArgumentAsInt, this.SecondArgumentAsInt);
+                    break;
+
+                case StringEditType.InsertContentAtIndex:
+                    {
+                        int index = this.SecondArgumentAsInt;
+                        if (index <= data.Length)
+                        {
+                            editedData = data.Insert(index, this.FirstArgument);
+                        }
+                        break;
+                    }
+
+                case StringEditType.ReplaceContent:
+                    editedData = data.Replace(this.FirstArgument, this.SecondArgument);
+                    break;
+
+                case StringEditType.DeleteContentBeforeMarker:
+                    {
+                        int index = data.IndexOf(this.FirstArgument);
+                        if (index != -1)
+                        {
+                            editedData = data.Substring(index);
+                        }
+                        break;
+                    }
+
+                case StringEditType.DeleteContentAfterMarker:
+                    {
+                        int index = data.IndexOf(this.FirstArgument);
+                        if (index != -1)
+                        {
+                            index += this.FirstArgument.Length;
+                            editedData = data.Substring(0, index);
+                        }
+                        break;
+                    }
+
+                case StringEditType.KeepContentBeforeMarker:
+                    {
+                        int index = data.IndexOf(this.FirstArgument);
+                        if (index != -1)
+                        {
+                            editedData = data.Substring(0, index);
+                        }
+                        break;
+                    }
+
+                case StringEditType.KeepContentAfterMarker:
+                    {
+                        int index = data.IndexOf(this.FirstArgument);
+                        if (index != -1)
+                        {
+                            index += this.FirstArgument.Length;
+                            editedData = data.Substring(index);
+                        }
+                        break;
+                    }
+
+                case StringEditType.InsertContentBeforeMarker:
+                    {
+                        int index = data.IndexOf(this.SecondArgument);
+                        if (index != -1)
+                        {
+                            editedData = data.Insert(index, this.FirstArgument);
+                        }
+                        break;
+                    }
+
+                case StringEditType.InsertContentAfterMarker:
+                    {
+                        int index = data.IndexOf(this.SecondArgument);
+                        if (index != -1)
+                        {
+                            index += this.SecondArgument.Length;
+                            editedData = data.Insert(index, this.FirstArgument);
+                        }
+                        break;
+                    }
+
+                case StringEditType.DeleteContentBetweenMarkers:
+                    {
+                        int indexFirstMarker = data.IndexOf(this.FirstArgument);
+                        int indexSecondMarker = data.IndexOf(this.SecondArgument);
+                        if (indexFirstMarker != -1 && indexSecondMarker != -1 && indexFirstMarker + this.FirstArgument.Length - 1 < indexSecondMarker)
+                        {
+                            string dataPrefix = data.Substring(0, indexFirstMarker + this.FirstArgument.Length);
+                            string dataSuffix = data.Substring(indexSecondMarker, data.Length - indexSecondMarker);
+                            editedData = $"{dataPrefix}{dataSuffix}";
+                        }
+                        break;
+
+                    }
+
+                case StringEditType.KeepContentBetweenMarkers:
+                    {
+                        int indexFirstMarker = data.IndexOf(this.FirstArgument);
+                        int indexSecondMarker = data.IndexOf(this.SecondArgument);
+                        if (indexFirstMarker != -1 && indexSecondMarker != -1 && indexFirstMarker + this.FirstArgument.Length - 1 < indexSecondMarker)
+                        {
+                            editedData = data.Substring(indexFirstMarker + this.FirstArgument.Length, indexSecondMarker - indexFirstMarker - this.FirstArgument.Length);
+                        }
+                        break;
+                    }
+
+                case StringEditType.KeepContentOutsideMarkers:
+                    {
+                        int indexFirstMarker = data.IndexOf(this.FirstArgument);
+                        int indexSecondMarker = data.IndexOf(this.SecondArgument);
+                        if (indexFirstMarker != -1 && indexSecondMarker != -1 && indexFirstMarker + this.FirstArgument.Length - 1 < indexSecondMarker)
+                        {
+                            string dataPrefix = data.Substring(0, indexFirstMarker);
+                            string dataSuffix = data.Substring(indexSecondMarker + this.SecondArgument.Length, data.Length - indexSecondMarker - this.SecondArgument.Length);
+                            editedData = $"{dataPrefix}{dataSuffix}";
+                        }
+                        break;
+
+                    }
+
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling data operation type '{editType}'");
+                    throw new ProteusException($"Internal error: Proteus is not handling data operation type '{this.EditType}'");
             }
 
             return editedData;
@@ -178,11 +331,6 @@ namespace LaurentiuCristofor.Proteus.Common
         /// <returns>The inverted string value.</returns>
         public static string InvertString(string data)
         {
-            if (data == null)
-            {
-                return null;
-            }
-
             char[] valueChars = data.ToCharArray();
             char[] invertedChars = new char[valueChars.Length];
 
@@ -197,30 +345,104 @@ namespace LaurentiuCristofor.Proteus.Common
         }
 
         /// <summary>
+        /// Remove the specified number of characters from the start or end of string.
+        /// </summary>
+        /// <param name="data">The string value from which to remove the characters.</param>
+        /// <param name="countCharacters">The count of characters to remove.</param>
+        /// <param name="deleteFromStart">Whether to delete from the start or from the end of the string.</param>
+        /// <returns>If the string has enough characters, it returns the truncated string; otherwise, it returns an empty string.</returns>
+        public static string RemoveCharacters(string data, int countCharacters, bool deleteFromStart)
+        {
+            if (countCharacters >= data.Length)
+            {
+                return string.Empty;
+            }
+
+            if (deleteFromStart)
+            {
+                return data.Substring(countCharacters, data.Length - countCharacters);
+            }
+            else
+            {
+                return data.Substring(0, data.Length - countCharacters);
+            }
+        }
+
+        /// <summary>
+        /// Remove all except the specified number of characters from the start or end of string.
+        /// </summary>
+        /// <param name="data">The string value from which to remove characters.</param>
+        /// <param name="countCharacters">The count of characters to keep.</param>
+        /// <param name="keepFromStart">Whether to keep the characters from the start or from the end of the string.</param>
+        /// <returns>If the string has less characters, it returns the original string; otherwise, it returns the string truncated to the specified number of characters.</returns>
+        public static string KeepCharacters(string data, int countCharacters, bool keepFromStart)
+        {
+            if (countCharacters == 0)
+            {
+                return string.Empty;
+            }
+            else if (countCharacters >= data.Length)
+            {
+                return data;
+            }
+
+            if (keepFromStart)
+            {
+                return data.Substring(0, countCharacters);
+            }
+            else
+            {
+                return data.Substring(data.Length - countCharacters, countCharacters);
+            }
+        }
+
+        /// <summary>
         /// Remove a substring identified by index and length.
         /// </summary>
         /// <param name="data">The string value from which to remove the substring.</param>
         /// <param name="contentStartIndex">The index at which the substring begins.</param>
         /// <param name="contentLength">The length of the substring to remove.</param>
-        /// <returns></returns>
-        public static string RemoveContent(string data, int contentStartIndex, int contentLength)
+        /// <returns>Returns the portion of the original string that falls outside the bounds of the specified interval.</returns>
+        public static string DeleteContent(string data, int contentStartIndex, int contentLength)
         {
-            if (data == null)
+            if (contentStartIndex >= data.Length)
             {
-                return null;
+                return data;
             }
 
             int contentEndIndex = contentStartIndex + contentLength - 1;
 
-            if (contentEndIndex < data.Length)
+            if (contentEndIndex > data.Length - 1)
             {
-                string prefix = data.Substring(0, contentStartIndex);
-                string suffix = data.Substring(contentEndIndex + 1);
-
-                return prefix + suffix;
+                contentEndIndex = data.Length - 1;
             }
 
-            return data;
+            string prefix = data.Substring(0, contentStartIndex);
+            string suffix = data.Substring(contentEndIndex + 1);
+
+            return prefix + suffix;
+        }
+
+        /// <summary>
+        /// Keep a substring identified by index and length.
+        /// </summary>
+        /// <param name="data">The string value from which to keep the substring.</param>
+        /// <param name="contentStartIndex">The index at which the substring begins.</param>
+        /// <param name="contentLength">The length of the substring to keep.</param>
+        /// <returns>Returns the portion of the original string that falls inside the bounds of the specified interval.</returns>
+        public static string KeepContent(string data, int contentStartIndex, int contentLength)
+        {
+            if (contentStartIndex >= data.Length)
+            {
+                return string.Empty;
+            }
+
+            if (contentStartIndex + contentLength > data.Length)
+            {
+                contentLength = data.Length - contentStartIndex;
+            }
+
+            return data.Substring(contentStartIndex, contentLength);
         }
     }
 }

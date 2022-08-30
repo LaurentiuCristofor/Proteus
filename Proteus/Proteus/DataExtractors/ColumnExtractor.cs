@@ -25,11 +25,13 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             this.Parameters = extractionParameters;
         }
 
-        public StringParts ExtractData(ulong lineNumber, string inputLine)
+        public StringParts ExtractData(ulong lineNumber, string line)
         {
+            DataExtractorValidation.ValidateLine(line);
+
             // Split the line into columns using the separator parameter.
             //
-            string[] columns = inputLine.Split(this.Parameters.Separators, StringSplitOptions.None);
+            string[] columns = line.Split(this.Parameters.Separators, StringSplitOptions.None);
 
             if (this.Parameters.ColumnNumber > columns.Length)
             {
@@ -67,7 +69,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
             // Pack the line with the extra parts that preceded and followed the column.
             //
-            StringParts stringParts = new StringParts(inputLine, columnContainer, prefixString, suffixString);
+            StringParts stringParts = new StringParts(line, columns, columnContainer, prefixString, suffixString);
             
             // Return the string parts.
             //

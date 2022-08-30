@@ -28,6 +28,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(AnalyzeParameters processingParameters)
         {
+            ArgumentChecker.CheckNotNegative(processingParameters.ValuesLimit);
+
             this.Parameters = processingParameters;
 
             this.Analyzer = new DataAnalyzer();
