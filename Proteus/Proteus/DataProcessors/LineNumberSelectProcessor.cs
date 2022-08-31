@@ -189,9 +189,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         {
             if (this.Parameters.OperationType == NumberSelectionType.Last)
             {
-                if (this.SizeLimitedQueue == null || this.SizeLimitedQueue.Count == 0)
+                if (this.SizeLimitedQueue == null)
                 {
-                    throw new ProteusException("Internal error: No lines could be found to output for LineNumberSelectionType.Last!");
+                    throw new ProteusException("Internal error: An expected data structure has not been initialized!");
                 }
 
                 foreach (string line in this.SizeLimitedQueue)

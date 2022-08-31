@@ -126,7 +126,7 @@ namespace LaurentiuCristofor.Proteus.Common
         {
             if (data == null)
             {
-                throw new ProteusException("Internal error: DataEditor has been called on null data!");
+                throw new ProteusException("DataEditor has been called on null data!");
             }
 
             string editedData = data;

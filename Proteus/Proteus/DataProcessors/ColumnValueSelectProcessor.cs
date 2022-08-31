@@ -42,7 +42,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             if (String.IsNullOrEmpty(inputData.OriginalString))
             {
-                throw new ProteusException("Internal error: ColumnValueSelectProcessor was called on a null or empty line!");
+                throw new ProteusException("ColumnValueSelectProcessor was called on a null or empty line!");
             }
 
             // Perform the comparison to decide whether to output the line.

@@ -309,7 +309,7 @@ namespace LaurentiuCristofor.Proteus.Common
         /// <param name="comparisonType">The comparison type.</param>
         /// <param name="thresholdArgument">The threshold argument for the comparison.</param>
         /// <returns>True if the comparison holds; false otherwise.</returns>
-        public bool ThresholdCompare(ComparisonType comparisonType, string thresholdArgument)
+        protected bool ThresholdCompare(ComparisonType comparisonType, string thresholdArgument)
         {
             ArgumentChecker.CheckPresence(thresholdArgument);
             DataTypeContainer otherContainer = new DataTypeContainer(this.DataType, thresholdArgument);
@@ -336,7 +336,7 @@ namespace LaurentiuCristofor.Proteus.Common
                     return comparisonResult != 0;
 
                 default:
-                    throw new ProteusException($"Internal error: comparison type '{comparisonType}' is not a threshold comparison!");
+                    throw new ProteusException($"Internal error: Comparison type '{comparisonType}' is not a threshold comparison!");
             }
         }
 
@@ -347,7 +347,7 @@ namespace LaurentiuCristofor.Proteus.Common
         /// <param name="firstThreshold">The first threshold argument for the comparison.</param>
         /// <param name="secondThreshold">The second threshold argument for the comparison.</param>
         /// <returns>True if the comparison holds; false otherwise.</returns>
-        public bool ThresholdCompare(ComparisonType comparisonType, string firstThreshold, string secondThreshold)
+        protected bool ThresholdCompare(ComparisonType comparisonType, string firstThreshold, string secondThreshold)
         {
             ArgumentChecker.CheckPresence(firstThreshold);
             ArgumentChecker.CheckPresence(secondThreshold);
@@ -379,7 +379,7 @@ namespace LaurentiuCristofor.Proteus.Common
                     }
 
                 default:
-                    throw new ProteusException($"Internal error: comparison type '{comparisonType}' is not a 2 threshold comparison!");
+                    throw new ProteusException($"Internal error: Comparison type '{comparisonType}' is not a 2 threshold comparison!");
             }
         }
     }

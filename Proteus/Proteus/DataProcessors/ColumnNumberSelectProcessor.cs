@@ -81,7 +81,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             if (String.IsNullOrEmpty(inputData.OriginalStringSeparator))
             {
-                throw new ProteusException("Internal error: ColumnRangeSelectProcessor was called without a separator value!");
+                throw new ProteusException("ColumnRangeSelectProcessor was called without a separator value!");
             }
 
             string line = String.Empty;

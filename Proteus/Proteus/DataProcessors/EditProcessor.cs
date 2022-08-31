@@ -44,6 +44,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 return true;
             }
 
+            if (inputData.ExtractedData.DataType != DataType.String)
+            {
+                throw new ProteusException("EditProcessor should not be called on data that is not of String type!");
+            }
+
             string data = inputData.ExtractedData.ToString();
             string editedData = this.DataEditor.Edit(data, lineNumber);
             string editedLine = inputData.PrefixString + editedData + inputData.SuffixString;

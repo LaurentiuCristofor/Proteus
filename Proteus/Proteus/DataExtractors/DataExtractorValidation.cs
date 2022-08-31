@@ -19,7 +19,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         {
             if (String.IsNullOrEmpty(line))
             {
-                throw new ProteusException("Internal error: A data extractor was called with a null or empty line!");
+                throw new ProteusException("A data extractor was called with a null or empty line!");
             }
         }
     }
