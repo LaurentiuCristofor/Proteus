@@ -155,6 +155,19 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 "where:"
                 + $"{CabeiroConstants.Commands.Arguments.Descriptions.LineNumberSelectionTypeText}");
             RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.SelectColumnsByColumnNumber,
+                CommandCategory.Selection,
+                $"(S)elect (C)olumns (B)y (C)olumn (N)umber",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SelectionType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} {CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                "where:"
+                + $"{CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumberSelectionTypeText}");
+            RegisterCommandDescription(commandDescription);
         }
 
         /// <summary>

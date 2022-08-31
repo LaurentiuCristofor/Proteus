@@ -305,6 +305,29 @@ namespace LaurentiuCristofor.Cabeiro.Common
         }
 
         /// <summary>
+        /// Parses argument value as a ColumnNumberSelectionType indicator.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the ColumnNumberSelectionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<ColumnNumberSelectionType, int> ParseColumnNumberSelectionType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.ColumnNumberSelectionBetween))
+            {
+                return new Tuple<ColumnNumberSelectionType, int>(ColumnNumberSelectionType.Between, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ColumnNumberSelectionNotBetween))
+            {
+                return new Tuple<ColumnNumberSelectionType, int>(ColumnNumberSelectionType.NotBetween, 2);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid column number selection type argument: {argument}!");
+            }
+        }
+
+        /// <summary>
         /// Parses argument value as a StringEditType indicator.
         /// </summary>
         /// <param name="argument">The argument value to parse.</param>

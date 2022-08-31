@@ -64,6 +64,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
             public const string SelectLinesByLineNumber = "slbln";
 
+            public const string SelectColumnsByColumnNumber = "scbcn";
+
             // Command notes.
             //
             public abstract class Notes
@@ -102,6 +104,9 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string LineNumberSelectionNotBetween = "nbtwn";
                 public const string LineNumberSelectionEach = "each";
                 public const string LineNumberSelectionNotEach = "neach";
+
+                public const string ColumnNumberSelectionBetween = "btwn";
+                public const string ColumnNumberSelectionNotBetween = "nbtwn";
 
                 public const string DataTypeString = "s";
                 public const string DataTypeInteger = "i";
@@ -185,13 +190,18 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
                     public static readonly string LineNumberSelectionTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.LineNumberSelectionFirst}' = first"
-                        + $"\n\t- '{Constants.Commands.Arguments.LineNumberSelectionNotFirst}' = nfirst"
+                        + $"\n\t- '{Constants.Commands.Arguments.LineNumberSelectionNotFirst}' = not first"
                         + $"\n\t- '{Constants.Commands.Arguments.LineNumberSelectionLast}' = last"
-                        + $"\n\t- '{Constants.Commands.Arguments.LineNumberSelectionNotLast}' = nlast"
+                        + $"\n\t- '{Constants.Commands.Arguments.LineNumberSelectionNotLast}' = not last"
                         + $"\n\t- '{Constants.Commands.Arguments.LineNumberSelectionBetween}' = between"
                         + $"\n\t- '{Constants.Commands.Arguments.LineNumberSelectionNotBetween}' = not between"
                         + $"\n\t- '{Constants.Commands.Arguments.LineNumberSelectionEach}' = each"
-                        + $"\n\t- '{Constants.Commands.Arguments.LineNumberSelectionNotEach}' = neach"
+                        + $"\n\t- '{Constants.Commands.Arguments.LineNumberSelectionNotEach}' = not each"
+                        ;
+
+                    public static readonly string ColumnNumberSelectionTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.ColumnNumberSelectionBetween}' = between"
+                        + $"\n\t- '{Constants.Commands.Arguments.ColumnNumberSelectionNotBetween}' = not between"
                         ;
 
                     public const string EditType = "<edit_type>";

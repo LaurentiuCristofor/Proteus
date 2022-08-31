@@ -247,6 +247,29 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectColumnsByColumnNumber))
+            {
+                const int minimumArgumentNumber = 6;
+                const int maximumArgumentNumber = 7;
+                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
+                {
+                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[2]);
+                    Tuple<ColumnNumberSelectionType, int> operationInfo = ArgumentParser.ParseColumnNumberSelectionType(arguments[3]);
+                    string firstArgument;
+                    string secondArgument;
+                    string outputFilePath;
+                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 4, arguments, out firstArgument, out secondArgument, out outputFilePath);
+
+                    SelectColumnsByColumnNumber(
+                        arguments[1],
+                        columnSeparator,
+                        operationInfo.Item1, arguments[3],
+                        firstArgument,
+                        secondArgument,
+                        outputFilePath);
+                    return;
+                }
+            }
 
             // If we reached this point, the user command did not match any existing command.
             // Display the program description as a reminder.
@@ -415,6 +438,41 @@ namespace LaurentiuCristofor.Cabeiro
                 = new TextFileProcessor<LineExtractor, UnusedType, string, LineNumberSelectProcessor, OperationTypeParameters<LineNumberSelectionType>>(
                     filePath,
                     extractionParameters: null,
+                    processingParameters);
+
+            textFileProcessor.ProcessFile();
+        }
+
+        private static void SelectColumnsByColumnNumber(
+            string filePath,
+            string columnSeparator,
+            ColumnNumberSelectionType selectionType, string selectionTypeString,
+            string firstArgument,
+            string secondArgument,
+            string outputFilePath)
+        {
+            // We need a successful column extraction to extract all columns,
+            // so we'll just ask to extract the first column value, which must always exist if there is any data in the line.
+            //
+            ColumnExtractionParameters extractionParameters = new ColumnExtractionParameters(
+                columnSeparator,
+                1,
+                DataType.String);
+
+            string outputFileExtension = $".{CabeiroConstants.Commands.SelectColumnsByColumnNumber}.{selectionTypeString.ToLower()}";
+            var filePathBuilder = new FilePathBuilder(filePath, outputFileExtension, firstArgument, secondArgument, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            OperationTypeParameters<ColumnNumberSelectionType> processingParameters = new OperationTypeParameters<ColumnNumberSelectionType>(
+                outputFilePath,
+                selectionType,
+                firstArgument,
+                secondArgument);
+
+            var textFileProcessor
+                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, StringParts, ColumnNumberSelectProcessor, OperationTypeParameters<ColumnNumberSelectionType>>(
+                    filePath,
+                    extractionParameters,
                     processingParameters);
 
             textFileProcessor.ProcessFile();
