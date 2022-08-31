@@ -7,7 +7,7 @@
     <RootNamespace>LaurentiuCristofor.Cabeiro</RootNamespace>
     <Authors>Laurentiu Cristofor</Authors>
     <Description>Cabeiro text file processing utility.</Description>
-    <RepositoryUrl>https://github.com/LaurentiuCristofor/Cabeiro</RepositoryUrl>
+    <RepositoryUrl>https://github.com/LaurentiuCristofor/Proteus</RepositoryUrl>
     <ApplicationIcon />
     <AssemblyVersion>0.9.0.0</AssemblyVersion>
     <FileVersion>0.0.0.0</FileVersion>
@@ -18,11 +18,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Proteus">
-      <HintPath>..\..\..\Proteus\Proteus\Proteus\bin\Debug\netstandard2.0\Proteus.dll</HintPath>
+      <HintPath>..\..\Proteus\Proteus\bin\Debug\netstandard2.0\Proteus.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\Proteus\LICENSE">
+    <None Include="..\..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

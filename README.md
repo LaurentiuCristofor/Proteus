@@ -56,3 +56,4 @@ For detailed instructions on each specific command, execute:
 #### SELECTION commands:
 
 * SLHCV - (S)elect (L)ines (H)aving (C)olumn (V)alue
+* SLBLN - (S)elect (L)ines (B)y (L)ine (N)umber
