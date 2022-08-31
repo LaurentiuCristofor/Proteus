@@ -24,7 +24,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             DataExtractorValidation.ValidateLine(line);
 
             DataTypeContainer lineContainer = new DataTypeContainer(DataType.String, line);
-            StringParts lineParts = new StringParts(line, null, lineContainer, string.Empty, string.Empty);
+            StringParts lineParts = new StringParts(line, null, null, lineContainer, string.Empty, string.Empty);
             return lineParts;
         }
     }

@@ -69,7 +69,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
             // Pack the line with the extra parts that preceded and followed the column.
             //
-            StringParts stringParts = new StringParts(line, columns, columnContainer, prefixString, suffixString);
+            StringParts stringParts = new StringParts(line, this.Parameters.Separators[0], columns, columnContainer, prefixString, suffixString);
             
             // Return the string parts.
             //

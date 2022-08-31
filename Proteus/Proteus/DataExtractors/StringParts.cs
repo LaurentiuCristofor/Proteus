@@ -19,7 +19,12 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         //
         public string OriginalString { get; protected set; }
 
+        // The original string separator.
+        //
+        public string OriginalStringSeparator { get; protected set; }
+
         // The parts of the original string; typically, column values.
+        //
         public string[] OriginalStringParts { get; protected set; }
 
         /// <summary>
@@ -34,9 +39,10 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         // The string suffix that followed the extracted string.
         public string SuffixString { get; protected set; }
 
-        public StringParts(string originalString, string[] originalStringParts, DataTypeContainer extractedData, string prefixString, string suffixString)
+        public StringParts(string originalString, string originalStringSeparator, string[] originalStringParts, DataTypeContainer extractedData, string prefixString, string suffixString)
         {
             this.OriginalString = originalString;
+            this.OriginalStringSeparator = originalStringSeparator;
             this.OriginalStringParts = originalStringParts;
             this.ExtractedData = extractedData;
             this.PrefixString = prefixString;

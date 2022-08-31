@@ -22,12 +22,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         protected OperationTypeParameters<LineNumberSelectionType> Parameters { get; set; }
 
         /// <summary>
-        /// First line number comparison argument, as an integer value.
+        /// First line number comparison argument, as an unsigned integer value.
         /// </summary>
         protected ulong FirstArgumentAsULong { get; set; }
 
         /// <summary>
-        /// Second line number comparison argument, as an integer value.
+        /// Second line number comparison argument, as an unsigned integer value.
         /// </summary>
         protected ulong SecondArgumentAsULong { get; set; }
 
@@ -73,10 +73,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                     ArgumentChecker.CheckNotZero(this.FirstArgumentAsULong);
                     ArgumentChecker.CheckNotZero(this.SecondArgumentAsULong);
+                    ArgumentChecker.CheckSmallerOrEqual(this.FirstArgumentAsULong, this.SecondArgumentAsULong);
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling line number comparison type '{this.Parameters.OperationType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling line number selection type '{this.Parameters.OperationType}'!");
             }
         }
 
@@ -194,7 +195,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling line number comparison type '{this.Parameters.OperationType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling line number selection type '{this.Parameters.OperationType}'!");
             }
 
             this.OutputWriter.WriteLine(line);
@@ -208,7 +209,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             {
                 if (this.SizeLimitedQueue == null || this.SizeLimitedQueue.Count == 0)
                 {
-                    throw new ProteusException("Internal error: No lines could be found to output for LineNumberComparisonType.Last!");
+                    throw new ProteusException("Internal error: No lines could be found to output for LineNumberSelectionType.Last!");
                 }
 
                 foreach (string line in this.SizeLimitedQueue)

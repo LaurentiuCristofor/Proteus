@@ -42,5 +42,21 @@ namespace LaurentiuCristofor.Proteus.Common
                 throw new ProteusException($"An unsigned long integer argument is zero!");
             }
         }
+
+        internal static void CheckSmallerOrEqual(int firstArgument, int secondArgument)
+        {
+            if (firstArgument > secondArgument)
+            {
+                throw new ProteusException($"An incorrect integer interval was provided: the start is larger than the end!");
+            }
+        }
+
+        internal static void CheckSmallerOrEqual(ulong firstArgument, ulong secondArgument)
+        {
+            if (firstArgument > secondArgument)
+            {
+                throw new ProteusException($"An incorrect integer interval was provided: the start is larger than the end!");
+            }
+        }
     }
 }
