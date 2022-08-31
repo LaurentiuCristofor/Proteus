@@ -232,7 +232,7 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 6;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
-                    Tuple<LineNumberSelectionType, int> operationInfo = ArgumentParser.ParseLineNumberSelectionType(arguments[2]);
+                    Tuple<NumberSelectionType, int> operationInfo = ArgumentParser.ParseNumberSelectionType(arguments[2]);
                     string firstArgument;
                     string secondArgument;
                     string outputFilePath;
@@ -249,12 +249,12 @@ namespace LaurentiuCristofor.Cabeiro
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectColumnsByColumnNumber))
             {
-                const int minimumArgumentNumber = 6;
+                const int minimumArgumentNumber = 5;
                 const int maximumArgumentNumber = 7;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[2]);
-                    Tuple<ColumnNumberSelectionType, int> operationInfo = ArgumentParser.ParseColumnNumberSelectionType(arguments[3]);
+                    Tuple<NumberSelectionType, int> operationInfo = ArgumentParser.ParseNumberSelectionType(arguments[3]);
                     string firstArgument;
                     string secondArgument;
                     string outputFilePath;
@@ -419,7 +419,7 @@ namespace LaurentiuCristofor.Cabeiro
 
         private static void SelectLinesByLineNumber(
             string filePath,
-            LineNumberSelectionType selectionType, string selectionTypeString,
+            NumberSelectionType selectionType, string selectionTypeString,
             string firstArgument,
             string secondArgument,
             string outputFilePath)
@@ -428,14 +428,14 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(filePath, outputFileExtension, firstArgument, secondArgument, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OperationTypeParameters<LineNumberSelectionType> processingParameters = new OperationTypeParameters<LineNumberSelectionType>(
+            OperationTypeParameters<NumberSelectionType> processingParameters = new OperationTypeParameters<NumberSelectionType>(
                 outputFilePath,
                 selectionType,
                 firstArgument,
                 secondArgument);
 
             var textFileProcessor
-                = new TextFileProcessor<LineExtractor, UnusedType, string, LineNumberSelectProcessor, OperationTypeParameters<LineNumberSelectionType>>(
+                = new TextFileProcessor<LineExtractor, UnusedType, string, LineNumberSelectProcessor, OperationTypeParameters<NumberSelectionType>>(
                     filePath,
                     extractionParameters: null,
                     processingParameters);
@@ -446,7 +446,7 @@ namespace LaurentiuCristofor.Cabeiro
         private static void SelectColumnsByColumnNumber(
             string filePath,
             string columnSeparator,
-            ColumnNumberSelectionType selectionType, string selectionTypeString,
+            NumberSelectionType selectionType, string selectionTypeString,
             string firstArgument,
             string secondArgument,
             string outputFilePath)
@@ -463,14 +463,14 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(filePath, outputFileExtension, firstArgument, secondArgument, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OperationTypeParameters<ColumnNumberSelectionType> processingParameters = new OperationTypeParameters<ColumnNumberSelectionType>(
+            OperationTypeParameters<NumberSelectionType> processingParameters = new OperationTypeParameters<NumberSelectionType>(
                 outputFilePath,
                 selectionType,
                 firstArgument,
                 secondArgument);
 
             var textFileProcessor
-                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, StringParts, ColumnNumberSelectProcessor, OperationTypeParameters<ColumnNumberSelectionType>>(
+                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, StringParts, ColumnNumberSelectProcessor, OperationTypeParameters<NumberSelectionType>>(
                     filePath,
                     extractionParameters,
                     processingParameters);

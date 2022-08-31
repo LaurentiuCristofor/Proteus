@@ -258,72 +258,41 @@ namespace LaurentiuCristofor.Cabeiro.Common
         }
 
         /// <summary>
-        /// Parses argument value as a LineNumberSelectionType indicator.
+        /// Parses argument value as a NumberSelectionType indicator.
         /// </summary>
         /// <param name="argument">The argument value to parse.</param>
-        /// <returns>A tuple containing the LineNumberSelectionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
-        public static Tuple<LineNumberSelectionType, int> ParseLineNumberSelectionType(string argument)
+        /// <returns>A tuple containing the NumberSelectionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<NumberSelectionType, int> ParseNumberSelectionType(string argument)
         {
             string lowercaseValue = argument.ToLower();
 
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.LineNumberSelectionFirst))
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.NumberSelectionBetween))
             {
-                return new Tuple<LineNumberSelectionType, int>(LineNumberSelectionType.First, 1);
+                return new Tuple<NumberSelectionType, int>(NumberSelectionType.Between, 2);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.LineNumberSelectionNotFirst))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.NumberSelectionNotBetween))
             {
-                return new Tuple<LineNumberSelectionType, int>(LineNumberSelectionType.NotFirst, 1);
+                return new Tuple<NumberSelectionType, int>(NumberSelectionType.NotBetween, 2);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.LineNumberSelectionLast))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.NumberSelectionLast))
             {
-                return new Tuple<LineNumberSelectionType, int>(LineNumberSelectionType.Last, 1);
+                return new Tuple<NumberSelectionType, int>(NumberSelectionType.Last, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.LineNumberSelectionNotLast))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.NumberSelectionNotLast))
             {
-                return new Tuple<LineNumberSelectionType, int>(LineNumberSelectionType.NotLast, 1);
+                return new Tuple<NumberSelectionType, int>(NumberSelectionType.NotLast, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.LineNumberSelectionBetween))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.NumberSelectionEach))
             {
-                return new Tuple<LineNumberSelectionType, int>(LineNumberSelectionType.Between, 2);
+                return new Tuple<NumberSelectionType, int>(NumberSelectionType.Each, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.LineNumberSelectionNotBetween))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.NumberSelectionNotEach))
             {
-                return new Tuple<LineNumberSelectionType, int>(LineNumberSelectionType.NotBetween, 2);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.LineNumberSelectionEach))
-            {
-                return new Tuple<LineNumberSelectionType, int>(LineNumberSelectionType.Each, 1);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.LineNumberSelectionNotEach))
-            {
-                return new Tuple<LineNumberSelectionType, int>(LineNumberSelectionType.NotEach, 1);
+                return new Tuple<NumberSelectionType, int>(NumberSelectionType.NotEach, 1);
             }
             else
             {
                 throw new CabeiroException($"Invalid line number selection type argument: {argument}!");
-            }
-        }
-
-        /// <summary>
-        /// Parses argument value as a ColumnNumberSelectionType indicator.
-        /// </summary>
-        /// <param name="argument">The argument value to parse.</param>
-        /// <returns>A tuple containing the ColumnNumberSelectionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
-        public static Tuple<ColumnNumberSelectionType, int> ParseColumnNumberSelectionType(string argument)
-        {
-            string lowercaseValue = argument.ToLower();
-
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.ColumnNumberSelectionBetween))
-            {
-                return new Tuple<ColumnNumberSelectionType, int>(ColumnNumberSelectionType.Between, 2);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ColumnNumberSelectionNotBetween))
-            {
-                return new Tuple<ColumnNumberSelectionType, int>(ColumnNumberSelectionType.NotBetween, 2);
-            }
-            else
-            {
-                throw new CabeiroException($"Invalid column number selection type argument: {argument}!");
             }
         }
 

@@ -153,7 +153,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} [{CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument}]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 "where:"
-                + $"{CabeiroConstants.Commands.Arguments.Descriptions.LineNumberSelectionTypeText}");
+                + $"{CabeiroConstants.Commands.Arguments.Descriptions.NumberSelectionTypeText}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -163,10 +163,10 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.SelectionType}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} {CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} [{CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument}]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 "where:"
-                + $"{CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumberSelectionTypeText}");
+                + $"{CabeiroConstants.Commands.Arguments.Descriptions.NumberSelectionTypeText}");
             RegisterCommandDescription(commandDescription);
         }
 

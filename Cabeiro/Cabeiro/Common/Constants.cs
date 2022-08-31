@@ -96,17 +96,12 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string ComparisonNotBetween = "nbtwn";
                 public const string ComparisonNotStrictlyBetween = "nsbtwn";
 
-                public const string LineNumberSelectionFirst = "first";
-                public const string LineNumberSelectionNotFirst = "nfirst";
-                public const string LineNumberSelectionLast = "last";
-                public const string LineNumberSelectionNotLast = "nlast";
-                public const string LineNumberSelectionBetween = "btwn";
-                public const string LineNumberSelectionNotBetween = "nbtwn";
-                public const string LineNumberSelectionEach = "each";
-                public const string LineNumberSelectionNotEach = "neach";
-
-                public const string ColumnNumberSelectionBetween = "btwn";
-                public const string ColumnNumberSelectionNotBetween = "nbtwn";
+                public const string NumberSelectionLast = "last";
+                public const string NumberSelectionNotLast = "nlast";
+                public const string NumberSelectionBetween = "btwn";
+                public const string NumberSelectionNotBetween = "nbtwn";
+                public const string NumberSelectionEach = "each";
+                public const string NumberSelectionNotEach = "neach";
 
                 public const string DataTypeString = "s";
                 public const string DataTypeInteger = "i";
@@ -188,20 +183,13 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
                     public const string SelectionType = "<selection_type>";
 
-                    public static readonly string LineNumberSelectionTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.LineNumberSelectionFirst}' = first"
-                        + $"\n\t- '{Constants.Commands.Arguments.LineNumberSelectionNotFirst}' = not first"
-                        + $"\n\t- '{Constants.Commands.Arguments.LineNumberSelectionLast}' = last"
-                        + $"\n\t- '{Constants.Commands.Arguments.LineNumberSelectionNotLast}' = not last"
-                        + $"\n\t- '{Constants.Commands.Arguments.LineNumberSelectionBetween}' = between"
-                        + $"\n\t- '{Constants.Commands.Arguments.LineNumberSelectionNotBetween}' = not between"
-                        + $"\n\t- '{Constants.Commands.Arguments.LineNumberSelectionEach}' = each"
-                        + $"\n\t- '{Constants.Commands.Arguments.LineNumberSelectionNotEach}' = not each"
-                        ;
-
-                    public static readonly string ColumnNumberSelectionTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.ColumnNumberSelectionBetween}' = between"
-                        + $"\n\t- '{Constants.Commands.Arguments.ColumnNumberSelectionNotBetween}' = not between"
+                    public static readonly string NumberSelectionTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionBetween}' = between"
+                        + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionNotBetween}' = not between"
+                        + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionLast}' = last"
+                        + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionNotLast}' = not last"
+                        + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionEach}' = each"
+                        + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionNotEach}' = not each"
                         ;
 
                     public const string EditType = "<edit_type>";

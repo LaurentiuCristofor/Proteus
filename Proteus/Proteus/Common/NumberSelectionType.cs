@@ -7,19 +7,17 @@
 namespace LaurentiuCristofor.Proteus.Common
 {
     /// <summary>
-    /// Types of line number selections supported by Proteus.
+    /// Types of number selections supported by Proteus.
     /// </summary>
-    public enum LineNumberSelectionType
+    public enum NumberSelectionType
     {
         NotSet = 0,
 
-        First = 1,
-        NotFirst = 2,
+        Between = 1,
+        NotBetween = 2,
         Last = 3,
-        NotLast = 4, 
-        Between = 5,
-        NotBetween = 6,
-        Each = 7,
-        NotEach = 8,
+        NotLast = 4,
+        Each = 5,
+        NotEach = 6,
     }
 }
