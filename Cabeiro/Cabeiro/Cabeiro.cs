@@ -400,7 +400,7 @@ namespace LaurentiuCristofor.Cabeiro
                 outputFilePath);
 
             var textFileProcessor
-                = new TextFileProcessor<LineExtractor, UnusedType, string, FileInverterProcessor, BaseOutputParameters>(
+                = new TextFileProcessor<LineExtractor, UnusedType, string, FileInvertProcessor, BaseOutputParameters>(
                     filePath,
                     extractionParameters: null,
                     processingParameters);

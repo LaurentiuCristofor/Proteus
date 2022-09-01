@@ -13,7 +13,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A plain text writer.
     /// </summary>
-    public class FileInverterProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, string>
+    public class FileInvertProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, string>
     {
         /// <summary>
         /// Parameters of this processor.
