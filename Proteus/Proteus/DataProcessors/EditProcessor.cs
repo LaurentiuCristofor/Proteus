@@ -15,7 +15,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that edits a value passed through a DataTypeContainer.
     /// </summary>
-    public class EditProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<StringEditType>, StringParts>
+    public class EditProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<StringEditType>, ParsedLine>
     {
         /// <summary>
         /// Parameters of this operation.
@@ -37,21 +37,21 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath);
         }
 
-        public bool Execute(ulong lineNumber, StringParts inputData)
+        public bool Execute(ulong lineNumber, ParsedLine lineData)
         {
             // We may not always be able to extract a column.
             // Ignore these cases; the extractor will already have printed a warning message.
             //
-            if (inputData == null)
+            if (lineData == null)
             {
                 return true;
             }
 
-            DataProcessorValidation.ValidateExtractedDataIsString(inputData);
+            DataProcessorValidation.ValidateExtractedDataIsString(lineData);
 
-            string data = inputData.ExtractedData.ToString();
+            string data = lineData.ExtractedData.ToString();
             string editedData = this.StringEditor.Edit(data, lineNumber);
-            string editedLine = inputData.PrefixString + editedData + inputData.SuffixString;
+            string editedLine = lineData.LinePrefix + editedData + lineData.LineSuffix;
 
             // Do not output empty lines.
             //

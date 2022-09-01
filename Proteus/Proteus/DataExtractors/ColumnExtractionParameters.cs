@@ -47,15 +47,19 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         /// </summary>
         public DataType ColumnDataType { get; protected set; }
 
+        public bool ConstructLinePrefixAndSuffix { get; protected set; }
+
         public ColumnExtractionParameters(
             string separator,
             int columnNumber,
-            DataType dataType)
+            DataType dataType,
+            bool constructLinePrefixAndSuffix)
         {
             this.Separators = new string[1];
             this.Separators[0] = separator;
             this.ColumnNumber = columnNumber;
             this.ColumnDataType = dataType;
+            this.ConstructLinePrefixAndSuffix = constructLinePrefixAndSuffix;
         }
     }
 }

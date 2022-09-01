@@ -16,7 +16,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// A data processor that checks the value of a column against a selection criterion,
     /// to decide whether to output the line or not.
     /// </summary>
-    public class ColumnValueSelectProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<ComparisonType>, StringParts>
+    public class ColumnValueSelectProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<ComparisonType>, ParsedLine>
     {
         /// <summary>
         /// Parameters of this operation.
@@ -30,26 +30,26 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath);
         }
 
-        public bool Execute(ulong lineNumber, StringParts inputData)
+        public bool Execute(ulong lineNumber, ParsedLine lineData)
         {
             // We may not always be able to extract a column.
             // Ignore these cases; the extractor will already have printed a warning message.
             //
-            if (inputData == null)
+            if (lineData == null)
             {
                 return true;
             }
 
-            if (String.IsNullOrEmpty(inputData.OriginalString))
+            if (String.IsNullOrEmpty(lineData.OriginalLine))
             {
                 throw new ProteusException("ColumnValueSelectProcessor was called on a null or empty line!");
             }
 
             // Perform the comparison to decide whether to output the line.
             //
-            if (inputData.ExtractedData.Compare(this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument))
+            if (lineData.ExtractedData.Compare(this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument))
             {
-                this.OutputWriter.WriteLine(inputData.OriginalString);
+                this.OutputWriter.WriteLine(lineData.OriginalLine);
             }
 
             return true;

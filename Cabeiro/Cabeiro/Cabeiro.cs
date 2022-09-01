@@ -339,7 +339,7 @@ namespace LaurentiuCristofor.Cabeiro
             AnalyzeParameters processingParameters = new AnalyzeParameters(valuesLimit);
 
             var textFileProcessor
-                = new TextFileProcessor<LineAsStringPartsExtractor, UnusedType, StringParts, AnalyzeProcessor, AnalyzeParameters>(
+                = new TextFileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, AnalyzeProcessor, AnalyzeParameters>(
                     filePath,
                     extractionParameters: null,
                     processingParameters: processingParameters);
@@ -357,12 +357,13 @@ namespace LaurentiuCristofor.Cabeiro
             ColumnExtractionParameters extractionParameters = new ColumnExtractionParameters(
                 columnSeparator,
                 columnNumber,
-                dataType);
+                dataType,
+                constructLinePrefixAndSuffix: false);
 
             AnalyzeParameters processingParameters = new AnalyzeParameters(valuesLimit);
 
             var textFileProcessor
-                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, StringParts, AnalyzeProcessor, AnalyzeParameters>(
+                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, AnalyzeProcessor, AnalyzeParameters>(
                     filePath,
                     extractionParameters: extractionParameters,
                     processingParameters: processingParameters);
@@ -388,7 +389,7 @@ namespace LaurentiuCristofor.Cabeiro
                 secondArgument);
 
             var textFileProcessor
-                = new TextFileProcessor<LineAsStringPartsExtractor, UnusedType, StringParts, EditProcessor, OperationTypeParameters<StringEditType>>(
+                = new TextFileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, EditProcessor, OperationTypeParameters<StringEditType>>(
                     filePath,
                     extractionParameters: null,
                     processingParameters);
@@ -408,7 +409,8 @@ namespace LaurentiuCristofor.Cabeiro
             ColumnExtractionParameters extractionParameters = new ColumnExtractionParameters(
                 columnSeparator,
                 columnNumber,
-                DataType.String);
+                DataType.String,
+                constructLinePrefixAndSuffix: true);
 
             string outputFileExtension = $".{CabeiroConstants.Commands.EditColumnValues}.{columnNumber}.{editTypeString.ToLower()}";
             var filePathBuilder = new EditOperationFilePathBuilder(editType, filePath, outputFileExtension, firstArgument, secondArgument, outputFilePath);
@@ -421,7 +423,7 @@ namespace LaurentiuCristofor.Cabeiro
                 secondArgument);
 
             var textFileProcessor
-                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, StringParts, EditProcessor, OperationTypeParameters<StringEditType>>(
+                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, EditProcessor, OperationTypeParameters<StringEditType>>(
                     filePath,
                     extractionParameters,
                     processingParameters);
@@ -442,7 +444,8 @@ namespace LaurentiuCristofor.Cabeiro
             ColumnExtractionParameters extractionParameters = new ColumnExtractionParameters(
                 columnSeparator,
                 columnNumber,
-                dataType);
+                dataType,
+                constructLinePrefixAndSuffix: false);
 
             string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesByColumnValue}.{columnNumber}.{dataTypeString.ToLower()}.{comparisonTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(filePath, outputFileExtension, firstArgument, secondArgument, outputFilePath);
@@ -455,7 +458,7 @@ namespace LaurentiuCristofor.Cabeiro
                 secondArgument);
 
             var textFileProcessor
-                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, StringParts, ColumnValueSelectProcessor, OperationTypeParameters<ComparisonType>>(
+                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, ColumnValueSelectProcessor, OperationTypeParameters<ComparisonType>>(
                     filePath,
                     extractionParameters,
                     processingParameters);
@@ -502,8 +505,9 @@ namespace LaurentiuCristofor.Cabeiro
             //
             ColumnExtractionParameters extractionParameters = new ColumnExtractionParameters(
                 columnSeparator,
-                1,
-                DataType.String);
+                columnNumber: 1,
+                DataType.String,
+                constructLinePrefixAndSuffix: false);
 
             string outputFileExtension = $".{CabeiroConstants.Commands.SelectColumnsByColumnNumber}.{selectionTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(filePath, outputFileExtension, firstArgument, secondArgument, outputFilePath);
@@ -516,7 +520,7 @@ namespace LaurentiuCristofor.Cabeiro
                 secondArgument);
 
             var textFileProcessor
-                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, StringParts, ColumnNumberSelectProcessor, OperationTypeParameters<NumberSelectionType>>(
+                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, ColumnNumberSelectProcessor, OperationTypeParameters<NumberSelectionType>>(
                     filePath,
                     extractionParameters,
                     processingParameters);
@@ -562,7 +566,8 @@ namespace LaurentiuCristofor.Cabeiro
             ColumnExtractionParameters extractionParameters = new ColumnExtractionParameters(
                 columnSeparator,
                 columnNumber,
-                DataType.String);
+                DataType.String,
+                constructLinePrefixAndSuffix: false);
 
             string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesByColumnString}.{columnNumber}.{selectionTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(filePath, outputFileExtension, firstArgument, secondArgument, outputFilePath);
@@ -575,7 +580,7 @@ namespace LaurentiuCristofor.Cabeiro
                 secondArgument);
 
             var textFileProcessor
-                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, StringParts, ColumnStringSelectProcessor, OperationTypeParameters<StringSelectionType>>(
+                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, ColumnStringSelectProcessor, OperationTypeParameters<StringSelectionType>>(
                     filePath,
                     extractionParameters,
                     processingParameters);

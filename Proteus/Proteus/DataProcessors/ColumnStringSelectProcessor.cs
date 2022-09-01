@@ -14,7 +14,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// A data processor that checks a column string against a selection criterion,
     /// to decide whether to output the line or not.
     /// </summary>
-    public class ColumnStringSelectProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<StringSelectionType>, StringParts>
+    public class ColumnStringSelectProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<StringSelectionType>, ParsedLine>
     {
         /// <summary>
         /// Parameters of this operation.
@@ -36,23 +36,23 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath);
         }
 
-        public bool Execute(ulong lineNumber, StringParts inputData)
+        public bool Execute(ulong lineNumber, ParsedLine lineData)
         {
             // We may not always be able to extract a column.
             // Ignore these cases; the extractor will already have printed a warning message.
             //
-            if (inputData == null)
+            if (lineData == null)
             {
                 return true;
             }
 
-            DataProcessorValidation.ValidateExtractedDataIsString(inputData);
+            DataProcessorValidation.ValidateExtractedDataIsString(lineData);
 
-            string data = inputData.ExtractedData.ToString();
+            string data = lineData.ExtractedData.ToString();
 
             if (this.StringSelector.Select(data))
             {
-                this.OutputWriter.WriteLine(inputData.OriginalString);
+                this.OutputWriter.WriteLine(lineData.OriginalLine);
             }
 
             return true;

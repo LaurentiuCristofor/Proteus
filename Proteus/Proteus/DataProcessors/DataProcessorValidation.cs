@@ -24,7 +24,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             }
         }
 
-        public static void ValidateExtractedDataIsString(StringParts inputData)
+        public static void ValidateExtractedDataIsString(ParsedLine inputData)
         {
             if (inputData.ExtractedData.DataType != DataType.String)
             {

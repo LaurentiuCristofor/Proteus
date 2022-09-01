@@ -16,7 +16,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
     /// - parses the column value into a specific type.
     /// - returns a StringParts instance that packs the original line parts with the parsed column value.
     /// </summary>
-    public class ColumnExtractor : IDataExtractor<ColumnExtractionParameters, StringParts>
+    public class ColumnExtractor : IDataExtractor<ColumnExtractionParameters, ParsedLine>
     {
         protected ColumnExtractionParameters Parameters { get; set; }
 
@@ -25,7 +25,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             this.Parameters = extractionParameters;
         }
 
-        public StringParts ExtractData(ulong lineNumber, string line)
+        public ParsedLine ExtractData(ulong lineNumber, string line)
         {
             DataExtractorValidation.ValidateLine(line);
 
@@ -42,38 +42,43 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             // Extract the column value.
             //
             int columnIndex = this.Parameters.ColumnNumber - 1;
-            string columnValue = columns[columnIndex];
+            string columnString = columns[columnIndex];
 
             // Parse the column according to the data type parameter.
             //
-            DataTypeContainer columnContainer = new DataTypeContainer(this.Parameters.ColumnDataType);
-            if (!columnContainer.TryParseStringValue(columnValue))
+            DataTypeContainer columnData = new DataTypeContainer(this.Parameters.ColumnDataType);
+            if (!columnData.TryParseStringValue(columnString))
             {
-                OutputInterface.LogWarning($"\nInvalid value for column {this.Parameters.ColumnNumber} of line {lineNumber}: {columnValue}!");
+                OutputInterface.LogWarning($"\nInvalid value for column {this.Parameters.ColumnNumber} of line {lineNumber}: {columnString}!");
                 return null;
             }
 
-            // Also extract the data before and after the column, so we can put the line back together, if needed.
-            //
-            string prefixString = string.Join(this.Parameters.Separators[0], columns, 0, columnIndex);
-            if (prefixString != string.Empty)
+            string linePrefix = null;
+            string lineSuffix = null;
+            if (this.Parameters.ConstructLinePrefixAndSuffix)
             {
-                prefixString = prefixString + this.Parameters.Separators[0];
+                // Also extract the data before and after the column, so we can put the line back together, if needed.
+                //
+                linePrefix = string.Join(this.Parameters.Separators[0], columns, 0, columnIndex);
+                if (linePrefix != string.Empty)
+                {
+                    linePrefix = linePrefix + this.Parameters.Separators[0];
+                }
+
+                lineSuffix = string.Join(this.Parameters.Separators[0], columns, columnIndex + 1, columns.Length - 1 - columnIndex);
+                if (lineSuffix != string.Empty)
+                {
+                    lineSuffix = this.Parameters.Separators[0] + lineSuffix;
+                }
             }
 
-            string suffixString = string.Join(this.Parameters.Separators[0], columns, columnIndex + 1, columns.Length - 1 - columnIndex);
-            if (suffixString != string.Empty)
-            {
-                suffixString = this.Parameters.Separators[0] + suffixString;
-            }
-
-            // Pack the line with the extra parts that preceded and followed the column.
+            // Package all the information that we processed for the line.
             //
-            StringParts stringParts = new StringParts(line, this.Parameters.Separators[0], columns, columnContainer, prefixString, suffixString);
+            ParsedLine parsedLine = new ParsedLine(line, this.Parameters.Separators[0], columns, columnData, linePrefix, lineSuffix);
             
             // Return the string parts.
             //
-            return stringParts;
+            return parsedLine;
         }
     }
 }

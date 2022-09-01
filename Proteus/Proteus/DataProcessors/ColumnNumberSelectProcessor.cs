@@ -15,7 +15,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that selects a subset of columns to output.
     /// </summary>
-    public class ColumnNumberSelectProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<NumberSelectionType>, StringParts>
+    public class ColumnNumberSelectProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<NumberSelectionType>, ParsedLine>
     {
         /// <summary>
         /// Parameters of this operation.
@@ -69,24 +69,24 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath);
         }
 
-        public bool Execute(ulong lineNumber, StringParts inputData)
+        public bool Execute(ulong lineNumber, ParsedLine lineData)
         {
             // We may not always be able to extract a column.
             // Ignore these cases; the extractor will already have printed a warning message.
             //
-            if (inputData == null)
+            if (lineData == null)
             {
                 return true;
             }
 
-            if (String.IsNullOrEmpty(inputData.OriginalStringSeparator))
+            if (String.IsNullOrEmpty(lineData.ColumnSeparator))
             {
-                throw new ProteusException("ColumnRangeSelectProcessor was called without a separator value!");
+                throw new ProteusException("ColumnRangeSelectProcessor was called without a column separator value!");
             }
 
             string line = String.Empty;
 
-            int countColumns = inputData.OriginalStringParts.Length;
+            int countColumns = lineData.Columns.Length;
 
             switch (this.Parameters.OperationType)
             {
@@ -110,7 +110,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                         // Extract the columns that fall within the requested range.
                         //
-                        line = string.Join(inputData.OriginalStringSeparator, inputData.OriginalStringParts, beginColumnRangeIndex, endColumnRangeIndex - beginColumnRangeIndex + 1);
+                        line = string.Join(lineData.ColumnSeparator, lineData.Columns, beginColumnRangeIndex, endColumnRangeIndex - beginColumnRangeIndex + 1);
                         break;
                     }
 
@@ -126,25 +126,25 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                             // The columns in this line fall outside the specified column range,
                             // so we can output the entire line.
                             //
-                            line = inputData.OriginalString;
+                            line = lineData.OriginalLine;
                         }
                         else if (endColumnRangeIndex >= countColumns - 1)
                         {
                             // Only the first columns of this line fall outside the range.
                             //
-                            line = string.Join(inputData.OriginalStringSeparator, inputData.OriginalStringParts, 0, beginColumnRangeIndex);
+                            line = string.Join(lineData.ColumnSeparator, lineData.Columns, 0, beginColumnRangeIndex);
                         }
                         else
                         {
-                            string linePrefix = string.Join(inputData.OriginalStringSeparator, inputData.OriginalStringParts, 0, beginColumnRangeIndex);
-                            string lineSuffix = string.Join(inputData.OriginalStringSeparator, inputData.OriginalStringParts, endColumnRangeIndex + 1, countColumns - endColumnRangeIndex - 1);
+                            string linePrefix = string.Join(lineData.ColumnSeparator, lineData.Columns, 0, beginColumnRangeIndex);
+                            string lineSuffix = string.Join(lineData.ColumnSeparator, lineData.Columns, endColumnRangeIndex + 1, countColumns - endColumnRangeIndex - 1);
                             if (String.IsNullOrEmpty(linePrefix))
                             {
                                 line = lineSuffix;
                             }
                             else
                             {
-                                line = linePrefix + inputData.OriginalStringSeparator + lineSuffix;
+                                line = linePrefix + lineData.ColumnSeparator + lineSuffix;
                             }
 
                         }
@@ -159,13 +159,13 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                         {
                             // If line has fewer columns than requested, return them all.
                             //
-                            line = inputData.OriginalString;
+                            line = lineData.OriginalLine;
                         }
                         else
                         {
                             // Otherwise, concatenate only the last requested columns.
                             //
-                            line = string.Join(inputData.OriginalStringSeparator, inputData.OriginalStringParts, countColumns - countLast, countLast);
+                            line = string.Join(lineData.ColumnSeparator, lineData.Columns, countColumns - countLast, countLast);
                         }
 
                         break;
@@ -180,7 +180,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                         //
                         if (countColumns > countLast)
                         {
-                            line = string.Join(inputData.OriginalStringSeparator, inputData.OriginalStringParts, 0, countColumns - countLast);
+                            line = string.Join(lineData.ColumnSeparator, lineData.Columns, 0, countColumns - countLast);
                         }
 
                         break;
@@ -200,10 +200,10 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                                 //
                                 if (!String.IsNullOrEmpty(line))
                                 {
-                                    line += inputData.OriginalStringSeparator;
+                                    line += lineData.ColumnSeparator;
                                 }
 
-                                line += inputData.OriginalStringParts[columnIndex];
+                                line += lineData.Columns[columnIndex];
                             }
                         }
 
@@ -224,10 +224,10 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                                 //
                                 if (!String.IsNullOrEmpty(line))
                                 {
-                                    line += inputData.OriginalStringSeparator;
+                                    line += lineData.ColumnSeparator;
                                 }
 
-                                line += inputData.OriginalStringParts[columnIndex];
+                                line += lineData.Columns[columnIndex];
                             }
                         }
 

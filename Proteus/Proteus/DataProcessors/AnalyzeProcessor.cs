@@ -14,7 +14,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that performs data analysis to extract some basic stats.
     /// </summary>
-    public class AnalyzeProcessor : IDataProcessor<AnalyzeParameters, StringParts>
+    public class AnalyzeProcessor : IDataProcessor<AnalyzeParameters, ParsedLine>
     {
         /// <summary>
         /// Parameters of this operation.
@@ -35,17 +35,17 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             this.Analyzer = new DataAnalyzer();
         }
 
-        public bool Execute(ulong lineNumber, StringParts inputData)
+        public bool Execute(ulong lineNumber, ParsedLine lineData)
         {
             // We may not always be able to extract data.
             // Ignore these cases; the extractor will already have printed a warning message.
             //
-            if (inputData == null)
+            if (lineData == null)
             {
                 return true;
             }
 
-            this.Analyzer.AnalyzeData(inputData.ExtractedData);
+            this.Analyzer.AnalyzeData(lineData.ExtractedData);
 
             return true;
         }
