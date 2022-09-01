@@ -153,6 +153,23 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.Invert))
+            {
+                const int minimumArgumentNumber = 2;
+                const int maximumArgumentNumber = 3;
+                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
+                {
+                    string firstArgument;
+                    string secondArgument;
+                    string outputFilePath;
+                    ArgumentParser.ExtractLastArguments(0, 2, arguments, out firstArgument, out secondArgument, out outputFilePath);
+
+                    InvertFile(
+                        arguments[1],
+                        outputFilePath);
+                    return;
+                }
+            }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.EditLines))
             {
                 const int minimumArgumentNumber = 3;
@@ -367,6 +384,26 @@ namespace LaurentiuCristofor.Cabeiro
                     filePath,
                     extractionParameters: extractionParameters,
                     processingParameters: processingParameters);
+
+            textFileProcessor.ProcessFile();
+        }
+
+        private static void InvertFile(
+            string filePath,
+            string outputFilePath)
+        {
+            string outputFileExtension = $".{CabeiroConstants.Commands.Invert}";
+            var filePathBuilder = new FilePathBuilder(filePath, outputFileExtension, null, null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            BaseOutputParameters processingParameters = new BaseOutputParameters(
+                outputFilePath);
+
+            var textFileProcessor
+                = new TextFileProcessor<LineExtractor, UnusedType, string, FileInverterProcessor, BaseOutputParameters>(
+                    filePath,
+                    extractionParameters: null,
+                    processingParameters);
 
             textFileProcessor.ProcessFile();
         }

@@ -56,6 +56,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
             public const string AnalyzeColumnValues = "acv";
 
+            public const string Invert = "i";
+
             public const string EditLines = "el";
 
             public const string EditColumnValues = "ecv";

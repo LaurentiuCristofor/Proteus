@@ -98,6 +98,17 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $"{CabeiroConstants.Commands.Notes.ConsoleOutput}");
             RegisterCommandDescription(commandDescription);
 
+            // Ordering commands.
+            //
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.Invert,
+                CommandCategory.Ordering,
+                $"(I)nvert file",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                null);
+            RegisterCommandDescription(commandDescription);
+
             // Editing commands.
             //
             commandDescription = new CommandDescription(

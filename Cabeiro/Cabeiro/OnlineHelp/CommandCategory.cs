@@ -15,7 +15,8 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
 
         Help = 1,
         Information = 2,
-        Editing = 3,
-        Selection = 4,
+        Ordering = 3,
+        Editing = 4,
+        Selection = 5,
     }
 }
