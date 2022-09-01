@@ -27,14 +27,19 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
         /// <summary>
         /// The extracted data, packaged in a data type container.
+        /// 
+        /// This can be a column or a line.
         /// </summary>
         public DataTypeContainer ExtractedData { get; protected set;}
 
         // The string prefix that preceded the extracted string.
+        // This is used when editing columns, to construct the edited line.
         //
         public string LinePrefix { get; protected set; }
 
         // The string suffix that followed the extracted string.
+        // This is used when editing columns, to construct the edited line.
+        //
         public string LineSuffix { get; protected set; }
 
         public ParsedLine(string originalLine, string columnSeparator, string[] columns, DataTypeContainer extractedData, string linePrefix, string lineSuffix)

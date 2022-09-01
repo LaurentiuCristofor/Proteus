@@ -11,10 +11,10 @@ using LaurentiuCristofor.Proteus.FileOperations;
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// A data processor that checks a column string against a selection criterion,
+    /// A data processor that checks a string against a selection criterion,
     /// to decide whether to output the line or not.
     /// </summary>
-    public class ColumnStringSelectProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<StringSelectionType>, ParsedLine>
+    public class StringSelectProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<StringSelectionType>, ParsedLine>
     {
         /// <summary>
         /// Parameters of this operation.

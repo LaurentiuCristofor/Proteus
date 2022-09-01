@@ -546,7 +546,7 @@ namespace LaurentiuCristofor.Cabeiro
                 secondArgument);
 
             var textFileProcessor
-                = new TextFileProcessor<LineExtractor, UnusedType, string, LineStringSelectProcessor, OperationTypeParameters<StringSelectionType>>(
+                = new TextFileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, StringSelectProcessor, OperationTypeParameters<StringSelectionType>>(
                     filePath,
                     extractionParameters: null,
                     processingParameters);
@@ -580,7 +580,7 @@ namespace LaurentiuCristofor.Cabeiro
                 secondArgument);
 
             var textFileProcessor
-                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, ColumnStringSelectProcessor, OperationTypeParameters<StringSelectionType>>(
+                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, StringSelectProcessor, OperationTypeParameters<StringSelectionType>>(
                     filePath,
                     extractionParameters,
                     processingParameters);
