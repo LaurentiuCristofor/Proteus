@@ -21,6 +21,13 @@ namespace LaurentiuCristofor.Proteus.FileOperations
         private string OutputFilePath { get; set; }
 
         /// <summary>
+        /// Indicates whether writing should track progress.
+        /// 
+        /// This is used when writing is performed separately from reading.
+        /// </summary>
+        private bool TrackProgress { get; set; }
+
+        /// <summary>
         /// The writer for producing the output file.
         /// </summary>
         private TextWriter OutputWriter { get; set; }
@@ -30,7 +37,7 @@ namespace LaurentiuCristofor.Proteus.FileOperations
         /// </summary>
         private ulong CountLinesWritten { get; set; }
 
-        public TextFileWriter(string outputFilePath)
+        public TextFileWriter(string outputFilePath, bool trackProgress = false)
         {
             this.OutputFilePath = outputFilePath;
 
@@ -41,9 +48,21 @@ namespace LaurentiuCristofor.Proteus.FileOperations
 
         public void WriteLine(string line)
         {
+            // If we need to track progress, reset the progress tracker output before our first write.
+            //
+            if (this.TrackProgress && this.CountLinesWritten == 0)
+            {
+                ProgressTracker.Reset();
+            }
+
             this.OutputWriter.WriteLine(line);
 
             this.CountLinesWritten++;
+
+            if (this.TrackProgress)
+            {
+                ProgressTracker.Track(this.CountLinesWritten);
+            }
         }
 
         public void CloseAndReport()

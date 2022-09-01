@@ -76,7 +76,17 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     throw new ProteusException($"Internal error: Proteus is not handling number selection type '{this.Parameters.OperationType}'!");
             }
 
-            this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath);
+            if (this.Parameters.OperationType == NumberSelectionType.Last)
+            {
+                // For this operation, the writing is performed after we've completed reading,
+                // so we want additional progress tracking for it.
+                //
+                this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath, trackProgress: true);
+            }
+            else
+            {
+                this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath);
+            }
         }
 
         public bool Execute(ulong lineNumber, string line)
