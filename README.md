@@ -8,18 +8,24 @@ A command line tool that exposes Proteus functionality.
 
 Around 2007, I was working on a project that involved analyzing log files and I found that I often needed to perform various simple queries on these files.
 At first, I wrote some scripts to perform these queries, but then, as the number of operations increased, I decided to write a command line tool that I named *LogTools*.
-Over the next decade, I kept adding functionality to LogTools.
+Over the next decade, I kept adding functionality to LogTools, such that it grew to support close to 100 different filtering and editing operations.
 
-The philosophy of the tool was to support very simple operations, each of which was easy to understand.
-But these simple operations were meant to support more complex queries by being chained.
+The philosophy of the tool was to support very simple operations, so that each of them would be easy to understand and use.
+But these simple operations were meant to support more complex queries by chaining them.
 And by having the result of each operation saved within its own file, one could always go back to try a different set of queries on an intermediate data set.
 I am calling this process *interactive analysis* of a data file.
 
 In 2019, I decided to start writing from scratch a new open-source version: *Cabeiro*.
+I also decided to separate the core file processing operations from the command line tool, so that's how the *Proteus* library came into being.
 Unlike LogTools, which was written in a hurry over a long period of time and which included lots of duplicated code pieces, Cabeiro is meant to identify processing patterns, so as to share as much code as possible between similar operations.
+Cabeiro also attempts to avoid providing duplicate functionality; where LogTools sometimes offered special-cased versions of certain functions, Cabeiro will attempt to provide only the more general functionality.
 Thus, Cabeiro means to accomplish all that LogTools did, but also, to easily permit the addition of new functionality, by simply extending existing processing patterns.
 
-## General command syntax:
+If you work with log data or with any type of data stored in a tabular format using delimiters for columns, you may find Cabeiro to be a very useful tool.
+
+## Getting started with Cabeiro
+
+### General command syntax
 
 ```Cabeiro <command_name> [<command_arguments>]```
 
@@ -32,7 +38,7 @@ Useful notes:
  5. The string 'tab' can be used on the command line if you need to indicate a tab character.
  6. Row and column numbers start from 1.
 
-## Full list of Cabeiro commands:
+### Full list of Cabeiro commands:
 
 For detailed instructions on each specific command, execute:
 
@@ -55,5 +61,8 @@ For detailed instructions on each specific command, execute:
 
 #### SELECTION commands:
 
-* SLHCV - (S)elect (L)ines (H)aving (C)olumn (V)alue
+* SLBCV - (S)elect (L)ines (B)y (C)olumn (V)alue
 * SLBLN - (S)elect (L)ines (B)y (L)ine (N)umber
+* SCBCN - (S)elect (C)olumns (B)y (C)olumn (N)umber
+* SLBLS - (S)elect (L)ines (B)y (L)ine (S)tring
+* SLBCS - (S)elect (L)ines (B)y (C)olumn (S)tring
