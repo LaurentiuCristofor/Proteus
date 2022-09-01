@@ -119,6 +119,10 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string StringSelectionNotStartsWith = "nstart";
                 public const string StringSelectionEndsWith = "end";
                 public const string StringSelectionNotEndsWith = "nend";
+                public const string StringSelectionIsDemarked = "mark";
+                public const string StringSelectionIsNotDemarked = "nmark";
+                public const string StringSelectionEquals = "eq";
+                public const string StringSelectionNotEquals = "neq";
 
                 public const string StringEditTypeRewrite = "rw";
                 public const string StringEditTypeUppercase = "uc";
@@ -172,38 +176,42 @@ namespace LaurentiuCristofor.Cabeiro.Common
                     public const string ComparisonType = "<comparison_type>";
 
                     public static readonly string ComparisonTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.ComparisonType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonLessThan}' = less than"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonLessThanOrEqual}' = less than or equal"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonEqual}' = equal"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonGreaterThanOrEqual}' = greater than or equal"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonGreaterThan}' = greater than"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonNotEqual}' = not equal"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonBetween}' = between"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonStrictlyBetween}' = strictly between"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonNotBetween}' = not between"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonNotStrictlyBetween}' = not strictly between"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonLessThan}' = less than; arguments: <value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonLessThanOrEqual}' = less than or equal; arguments: <value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonEqual}' = equal; arguments: <value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonGreaterThanOrEqual}' = greater than or equal; arguments: <value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonGreaterThan}' = greater than; arguments: <value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonNotEqual}' = not equal; arguments: <value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonBetween}' = between; arguments: <start_value> <end_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonStrictlyBetween}' = strictly between; arguments: <start_value> <end_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonNotBetween}' = not between; arguments: <start_value> <end_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonNotStrictlyBetween}' = not strictly between; arguments: <start_value> <end_value>"
                         ;
 
                     public const string SelectionType = "<selection_type>";
 
                     public static readonly string NumberSelectionTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionBetween}' = between"
-                        + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionNotBetween}' = not between"
-                        + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionLast}' = last"
-                        + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionNotLast}' = not last"
-                        + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionEach}' = each"
-                        + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionNotEach}' = not each"
+                        + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionBetween}' = between; arguments: <start_value> <end_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionNotBetween}' = not between; arguments: <start_value> <end_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionLast}' = last; arguments: <last_count>"
+                        + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionNotLast}' = not last; arguments: <last_count>"
+                        + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionEach}' = each; arguments: <each_count>"
+                        + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionNotEach}' = not each; arguments: <each_count>"
                         ;
 
                     public static readonly string StringSelectionTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionHasLengthBetween}' = has length between"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionHasLengthNotBetween}' = has length not between"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionIncludes}' = includes"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionNotIncludes}' = not includes"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionStartsWith}' = starts with"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionNotStartsWith}' = not starts with"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionEndsWith}' = ends with"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionNotEndsWith}' = not ends with"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionHasLengthBetween}' = has length between; arguments: <start_value> <end_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionHasLengthNotBetween}' = has length not between; arguments: <start_value> <end_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionIncludes}' = includes; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionNotIncludes}' = not includes; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionStartsWith}' = starts with; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionNotStartsWith}' = not starts with; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionEndsWith}' = ends with; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionNotEndsWith}' = not ends with; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionIsDemarked}' = is demarked; arguments: <prefix_value> <suffix_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionIsNotDemarked}' = is not demarked; arguments: <prefix_value> <suffix_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionEquals}' = equals; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionNotEquals}' = not equals; arguments: <string_value>"
                         ;
 
                     public const string EditType = "<edit_type>";

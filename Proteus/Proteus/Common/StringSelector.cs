@@ -57,7 +57,15 @@ namespace LaurentiuCristofor.Proteus.Common
                 case StringSelectionType.NotStartsWith:
                 case StringSelectionType.EndsWith:
                 case StringSelectionType.NotEndsWith:
+                case StringSelectionType.Equals:
+                case StringSelectionType.NotEquals:
                     ArgumentChecker.CheckPresenceAndNotEmpty(this.FirstArgument);
+                    break;
+
+                case StringSelectionType.IsDemarked:
+                case StringSelectionType.IsNotDemarked:
+                    ArgumentChecker.CheckPresenceAndNotEmpty(this.FirstArgument);
+                    ArgumentChecker.CheckPresenceAndNotEmpty(this.SecondArgument);
                     break;
 
                 case StringSelectionType.HasLengthBetween:
@@ -94,16 +102,16 @@ namespace LaurentiuCristofor.Proteus.Common
             switch (this.SelectionType)
             {
                 case StringSelectionType.HasLengthBetween:
-                    return (data.Length >= this.FirstArgumentAsInt && data.Length <= this.SecondArgumentAsInt);
+                    return data.Length >= this.FirstArgumentAsInt && data.Length <= this.SecondArgumentAsInt;
 
                 case StringSelectionType.HasLengthNotBetween:
-                    return (data.Length < this.FirstArgumentAsInt || data.Length > this.SecondArgumentAsInt);
+                    return data.Length < this.FirstArgumentAsInt || data.Length > this.SecondArgumentAsInt;
 
                 case StringSelectionType.Includes:
-                    return (data.IndexOf(this.FirstArgument) != -1);
+                    return data.IndexOf(this.FirstArgument) != -1;
 
                 case StringSelectionType.NotIncludes:
-                    return (data.IndexOf(this.FirstArgument) == -1);
+                    return data.IndexOf(this.FirstArgument) == -1;
 
                 case StringSelectionType.StartsWith:
                     return data.StartsWith(this.FirstArgument);
@@ -116,6 +124,18 @@ namespace LaurentiuCristofor.Proteus.Common
 
                 case StringSelectionType.NotEndsWith:
                     return !data.EndsWith(this.FirstArgument);
+
+                case StringSelectionType.IsDemarked:
+                    return data.StartsWith(this.FirstArgument) && data.EndsWith(this.SecondArgument);
+
+                case StringSelectionType.IsNotDemarked:
+                    return !data.StartsWith(this.FirstArgument) || !data.EndsWith(this.SecondArgument);
+
+                case StringSelectionType.Equals:
+                    return data.Equals(this.FirstArgument);
+
+                case StringSelectionType.NotEquals:
+                    return !data.Equals(this.FirstArgument);
 
                 default:
                     throw new ProteusException($"Internal error: Proteus is not handling string selection type '{this.SelectionType}'!");

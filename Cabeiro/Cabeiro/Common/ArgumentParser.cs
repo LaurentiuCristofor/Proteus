@@ -337,6 +337,22 @@ namespace LaurentiuCristofor.Cabeiro.Common
             {
                 return new Tuple<StringSelectionType, int>(StringSelectionType.NotEndsWith, 1);
             }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionIsDemarked))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.IsDemarked, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionIsNotDemarked))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.IsNotDemarked, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionEquals))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.Equals, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionNotEquals))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.NotEquals, 1);
+            }
             else
             {
                 throw new CabeiroException($"Invalid string selection type argument: {argument}!");
