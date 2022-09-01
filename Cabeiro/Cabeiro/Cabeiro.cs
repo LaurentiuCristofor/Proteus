@@ -170,6 +170,23 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.Sort))
+            {
+                const int minimumArgumentNumber = 2;
+                const int maximumArgumentNumber = 3;
+                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
+                {
+                    string firstArgument;
+                    string secondArgument;
+                    string outputFilePath;
+                    ArgumentParser.ExtractLastArguments(0, 2, arguments, out firstArgument, out secondArgument, out outputFilePath);
+
+                    SortFile(
+                        arguments[1],
+                        outputFilePath);
+                    return;
+                }
+            }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.EditLines))
             {
                 const int minimumArgumentNumber = 3;
@@ -401,6 +418,26 @@ namespace LaurentiuCristofor.Cabeiro
 
             var textFileProcessor
                 = new TextFileProcessor<LineExtractor, UnusedType, string, FileInvertProcessor, BaseOutputParameters>(
+                    filePath,
+                    extractionParameters: null,
+                    processingParameters);
+
+            textFileProcessor.ProcessFile();
+        }
+
+        private static void SortFile(
+            string filePath,
+            string outputFilePath)
+        {
+            string outputFileExtension = $".{CabeiroConstants.Commands.Sort}";
+            var filePathBuilder = new FilePathBuilder(filePath, outputFileExtension, null, null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            BaseOutputParameters processingParameters = new BaseOutputParameters(
+                outputFilePath);
+
+            var textFileProcessor
+                = new TextFileProcessor<LineExtractor, UnusedType, string, FileSortProcessor, BaseOutputParameters>(
                     filePath,
                     extractionParameters: null,
                     processingParameters);

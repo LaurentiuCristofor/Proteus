@@ -109,6 +109,15 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 null);
             RegisterCommandDescription(commandDescription);
 
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.Sort,
+                CommandCategory.Ordering,
+                $"(S)ort file",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                null);
+            RegisterCommandDescription(commandDescription);
+
             // Editing commands.
             //
             commandDescription = new CommandDescription(
