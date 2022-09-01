@@ -7,6 +7,7 @@
 using System;
 
 using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.DataExtractors;
 
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
@@ -20,6 +21,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             if (String.IsNullOrEmpty(line))
             {
                 throw new ProteusException("A data processor was called with a null or empty line!");
+            }
+        }
+
+        public static void ValidateExtractedDataIsString(StringParts inputData)
+        {
+            if (inputData.ExtractedData.DataType != DataType.String)
+            {
+                throw new ProteusException($"A data processor that expected a string input was called with an input of type '{inputData.ExtractedData.DataType}'!");
             }
         }
     }

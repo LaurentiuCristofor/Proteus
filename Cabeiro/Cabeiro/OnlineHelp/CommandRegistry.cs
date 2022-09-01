@@ -129,9 +129,9 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             // Line selection commands.
             //
             commandDescription = new CommandDescription(
-                CabeiroConstants.Commands.SelectLinesHavingColumnValue,
+                CabeiroConstants.Commands.SelectLinesByColumnValue,
                 CommandCategory.Selection,
-                $"(S)elect (L)ines (H)aving (C)olumn (V)alue",
+                $"(S)elect (L)ines (B)y (C)olumn (V)alue",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
@@ -167,6 +167,32 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 "where:"
                 + $"{CabeiroConstants.Commands.Arguments.Descriptions.NumberSelectionTypeText}");
+            RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.SelectLinesByLineString,
+                CommandCategory.Selection,
+                $"(S)elect (L)ines (B)y (L)ine (S)tring",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SelectionType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} [{CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument}]"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                "where:"
+                + $"{CabeiroConstants.Commands.Arguments.Descriptions.StringSelectionTypeText}");
+            RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.SelectLinesByColumnString,
+                CommandCategory.Selection,
+                $"(S)elect (L)ines (B)y (C)olumn (S)tring",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SelectionType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} [{CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument}]"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                "where:"
+                + $"{CabeiroConstants.Commands.Arguments.Descriptions.StringSelectionTypeText}");
             RegisterCommandDescription(commandDescription);
         }
 

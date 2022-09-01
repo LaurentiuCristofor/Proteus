@@ -4,8 +4,6 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-
 using LaurentiuCristofor.Proteus.Common;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.FileOperations;
@@ -13,26 +11,27 @@ using LaurentiuCristofor.Proteus.FileOperations;
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// A data processor that edits a value passed through a DataTypeContainer.
+    /// A data processor that checks a column string against a selection criterion,
+    /// to decide whether to output the line or not.
     /// </summary>
-    public class EditProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<StringEditType>, StringParts>
+    public class ColumnStringSelectProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<StringSelectionType>, StringParts>
     {
         /// <summary>
         /// Parameters of this operation.
         /// </summary>
-        protected OperationTypeParameters<StringEditType> Parameters { get; set; }
+        protected OperationTypeParameters<StringSelectionType> Parameters { get; set; }
 
         /// <summary>
-        /// The editor used to perform the operation.
+        /// The selector used to perform the operation.
         /// </summary>
-        protected StringEditor StringEditor { get; set; }
+        protected StringSelector StringSelector { get; set; }
 
-        public void Initialize(OperationTypeParameters<StringEditType> processingParameters)
+        public void Initialize(OperationTypeParameters<StringSelectionType> processingParameters)
         {
             this.Parameters = processingParameters;
 
-            this.StringEditor = new StringEditor();
-            this.StringEditor.Initialize(this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument);
+            this.StringSelector = new StringSelector();
+            this.StringSelector.Initialize(this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument);
 
             this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath);
         }
@@ -50,17 +49,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             DataProcessorValidation.ValidateExtractedDataIsString(inputData);
 
             string data = inputData.ExtractedData.ToString();
-            string editedData = this.StringEditor.Edit(data, lineNumber);
-            string editedLine = inputData.PrefixString + editedData + inputData.SuffixString;
 
-            // Do not output empty lines.
-            //
-            if (String.IsNullOrEmpty(editedLine))
+            if (this.StringSelector.Select(data))
             {
-                return true;
+                this.OutputWriter.WriteLine(inputData.OriginalString);
             }
-
-            this.OutputWriter.WriteLine(editedLine);
 
             return true;
         }

@@ -4,6 +4,8 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+using System;
+
 namespace LaurentiuCristofor.Proteus.Common
 {
     /// <summary>
@@ -16,6 +18,14 @@ namespace LaurentiuCristofor.Proteus.Common
             if (argument == null)
             {
                 throw new ProteusException($"An expected argument is missing!");
+            }
+        }
+
+        internal static void CheckPresenceAndNotEmpty(string argument)
+        {
+            if (String.IsNullOrEmpty(argument))
+            {
+                throw new ProteusException($"An expected argument is missing or is an empty string!");
             }
         }
 
@@ -43,7 +53,7 @@ namespace LaurentiuCristofor.Proteus.Common
             }
         }
 
-        internal static void CheckSmallerOrEqual(int firstArgument, int secondArgument)
+        internal static void CheckInterval(int firstArgument, int secondArgument)
         {
             if (firstArgument > secondArgument)
             {
@@ -51,7 +61,7 @@ namespace LaurentiuCristofor.Proteus.Common
             }
         }
 
-        internal static void CheckSmallerOrEqual(ulong firstArgument, ulong secondArgument)
+        internal static void CheckInterval(ulong firstArgument, ulong secondArgument)
         {
             if (firstArgument > secondArgument)
             {

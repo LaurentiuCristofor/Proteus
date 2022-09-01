@@ -13,11 +13,13 @@ namespace LaurentiuCristofor.Proteus.Common
     {
         NotSet = 0,
 
-        LengthBetween = 1,
-        LengthNotBetween = 2,
-        Including = 3,
-        NotIncluding = 4,
-        StartingWith = 5,
-        EndingWith = 6,
+        HasLengthBetween = 1,
+        HasLengthNotBetween = 2,
+        Includes = 3,
+        NotIncludes = 4,
+        StartsWith = 5,
+        NotStartsWith = 6,
+        EndsWith = 7,
+        NotEndsWith = 8,
     }
 }

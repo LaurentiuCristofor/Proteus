@@ -60,11 +60,15 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
             public const string EditColumnValues = "ecv";
 
-            public const string SelectLinesHavingColumnValue = "slhcv";
+            public const string SelectLinesByColumnValue = "slbcv";
 
             public const string SelectLinesByLineNumber = "slbln";
 
             public const string SelectColumnsByColumnNumber = "scbcn";
+
+            public const string SelectLinesByLineString = "slbls";
+
+            public const string SelectLinesByColumnString = "slbcs";
 
             // Command notes.
             //
@@ -78,12 +82,16 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public abstract class Arguments
             {
                 public const string Tab = "tab";
-
                 public const string All = "all";
 
                 public const string Categories = "categories";
-
                 public const string Category = "category";
+
+                public const string DataTypeString = "s";
+                public const string DataTypeInteger = "i";
+                public const string DataTypeUnsignedInteger = "ui";
+                public const string DataTypeFloatingPoint = "f";
+                public const string DataTypeDateTime = "dt";
 
                 public const string ComparisonLessThan = "lt";
                 public const string ComparisonLessThanOrEqual = "lte";
@@ -103,11 +111,14 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string NumberSelectionEach = "each";
                 public const string NumberSelectionNotEach = "neach";
 
-                public const string DataTypeString = "s";
-                public const string DataTypeInteger = "i";
-                public const string DataTypeUnsignedInteger = "ui";
-                public const string DataTypeFloatingPoint = "f";
-                public const string DataTypeDateTime = "dt";
+                public const string StringSelectionHasLengthBetween = "btwn";
+                public const string StringSelectionHasLengthNotBetween = "nbtwn";
+                public const string StringSelectionIncludes= "incl";
+                public const string StringSelectionNotIncludes = "nincl";
+                public const string StringSelectionStartsWith = "start";
+                public const string StringSelectionNotStartsWith = "nstart";
+                public const string StringSelectionEndsWith = "end";
+                public const string StringSelectionNotEndsWith = "nend";
 
                 public const string StringEditTypeRewrite = "rw";
                 public const string StringEditTypeUppercase = "uc";
@@ -141,21 +152,13 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public class Descriptions
                 {
                     public const string CommandName = "<command_name>";
-
                     public const string CategoryName = "<category_name>";
-
                     public const string InputFilePath = "<input_file_path>";
-
                     public const string OutputFilePath = "<output_file_path>";
-
                     public const string ColumnNumber = "<column_number>";
-
                     public const string ColumnSeparator = "<column_separator>";
-
                     public const string FirstArgument = "<first_argument>";
-
                     public const string SecondArgument = "<second_argument>";
-
                     public const string DataType = "<data_type>";
 
                     public static readonly string DataTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.DataType} can take the values:"
@@ -190,6 +193,17 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionNotLast}' = not last"
                         + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionEach}' = each"
                         + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionNotEach}' = not each"
+                        ;
+
+                    public static readonly string StringSelectionTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionHasLengthBetween}' = has length between"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionHasLengthNotBetween}' = has length not between"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionIncludes}' = includes"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionNotIncludes}' = not includes"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionStartsWith}' = starts with"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionNotStartsWith}' = not starts with"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionEndsWith}' = ends with"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionNotEndsWith}' = not ends with"
                         ;
 
                     public const string EditType = "<edit_type>";

@@ -292,7 +292,54 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid line number selection type argument: {argument}!");
+                throw new CabeiroException($"Invalid number selection type argument: {argument}!");
+            }
+        }
+
+        /// <summary>
+        /// Parses argument value as a StringSelectionType indicator.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the StringSelectionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<StringSelectionType, int> ParseStringSelectionType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionHasLengthBetween))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.HasLengthBetween, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionHasLengthNotBetween))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.HasLengthNotBetween, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionIncludes))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.Includes, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionNotIncludes))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.NotIncludes, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionStartsWith))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.StartsWith, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionNotStartsWith))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.NotStartsWith, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionEndsWith))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.EndsWith, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionNotEndsWith))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.NotEndsWith, 1);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid string selection type argument: {argument}!");
             }
         }
 

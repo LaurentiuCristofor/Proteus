@@ -7,9 +7,9 @@
 namespace LaurentiuCristofor.Proteus.Common
 {
     /// <summary>
-    /// A class that performs specific edit operations on input data.
+    /// A class that performs specific string edit operations.
     /// </summary>
-    public class DataEditor
+    public class StringEditor
     {
         /// <summary>
         /// The type of edit operation.
@@ -66,17 +66,21 @@ namespace LaurentiuCristofor.Proteus.Common
                 case StringEditType.DeleteContentAfterMarker:
                 case StringEditType.KeepContentBeforeMarker:
                 case StringEditType.KeepContentAfterMarker:
-                    ArgumentChecker.CheckPresence(firstArgument);
+                    ArgumentChecker.CheckPresenceAndNotEmpty(firstArgument);
                     break;
 
                 case StringEditType.ReplaceContent:
+                    ArgumentChecker.CheckPresenceAndNotEmpty(firstArgument);
+                    ArgumentChecker.CheckPresence(secondArgument);
+                    break;
+
                 case StringEditType.InsertContentBeforeMarker:
                 case StringEditType.InsertContentAfterMarker:
                 case StringEditType.DeleteContentBetweenMarkers:
                 case StringEditType.KeepContentBetweenMarkers:
                 case StringEditType.KeepContentOutsideMarkers:
-                    ArgumentChecker.CheckPresence(firstArgument);
-                    ArgumentChecker.CheckPresence(secondArgument);
+                    ArgumentChecker.CheckPresenceAndNotEmpty(firstArgument);
+                    ArgumentChecker.CheckPresenceAndNotEmpty(secondArgument);
                     break;
 
                 case StringEditType.DeleteFirstCharacters:
@@ -103,7 +107,7 @@ namespace LaurentiuCristofor.Proteus.Common
                     break;
 
                 case StringEditType.InsertContentAtIndex:
-                    ArgumentChecker.CheckPresence(firstArgument);
+                    ArgumentChecker.CheckPresenceAndNotEmpty(firstArgument);
                     ArgumentChecker.CheckPresence(secondArgument);
 
                     this.SecondArgumentAsInt = int.Parse(secondArgument);
@@ -112,7 +116,7 @@ namespace LaurentiuCristofor.Proteus.Common
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling data operation type '{editType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling string edit type '{editType}'!");
             }
         }
 
@@ -126,7 +130,7 @@ namespace LaurentiuCristofor.Proteus.Common
         {
             if (data == null)
             {
-                throw new ProteusException("DataEditor has been called on null data!");
+                throw new ProteusException("StringEditor has been called on null data!");
             }
 
             string editedData = data;
@@ -318,7 +322,7 @@ namespace LaurentiuCristofor.Proteus.Common
                     }
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling data operation type '{this.EditType}'");
+                    throw new ProteusException($"Internal error: Proteus is not handling string edit type '{this.EditType}'");
             }
 
             return editedData;

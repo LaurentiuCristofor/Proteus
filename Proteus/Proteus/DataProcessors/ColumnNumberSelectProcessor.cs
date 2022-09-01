@@ -36,8 +36,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         {
             this.Parameters = processingParameters;
 
-            this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath);
-
             switch (this.Parameters.OperationType)
             {
                 case NumberSelectionType.Last:
@@ -61,12 +59,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                     ArgumentChecker.CheckPositive(this.FirstArgumentAsInt);
                     ArgumentChecker.CheckPositive(this.SecondArgumentAsInt);
-                    ArgumentChecker.CheckSmallerOrEqual(this.FirstArgumentAsInt, this.SecondArgumentAsInt);
+                    ArgumentChecker.CheckInterval(this.FirstArgumentAsInt, this.SecondArgumentAsInt);
                     break;
 
                 default:
                     throw new ProteusException($"Internal error: Proteus is not handling number selection type '{this.Parameters.OperationType}'!");
             }
+
+            this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, StringParts inputData)
