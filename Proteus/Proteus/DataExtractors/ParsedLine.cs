@@ -32,6 +32,13 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         /// </summary>
         public DataTypeContainer ExtractedData { get; protected set;}
 
+        /// <summary>
+        /// A second extracted data, packaged in a data type container.
+        /// 
+        /// This is typically a second column value.
+        /// </summary>
+        public DataTypeContainer SecondExtractedData { get; protected set; }
+
         // The string prefix that preceded the extracted string.
         // This is used when editing columns, to construct the edited line.
         //
@@ -42,12 +49,20 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         //
         public string LineSuffix { get; protected set; }
 
-        public ParsedLine(string originalLine, string columnSeparator, string[] columns, DataTypeContainer extractedData, string linePrefix, string lineSuffix)
+        public ParsedLine(
+            string originalLine,
+            string columnSeparator,
+            string[] columns,
+            DataTypeContainer extractedData,
+            DataTypeContainer secondExtractedData,
+            string linePrefix,
+            string lineSuffix)
         {
             this.OriginalLine = originalLine;
             this.ColumnSeparator = columnSeparator;
             this.Columns = columns;
             this.ExtractedData = extractedData;
+            this.SecondExtractedData = secondExtractedData;
             this.LinePrefix = linePrefix;
             this.LineSuffix = lineSuffix;
         }

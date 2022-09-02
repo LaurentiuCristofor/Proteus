@@ -23,26 +23,23 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         /// The number of the column, starting from 1.
         /// Subtract 1 to obtain its index.
         /// </summary>
-        private int columnNumber;
-        public int ColumnNumber
-        {
-            get
-            {
-                return this.columnNumber;
-            }
+        public int ColumnNumber { get; protected set; }
 
-            protected set
-            {
-                ArgumentChecker.CheckPositive(value);
-
-                this.columnNumber = value;
-            }
-        }
+        /// <summary>
+        /// The number of a second column, starting from 1.
+        /// Subtract 1 to obtain its index.
+        /// </summary>
+        public int SecondColumnNumber { get; protected set; }
 
         /// <summary>
         /// The data type that should be parsed from the column value.
         /// </summary>
         public DataType ColumnDataType { get; protected set; }
+
+        /// <summary>
+        /// The data type that should be parsed from the second column value.
+        /// </summary>
+        public DataType SecondColumnDataType { get; protected set; }
 
         public bool ConstructLinePrefixAndSuffix { get; protected set; }
 
@@ -52,11 +49,37 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             DataType dataType,
             bool constructLinePrefixAndSuffix)
         {
+            ArgumentChecker.CheckPositive(columnNumber);
+            ArgumentChecker.CheckDataType(dataType);
+
             this.Separators = new string[1];
             this.Separators[0] = separator;
             this.ColumnNumber = columnNumber;
             this.ColumnDataType = dataType;
+            this.SecondColumnNumber = 0;
+            this.ColumnDataType = DataType.NotSet;
             this.ConstructLinePrefixAndSuffix = constructLinePrefixAndSuffix;
+        }
+
+        public ColumnExtractionParameters(
+            string separator,
+            int columnNumber,
+            DataType dataType,
+            int secondColumnNumber,
+            DataType secondDataType)
+        {
+            ArgumentChecker.CheckPositive(columnNumber);
+            ArgumentChecker.CheckDataType(dataType);
+            ArgumentChecker.CheckPositive(secondColumnNumber);
+            ArgumentChecker.CheckDataType(secondDataType);
+
+            this.Separators = new string[1];
+            this.Separators[0] = separator;
+            this.ColumnNumber = columnNumber;
+            this.ColumnDataType = dataType;
+            this.SecondColumnNumber = secondColumnNumber;
+            this.SecondColumnDataType = secondDataType;
+            this.ConstructLinePrefixAndSuffix = false;
         }
     }
 }

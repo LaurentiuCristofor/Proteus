@@ -53,6 +53,22 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
                 return null;
             }
 
+            // Check if we need to extract a second column value.
+            //
+            DataTypeContainer secondColumnData = null;
+            if (this.Parameters.SecondColumnNumber > 0)
+            {
+                int secondColumnIndex = this.Parameters.SecondColumnNumber - 1;
+                string secondColumnString = columns[secondColumnIndex];
+
+                secondColumnData = new DataTypeContainer(this.Parameters.SecondColumnDataType);
+                if (!secondColumnData.TryParseStringValue(secondColumnString))
+                {
+                    OutputInterface.LogWarning($"\nInvalid value for column {this.Parameters.SecondColumnNumber} of line {lineNumber}: {secondColumnString}!");
+                    return null;
+                }
+            }
+
             string linePrefix = null;
             string lineSuffix = null;
             if (this.Parameters.ConstructLinePrefixAndSuffix)
@@ -74,7 +90,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
             // Package all the information that we processed for the line.
             //
-            ParsedLine parsedLine = new ParsedLine(line, this.Parameters.Separators[0], columns, columnData, linePrefix, lineSuffix);
+            ParsedLine parsedLine = new ParsedLine(line, this.Parameters.Separators[0], columns, columnData, secondColumnData, linePrefix, lineSuffix);
             
             // Return the string parts.
             //

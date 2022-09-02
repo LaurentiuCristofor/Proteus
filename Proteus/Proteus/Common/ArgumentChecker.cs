@@ -68,5 +68,14 @@ namespace LaurentiuCristofor.Proteus.Common
                 throw new ProteusException($"An incorrect integer interval was provided: the start is larger than the end: ({intervalStart}, {intervalEnd})!");
             }
         }
+
+        internal static void CheckDataType(DataType dataType)
+        {
+            if (dataType == DataType.NotSet)
+            {
+                throw new ProteusException($"A type argument is not set!");
+            }
+        }
+
     }
 }
