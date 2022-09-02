@@ -44,22 +44,28 @@ For detailed instructions on each specific command, execute:
 
 ```Cabeiro help <command_name>```
 
-#### HELP commands:
+#### HELP commands
 
 * HELP - Obtain help on Cabeiro functionality.
 
-#### INFORMATION commands:
+#### INFORMATION commands
 
 * C - (C)ount lines
 * AL - (A)nalyze (L)ines
 * ACV - (A)nalyze (C)olumn (V)alues
 
-#### EDITING commands:
+#### ORDERING commands
+
+* I - (I)nvert file
+* S - (S)ort file
+* SBCV - (S)ort file (B)y (C)olumn (V)alue
+
+#### EDITING commands
 
 * EL - (E)dit (L)ines
 * ECV - (E)dit (C)olumn (V)alues
 
-#### SELECTION commands:
+#### SELECTION commands
 
 * SLBCV - (S)elect (L)ines (B)y (C)olumn (V)alue
 * SLBLN - (S)elect (L)ines (B)y (L)ine (N)umber
