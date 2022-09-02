@@ -33,10 +33,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
             protected set
             {
-                if (value <= 0)
-                {
-                    throw new ProteusException($"Invalid column number value: {value}");
-                }
+                ArgumentChecker.CheckPositive(value);
 
                 this.columnNumber = value;
             }

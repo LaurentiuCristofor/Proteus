@@ -33,7 +33,7 @@ namespace LaurentiuCristofor.Proteus.Common
         {
             if (argument <= 0)
             {
-                throw new ProteusException($"An integer argument is negative or zero!");
+                throw new ProteusException($"An integer argument is negative or zero: {argument}!");
             }
         }
 
@@ -41,7 +41,7 @@ namespace LaurentiuCristofor.Proteus.Common
         {
             if (argument < 0)
             {
-                throw new ProteusException($"An integer argument is negative!");
+                throw new ProteusException($"An integer argument is negative: {argument}!");
             }
         }
 
@@ -53,19 +53,19 @@ namespace LaurentiuCristofor.Proteus.Common
             }
         }
 
-        internal static void CheckInterval(int firstArgument, int secondArgument)
+        internal static void CheckInterval(int intervalStart, int intervalEnd)
         {
-            if (firstArgument > secondArgument)
+            if (intervalStart > intervalEnd)
             {
-                throw new ProteusException($"An incorrect integer interval was provided: the start is larger than the end!");
+                throw new ProteusException($"An incorrect integer interval was provided: the start is larger than the end: ({intervalStart}, {intervalEnd})!");
             }
         }
 
-        internal static void CheckInterval(ulong firstArgument, ulong secondArgument)
+        internal static void CheckInterval(ulong intervalStart, ulong intervalEnd)
         {
-            if (firstArgument > secondArgument)
+            if (intervalStart > intervalEnd)
             {
-                throw new ProteusException($"An incorrect integer interval was provided: the start is larger than the end!");
+                throw new ProteusException($"An incorrect integer interval was provided: the start is larger than the end: ({intervalStart}, {intervalEnd})!");
             }
         }
     }
