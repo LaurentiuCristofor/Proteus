@@ -76,6 +76,5 @@ namespace LaurentiuCristofor.Proteus.Common
                 throw new ProteusException($"A type argument is not set!");
             }
         }
-
     }
 }

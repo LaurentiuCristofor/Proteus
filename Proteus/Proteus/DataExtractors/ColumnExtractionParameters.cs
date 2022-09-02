@@ -57,7 +57,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             this.ColumnNumber = columnNumber;
             this.ColumnDataType = dataType;
             this.SecondColumnNumber = 0;
-            this.ColumnDataType = DataType.NotSet;
+            this.SecondColumnDataType = DataType.NotSet;
             this.ConstructLinePrefixAndSuffix = constructLinePrefixAndSuffix;
         }
 

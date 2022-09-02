@@ -72,3 +72,7 @@ For detailed instructions on each specific command, execute:
 * SCBCN - (S)elect (C)olumns (B)y (C)olumn (N)umber
 * SLBLS - (S)elect (L)ines (B)y (L)ine (S)tring
 * SLBCS - (S)elect (L)ines (B)y (C)olumn (S)tring
+
+#### POST_SORTING commands
+
+* SB2CV - (S)ort file (B)y (2)nd (C)olumn (V)alue

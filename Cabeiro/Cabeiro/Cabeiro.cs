@@ -47,6 +47,7 @@ namespace LaurentiuCristofor.Cabeiro
             catch (Exception e)
             {
                 Console.Error.WriteLine($"\nAn error has occurred during the execution of {CabeiroConstants.Program.Name}:\n{e.Message}");
+                Console.Error.WriteLine($"\nFull exception information:\n\n{e.ToString()}");
             }
         }
 
@@ -369,6 +370,33 @@ namespace LaurentiuCristofor.Cabeiro
                         operationInfo.Item1, arguments[4],
                         firstArgument,
                         secondArgument,
+                        outputFilePath);
+                    return;
+                }
+            }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SortBySecondColumnValue))
+            {
+                const int minimumArgumentNumber = 7;
+                const int maximumArgumentNumber = 10;
+                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
+                {
+                    int secondColumnNumber = ArgumentParser.GetPositiveInteger(arguments[2]);
+                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
+                    DataType secondDataType = ArgumentParser.ParseDataType(arguments[4]);
+                    int firstColumnNumber = ArgumentParser.GetPositiveInteger(arguments[5]);
+                    DataType firstDataType = ArgumentParser.ParseDataType(arguments[6]);
+                    string firstArgument;
+                    string secondArgument;
+                    string outputFilePath;
+                    ArgumentParser.ExtractLastArguments(0, 7, arguments, out firstArgument, out secondArgument, out outputFilePath);
+
+                    SortFileBySecondColumnValue(
+                        arguments[1],
+                        secondColumnNumber,
+                        columnSeparator,
+                        secondDataType, arguments[4],
+                        firstColumnNumber,
+                        firstDataType,
                         outputFilePath);
                     return;
                 }
@@ -713,5 +741,38 @@ namespace LaurentiuCristofor.Cabeiro
 
             textFileProcessor.ProcessFile();
         }
+
+        private static void SortFileBySecondColumnValue(
+            string filePath,
+            int secondColumnNumber,
+            string columnSeparator,
+            DataType secondDataType, string secondDataTypeString,
+            int firstColumnNumber,
+            DataType firstDataType,
+            string outputFilePath)
+        {
+            ColumnExtractionParameters extractionParameters = new ColumnExtractionParameters(
+                columnSeparator,
+                firstColumnNumber,
+                firstDataType,
+                secondColumnNumber,
+                secondDataType);
+
+            string outputFileExtension = $".{CabeiroConstants.Commands.SortBySecondColumnValue}.{secondColumnNumber}.{secondDataTypeString.ToLower()}";
+            var filePathBuilder = new FilePathBuilder(filePath, outputFileExtension, null, null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            BaseOutputParameters processingParameters = new BaseOutputParameters(
+                outputFilePath);
+
+            var textFileProcessor
+                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, FileSecondColumnSortProcessor, BaseOutputParameters>(
+                    filePath,
+                    extractionParameters,
+                    processingParameters);
+
+            textFileProcessor.ProcessFile();
+        }
+
     }
 }

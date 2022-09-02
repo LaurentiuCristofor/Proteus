@@ -227,6 +227,23 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 "where:"
                 + $"{CabeiroConstants.Commands.Arguments.Descriptions.StringSelectionTypeText}");
             RegisterCommandDescription(commandDescription);
+
+            // PostSorting commands.
+            //
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.SortBySecondColumnValue,
+                CommandCategory.Post_Sorting,
+                $"(S)ort file (B)y (2)nd (C)olumn (V)alue",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondaryColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondaryColumnDataType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.PrimaryColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.PrimaryColumnDataType}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                "where:"
+                + $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}");
+            RegisterCommandDescription(commandDescription);
         }
 
         /// <summary>
