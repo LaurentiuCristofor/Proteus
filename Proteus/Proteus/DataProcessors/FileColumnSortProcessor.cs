@@ -4,16 +4,18 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+using System;
 using System.Collections.Generic;
 using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.FileOperations;
 
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// A data processor that inverts the order of the input lines.
+    /// A data processor that sorts the input lines by the value of a specific column.
     /// </summary>
-    public class FileInvertProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, string>
+    public class FileColumnSortProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, ParsedLine>
     {
         /// <summary>
         /// Parameters of this processor.
@@ -21,38 +23,46 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         protected BaseOutputParameters Parameters { get; set; }
 
         /// <summary>
-        /// Data structure used for loading the lines before outputting them in reverse order.
+        /// Data structure used for loading the lines before sorting them.
         /// </summary>
-        protected Stack<string> LineStack { get; set; }
+        protected List<Tuple<DataTypeContainer, string>> ColumnLineTuples { get; set; }
 
         public void Initialize(BaseOutputParameters processingParameters)
         {
             this.Parameters = processingParameters;
 
-            this.LineStack = new Stack<string>();
+            this.ColumnLineTuples = new List<Tuple<DataTypeContainer, string>>();
 
             this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath, trackProgress: true);
         }
 
-        public bool Execute(ulong lineNumber, string line)
+        public bool Execute(ulong lineNumber, ParsedLine lineData)
         {
-            DataProcessorValidation.ValidateLine(line);
+            // We may not always be able to extract a column.
+            // Ignore these cases; the extractor will already have printed a warning message.
+            //
+            if (lineData == null)
+            {
+                return true;
+            }
 
-            this.LineStack.Push(line);
+            this.ColumnLineTuples.Add(new Tuple<DataTypeContainer, string>(lineData.ExtractedData, lineData.OriginalLine));
 
             return true;
         }
 
         public override void CompleteExecution()
         {
-            if (this.LineStack == null)
+            if (this.ColumnLineTuples == null)
             {
                 throw new ProteusException("Internal error: An expected data structure has not been initialized!");
             }
 
-            foreach (string line in this.LineStack)
+            this.ColumnLineTuples.Sort();
+
+            foreach (Tuple<DataTypeContainer, string> tuple in this.ColumnLineTuples)
             {
-                this.OutputWriter.WriteLine(line);
+                this.OutputWriter.WriteLine(tuple.Item2);
             }
 
             base.CompleteExecution();

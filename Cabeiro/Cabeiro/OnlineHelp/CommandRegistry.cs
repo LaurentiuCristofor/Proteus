@@ -118,6 +118,19 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 null);
             RegisterCommandDescription(commandDescription);
 
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.SortByColumnValue,
+                CommandCategory.Ordering,
+                $"(S)ort file (B)y (C)olumn (V)alue",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataType}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                "where:"
+                + $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}");
+            RegisterCommandDescription(commandDescription);
+
             // Editing commands.
             //
             commandDescription = new CommandDescription(

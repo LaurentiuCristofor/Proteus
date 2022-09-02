@@ -187,6 +187,29 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SortByColumnValue))
+            {
+                const int minimumArgumentNumber = 5;
+                const int maximumArgumentNumber = 8;
+                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
+                {
+                    int columnNumber = ArgumentParser.GetPositiveInteger(arguments[2]);
+                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
+                    DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
+                    string firstArgument;
+                    string secondArgument;
+                    string outputFilePath;
+                    ArgumentParser.ExtractLastArguments(0, 5, arguments, out firstArgument, out secondArgument, out outputFilePath);
+
+                    SortFileByColumnValue(
+                        arguments[1],
+                        columnNumber,
+                        columnSeparator,
+                        dataType, arguments[4],
+                        outputFilePath);
+                    return;
+                }
+            }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.EditLines))
             {
                 const int minimumArgumentNumber = 3;
@@ -440,6 +463,35 @@ namespace LaurentiuCristofor.Cabeiro
                 = new TextFileProcessor<LineExtractor, UnusedType, string, FileSortProcessor, BaseOutputParameters>(
                     filePath,
                     extractionParameters: null,
+                    processingParameters);
+
+            textFileProcessor.ProcessFile();
+        }
+
+        private static void SortFileByColumnValue(
+            string filePath,
+            int columnNumber,
+            string columnSeparator,
+            DataType dataType, string dataTypeString,
+            string outputFilePath)
+        {
+            ColumnExtractionParameters extractionParameters = new ColumnExtractionParameters(
+                columnSeparator,
+                columnNumber,
+                dataType,
+                constructLinePrefixAndSuffix: false);
+
+            string outputFileExtension = $".{CabeiroConstants.Commands.Sort}.{columnNumber}.{dataTypeString.ToLower()}";
+            var filePathBuilder = new FilePathBuilder(filePath, outputFileExtension, null, null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            BaseOutputParameters processingParameters = new BaseOutputParameters(
+                outputFilePath);
+
+            var textFileProcessor
+                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, FileColumnSortProcessor, BaseOutputParameters>(
+                    filePath,
+                    extractionParameters,
                     processingParameters);
 
             textFileProcessor.ProcessFile();

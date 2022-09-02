@@ -11,7 +11,7 @@ using LaurentiuCristofor.Proteus.FileOperations;
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// A plain text writer.
+    /// A data processor that sorts the input lines.
     /// </summary>
     public class FileSortProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, string>
     {

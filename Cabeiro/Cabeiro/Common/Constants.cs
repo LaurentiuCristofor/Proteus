@@ -60,6 +60,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
             public const string Sort = "s";
 
+            public const string SortByColumnValue = "sbcv";
+
             public const string EditLines = "el";
 
             public const string EditColumnValues = "ecv";

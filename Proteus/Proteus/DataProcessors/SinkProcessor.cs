@@ -9,7 +9,7 @@ using LaurentiuCristofor.Proteus.Common;
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// A processor that doesn't change data and doesn't output data.
+    /// A data processor that doesn't change data and doesn't output data.
     /// </summary>
     public class SinkProcessor : IDataProcessor<UnusedType, string>
     {
