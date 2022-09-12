@@ -52,10 +52,14 @@ namespace LaurentiuCristofor.Proteus.Common
         /// </summary>
         public DataTypeContainer ShortestData { get; protected set; }
 
+        /// <summary>
+        /// The Shannon entropy of the analyzed data.
+        /// </summary>
+        public double Entropy { get; protected set; }
+
         public DataAnalyzer()
         {
             this.MapDataCounters = new Dictionary<DataTypeContainer, ulong>();
-            this.ListCountedData = new List<Tuple<ulong, DataTypeContainer>>();
         }
 
         /// <summary>
@@ -113,11 +117,17 @@ namespace LaurentiuCristofor.Proteus.Common
 
         /// <summary>
         /// Generate the list of counted data and order it by count.
+        /// Compute Shannon entropy for data.
         /// </summary>
-        public void OrderAnalyzedData()
+        public void PostProcessAnalyzedData()
         {
-            // A quick sanity check.
+            // Some sanity checks.
             //
+            if (this.ListCountedData != null || this.Entropy != 0.0)
+            {
+                throw new ProteusException($"DataAnalyzer::PostProcessAnalyzedData() should not be called more than once!");
+            }
+
             if ((ulong)this.MapDataCounters.Keys.Count != this.UniqueDataCount)
             {
                 throw new ProteusException($"Internal error: the number of tracked values {this.MapDataCounters.Keys.Count} does not match the unique data count {this.UniqueDataCount}!");
@@ -130,17 +140,25 @@ namespace LaurentiuCristofor.Proteus.Common
                 return;
             }
 
-            OutputInterface.Log("\nSorting analyzed data...");
+            OutputInterface.Log("\nPost-processing analyzed data...");
 
-            // First we collect the data in a list.
+            // Initialize a list into which to collect and sort our data.
+            //
+            this.ListCountedData = new List<Tuple<ulong, DataTypeContainer>>();
+
+            // Collect our data into the list and also compute its entropy.
             //
             foreach (DataTypeContainer data in this.MapDataCounters.Keys)
             {
                 ulong dataCount = this.MapDataCounters[data];
+
                 this.ListCountedData.Add(new Tuple<ulong, DataTypeContainer>(dataCount, data));
+
+                double dataProbability = (double)dataCount / this.TotalDataCount;
+                this.Entropy += -dataProbability * Math.Log(dataProbability, 2);
             }
 
-            // Then we sort the data.
+            // Sort the data in the list.
             //
             this.ListCountedData.Sort();
 
@@ -205,6 +223,7 @@ namespace LaurentiuCristofor.Proteus.Common
             OutputInterface.OutputLine($"{Constants.Strings.MinimumValue}{Constants.Strings.NameValueSeparator}{this.MinimumData}");
             OutputInterface.OutputLine($"{Constants.Strings.LongestValue}{Constants.Strings.NameValueSeparator}{this.LongestData}");
             OutputInterface.OutputLine($"{Constants.Strings.ShortestValue}{Constants.Strings.NameValueSeparator}{this.ShortestData}");
+            OutputInterface.OutputLine($"{Constants.Strings.Entropy}{Constants.Strings.NameValueSeparator}{this.Entropy}");
         }
 
         /// <summary>

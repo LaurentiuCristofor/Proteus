@@ -52,7 +52,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void CompleteExecution()
         {
-            this.Analyzer.OrderAnalyzedData();
+            this.Analyzer.PostProcessAnalyzedData();
 
             this.Analyzer.OutputReport(this.Parameters.ValuesLimit);
         }
