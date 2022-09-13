@@ -414,8 +414,8 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             AssemblyName proteusInfo = ProteusInfo.GetAssemblyInfo();
             AssemblyName cabeiroInfo = CabeiroInfo.GetAssemblyInfo();
 
-            Console.WriteLine($"{cabeiroInfo.Name} program version: {cabeiroInfo.Version}");
-            Console.WriteLine($"{proteusInfo.Name} library version: {proteusInfo.Version}");
+            Console.WriteLine($"{cabeiroInfo.Name} program version: {cabeiroInfo.Version.Major}.{cabeiroInfo.Version.Minor}");
+            Console.WriteLine($"{proteusInfo.Name} library version: {proteusInfo.Version.Major}.{proteusInfo.Version.Minor}");
         }
 
         /// <summary>

@@ -56,13 +56,17 @@ namespace LaurentiuCristofor.Cabeiro
         /// </summary>
         private static void ValidateProteusVersion()
         {
+            const int expectedProteusMajorVersion = 0;
+            const int expectedProteusMinorVersion = 9;
+
             AssemblyName proteusInfo = ProteusInfo.GetAssemblyInfo();
             AssemblyName cabeiroInfo = CabeiroInfo.GetAssemblyInfo();
 
-            if (proteusInfo.Version.Major != cabeiroInfo.Version.Major)
+            if (proteusInfo.Version.Major < expectedProteusMajorVersion
+                || (proteusInfo.Version.Major == expectedProteusMajorVersion && proteusInfo.Version.Minor < expectedProteusMinorVersion))
             {
                 CommandRegistry.DisplayProgramVersion();
-                throw new CabeiroException("The major version of the Proteus library does not match the major version of Cabeiro!");
+                throw new CabeiroException($"Cabeiro version {cabeiroInfo.Version.Major}.{cabeiroInfo.Version.Minor} expects Proteus version {expectedProteusMajorVersion}.{expectedProteusMinorVersion} but found version {proteusInfo.Version.Major}.{proteusInfo.Version.Minor}!");
             }
         }
 
