@@ -141,6 +141,9 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string StringEditTypeRewrite = "rw";
                 public const string StringEditTypeUppercase = "uc";
                 public const string StringEditTypeLowercase = "lc";
+                public const string StringEditTypeTrimStart = "ts";
+                public const string StringEditTypeTrimEnd = "te";
+                public const string StringEditTypeTrim = "t";
                 public const string StringEditTypeInvert = "i";
                 public const string StringEditTypePrefixLineNumbers = "pln";
                 public const string StringEditTypeAddPrefix = "ap";
@@ -247,6 +250,9 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeRewrite}' = rewrite"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeUppercase}' = uppercase"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeLowercase}' = lowercase"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeTrimStart}' = trim start"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeTrimEnd}' = trim end"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeTrim}' = trim"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeInvert}' = invert"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypePrefixLineNumbers}' = prefix line numbers"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeAddPrefix}' = add prefix; arguments: <prefix_value>"

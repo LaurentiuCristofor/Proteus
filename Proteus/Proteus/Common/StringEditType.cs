@@ -16,7 +16,10 @@ namespace LaurentiuCristofor.Proteus.Common
         Rewrite = 1,
         Uppercase = 2,
         Lowercase = 3,
-        Invert = 4,
+        TrimStart = 4,
+        TrimEnd = 5,
+        Trim = 6,
+        Invert = 7,
 
         PrefixLineNumbers = 30,
         AddPrefix = 31,

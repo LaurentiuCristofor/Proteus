@@ -54,6 +54,9 @@ namespace LaurentiuCristofor.Proteus.Common
                 case StringEditType.Rewrite:
                 case StringEditType.Uppercase:
                 case StringEditType.Lowercase:
+                case StringEditType.TrimStart:
+                case StringEditType.TrimEnd:
+                case StringEditType.Trim:
                 case StringEditType.Invert:
                     break;
 
@@ -147,6 +150,18 @@ namespace LaurentiuCristofor.Proteus.Common
 
                 case StringEditType.Lowercase:
                     editedData = data.ToLowerInvariant();
+                    break;
+
+                case StringEditType.TrimStart:
+                    editedData = data.TrimStart();
+                    break;
+
+                case StringEditType.TrimEnd:
+                    editedData = data.TrimEnd();
+                    break;
+
+                case StringEditType.Trim:
+                    editedData = data.Trim();
                     break;
 
                 case StringEditType.Invert:

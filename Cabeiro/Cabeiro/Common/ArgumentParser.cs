@@ -407,6 +407,18 @@ namespace LaurentiuCristofor.Cabeiro.Common
             {
                 return new Tuple<StringEditType, int>(StringEditType.Lowercase, 0);
             }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeTrimStart))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.TrimStart, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeTrimEnd))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.TrimEnd, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeTrim))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.Trim, 0);
+            }
             else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeInvert))
             {
                 return new Tuple<StringEditType, int>(StringEditType.Invert, 0);
