@@ -49,33 +49,23 @@ namespace LaurentiuCristofor.Cabeiro.Common
         public abstract class Commands
         {
             public const string Help = "help";
-
+            
             public const string CountLines = "c";
-
             public const string AnalyzeLines = "al";
-
             public const string AnalyzeColumnValues = "acv";
 
             public const string Invert = "i";
-
             public const string Sort = "s";
-
             public const string SortByColumnValue = "sbcv";
 
             public const string EditLines = "el";
-
             public const string EditColumnValues = "ecv";
-
             public const string InsertLine = "il";
 
             public const string SelectLinesByColumnValue = "slbcv";
-
             public const string SelectLinesByLineNumber = "slbln";
-
             public const string SelectColumnsByColumnNumber = "scbcn";
-
             public const string SelectLinesByLineString = "slbls";
-
             public const string SelectLinesByColumnString = "slbcs";
 
             public const string SortBySecondColumnValue = "sb2cv";

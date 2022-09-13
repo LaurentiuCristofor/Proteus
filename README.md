@@ -6,22 +6,21 @@ A command line tool that exposes Proteus functionality.
 
 ## History
 
-Around 2007, I was working on a project that involved analyzing log files and I found that I often needed to perform various simple queries on these files.
-At first, I wrote some scripts to perform these queries, but then, as the number of operations increased, I decided to write a command line tool that I named *LogTools*.
-Over the next decade, I kept adding functionality to LogTools, such that it grew to support close to 100 different filtering and editing operations.
+Around 2007, I was working on a project that involved analyzing log files and I found that I often needed to perform various simple filtering and editing operations on these files.
+At first, I wrote some scripts to perform these operations, but then, as their number increased, I decided to write a command line tool that I named *LogTools*.
+Over the next decade, I kept implementing more operations in LogTools, such that it grew to support many different filtering and editing operations.
 
-The philosophy of the tool was to support very simple operations, so that each of them would be easy to understand and use.
-But these simple operations were meant to support more complex queries by chaining them.
-And by having the result of each operation saved within its own file, one could always go back to try a different set of queries on an intermediate data set.
-I am calling this process *interactive analysis* of a data file.
-
+The philosophy of the tool was to support very simple operations, such that each of them would be easy to understand and use, but these simple operations could also be chained to support arbitrarily complex ones.
+And by having the result of each operation saved within its own file, one could always go back to trying a different set of operations starting from an intermediate data set.
+When used for data analysis, this allowed performing what I call ""interactive analysis"" of a data file.
+ 
 In 2019, I decided to start writing from scratch a new open-source version: *Cabeiro*.
 I also decided to separate the core file processing operations from the command line tool, so that's how the *Proteus* library came into being.
-Unlike LogTools, which was written in a hurry over a long period of time and which included lots of duplicated code pieces, Cabeiro is meant to identify processing patterns, so as to share as much code as possible between similar operations.
-Cabeiro also attempts to avoid providing duplicate functionality; where LogTools sometimes offered special-cased versions of certain functions, Cabeiro will attempt to provide only the more general functionality.
+Unlike LogTools, which was written piece by piece in a hurry over a long period of time, and which included lots of duplicated code pieces, Cabeiro is meant to identify processing patterns, so as to share as much code as possible between similar operations.
+Cabeiro also attempts to avoid providing duplicated functionality; where LogTools sometimes offered special-cased versions of certain functions, Cabeiro will attempt to provide only the more general functionality.
 Thus, Cabeiro means to accomplish all that LogTools did, but also, to easily permit the addition of new functionality, by simply extending existing processing patterns.
 
-If you work with log data or with any type of data stored in a tabular format using delimiters for columns, you may find Cabeiro to be a very useful tool.
+If you work with log data or with any type of text data stored in a tabular format, you may find Cabeiro to be a very useful tool.
 
 ## Getting started with Cabeiro
 
