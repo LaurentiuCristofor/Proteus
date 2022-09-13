@@ -7,7 +7,7 @@
 namespace LaurentiuCristofor.Proteus.Common
 {
     /// <summary>
-    /// Types of data understood by Proteus.
+    /// Types of data.
     /// </summary>
     public enum DataType
     {

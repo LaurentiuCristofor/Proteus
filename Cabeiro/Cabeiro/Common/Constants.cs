@@ -66,6 +66,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
             public const string EditColumnValues = "ecv";
 
+            public const string InsertLine = "il";
+
             public const string SelectLinesByColumnValue = "slbcv";
 
             public const string SelectLinesByLineNumber = "slbln";
@@ -118,6 +120,10 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string NumberSelectionNotBetween = "nbtwn";
                 public const string NumberSelectionEach = "each";
                 public const string NumberSelectionNotEach = "neach";
+
+                public const string NumberInsertionPosition = "pos";
+                public const string NumberInsertionEach = "each";
+                public const string NumberInsertionLast = "last";
 
                 public const string StringSelectionHasLengthBetween = "btwn";
                 public const string StringSelectionHasLengthNotBetween = "nbtwn";
@@ -176,6 +182,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                     public const string PrimaryColumnDataType = "<primary_column_data_type>";
                     public const string SecondaryColumnNumber = "<secondary_column_number>";
                     public const string SecondaryColumnDataType = "<secondary_column_data_type>";
+                    public const string LineValue = "<line_value>";
 
                     public static readonly string DataTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.DataType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.DataTypeString}' = string"
@@ -209,6 +216,14 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionNotLast}' = not last; arguments: <last_count>"
                         + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionEach}' = each; arguments: <each_count>"
                         + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionNotEach}' = not each; arguments: <each_count>"
+                        ;
+
+                    public const string InsertionType = "<insertion_type>";
+
+                    public static readonly string NumberInsertionTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.InsertionType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.NumberInsertionPosition}' = position; arguments: <line_number>"
+                        + $"\n\t- '{Constants.Commands.Arguments.NumberInsertionEach}' = each; arguments: <each_count>"
+                        + $"\n\t- '{Constants.Commands.Arguments.NumberInsertionLast}' = last"
                         ;
 
                     public static readonly string StringSelectionTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"

@@ -159,6 +159,19 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $"{CabeiroConstants.Commands.Arguments.Descriptions.EditTypeText}");
             RegisterCommandDescription(commandDescription);
 
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.InsertLine,
+                CommandCategory.Editing,
+                $"(I)nsert (L)ine",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.LineValue}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.InsertionType}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument}]"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                "where:"
+                + $"{CabeiroConstants.Commands.Arguments.Descriptions.NumberInsertionTypeText}");
+            RegisterCommandDescription(commandDescription);
+
             // Line selection commands.
             //
             commandDescription = new CommandDescription(

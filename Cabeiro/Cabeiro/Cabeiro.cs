@@ -257,6 +257,28 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.InsertLine))
+            {
+                const int minimumArgumentNumber = 4;
+                const int maximumArgumentNumber = 6;
+                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
+                {
+                    string lineValue = arguments[2];
+                    Tuple<NumberInsertionType, int> operationInfo = ArgumentParser.ParseNumberInsertionType(arguments[3]);
+                    string firstArgument;
+                    string secondArgument;
+                    string outputFilePath;
+                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 4, arguments, out firstArgument, out secondArgument, out outputFilePath);
+
+                    InsertLine(
+                        arguments[1],
+                        lineValue,
+                        operationInfo.Item1, arguments[3],
+                        firstArgument,
+                        outputFilePath);
+                    return;
+                }
+            }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByColumnValue))
             {
                 const int minimumArgumentNumber = 7;
@@ -580,6 +602,32 @@ namespace LaurentiuCristofor.Cabeiro
                 = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, EditProcessor, OperationTypeParameters<StringEditType>>(
                     filePath,
                     extractionParameters,
+                    processingParameters);
+
+            textFileProcessor.ProcessFile();
+        }
+
+        private static void InsertLine(
+            string filePath,
+            string lineValue,
+            NumberInsertionType insertionType, string insertionTypeString,
+            string firstArgument,
+            string outputFilePath)
+        {
+            string outputFileExtension = $".{CabeiroConstants.Commands.InsertLine}.{insertionTypeString.ToLower()}";
+            var filePathBuilder = new FilePathBuilder(filePath, outputFileExtension, firstArgument, null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            OperationTypeParameters<NumberInsertionType> processingParameters = new OperationTypeParameters<NumberInsertionType>(
+                outputFilePath,
+                insertionType,
+                firstArgument: lineValue,
+                secondArgument: firstArgument);
+
+            var textFileProcessor
+                = new TextFileProcessor<LineExtractor, UnusedType, string, LineNumberInsertProcessor, OperationTypeParameters<NumberInsertionType>>(
+                    filePath,
+                    extractionParameters: null,
                     processingParameters);
 
             textFileProcessor.ProcessFile();

@@ -93,7 +93,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         {
             DataProcessorValidation.ValidateLine(line);
 
-            // Perform the verification to decide whether to output the line.
+            // Decide whether to output the current line.
             //
             // By default, we will output the line and return true.
             // To skip outputting a line, we return true.

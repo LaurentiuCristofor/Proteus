@@ -7,7 +7,7 @@
 namespace LaurentiuCristofor.Proteus.Common
 {
     /// <summary>
-    /// Types of comparisons supported by Proteus.
+    /// Types of comparisons.
     /// </summary>
     public enum ComparisonType
     {

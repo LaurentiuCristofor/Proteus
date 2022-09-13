@@ -297,6 +297,33 @@ namespace LaurentiuCristofor.Cabeiro.Common
         }
 
         /// <summary>
+        /// Parses argument value as a NumberInsertionType indicator.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the NumberInsertionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<NumberInsertionType, int> ParseNumberInsertionType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.NumberInsertionPosition))
+            {
+                return new Tuple<NumberInsertionType, int>(NumberInsertionType.Position, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.NumberInsertionEach))
+            {
+                return new Tuple<NumberInsertionType, int>(NumberInsertionType.Each, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.NumberInsertionLast))
+            {
+                return new Tuple<NumberInsertionType, int>(NumberInsertionType.Last, 0);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid number insertion type argument: {argument}!");
+            }
+        }
+
+        /// <summary>
         /// Parses argument value as a StringSelectionType indicator.
         /// </summary>
         /// <param name="argument">The argument value to parse.</param>

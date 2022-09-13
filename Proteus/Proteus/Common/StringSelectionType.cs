@@ -7,7 +7,7 @@
 namespace LaurentiuCristofor.Proteus.Common
 {
     /// <summary>
-    /// Types of string selections supported by Proteus.
+    /// Types of string selection operations.
     /// </summary>
     public enum StringSelectionType
     {

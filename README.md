@@ -64,6 +64,7 @@ For detailed instructions on each specific command, execute:
 
 * EL - (E)dit (L)ines
 * ECV - (E)dit (C)olumn (V)alues
+* IL - (I)nsert (L)ine
 
 #### SELECTION commands
 
