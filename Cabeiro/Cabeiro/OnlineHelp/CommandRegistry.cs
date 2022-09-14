@@ -169,7 +169,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument}]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 "where:"
-                + $"{CabeiroConstants.Commands.Arguments.Descriptions.NumberInsertionTypeText}");
+                + $"{CabeiroConstants.Commands.Arguments.Descriptions.PositionInsertionTypeText}");
             RegisterCommandDescription(commandDescription);
 
             // Line selection commands.
@@ -199,7 +199,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} [{CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument}]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 "where:"
-                + $"{CabeiroConstants.Commands.Arguments.Descriptions.NumberSelectionTypeText}");
+                + $"{CabeiroConstants.Commands.Arguments.Descriptions.PositionSelectionTypeText}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -212,7 +212,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} [{CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument}]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 "where:"
-                + $"{CabeiroConstants.Commands.Arguments.Descriptions.NumberSelectionTypeText}");
+                + $"{CabeiroConstants.Commands.Arguments.Descriptions.PositionSelectionTypeText}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -246,7 +246,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             commandDescription = new CommandDescription(
                 CabeiroConstants.Commands.ExtractLineRanges,
                 CommandCategory.Extraction,
-                $"E(X)tract (L)ine (R)anges",
+                $"e(X)tract (L)ine (R)anges",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.RangeSize}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
@@ -256,7 +256,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             commandDescription = new CommandDescription(
                 CabeiroConstants.Commands.ExtractColumns,
                 CommandCategory.Extraction,
-                $"E(X)tract (C)olumns",
+                $"e(X)tract (C)olumns",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",

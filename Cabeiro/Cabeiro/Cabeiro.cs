@@ -268,7 +268,7 @@ namespace LaurentiuCristofor.Cabeiro
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
                     string lineValue = arguments[2];
-                    Tuple<NumberInsertionType, int> operationInfo = ArgumentParser.ParseNumberInsertionType(arguments[3]);
+                    Tuple<PositionInsertionType, int> operationInfo = ArgumentParser.ParsePositionInsertionType(arguments[3]);
                     string firstArgument;
                     string secondArgument;
                     string outputFilePath;
@@ -316,7 +316,7 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 6;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
-                    Tuple<NumberSelectionType, int> operationInfo = ArgumentParser.ParseNumberSelectionType(arguments[2]);
+                    Tuple<PositionSelectionType, int> operationInfo = ArgumentParser.ParsePositionSelectionType(arguments[2]);
                     string firstArgument;
                     string secondArgument;
                     string outputFilePath;
@@ -338,7 +338,7 @@ namespace LaurentiuCristofor.Cabeiro
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[2]);
-                    Tuple<NumberSelectionType, int> operationInfo = ArgumentParser.ParseNumberSelectionType(arguments[3]);
+                    Tuple<PositionSelectionType, int> operationInfo = ArgumentParser.ParsePositionSelectionType(arguments[3]);
                     string firstArgument;
                     string secondArgument;
                     string outputFilePath;
@@ -581,7 +581,7 @@ namespace LaurentiuCristofor.Cabeiro
                 outputFilePath);
 
             var textFileProcessor
-                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, FileColumnSortProcessor, BaseOutputParameters>(
+                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, FileSortByColumnValueProcessor, BaseOutputParameters>(
                     filePath,
                     extractionParameters,
                     processingParameters);
@@ -652,7 +652,7 @@ namespace LaurentiuCristofor.Cabeiro
         private static void InsertLine(
             string filePath,
             string lineValue,
-            NumberInsertionType insertionType, string insertionTypeString,
+            PositionInsertionType insertionType, string insertionTypeString,
             string firstArgument,
             string outputFilePath)
         {
@@ -662,14 +662,14 @@ namespace LaurentiuCristofor.Cabeiro
 
             // We pass the line value as the first operation argument and the first argument becomes the second.
             //
-            OperationTypeParameters<NumberInsertionType> processingParameters = new OperationTypeParameters<NumberInsertionType>(
+            OperationTypeParameters<PositionInsertionType> processingParameters = new OperationTypeParameters<PositionInsertionType>(
                 outputFilePath,
                 insertionType,
                 firstArgument: lineValue,
                 secondArgument: firstArgument);
 
             var textFileProcessor
-                = new TextFileProcessor<LineExtractor, UnusedType, string, LineNumberInsertProcessor, OperationTypeParameters<NumberInsertionType>>(
+                = new TextFileProcessor<LineExtractor, UnusedType, string, LineInsertProcessor, OperationTypeParameters<PositionInsertionType>>(
                     filePath,
                     extractionParameters: null,
                     processingParameters);
@@ -704,7 +704,7 @@ namespace LaurentiuCristofor.Cabeiro
                 secondArgument);
 
             var textFileProcessor
-                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, ColumnValueSelectProcessor, OperationTypeParameters<ComparisonType>>(
+                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, LineSelectByColumnValueProcessor, OperationTypeParameters<ComparisonType>>(
                     filePath,
                     extractionParameters,
                     processingParameters);
@@ -714,7 +714,7 @@ namespace LaurentiuCristofor.Cabeiro
 
         private static void SelectLinesByLineNumber(
             string filePath,
-            NumberSelectionType selectionType, string selectionTypeString,
+            PositionSelectionType selectionType, string selectionTypeString,
             string firstArgument,
             string secondArgument,
             string outputFilePath)
@@ -723,14 +723,14 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(filePath, outputFileExtension, firstArgument, secondArgument, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OperationTypeParameters<NumberSelectionType> processingParameters = new OperationTypeParameters<NumberSelectionType>(
+            OperationTypeParameters<PositionSelectionType> processingParameters = new OperationTypeParameters<PositionSelectionType>(
                 outputFilePath,
                 selectionType,
                 firstArgument,
                 secondArgument);
 
             var textFileProcessor
-                = new TextFileProcessor<LineExtractor, UnusedType, string, LineNumberSelectProcessor, OperationTypeParameters<NumberSelectionType>>(
+                = new TextFileProcessor<LineExtractor, UnusedType, string, LineSelectByNumberProcessor, OperationTypeParameters<PositionSelectionType>>(
                     filePath,
                     extractionParameters: null,
                     processingParameters);
@@ -741,7 +741,7 @@ namespace LaurentiuCristofor.Cabeiro
         private static void SelectColumnsByColumnNumber(
             string filePath,
             string columnSeparator,
-            NumberSelectionType selectionType, string selectionTypeString,
+            PositionSelectionType selectionType, string selectionTypeString,
             string firstArgument,
             string secondArgument,
             string outputFilePath)
@@ -759,14 +759,14 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(filePath, outputFileExtension, firstArgument, secondArgument, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OperationTypeParameters<NumberSelectionType> processingParameters = new OperationTypeParameters<NumberSelectionType>(
+            OperationTypeParameters<PositionSelectionType> processingParameters = new OperationTypeParameters<PositionSelectionType>(
                 outputFilePath,
                 selectionType,
                 firstArgument,
                 secondArgument);
 
             var textFileProcessor
-                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, ColumnNumberSelectProcessor, OperationTypeParameters<NumberSelectionType>>(
+                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, ColumnSelectByNumberProcessor, OperationTypeParameters<PositionSelectionType>>(
                     filePath,
                     extractionParameters,
                     processingParameters);
@@ -922,7 +922,7 @@ namespace LaurentiuCristofor.Cabeiro
                 outputFilePath);
 
             var textFileProcessor
-                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, FileSecondColumnSortProcessor, BaseOutputParameters>(
+                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, FileSortBySecondColumnValueProcessor, BaseOutputParameters>(
                     filePath,
                     extractionParameters,
                     processingParameters);

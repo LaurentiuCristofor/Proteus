@@ -7,7 +7,7 @@
 namespace LaurentiuCristofor.Proteus.Common
 {
     /// <summary>
-    /// Types of string operations. 
+    /// Types of string editing. 
     /// </summary>
     public enum StringEditType
     {

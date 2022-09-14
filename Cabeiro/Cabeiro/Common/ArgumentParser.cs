@@ -275,37 +275,37 @@ namespace LaurentiuCristofor.Cabeiro.Common
         }
 
         /// <summary>
-        /// Parses argument value as a NumberSelectionType indicator.
+        /// Parses argument value as a PositionSelectionType indicator.
         /// </summary>
         /// <param name="argument">The argument value to parse.</param>
-        /// <returns>A tuple containing the NumberSelectionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
-        public static Tuple<NumberSelectionType, int> ParseNumberSelectionType(string argument)
+        /// <returns>A tuple containing the PositionSelectionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<PositionSelectionType, int> ParsePositionSelectionType(string argument)
         {
             string lowercaseValue = argument.ToLower();
 
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.NumberSelectionBetween))
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionBetween))
             {
-                return new Tuple<NumberSelectionType, int>(NumberSelectionType.Between, 2);
+                return new Tuple<PositionSelectionType, int>(PositionSelectionType.Between, 2);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.NumberSelectionNotBetween))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionNotBetween))
             {
-                return new Tuple<NumberSelectionType, int>(NumberSelectionType.NotBetween, 2);
+                return new Tuple<PositionSelectionType, int>(PositionSelectionType.NotBetween, 2);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.NumberSelectionLast))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionLast))
             {
-                return new Tuple<NumberSelectionType, int>(NumberSelectionType.Last, 1);
+                return new Tuple<PositionSelectionType, int>(PositionSelectionType.Last, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.NumberSelectionNotLast))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionNotLast))
             {
-                return new Tuple<NumberSelectionType, int>(NumberSelectionType.NotLast, 1);
+                return new Tuple<PositionSelectionType, int>(PositionSelectionType.NotLast, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.NumberSelectionEach))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionEach))
             {
-                return new Tuple<NumberSelectionType, int>(NumberSelectionType.Each, 1);
+                return new Tuple<PositionSelectionType, int>(PositionSelectionType.Each, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.NumberSelectionNotEach))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionNotEach))
             {
-                return new Tuple<NumberSelectionType, int>(NumberSelectionType.NotEach, 1);
+                return new Tuple<PositionSelectionType, int>(PositionSelectionType.NotEach, 1);
             }
             else
             {
@@ -314,25 +314,25 @@ namespace LaurentiuCristofor.Cabeiro.Common
         }
 
         /// <summary>
-        /// Parses argument value as a NumberInsertionType indicator.
+        /// Parses argument value as a PositionInsertionType indicator.
         /// </summary>
         /// <param name="argument">The argument value to parse.</param>
-        /// <returns>A tuple containing the NumberInsertionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
-        public static Tuple<NumberInsertionType, int> ParseNumberInsertionType(string argument)
+        /// <returns>A tuple containing the PositionInsertionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<PositionInsertionType, int> ParsePositionInsertionType(string argument)
         {
             string lowercaseValue = argument.ToLower();
 
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.NumberInsertionPosition))
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionInsertionPosition))
             {
-                return new Tuple<NumberInsertionType, int>(NumberInsertionType.Position, 1);
+                return new Tuple<PositionInsertionType, int>(PositionInsertionType.Position, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.NumberInsertionEach))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionInsertionEach))
             {
-                return new Tuple<NumberInsertionType, int>(NumberInsertionType.Each, 1);
+                return new Tuple<PositionInsertionType, int>(PositionInsertionType.Each, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.NumberInsertionLast))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionInsertionLast))
             {
-                return new Tuple<NumberInsertionType, int>(NumberInsertionType.Last, 0);
+                return new Tuple<PositionInsertionType, int>(PositionInsertionType.Last, 0);
             }
             else
             {

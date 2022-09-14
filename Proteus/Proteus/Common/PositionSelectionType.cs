@@ -7,14 +7,17 @@
 namespace LaurentiuCristofor.Proteus.Common
 {
     /// <summary>
-    /// Types of insertions at locations specified by a number (for example: line or column number).
+    /// Types of criteria for selection from a position, where a position is identified by an integer value.
     /// </summary>
-    public enum NumberInsertionType
+    public enum PositionSelectionType
     {
         NotSet = 0,
 
-        Position = 1,
-        Each = 2,
+        Between = 1,
+        NotBetween = 2,
         Last = 3,
+        NotLast = 4,
+        Each = 5,
+        NotEach = 6,
     }
 }

@@ -75,8 +75,8 @@ For detailed instructions on each specific command, execute:
 
 #### EXTRACTION commands
 
- * XLR - E(X)tract (L)ine (R)anges
- * XC - E(X)tract (C)olumns
+ * XLR - e(X)tract (L)ine (R)anges
+ * XC - e(X)tract (C)olumns
 
 #### POST_SORTING commands
 

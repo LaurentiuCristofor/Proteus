@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+
 using LaurentiuCristofor.Proteus.Common;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.FileOperations;
@@ -13,9 +14,9 @@ using LaurentiuCristofor.Proteus.FileOperations;
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// A data processor that expects as input a file sorted by a primary column and will perform a secondary sort on a second column.
+    /// A data processor that sorts the input lines by the value of a specific column.
     /// </summary>
-    public class FileSecondColumnSortProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, ParsedLine>
+    public class FileSortByColumnValueProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, ParsedLine>
     {
         /// <summary>
         /// Parameters of this processor.
@@ -27,18 +28,13 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// </summary>
         protected List<Tuple<DataTypeContainer, string>> ColumnLineTuples { get; set; }
 
-        /// <summary>
-        /// The value being currently processed for the primary sort column.
-        /// </summary>
-        protected DataTypeContainer CurrentPrimaryColumnData { get; set; }
-
         public void Initialize(BaseOutputParameters processingParameters)
         {
             this.Parameters = processingParameters;
 
             this.ColumnLineTuples = new List<Tuple<DataTypeContainer, string>>();
 
-            this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath);
+            this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath, trackProgress: true);
         }
 
         public bool Execute(ulong lineNumber, ParsedLine lineData)
@@ -51,36 +47,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 return true;
             }
 
-            // We will also execute these steps when processing the very first line, but nothing will be output.
-            //
-            if (!lineData.ExtractedData.Equals(this.CurrentPrimaryColumnData))
-            {
-                // Sort and output the lines we have collected so far for the CurrentPrimaryColumnData value.
-                //
-                this.ColumnLineTuples.Sort();
-
-                foreach (Tuple<DataTypeContainer, string> tuple in this.ColumnLineTuples)
-                {
-                    this.OutputWriter.WriteLine(tuple.Item2);
-                }
-
-                // Clear our tuples array - we'll start collecting a new set of rows.
-                //
-                this.ColumnLineTuples.Clear();
-
-                // Verify that the input file is sorted on the primary column.
-                //
-                if (this.CurrentPrimaryColumnData != null && lineData.ExtractedData.CompareTo(this.CurrentPrimaryColumnData) < 0)
-                {
-                    throw new ProteusException($"Input file is not sorted as expected! Value '{lineData.ExtractedData.ToString()}' succeeds value '{this.CurrentPrimaryColumnData.ToString()}'.");
-                }
-
-                // Update CurrentPrimaryColumnData to the newly seen value.
-                //
-                this.CurrentPrimaryColumnData = lineData.ExtractedData;
-            }
-
-            this.ColumnLineTuples.Add(new Tuple<DataTypeContainer, string>(lineData.SecondExtractedData, lineData.OriginalLine));
+            this.ColumnLineTuples.Add(new Tuple<DataTypeContainer, string>(lineData.ExtractedData, lineData.OriginalLine));
 
             return true;
         }
@@ -92,8 +59,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 throw new ProteusException("Internal error: An expected data structure has not been initialized!");
             }
 
-            // Output the last remaining batch of lines.
-            //
             this.ColumnLineTuples.Sort();
 
             foreach (Tuple<DataTypeContainer, string> tuple in this.ColumnLineTuples)

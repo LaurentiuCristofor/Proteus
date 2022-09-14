@@ -14,12 +14,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// A data processor that checks the line number against a selection criterion,
     /// to decide whether to output the line or not.
     /// </summary>
-    public class LineNumberSelectProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<NumberSelectionType>, string>
+    public class LineSelectByNumberProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<PositionSelectionType>, string>
     {
         /// <summary>
         /// Parameters of this operation.
         /// </summary>
-        protected OperationTypeParameters<NumberSelectionType> Parameters { get; set; }
+        protected OperationTypeParameters<PositionSelectionType> Parameters { get; set; }
 
         /// <summary>
         /// First line number comparison argument, as an unsigned integer value.
@@ -36,22 +36,22 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// </summary>
         protected Queue<string> SizeLimitedQueue { get; set; }
 
-        public void Initialize(OperationTypeParameters<NumberSelectionType> processingParameters)
+        public void Initialize(OperationTypeParameters<PositionSelectionType> processingParameters)
         {
             this.Parameters = processingParameters;
 
-            if (this.Parameters.OperationType == NumberSelectionType.Last
-                || this.Parameters.OperationType == NumberSelectionType.NotLast)
+            if (this.Parameters.OperationType == PositionSelectionType.Last
+                || this.Parameters.OperationType == PositionSelectionType.NotLast)
             {
                 this.SizeLimitedQueue = new Queue<string>();
             }
 
             switch (this.Parameters.OperationType)
             {
-                case NumberSelectionType.Last:
-                case NumberSelectionType.NotLast:
-                case NumberSelectionType.Each:
-                case NumberSelectionType.NotEach:
+                case PositionSelectionType.Last:
+                case PositionSelectionType.NotLast:
+                case PositionSelectionType.Each:
+                case PositionSelectionType.NotEach:
                     ArgumentChecker.CheckNotNull(this.Parameters.FirstArgument);
 
                     this.FirstArgumentAsULong = ulong.Parse(this.Parameters.FirstArgument);
@@ -59,8 +59,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     ArgumentChecker.CheckNotZero(this.FirstArgumentAsULong);
                     break;
 
-                case NumberSelectionType.Between:
-                case NumberSelectionType.NotBetween:
+                case PositionSelectionType.Between:
+                case PositionSelectionType.NotBetween:
                     ArgumentChecker.CheckNotNull(this.Parameters.FirstArgument);
                     ArgumentChecker.CheckNotNull(this.Parameters.SecondArgument);
 
@@ -76,7 +76,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     throw new ProteusException($"Internal error: Proteus is not handling number selection type '{this.Parameters.OperationType}'!");
             }
 
-            if (this.Parameters.OperationType == NumberSelectionType.Last)
+            if (this.Parameters.OperationType == PositionSelectionType.Last)
             {
                 // For this operation, the writing is performed after we've completed reading,
                 // so we want additional progress tracking for it.
@@ -101,7 +101,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             //
             switch (this.Parameters.OperationType)
             {
-                case NumberSelectionType.Between:
+                case PositionSelectionType.Between:
                     // Skip first lines until we reach the line from which we start to output.
                     //
                     if (lineNumber < this.FirstArgumentAsULong)
@@ -116,7 +116,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     }
                     break;
 
-                case NumberSelectionType.NotBetween:
+                case PositionSelectionType.NotBetween:
                     // Skip the lines in the interval that we don't want to output.
                     //
                     if (lineNumber >= this.FirstArgumentAsULong
@@ -126,7 +126,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     }
                     break;
 
-                case NumberSelectionType.Last:
+                case PositionSelectionType.Last:
                     // Keep enqueuing lines into a queue.
                     // Once the queue contains as many lines as we want to output,
                     // we'll remove a line before adding a new one, to keep the queue size constant.
@@ -141,7 +141,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                     return true;
 
-                case NumberSelectionType.NotLast:
+                case PositionSelectionType.NotLast:
                     {
                         string lineToOutput = null;
 
@@ -168,7 +168,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                         break;
                     }
 
-                case NumberSelectionType.Each:
+                case PositionSelectionType.Each:
                     // Skip the lines whose numbers are not multiples of our argument.
                     //
                     if (lineNumber % this.FirstArgumentAsULong > 0)
@@ -177,7 +177,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     }
                     break;
 
-                case NumberSelectionType.NotEach:
+                case PositionSelectionType.NotEach:
                     // Skip the lines whose numbers are multiples of our argument.
                     //
                     if (lineNumber % this.FirstArgumentAsULong == 0)
@@ -197,7 +197,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public override void CompleteExecution()
         {
-            if (this.Parameters.OperationType == NumberSelectionType.Last)
+            if (this.Parameters.OperationType == PositionSelectionType.Last)
             {
                 if (this.SizeLimitedQueue == null)
                 {

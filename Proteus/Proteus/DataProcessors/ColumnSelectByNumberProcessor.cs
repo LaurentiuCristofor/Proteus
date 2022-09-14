@@ -15,12 +15,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that selects a subset of columns to output.
     /// </summary>
-    public class ColumnNumberSelectProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<NumberSelectionType>, ParsedLine>
+    public class ColumnSelectByNumberProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<PositionSelectionType>, ParsedLine>
     {
         /// <summary>
         /// Parameters of this operation.
         /// </summary>
-        protected OperationTypeParameters<NumberSelectionType> Parameters { get; set; }
+        protected OperationTypeParameters<PositionSelectionType> Parameters { get; set; }
 
         /// <summary>
         /// First line number comparison argument, as an integer value.
@@ -32,16 +32,16 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// </summary>
         protected int SecondArgumentAsInt { get; set; }
 
-        public void Initialize(OperationTypeParameters<NumberSelectionType> processingParameters)
+        public void Initialize(OperationTypeParameters<PositionSelectionType> processingParameters)
         {
             this.Parameters = processingParameters;
 
             switch (this.Parameters.OperationType)
             {
-                case NumberSelectionType.Last:
-                case NumberSelectionType.NotLast:
-                case NumberSelectionType.Each:
-                case NumberSelectionType.NotEach:
+                case PositionSelectionType.Last:
+                case PositionSelectionType.NotLast:
+                case PositionSelectionType.Each:
+                case PositionSelectionType.NotEach:
                     ArgumentChecker.CheckNotNull(this.Parameters.FirstArgument);
 
                     this.FirstArgumentAsInt = int.Parse(this.Parameters.FirstArgument);
@@ -49,8 +49,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     ArgumentChecker.CheckPositive(this.FirstArgumentAsInt);
                     break;
 
-                case NumberSelectionType.Between:
-                case NumberSelectionType.NotBetween:
+                case PositionSelectionType.Between:
+                case PositionSelectionType.NotBetween:
                     ArgumentChecker.CheckNotNull(this.Parameters.FirstArgument);
                     ArgumentChecker.CheckNotNull(this.Parameters.SecondArgument);
 
@@ -90,7 +90,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             switch (this.Parameters.OperationType)
             {
-                case NumberSelectionType.Between:
+                case PositionSelectionType.Between:
                     {
                         // Columns numbers start from 1 - convert them to indexes in the column array.
                         //
@@ -114,7 +114,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                         break;
                     }
 
-                case NumberSelectionType.NotBetween:
+                case PositionSelectionType.NotBetween:
                     {
                         // Columns numbers start from 1 - convert them to indexes in the column array.
                         //
@@ -151,7 +151,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                         break;
                     }
 
-                case NumberSelectionType.Last:
+                case PositionSelectionType.Last:
                     {
                         int countLast = this.FirstArgumentAsInt;
 
@@ -171,7 +171,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                         break;
                     }
 
-                case NumberSelectionType.NotLast:
+                case PositionSelectionType.NotLast:
                     {
                         int countLast = this.FirstArgumentAsInt;
 
@@ -186,7 +186,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                         break;
                     }
 
-                case NumberSelectionType.Each:
+                case PositionSelectionType.Each:
                     {
                         int countEach = this.FirstArgumentAsInt;
 
@@ -210,7 +210,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                         break;
                     }
 
-                case NumberSelectionType.NotEach:
+                case PositionSelectionType.NotEach:
                     {
                         int countEach = this.FirstArgumentAsInt;
 

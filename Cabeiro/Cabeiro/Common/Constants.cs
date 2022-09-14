@@ -107,16 +107,16 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string ComparisonNotBetween = "nbtwn";
                 public const string ComparisonNotStrictlyBetween = "nsbtwn";
 
-                public const string NumberSelectionLast = "last";
-                public const string NumberSelectionNotLast = "nlast";
-                public const string NumberSelectionBetween = "btwn";
-                public const string NumberSelectionNotBetween = "nbtwn";
-                public const string NumberSelectionEach = "each";
-                public const string NumberSelectionNotEach = "neach";
+                public const string PositionSelectionLast = "last";
+                public const string PositionSelectionNotLast = "nlast";
+                public const string PositionSelectionBetween = "btwn";
+                public const string PositionSelectionNotBetween = "nbtwn";
+                public const string PositionSelectionEach = "each";
+                public const string PositionSelectionNotEach = "neach";
 
-                public const string NumberInsertionPosition = "pos";
-                public const string NumberInsertionEach = "each";
-                public const string NumberInsertionLast = "last";
+                public const string PositionInsertionPosition = "pos";
+                public const string PositionInsertionEach = "each";
+                public const string PositionInsertionLast = "last";
 
                 public const string StringSelectionHasLengthBetween = "btwn";
                 public const string StringSelectionHasLengthNotBetween = "nbtwn";
@@ -206,21 +206,21 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
                     public const string SelectionType = "<selection_type>";
 
-                    public static readonly string NumberSelectionTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionBetween}' = between; arguments: <start_value> <end_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionNotBetween}' = not between; arguments: <start_value> <end_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionLast}' = last; arguments: <last_count>"
-                        + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionNotLast}' = not last; arguments: <last_count>"
-                        + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionEach}' = each; arguments: <each_count>"
-                        + $"\n\t- '{Constants.Commands.Arguments.NumberSelectionNotEach}' = not each; arguments: <each_count>"
+                    public static readonly string PositionSelectionTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionBetween}' = between; arguments: <start_value> <end_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionNotBetween}' = not between; arguments: <start_value> <end_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionLast}' = last; arguments: <last_count>"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionNotLast}' = not last; arguments: <last_count>"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionEach}' = each; arguments: <each_count>"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionNotEach}' = not each; arguments: <each_count>"
                         ;
 
                     public const string InsertionType = "<insertion_type>";
 
-                    public static readonly string NumberInsertionTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.InsertionType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.NumberInsertionPosition}' = position; arguments: <line_number>"
-                        + $"\n\t- '{Constants.Commands.Arguments.NumberInsertionEach}' = each; arguments: <each_count>"
-                        + $"\n\t- '{Constants.Commands.Arguments.NumberInsertionLast}' = last"
+                    public static readonly string PositionInsertionTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.InsertionType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionPosition}' = position; arguments: <line_number>"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionEach}' = each; arguments: <each_count>"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionLast}' = last"
                         ;
 
                     public static readonly string StringSelectionTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"

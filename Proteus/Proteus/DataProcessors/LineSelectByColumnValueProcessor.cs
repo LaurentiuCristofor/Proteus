@@ -16,7 +16,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// A data processor that checks the value of a column against a selection criterion,
     /// to decide whether to output the line or not.
     /// </summary>
-    public class ColumnValueSelectProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<ComparisonType>, ParsedLine>
+    public class LineSelectByColumnValueProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<ComparisonType>, ParsedLine>
     {
         /// <summary>
         /// Parameters of this operation.
