@@ -124,11 +124,11 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         /// <returns>Always returns false to indicate that execution should terminate.</returns>
         private bool EndProcessing()
         {
-            OutputInterface.LogLine($"\n{this.LineCounter} lines were read from file { Path.GetFileName(this.InputFilePath)}.");
-
             this.DataProcessor.CompleteExecution();
 
             this.InputReader.Close();
+
+            OutputInterface.LogLine($"\n{this.LineCounter} lines were read from file { Path.GetFileName(this.InputFilePath)}.");
 
             return false;
         }

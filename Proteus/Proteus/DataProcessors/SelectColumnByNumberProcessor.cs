@@ -15,7 +15,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that selects a subset of columns to output.
     /// </summary>
-    public class ColumnSelectByNumberProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<PositionSelectionType>, ParsedLine>
+    public class SelectColumnByNumberProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<PositionSelectionType>, ParsedLine>
     {
         /// <summary>
         /// Parameters of this operation.
@@ -79,10 +79,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 return true;
             }
 
-            if (String.IsNullOrEmpty(lineData.ColumnSeparator))
-            {
-                throw new ProteusException("ColumnRangeSelectProcessor was called without a column separator value!");
-            }
+            DataProcessorValidation.ValidateColumnInformation(lineData);
 
             string line = String.Empty;
 

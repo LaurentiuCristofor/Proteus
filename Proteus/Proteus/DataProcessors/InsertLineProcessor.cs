@@ -14,7 +14,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// A data processor that checks the line number,
     /// to decide whether to insert a line at that position or not.
     /// </summary>
-    public class LineInsertProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<PositionInsertionType>, string>
+    public class InsertLineProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<PositionInsertionType>, string>
     {
         /// <summary>
         /// Parameters of this operation.

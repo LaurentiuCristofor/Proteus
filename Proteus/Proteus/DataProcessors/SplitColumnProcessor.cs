@@ -14,9 +14,9 @@ using LaurentiuCristofor.Proteus.FileOperations;
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// A data processor that extracts columns.
+    /// A data processor that splits each column into its own file.
     /// </summary>
-    public class ColumnExtractProcessor : BaseOutputProcessor, IDataProcessor<StringParameters, ParsedLine>
+    public class SplitColumnProcessor : BaseOutputProcessor, IDataProcessor<StringParameters, ParsedLine>
     {
         /// <summary>
         /// Parameters of this operation.
@@ -32,6 +32,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         {
             this.Parameters = processingParameters;
 
+            ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.StringValue);
+
             this.MapColumnNumberToFileWriter = new Dictionary<int, TextFileWriter>();
         }
 
@@ -45,10 +47,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 return true;
             }
 
-            if (String.IsNullOrEmpty(lineData.ColumnSeparator))
-            {
-                throw new ProteusException("ColumnExtractProcessor was called without a column separator value!");
-            }
+            DataProcessorValidation.ValidateColumnInformation(lineData);
 
             // Output each column value as a line in its own file.
             //

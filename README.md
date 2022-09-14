@@ -73,10 +73,11 @@ For detailed instructions on each specific command, execute:
 * SLBLS - (S)elect (L)ines (B)y (L)ine (S)tring
 * SLBCS - (S)elect (L)ines (B)y (C)olumn (S)tring
 
-#### EXTRACTION commands
+#### SPLITTING commands
 
- * XLR - e(X)tract (L)ine (R)anges
- * XC - e(X)tract (C)olumns
+ * SPLR - (SP)lit (L)ine (R)anges
+ * SPC - (SP)plit (C)olumns
+ * SPCV - (SP)plit (C)olumn (V)alues
 
 #### POST_SORTING commands
 

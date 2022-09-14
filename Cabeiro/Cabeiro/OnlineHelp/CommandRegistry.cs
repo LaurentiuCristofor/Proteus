@@ -241,12 +241,12 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $"{CabeiroConstants.Commands.Arguments.Descriptions.StringSelectionTypeText}");
             RegisterCommandDescription(commandDescription);
 
-            // Extraction commands.
+            // Splitting commands.
             //
             commandDescription = new CommandDescription(
-                CabeiroConstants.Commands.ExtractLineRanges,
-                CommandCategory.Extraction,
-                $"e(X)tract (L)ine (R)anges",
+                CabeiroConstants.Commands.SplitLineRanges,
+                CommandCategory.Splitting,
+                $"(SP)lit (L)ine (R)anges",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.RangeSize}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
@@ -254,10 +254,21 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
-                CabeiroConstants.Commands.ExtractColumns,
-                CommandCategory.Extraction,
-                $"e(X)tract (C)olumns",
+                CabeiroConstants.Commands.SplitColumns,
+                CommandCategory.Splitting,
+                $"(SP)lit (C)olumns",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                null);
+            RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.SplitColumnValues,
+                CommandCategory.Splitting,
+                $"(SP)lit (C)olumn (V)alues",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 null);

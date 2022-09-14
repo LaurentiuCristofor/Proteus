@@ -68,8 +68,9 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string SelectLinesByLineString = "slbls";
             public const string SelectLinesByColumnString = "slbcs";
 
-            public const string ExtractLineRanges = "xlr";
-            public const string ExtractColumns = "xc";
+            public const string SplitLineRanges = "splr";
+            public const string SplitColumns = "spc";
+            public const string SplitColumnValues = "spcv";
 
             public const string SortBySecondColumnValue = "sb2cv";
 

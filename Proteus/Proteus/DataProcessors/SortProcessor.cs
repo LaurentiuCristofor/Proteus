@@ -13,7 +13,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that sorts the input lines.
     /// </summary>
-    public class FileSortProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, string>
+    public class SortProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, string>
     {
         /// <summary>
         /// Parameters of this processor.

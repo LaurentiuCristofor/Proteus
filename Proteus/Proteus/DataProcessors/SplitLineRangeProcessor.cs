@@ -11,21 +11,21 @@ using LaurentiuCristofor.Proteus.FileOperations;
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// A data processor that extracts ranges of lines.
+    /// A data processor that splits ranges of lines into their own files.
     /// </summary>
-    public class LineRangeExtractProcessor : BaseOutputProcessor, IDataProcessor<UnsignedIntegerAndStringParameters, string>
+    public class SplitLineRangeProcessor : BaseOutputProcessor, IDataProcessor<StringAndUnsignedIntegerParameters, string>
     {
         /// <summary>
         /// Parameters of this operation.
         /// </summary>
-        protected UnsignedIntegerAndStringParameters Parameters { get; set; }
+        protected StringAndUnsignedIntegerParameters Parameters { get; set; }
 
-        public void Initialize(UnsignedIntegerAndStringParameters processingParameters)
+        public void Initialize(StringAndUnsignedIntegerParameters processingParameters)
         {
             this.Parameters = processingParameters;
 
-            ArgumentChecker.CheckNotZero(this.Parameters.UnsignedIntegerValue);
             ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.StringValue);
+            ArgumentChecker.CheckNotZero(this.Parameters.UnsignedIntegerValue);
         }
 
         public bool Execute(ulong lineNumber, string line)

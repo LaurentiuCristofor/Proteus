@@ -47,7 +47,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             string separator,
             int columnNumber,
             DataType dataType,
-            bool constructLinePrefixAndSuffix)
+            bool constructLinePrefixAndSuffix = false)
         {
             ArgumentChecker.CheckPositive(columnNumber);
             ArgumentChecker.CheckDataType(dataType);

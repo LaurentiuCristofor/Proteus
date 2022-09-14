@@ -14,7 +14,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// A data processor that checks the line number against a selection criterion,
     /// to decide whether to output the line or not.
     /// </summary>
-    public class LineSelectByNumberProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<PositionSelectionType>, string>
+    public class SelectLineByNumberProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<PositionSelectionType>, string>
     {
         /// <summary>
         /// Parameters of this operation.

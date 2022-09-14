@@ -4,6 +4,8 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+using System;
+
 using LaurentiuCristofor.Proteus.Common;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.FileOperations;
@@ -11,27 +13,19 @@ using LaurentiuCristofor.Proteus.FileOperations;
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// A data processor that checks a string against a selection criterion,
+    /// A data processor that checks the value of a column against a selection criterion,
     /// to decide whether to output the line or not.
     /// </summary>
-    public class StringSelectProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<StringSelectionType>, ParsedLine>
+    public class SelectLineByColumnValueProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<ComparisonType>, ParsedLine>
     {
         /// <summary>
         /// Parameters of this operation.
         /// </summary>
-        protected OperationTypeParameters<StringSelectionType> Parameters { get; set; }
+        protected OperationTypeParameters<ComparisonType> Parameters { get; set; }
 
-        /// <summary>
-        /// The selector used to perform the operation.
-        /// </summary>
-        protected StringSelector StringSelector { get; set; }
-
-        public void Initialize(OperationTypeParameters<StringSelectionType> processingParameters)
+        public void Initialize(OperationTypeParameters<ComparisonType> processingParameters)
         {
             this.Parameters = processingParameters;
-
-            this.StringSelector = new StringSelector();
-            this.StringSelector.Initialize(this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument);
 
             this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath);
         }
@@ -46,11 +40,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 return true;
             }
 
-            DataProcessorValidation.ValidateExtractedDataIsString(lineData);
+            DataProcessorValidation.ValidateOriginalLine(lineData);
 
-            string data = lineData.ExtractedData.ToString();
-
-            if (this.StringSelector.Select(data))
+            // Perform the comparison to decide whether to output the line.
+            //
+            if (lineData.ExtractedData.Compare(this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument))
             {
                 this.OutputWriter.WriteLine(lineData.OriginalLine);
             }

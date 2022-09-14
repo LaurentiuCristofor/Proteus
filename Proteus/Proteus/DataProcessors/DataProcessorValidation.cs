@@ -24,11 +24,39 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             }
         }
 
-        public static void ValidateExtractedDataIsString(ParsedLine inputData)
+        public static void ValidateOriginalLine(ParsedLine lineData)
         {
-            if (inputData.ExtractedData.DataType != DataType.String)
+            if (String.IsNullOrEmpty(lineData.OriginalLine))
             {
-                throw new ProteusException($"A data processor that expected a string input was called with an input of type '{inputData.ExtractedData.DataType}'!");
+                throw new ProteusException("A data processor was called on a null or empty line!");
+            }
+        }
+
+        public static void ValidateColumnInformation(ParsedLine lineData)
+        {
+            if (lineData.Columns == null)
+            {
+                throw new ProteusException($"A data processor was called without column information!");
+            }
+            else if (String.IsNullOrEmpty(lineData.ColumnSeparator))
+            {
+                throw new ProteusException($"A data processor was called without column separator information!");
+            }
+        }
+
+        public static void ValidateExtractedDataIsString(ParsedLine lineData)
+        {
+            if (lineData.ExtractedData.DataType != DataType.String)
+            {
+                throw new ProteusException($"A data processor that expected a string input was called with an input of type '{lineData.ExtractedData.DataType}'!");
+            }
+        }
+
+        public static void ValidateSecondExtractedData(ParsedLine lineData)
+        {
+            if (lineData.SecondExtractedData == null)
+            {
+                throw new ProteusException("A data processor was called without the second extracted data!");
             }
         }
     }
