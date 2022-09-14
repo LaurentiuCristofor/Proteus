@@ -46,8 +46,8 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
             // Parse the column according to the data type parameter.
             //
-            DataTypeContainer columnData = new DataTypeContainer(this.Parameters.ColumnDataType);
-            if (!columnData.TryParseStringValue(columnString))
+            DataTypeContainer columnData = DataTypeContainer.TryParseStringValue(this.Parameters.ColumnDataType, columnString);
+            if (columnData == null)
             {
                 OutputInterface.LogWarning($"\nInvalid value for column {this.Parameters.ColumnNumber} of line {lineNumber}: {columnString}!");
                 return null;
@@ -61,8 +61,8 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
                 int secondColumnIndex = this.Parameters.SecondColumnNumber - 1;
                 string secondColumnString = columns[secondColumnIndex];
 
-                secondColumnData = new DataTypeContainer(this.Parameters.SecondColumnDataType);
-                if (!secondColumnData.TryParseStringValue(secondColumnString))
+                secondColumnData = DataTypeContainer.TryParseStringValue(this.Parameters.SecondColumnDataType, secondColumnString);
+                if (secondColumnData == null)
                 {
                     OutputInterface.LogWarning($"\nInvalid value for column {this.Parameters.SecondColumnNumber} of line {lineNumber}: {secondColumnString}!");
                     return null;

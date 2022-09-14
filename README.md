@@ -72,6 +72,7 @@ For detailed instructions on each specific command, execute:
 * SCBN - (S)elect (C)olumns (B)y (N)umber
 * SLBLS - (S)elect (L)ines (B)y (L)ine (S)tring
 * SLBCS - (S)elect (L)ines (B)y (C)olumn (S)tring
+* SLBCC - (S)elect (L)ines (B)y (C)olumn (C)ount
 
 #### SPLITTING commands
 

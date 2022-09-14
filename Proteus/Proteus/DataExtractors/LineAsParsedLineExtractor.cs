@@ -23,7 +23,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         {
             DataExtractorValidation.ValidateLine(line);
 
-            DataTypeContainer lineContainer = new DataTypeContainer(DataType.String, line);
+            DataTypeContainer lineContainer = new DataTypeContainer(line);
             ParsedLine lineParts = new ParsedLine(line, columnSeparator: null, columns: null, lineContainer, secondExtractedData: null, linePrefix: string.Empty, lineSuffix: string.Empty);
             return lineParts;
         }

@@ -241,6 +241,19 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $"{CabeiroConstants.Commands.Arguments.Descriptions.StringSelectionTypeText}");
             RegisterCommandDescription(commandDescription);
 
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.SelectLinesByColumnCount,
+                CommandCategory.Selection,
+                $"(S)elect (L)ines (B)y (C)olumn (C)ount",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ComparisonType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} [{CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument}]"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                "where:"
+                + $"{CabeiroConstants.Commands.Arguments.Descriptions.ComparisonTypeText}");
+            RegisterCommandDescription(commandDescription);
+
             // Splitting commands.
             //
             commandDescription = new CommandDescription(

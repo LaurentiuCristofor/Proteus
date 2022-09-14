@@ -49,17 +49,66 @@ namespace LaurentiuCristofor.Proteus.Common
         /// </summary>
         protected DateTime DateTimeValue { get; set; }
 
-        public DataTypeContainer(DataType dataType)
+        /// <summary>
+        /// String constructor.
+        /// </summary>
+        /// <param name="stringValue">Value to store.</param>
+        public DataTypeContainer(string stringValue)
         {
-            if (dataType == DataType.NotSet)
-            {
-                throw new ProteusException("An unset data type value was used with DataTypeContainer!");
-            }
-
-            this.DataType = dataType;
+            this.DataType = DataType.String;
+            this.StringValue = stringValue;
         }
 
-        public DataTypeContainer(DataType dataType, string stringValue)
+        /// <summary>
+        /// Integer constructor.
+        /// </summary>
+        /// <param name="integerValue">Value to store.</param>
+        public DataTypeContainer(int integerValue)
+        {
+            this.DataType = DataType.Integer;
+            this.IntegerValue = integerValue;
+            this.StringValue = integerValue.ToString();
+        }
+
+        /// <summary>
+        /// Unsigned integer constructor.
+        /// </summary>
+        /// <param name="unsignedIntegerValue">Value to store.</param>
+        public DataTypeContainer(ulong unsignedIntegerValue)
+        {
+            this.DataType = DataType.UnsignedInteger;
+            this.UnsignedIntegerValue = unsignedIntegerValue;
+            this.StringValue = unsignedIntegerValue.ToString();
+        }
+
+        /// <summary>
+        /// Double constructor.
+        /// </summary>
+        /// <param name="floatingPointValue">Value to store.</param>
+        public DataTypeContainer(double floatingPointValue)
+        {
+            this.DataType = DataType.FloatingPoint;
+            this.FloatingPointValue = floatingPointValue;
+            this.StringValue = floatingPointValue.ToString();
+        }
+
+        /// <summary>
+        /// DateTime constructor.
+        /// </summary>
+        /// <param name="dateTimeValue">Value to store.</param>
+        public DataTypeContainer(DateTime dateTimeValue)
+        {
+            this.DataType = DataType.DateTime;
+            this.DateTimeValue = dateTimeValue;
+            this.StringValue = dateTimeValue.ToString();
+        }
+
+        /// <summary>
+        /// Constructor that takes type as argument along a string representation of the data.
+        /// </summary>
+        /// <param name="dataType">The type of the data.</param>
+        /// <param name="stringValue">The string representation of the data.</param>
+        private DataTypeContainer(DataType dataType, string stringValue)
         {
             if (dataType == DataType.NotSet)
             {
@@ -126,41 +175,22 @@ namespace LaurentiuCristofor.Proteus.Common
         }
 
         /// <summary>
-        /// Sets and parses a new string value using the already set DataType.
-        /// </summary>
-        /// <param name="value">The value to set and parse.</param>
-        public void ParseStringValue(string value)
-        {
-            this.StringValue = value;
-
-            this.ParseStringValue();
-        }
-
-        /// <summary>
-        /// Variant of ParseStringValue that does not throw exceptions.
+        /// Attempts to construct a DataTypeContainer without throwing exceptions.
         /// </summary>
         /// <param name="value">The value to set and parse.</param>
         /// <returns>True if the value was successfully parsed; false otherwise.</returns>
-        public bool TryParseStringValue(string value)
+        public static DataTypeContainer TryParseStringValue(DataType dataType, string value)
         {
-            bool hasSucceeded = false;
-
-            // Store the old value, so we can restore it in case of failure.
-            //
-            string oldStringValue = this.StringValue;
-
             try
             {
-                this.StringValue = value;
-                this.ParseStringValue();
-                hasSucceeded = true;
+                DataTypeContainer container = new DataTypeContainer(dataType, value);
+                return container;
             }
             catch (ProteusException)
             {
-                this.StringValue = oldStringValue;
             }
 
-            return hasSucceeded;
+            return null;
         }
 
         /// <summary>
