@@ -310,7 +310,7 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByLineNumber))
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByNumber))
             {
                 const int minimumArgumentNumber = 4;
                 const int maximumArgumentNumber = 6;
@@ -322,7 +322,7 @@ namespace LaurentiuCristofor.Cabeiro
                     string outputFilePath;
                     ArgumentParser.ExtractLastArguments(operationInfo.Item2, 3, arguments, out firstArgument, out secondArgument, out outputFilePath);
 
-                    SelectLinesByLineNumber(
+                    SelectLinesByNumber(
                         arguments[1],
                         operationInfo.Item1, arguments[2],
                         firstArgument,
@@ -331,7 +331,7 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectColumnsByColumnNumber))
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectColumnsByNumber))
             {
                 const int minimumArgumentNumber = 5;
                 const int maximumArgumentNumber = 7;
@@ -344,7 +344,7 @@ namespace LaurentiuCristofor.Cabeiro
                     string outputFilePath;
                     ArgumentParser.ExtractLastArguments(operationInfo.Item2, 4, arguments, out firstArgument, out secondArgument, out outputFilePath);
 
-                    SelectColumnsByColumnNumber(
+                    SelectColumnsByNumber(
                         arguments[1],
                         columnSeparator,
                         operationInfo.Item1, arguments[3],
@@ -730,14 +730,14 @@ namespace LaurentiuCristofor.Cabeiro
             textFileProcessor.ProcessFile();
         }
 
-        private static void SelectLinesByLineNumber(
+        private static void SelectLinesByNumber(
             string filePath,
             PositionSelectionType selectionType, string selectionTypeString,
             string firstArgument,
             string secondArgument,
             string outputFilePath)
         {
-            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesByLineNumber}.{selectionTypeString.ToLower()}";
+            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesByNumber}.{selectionTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(filePath, outputFileExtension, firstArgument, secondArgument, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
@@ -756,7 +756,7 @@ namespace LaurentiuCristofor.Cabeiro
             textFileProcessor.ProcessFile();
         }
 
-        private static void SelectColumnsByColumnNumber(
+        private static void SelectColumnsByNumber(
             string filePath,
             string columnSeparator,
             PositionSelectionType selectionType, string selectionTypeString,
@@ -772,7 +772,7 @@ namespace LaurentiuCristofor.Cabeiro
                 columnNumber: 1,
                 DataType.String);
 
-            string outputFileExtension = $".{CabeiroConstants.Commands.SelectColumnsByColumnNumber}.{selectionTypeString.ToLower()}";
+            string outputFileExtension = $".{CabeiroConstants.Commands.SelectColumnsByNumber}.{selectionTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(filePath, outputFileExtension, firstArgument, secondArgument, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 

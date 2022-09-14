@@ -68,8 +68,8 @@ For detailed instructions on each specific command, execute:
 #### SELECTION commands
 
 * SLBCV - (S)elect (L)ines (B)y (C)olumn (V)alue
-* SLBLN - (S)elect (L)ines (B)y (L)ine (N)umber
-* SCBCN - (S)elect (C)olumns (B)y (C)olumn (N)umber
+* SLBN - (S)elect (L)ines (B)y (N)umber
+* SCBN - (S)elect (C)olumns (B)y (N)umber
 * SLBLS - (S)elect (L)ines (B)y (L)ine (S)tring
 * SLBCS - (S)elect (L)ines (B)y (C)olumn (S)tring
 

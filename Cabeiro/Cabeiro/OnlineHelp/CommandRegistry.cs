@@ -191,9 +191,9 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
-                CabeiroConstants.Commands.SelectLinesByLineNumber,
+                CabeiroConstants.Commands.SelectLinesByNumber,
                 CommandCategory.Selection,
-                $"(S)elect (L)ines (B)y (L)ine (N)umber",
+                $"(S)elect (L)ines (B)y (N)umber",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.SelectionType}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} [{CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument}]"
@@ -203,9 +203,9 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
-                CabeiroConstants.Commands.SelectColumnsByColumnNumber,
+                CabeiroConstants.Commands.SelectColumnsByNumber,
                 CommandCategory.Selection,
-                $"(S)elect (C)olumns (B)y (C)olumn (N)umber",
+                $"(S)elect (C)olumns (B)y (N)umber",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.SelectionType}"

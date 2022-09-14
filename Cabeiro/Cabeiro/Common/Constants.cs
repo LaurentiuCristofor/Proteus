@@ -63,8 +63,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string InsertLine = "il";
 
             public const string SelectLinesByColumnValue = "slbcv";
-            public const string SelectLinesByLineNumber = "slbln";
-            public const string SelectColumnsByColumnNumber = "scbcn";
+            public const string SelectLinesByNumber = "slbn";
+            public const string SelectColumnsByNumber = "scbn";
             public const string SelectLinesByLineString = "slbls";
             public const string SelectLinesByColumnString = "slbcs";
 
