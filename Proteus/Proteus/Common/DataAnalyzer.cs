@@ -15,12 +15,12 @@ namespace LaurentiuCristofor.Proteus.Common
         /// <summary>
         /// Tracks the number of times we have seen each data.
         /// </summary>
-        public Dictionary<DataTypeContainer, ulong> MapDataCounters { get; protected set; }
+        protected Dictionary<DataTypeContainer, ulong> MapDataToCount { get; set; }
 
         /// <summary>
         /// Offers a view of the data, ordered by count of instances encountered.
         /// </summary>
-        public List<Tuple<ulong, DataTypeContainer>> ListCountedData { get; protected set; }
+        protected List<Tuple<ulong, DataTypeContainer>> ListCountedData { get; set; }
 
         /// <summary>
         /// The total number of data instances analyzed.
@@ -59,7 +59,7 @@ namespace LaurentiuCristofor.Proteus.Common
 
         public DataAnalyzer()
         {
-            this.MapDataCounters = new Dictionary<DataTypeContainer, ulong>();
+            this.MapDataToCount = new Dictionary<DataTypeContainer, ulong>();
         }
 
         /// <summary>
@@ -72,15 +72,15 @@ namespace LaurentiuCristofor.Proteus.Common
 
             // Create a map entry if one doesn't already exist.
             //
-            if (!this.MapDataCounters.ContainsKey(data))
+            if (!this.MapDataToCount.ContainsKey(data))
             {
-                this.MapDataCounters.Add(data, 0);
+                this.MapDataToCount.Add(data, 0);
                 this.UniqueDataCount++;
             }
 
             // Count data.
             //
-            this.MapDataCounters[data] += 1;
+            this.MapDataToCount[data] += 1;
 
             // Check if we need to update maximum data.
             //
@@ -128,9 +128,9 @@ namespace LaurentiuCristofor.Proteus.Common
                 throw new ProteusException($"DataAnalyzer::PostProcessAnalyzedData() should not be called more than once!");
             }
 
-            if ((ulong)this.MapDataCounters.Keys.Count != this.UniqueDataCount)
+            if ((ulong)this.MapDataToCount.Keys.Count != this.UniqueDataCount)
             {
-                throw new ProteusException($"Internal error: the number of tracked values {this.MapDataCounters.Keys.Count} does not match the unique data count {this.UniqueDataCount}!");
+                throw new ProteusException($"Internal error: the number of tracked values {this.MapDataToCount.Keys.Count} does not match the unique data count {this.UniqueDataCount}!");
             }
 
             // If there is no data, we're done.
@@ -148,9 +148,9 @@ namespace LaurentiuCristofor.Proteus.Common
 
             // Collect our data into the list and also compute its entropy.
             //
-            foreach (DataTypeContainer data in this.MapDataCounters.Keys)
+            foreach (DataTypeContainer data in this.MapDataToCount.Keys)
             {
-                ulong dataCount = this.MapDataCounters[data];
+                ulong dataCount = this.MapDataToCount[data];
 
                 this.ListCountedData.Add(new Tuple<ulong, DataTypeContainer>(dataCount, data));
 

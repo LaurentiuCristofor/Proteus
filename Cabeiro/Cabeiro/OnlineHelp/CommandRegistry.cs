@@ -253,6 +253,16 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 null);
             RegisterCommandDescription(commandDescription);
 
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.ExtractColumns,
+                CommandCategory.Extraction,
+                $"E(X)tract (C)olumns",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                null);
+            RegisterCommandDescription(commandDescription);
+
             // PostSorting commands.
             //
             commandDescription = new CommandDescription(

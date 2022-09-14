@@ -419,6 +419,25 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.ExtractColumns))
+            {
+                const int minimumArgumentNumber = 3;
+                const int maximumArgumentNumber = 4;
+                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
+                {
+                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[2]);
+                    string firstArgument;
+                    string secondArgument;
+                    string outputFilePath;
+                    ArgumentParser.ExtractLastArguments(0, 3, arguments, out firstArgument, out secondArgument, out outputFilePath);
+
+                    ExtractColumns(
+                        arguments[1],
+                        columnSeparator,
+                        outputFilePath);
+                    return;
+                }
+            }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SortBySecondColumnValue))
             {
                 const int minimumArgumentNumber = 7;
@@ -838,6 +857,42 @@ namespace LaurentiuCristofor.Cabeiro
                 = new TextFileProcessor<LineExtractor, UnusedType, string, LineRangeExtractProcessor, UnsignedIntegerAndStringParameters>(
                     filePath,
                     null,
+                    processingParameters);
+
+            textFileProcessor.ProcessFile();
+        }
+
+        private static void ExtractColumns(
+            string filePath,
+            string columnSeparator,
+            string outputFilePath)
+        {
+            // We need a successful column extraction to extract all columns,
+            // so we'll just ask to extract the first column value, which must always exist if there is any data in the line.
+            //
+            ColumnExtractionParameters extractionParameters = new ColumnExtractionParameters(
+                columnSeparator,
+                columnNumber: 1,
+                DataType.String,
+                constructLinePrefixAndSuffix: false);
+
+            // The file name will be bundled by the processor with the number of each column, so we exclude the text extension from it;
+            // it will get appended by the processor internally.
+            //
+            string outputFileExtension = $".{CabeiroConstants.Commands.ExtractColumns}";
+            var filePathBuilder = new FilePathBuilder(filePath, outputFileExtension, firstArgument: null, secondArgument: null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath(excludeTextExtension: true);
+
+            // The file extension is needed because the processor will need to append it for each file it creates.
+            //
+            StringParameters processingParameters = new StringParameters(
+                outputFilePath,
+                CabeiroConstants.Files.Extensions.Txt);
+
+            var textFileProcessor
+                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, ColumnExtractProcessor, StringParameters>(
+                    filePath,
+                    extractionParameters,
                     processingParameters);
 
             textFileProcessor.ProcessFile();
