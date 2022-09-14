@@ -241,6 +241,18 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $"{CabeiroConstants.Commands.Arguments.Descriptions.StringSelectionTypeText}");
             RegisterCommandDescription(commandDescription);
 
+            // Extraction commands.
+            //
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.ExtractLineRanges,
+                CommandCategory.Extraction,
+                $"E(X)tract (L)ine (R)anges",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.RangeSize}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                null);
+            RegisterCommandDescription(commandDescription);
+
             // PostSorting commands.
             //
             commandDescription = new CommandDescription(

@@ -66,7 +66,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
         /// </summary>
         /// <param name="argument">The argument value to process.</param>
         /// <param name="acceptZero">Whether a zero value is accepted.</param>
-        /// <returns>An integer value indicating the column number or an exception if the value is not a valid column number.</returns>
+        /// <returns>An integer value or an exception if the value is not a valid integer.</returns>
         public static int GetPositiveInteger(string argument, bool acceptZero = false)
         {
             int argumentValue = int.Parse(argument);
@@ -79,6 +79,24 @@ namespace LaurentiuCristofor.Cabeiro.Common
             if (!acceptZero && argumentValue == 0)
             {
                 throw new CabeiroException("A non-zero integer value was expected!");
+            }
+
+            return argumentValue;
+        }
+
+        /// <summary>
+        /// Interprets an argument as an unsigned long integer value.
+        /// </summary>
+        /// <param name="argument">The argument value to process.</param>
+        /// <param name="acceptZero">Whether a zero value is accepted.</param>
+        /// <returns>An unsigned long integer value or an exception if the value is not a valid unsigned long integer.</returns>
+        public static ulong GetUnsignedLongInteger(string argument, bool acceptZero = false)
+        {
+            ulong argumentValue = ulong.Parse(argument);
+
+            if (!acceptZero && argumentValue == 0)
+            {
+                throw new CabeiroException("A non-zero unsigned long integer value was expected!");
             }
 
             return argumentValue;
@@ -135,7 +153,6 @@ namespace LaurentiuCristofor.Cabeiro.Common
         {
             firstArgument = null;
             secondArgument = null;
-            outputFilePath = null;
 
             if (expectedOperationArguments >= 1)
             {

@@ -59,19 +59,19 @@ namespace LaurentiuCristofor.Proteus.Common
                 case StringSelectionType.NotEndsWith:
                 case StringSelectionType.Equals:
                 case StringSelectionType.NotEquals:
-                    ArgumentChecker.CheckPresenceAndNotEmpty(this.FirstArgument);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstArgument);
                     break;
 
                 case StringSelectionType.IsDemarked:
                 case StringSelectionType.IsNotDemarked:
-                    ArgumentChecker.CheckPresenceAndNotEmpty(this.FirstArgument);
-                    ArgumentChecker.CheckPresenceAndNotEmpty(this.SecondArgument);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstArgument);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(this.SecondArgument);
                     break;
 
                 case StringSelectionType.HasLengthBetween:
                 case StringSelectionType.HasLengthNotBetween:
-                    ArgumentChecker.CheckPresence(this.FirstArgument);
-                    ArgumentChecker.CheckPresence(this.SecondArgument);
+                    ArgumentChecker.CheckNotNull(this.FirstArgument);
+                    ArgumentChecker.CheckNotNull(this.SecondArgument);
 
                     this.FirstArgumentAsInt = int.Parse(this.FirstArgument);
                     this.SecondArgumentAsInt = int.Parse(this.SecondArgument);

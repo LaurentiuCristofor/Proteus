@@ -69,12 +69,12 @@ namespace LaurentiuCristofor.Proteus.Common
                 case StringEditType.DeleteContentAfterMarker:
                 case StringEditType.KeepContentBeforeMarker:
                 case StringEditType.KeepContentAfterMarker:
-                    ArgumentChecker.CheckPresenceAndNotEmpty(firstArgument);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(firstArgument);
                     break;
 
                 case StringEditType.ReplaceContent:
-                    ArgumentChecker.CheckPresenceAndNotEmpty(firstArgument);
-                    ArgumentChecker.CheckPresence(secondArgument);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(firstArgument);
+                    ArgumentChecker.CheckNotNull(secondArgument);
                     break;
 
                 case StringEditType.InsertContentBeforeMarker:
@@ -82,15 +82,15 @@ namespace LaurentiuCristofor.Proteus.Common
                 case StringEditType.DeleteContentBetweenMarkers:
                 case StringEditType.KeepContentBetweenMarkers:
                 case StringEditType.KeepContentOutsideMarkers:
-                    ArgumentChecker.CheckPresenceAndNotEmpty(firstArgument);
-                    ArgumentChecker.CheckPresenceAndNotEmpty(secondArgument);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(firstArgument);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(secondArgument);
                     break;
 
                 case StringEditType.DeleteFirstCharacters:
                 case StringEditType.DeleteLastCharacters:
                 case StringEditType.KeepFirstCharacters:
                 case StringEditType.KeepLastCharacters:
-                    ArgumentChecker.CheckPresence(firstArgument);
+                    ArgumentChecker.CheckNotNull(firstArgument);
 
                     this.FirstArgumentAsInt = int.Parse(firstArgument);
 
@@ -99,8 +99,8 @@ namespace LaurentiuCristofor.Proteus.Common
 
                 case StringEditType.DeleteContentAtIndex:
                 case StringEditType.KeepContentAtIndex:
-                    ArgumentChecker.CheckPresence(firstArgument);
-                    ArgumentChecker.CheckPresence(secondArgument);
+                    ArgumentChecker.CheckNotNull(firstArgument);
+                    ArgumentChecker.CheckNotNull(secondArgument);
 
                     this.FirstArgumentAsInt = int.Parse(firstArgument);
                     this.SecondArgumentAsInt = int.Parse(secondArgument);
@@ -110,8 +110,8 @@ namespace LaurentiuCristofor.Proteus.Common
                     break;
 
                 case StringEditType.InsertContentAtIndex:
-                    ArgumentChecker.CheckPresenceAndNotEmpty(firstArgument);
-                    ArgumentChecker.CheckPresence(secondArgument);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(firstArgument);
+                    ArgumentChecker.CheckNotNull(secondArgument);
 
                     this.SecondArgumentAsInt = int.Parse(secondArgument);
 

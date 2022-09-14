@@ -13,7 +13,7 @@ namespace LaurentiuCristofor.Proteus.Common
     /// </summary>
     internal abstract class ArgumentChecker
     {
-        internal static void CheckPresence(string argument)
+        internal static void CheckNotNull(string argument)
         {
             if (argument == null)
             {
@@ -21,7 +21,7 @@ namespace LaurentiuCristofor.Proteus.Common
             }
         }
 
-        internal static void CheckPresenceAndNotEmpty(string argument)
+        internal static void CheckNotNullAndNotEmpty(string argument)
         {
             if (String.IsNullOrEmpty(argument))
             {

@@ -311,7 +311,7 @@ namespace LaurentiuCristofor.Proteus.Common
         /// <returns>True if the comparison holds; false otherwise.</returns>
         protected bool ThresholdCompare(ComparisonType comparisonType, string thresholdArgument)
         {
-            ArgumentChecker.CheckPresence(thresholdArgument);
+            ArgumentChecker.CheckNotNull(thresholdArgument);
             DataTypeContainer otherContainer = new DataTypeContainer(this.DataType, thresholdArgument);
             int comparisonResult = this.CompareTo(otherContainer);
 
@@ -349,8 +349,8 @@ namespace LaurentiuCristofor.Proteus.Common
         /// <returns>True if the comparison holds; false otherwise.</returns>
         protected bool ThresholdCompare(ComparisonType comparisonType, string firstThreshold, string secondThreshold)
         {
-            ArgumentChecker.CheckPresence(firstThreshold);
-            ArgumentChecker.CheckPresence(secondThreshold);
+            ArgumentChecker.CheckNotNull(firstThreshold);
+            ArgumentChecker.CheckNotNull(secondThreshold);
             DataTypeContainer lowerBoundContainer = new DataTypeContainer(this.DataType, firstThreshold);
             DataTypeContainer upperBoundContainer = new DataTypeContainer(this.DataType, secondThreshold);
             int lowerBoundComparisonResult = this.CompareTo(lowerBoundContainer);

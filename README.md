@@ -73,6 +73,10 @@ For detailed instructions on each specific command, execute:
 * SLBLS - (S)elect (L)ines (B)y (L)ine (S)tring
 * SLBCS - (S)elect (L)ines (B)y (C)olumn (S)tring
 
+#### EXTRACTION commands
+
+ * XLR - E(X)tract (L)ine (R)anges
+
 #### POST_SORTING commands
 
 * SB2CV - (S)ort file (B)y (2)nd (C)olumn (V)alue

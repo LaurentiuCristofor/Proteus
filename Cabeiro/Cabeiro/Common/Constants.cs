@@ -68,6 +68,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string SelectLinesByLineString = "slbls";
             public const string SelectLinesByColumnString = "slbcs";
 
+            public const string ExtractLineRanges = "xlr";
+
             public const string SortBySecondColumnValue = "sb2cv";
 
             // Command notes.
@@ -176,6 +178,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                     public const string SecondaryColumnNumber = "<secondary_column_number>";
                     public const string SecondaryColumnDataType = "<secondary_column_data_type>";
                     public const string LineValue = "<line_value>";
+                    public const string RangeSize = "<range_size>";
 
                     public static readonly string DataTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.DataType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.DataTypeString}' = string"

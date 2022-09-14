@@ -80,7 +80,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
         /// Builds the output file path and returns it.
         /// </summary>
         /// <returns>The output file path.</returns>
-        public virtual string BuildOutputFilePath()
+        public virtual string BuildOutputFilePath(bool excludeTextExtension = false)
         {
             // Just in case we get called repeatedly,
             // check to avoid redundant processing.
@@ -103,7 +103,10 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
             // Append final extension.
             //
-            this.OutputFileExtension += Constants.Files.Extensions.Txt;
+            if (!excludeTextExtension)
+            {
+                this.OutputFileExtension += Constants.Files.Extensions.Txt;
+            }
 
             // Build the output path.
             //

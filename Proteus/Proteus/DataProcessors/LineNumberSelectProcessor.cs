@@ -52,7 +52,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 case NumberSelectionType.NotLast:
                 case NumberSelectionType.Each:
                 case NumberSelectionType.NotEach:
-                    ArgumentChecker.CheckPresence(this.Parameters.FirstArgument);
+                    ArgumentChecker.CheckNotNull(this.Parameters.FirstArgument);
 
                     this.FirstArgumentAsULong = ulong.Parse(this.Parameters.FirstArgument);
 
@@ -61,8 +61,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case NumberSelectionType.Between:
                 case NumberSelectionType.NotBetween:
-                    ArgumentChecker.CheckPresence(this.Parameters.FirstArgument);
-                    ArgumentChecker.CheckPresence(this.Parameters.SecondArgument);
+                    ArgumentChecker.CheckNotNull(this.Parameters.FirstArgument);
+                    ArgumentChecker.CheckNotNull(this.Parameters.SecondArgument);
 
                     this.FirstArgumentAsULong = ulong.Parse(this.Parameters.FirstArgument);
                     this.SecondArgumentAsULong = ulong.Parse(this.Parameters.SecondArgument);

@@ -18,6 +18,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
         Ordering = 3,
         Editing = 4,
         Selection = 5,
-        Post_Sorting = 6,
+        Extraction = 6,
+        Post_Sorting = 7,
     }
 }

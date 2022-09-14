@@ -42,8 +42,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case NumberInsertionType.Position:
                 case NumberInsertionType.Each:
-                    ArgumentChecker.CheckPresenceAndNotEmpty(this.Parameters.FirstArgument);
-                    ArgumentChecker.CheckPresence(this.Parameters.SecondArgument);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.FirstArgument);
+                    ArgumentChecker.CheckNotNull(this.Parameters.SecondArgument);
 
                     this.SecondArgumentAsULong = ulong.Parse(this.Parameters.SecondArgument);
 
