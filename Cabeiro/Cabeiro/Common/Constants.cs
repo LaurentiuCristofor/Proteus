@@ -79,11 +79,31 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
             public const string SortBySecondColumnValue = "sb2cv";
 
+            // Command descriptions.
+            //
+            public abstract class Descriptions
+            {
+                public const string Invert = "Inverts the order of the lines of the input file, making the last line become the first one.";
+
+                public const string AnalyzeLines = "Produces a report about the line values.";
+                public const string AnalyzeColumnValues = "Produces a report about a specified column's values.";
+
+                public const string SelectLinesByColumnValue = "Selects lines by comparing a column's value against specified arguments.";
+                public const string SelectLinesByLineString = "Selects lines based on their string value matching specified properties.";
+                public const string SelectLinesByColumnString = "Selects lines based on a column's string value matching specified properties.";
+                public const string SelectLinesHandlingDuplicateContent = "Selects lines handling duplicate lines as specified.";
+                public const string SelectLinesHandlingDuplicateColumnValues = "Selects lines handling lines with duplicate column values as specified.";
+
+                public const string SplitLineRanges = "Splits a file into multiple files, each containing a range of lines of specified size. Last file will likely have fewer lines than the rest.";
+                public const string SplitColumns = "Splits a file into multiple files, one for each column. Resulting files may have different size than the original file, if the original file contained lines with varying number of columns.";
+                public const string SplitColumnValues = "Splits a file into multiple files, one for each different value taken by a specified column. Lines that do not have the specified column present are collected in output file \"0\".";
+            }
+
             // Command notes.
             //
             public abstract class Notes
             {
-                public const string ConsoleOutput = "\n\nThis command outputs to the console instead of writing to a file.";
+                public const string ConsoleOutput = "This command outputs to the console instead of writing to a file.\n";
             }
 
             // Command argument strings.
@@ -182,7 +202,6 @@ namespace LaurentiuCristofor.Cabeiro.Common
                     public const string ColumnSeparator = "<column_separator>";
                     public const string FirstArgument = "<first_argument>";
                     public const string SecondArgument = "<second_argument>";
-                    public const string DataType = "<data_type>";
                     public const string PrimaryColumnNumber = "<primary_column_number>";
                     public const string PrimaryColumnDataType = "<primary_column_data_type>";
                     public const string SecondaryColumnNumber = "<secondary_column_number>";
@@ -190,17 +209,25 @@ namespace LaurentiuCristofor.Cabeiro.Common
                     public const string LineValue = "<line_value>";
                     public const string RangeSize = "<range_size>";
 
-                    public static readonly string DataTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.DataType} can take the values:"
+                    public static readonly string HelpCategoriesText = $"{CommandName} will produce detailed information on the specified command."
+                        + $"\n\n'{Commands.Arguments.All}' will list all available commands."
+                        + $"\n\n'{Commands.Arguments.Categories}' will list all command categories."
+                        + $"\n\n'{Commands.Arguments.Category}' will list all commands in the {Commands.Arguments.Descriptions.CategoryName} category."
+                        + "\n";
+
+                    public const string DataType = "<data_type>";
+
+                    public static readonly string DataTypeText = $"{Constants.Commands.Arguments.Descriptions.DataType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.DataTypeString}' = string"
                         + $"\n\t- '{Constants.Commands.Arguments.DataTypeInteger}' = (signed) integer"
                         + $"\n\t- '{Constants.Commands.Arguments.DataTypeUnsignedInteger}' = unsigned integer"
                         + $"\n\t- '{Constants.Commands.Arguments.DataTypeFloatingPoint}' = floating point"
                         + $"\n\t- '{Constants.Commands.Arguments.DataTypeDateTime}' = datetime"
-                        ;
+                        + "\n";
 
                     public const string ComparisonType = "<comparison_type>";
 
-                    public static readonly string ComparisonTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.ComparisonType} can take the values:"
+                    public static readonly string ComparisonTypeText = $"{Constants.Commands.Arguments.Descriptions.ComparisonType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonLessThan}' = less than; arguments: <value>"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonLessThanOrEqual}' = less than or equal; arguments: <value>"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonEqual}' = equal; arguments: <value>"
@@ -211,35 +238,35 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonStrictlyBetween}' = strictly between; arguments: <start_value> <end_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonNotBetween}' = not between; arguments: <start_value> <end_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonNotStrictlyBetween}' = not strictly between; arguments: <start_value> <end_value>"
-                        ;
+                        + "\n";
 
                     public const string SelectionType = "<selection_type>";
 
-                    public static readonly string PositionSelectionTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
+                    public static readonly string PositionSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionBetween}' = between; arguments: <start_value> <end_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionNotBetween}' = not between; arguments: <start_value> <end_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionLast}' = last; arguments: <last_count>"
                         + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionNotLast}' = not last; arguments: <last_count>"
                         + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionEach}' = each; arguments: <each_count>"
                         + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionNotEach}' = not each; arguments: <each_count>"
-                        ;
+                        + "\n";
 
                     public const string InsertionType = "<insertion_type>";
 
-                    public static readonly string PositionInsertionTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.InsertionType} can take the values:"
+                    public static readonly string PositionInsertionTypeText = $"{Constants.Commands.Arguments.Descriptions.InsertionType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionPosition}' = position; arguments: <line_number>"
                         + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionEach}' = each; arguments: <each_count>"
                         + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionLast}' = last"
-                        ;
+                        + "\n";
 
                     public const string HandlingType = "<handling_type>";
 
-                    public static readonly string DuplicateHandlingTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.HandlingType} can take the values:"
+                    public static readonly string DuplicateHandlingTypeText = $"{Constants.Commands.Arguments.Descriptions.HandlingType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.DuplicateHandlingExclude}' = exclude duplicates only"
                         + $"\n\t- '{Constants.Commands.Arguments.DuplicateHandlingInclude}' = include duplicates only"
-                        ;
+                        + "\n";
 
-                    public static readonly string StringSelectionTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
+                    public static readonly string StringSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionHasLengthBetween}' = has length between; arguments: <start_value> <end_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionHasLengthNotBetween}' = has length not between; arguments: <start_value> <end_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionIncludes}' = includes; arguments: <string_value>"
@@ -252,11 +279,11 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionIsNotDemarked}' = is not demarked; arguments: <prefix_value> <suffix_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionEquals}' = equals; arguments: <string_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionNotEquals}' = not equals; arguments: <string_value>"
-                        ;
+                        + "\n";
 
                     public const string EditType = "<edit_type>";
 
-                    public static readonly string EditTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.EditType} can take the values:"
+                    public static readonly string EditTypeText = $"{Constants.Commands.Arguments.Descriptions.EditType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeRewrite}' = rewrite"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeUppercase}' = uppercase"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeLowercase}' = lowercase"
@@ -286,11 +313,11 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeDeleteContentBetweenMarkers}' = delete content between markers; arguments: <first_marker> <second_marker>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentBetweenMarkers}' = keep content between markers; arguments: <first_marker> <second_marker>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentOutsideMarkers}' = keep content outside markers; arguments: <first_marker> <second_marker>"
-                        ;
+                        + "\n";
 
                     public const string LimitValues = "<limit_values>";
 
-                    public static readonly string LimitValuesText = $"\n\n{Constants.Commands.Arguments.Descriptions.LimitValues} specifies how many values should be presented from the most frequent and least frequent sets of values; set this value to 0 if you want the command to produce a dump of all unique values encountered.";
+                    public static readonly string LimitValuesText = $"{Constants.Commands.Arguments.Descriptions.LimitValues} specifies how many values should be presented from the most frequent and least frequent sets of values; set this value to 0 if you want the command to produce a dump of all unique values encountered.\n";
                 }
             }
         }

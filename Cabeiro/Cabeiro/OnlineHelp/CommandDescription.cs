@@ -28,7 +28,12 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
         /// <summary>
         /// A short description of the command.
         /// </summary>
-        public string Description { get; set; }
+        public string ShortDescription { get; set; }
+
+        /// <summary>
+        /// A longer description of the command, optional.
+        /// </summary>
+        public string LongDescription { get; set; }
 
         /// <summary>
         /// A description of the command's arguments.
@@ -36,14 +41,15 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
         public string Arguments { get; set; }
 
         /// <summary>
-        /// Additional notes on the command or its arguments.
+        /// Additional notes on the command or its arguments, optional.
         /// </summary>
         public string Notes { get; set; }
 
         public CommandDescription(
             string command,
             CommandCategory category,
-            string description,
+            string shortDescription,
+            string longDescription,
             string arguments,
             string notes)
         {
@@ -57,9 +63,9 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 throw new CabeiroException("Internal error: invalid (unset) category for CommandDescription!");
             }
 
-            if (string.IsNullOrWhiteSpace(description))
+            if (string.IsNullOrWhiteSpace(shortDescription))
             {
-                throw new CabeiroException($"Internal error: invalid description string for CommandDescription: {description}");
+                throw new CabeiroException($"Internal error: invalid short description string for CommandDescription: {shortDescription}");
             }
 
             if (string.IsNullOrWhiteSpace(arguments))
@@ -69,7 +75,8 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
 
             Command = command;
             Category = category;
-            Description = description;
+            ShortDescription = shortDescription;
+            LongDescription = longDescription;
             Arguments = arguments;
             Notes = notes;
         }
@@ -83,13 +90,18 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
 
             Console.WriteLine($"Category: {Category.ToString()}\n");
 
-            Console.WriteLine($"Description:\n\n\t{Description}\n");
+            Console.WriteLine($"Description:\n\n\t{ShortDescription}\n");
+
+            if (!String.IsNullOrEmpty(LongDescription))
+            {
+                Console.WriteLine($"{LongDescription}\n");
+            }
 
             Console.WriteLine($"Arguments:\n\n\t{Arguments}\n");
 
             if (!string.IsNullOrWhiteSpace(Notes))
             {
-                Console.WriteLine($"{Notes}");
+                Console.WriteLine($"Notes:\n\n{Notes}");
             }
         }
     }
