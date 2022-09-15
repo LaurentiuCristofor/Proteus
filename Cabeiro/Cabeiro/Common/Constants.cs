@@ -19,9 +19,11 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
             public const string Copyright = "(c) Laurentiu Cristofor";
 
+            public const string Url = "https://github.com/LaurentiuCristofor/Proteus";
+
             public const string License = "This software is made available under the MIT license. Do not use it if you have not received an associated LICENSE file.";
 
-            public static readonly string Description = $"{Constants.Program.Copyright}\n\n{Constants.Program.License}"
+            public static readonly string Description = $"{Constants.Program.Copyright}\n{Constants.Program.Url}\n\n{Constants.Program.License}"
                 + $"\n\nGeneral command syntax:\n\n\t{Constants.Program.Name} <command_name> [<command_arguments>]"
                 + $"\n\nUseful notes:\n\n"
                 + $"\t(1) Command names and arguments are case-insensitive.\n"
