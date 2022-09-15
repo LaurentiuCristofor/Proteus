@@ -309,7 +309,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid number selection type argument: {argument}!");
+                throw new CabeiroException($"Invalid position selection type argument: {argument}!");
             }
         }
 
@@ -336,7 +336,30 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid number insertion type argument: {argument}!");
+                throw new CabeiroException($"Invalid position insertion type argument: {argument}!");
+            }
+        }
+
+        /// <summary>
+        /// Parses argument value as a DuplicateHandlingType indicator.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the DuplicateHandlingType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<DuplicateHandlingType, int> ParseDuplicateHandlingType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.DuplicateHandlingExclude))
+            {
+                return new Tuple<DuplicateHandlingType, int>(DuplicateHandlingType.Exclude, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.DuplicateHandlingInclude))
+            {
+                return new Tuple<DuplicateHandlingType, int>(DuplicateHandlingType.Include, 0);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid duplicate handling type argument: {argument}!");
             }
         }
 

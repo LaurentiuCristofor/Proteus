@@ -4,7 +4,6 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System.Collections.Generic;
 using LaurentiuCristofor.Proteus.Common;
 using LaurentiuCristofor.Proteus.FileOperations;
 

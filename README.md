@@ -73,6 +73,8 @@ For detailed instructions on each specific command, execute:
 * SLBLS - (S)elect (L)ines (B)y (L)ine (S)tring
 * SLBCS - (S)elect (L)ines (B)y (C)olumn (S)tring
 * SLBCC - (S)elect (L)ines (B)y (C)olumn (C)ount
+* SLHDC - (S)elect (L)ines (H)andling (D)uplicate (C)ontent
+* SLHDCV - (S)elect (L)ines (H)andling (D)uplicate (C)olumn (V)alues
 
 #### SPLITTING commands
 

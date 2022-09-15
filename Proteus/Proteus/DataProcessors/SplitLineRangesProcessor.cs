@@ -4,7 +4,6 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System.Collections.Generic;
 using LaurentiuCristofor.Proteus.Common;
 using LaurentiuCristofor.Proteus.FileOperations;
 
@@ -13,7 +12,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that splits ranges of lines into their own files.
     /// </summary>
-    public class SplitLineRangeProcessor : BaseOutputProcessor, IDataProcessor<StringAndUnsignedIntegerParameters, string>
+    public class SplitLineRangesProcessor : BaseOutputProcessor, IDataProcessor<StringAndUnsignedIntegerParameters, string>
     {
         /// <summary>
         /// Parameters of this operation.

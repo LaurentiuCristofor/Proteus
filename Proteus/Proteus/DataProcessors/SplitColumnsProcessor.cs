@@ -16,7 +16,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that splits each column into its own file.
     /// </summary>
-    public class SplitColumnProcessor : BaseOutputProcessor, IDataProcessor<StringParameters, ParsedLine>
+    public class SplitColumnsProcessor : BaseOutputProcessor, IDataProcessor<StringParameters, ParsedLine>
     {
         /// <summary>
         /// Parameters of this operation.

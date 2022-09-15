@@ -254,6 +254,30 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $"{CabeiroConstants.Commands.Arguments.Descriptions.ComparisonTypeText}");
             RegisterCommandDescription(commandDescription);
 
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.SelectLinesHandlingDuplicateContent,
+                CommandCategory.Selection,
+                $"(S)elect (L)ines (H)andling (D)uplicate (C)ontent",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.HandlingType}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                "where:"
+                + $"{CabeiroConstants.Commands.Arguments.Descriptions.DuplicateHandlingTypeText}");
+            RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.SelectLinesHandlingDuplicateColumnValues,
+                CommandCategory.Selection,
+                $"(S)elect (L)ines (H)andling (D)uplicate (C)olumn (V)alues",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.HandlingType}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                "where:"
+                + $"{CabeiroConstants.Commands.Arguments.Descriptions.DuplicateHandlingTypeText}");
+            RegisterCommandDescription(commandDescription);
+
             // Splitting commands.
             //
             commandDescription = new CommandDescription(

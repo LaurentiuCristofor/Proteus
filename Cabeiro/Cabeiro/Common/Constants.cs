@@ -68,6 +68,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string SelectLinesByLineString = "slbls";
             public const string SelectLinesByColumnString = "slbcs";
             public const string SelectLinesByColumnCount = "slbcc";
+            public const string SelectLinesHandlingDuplicateContent = "slhdc";
+            public const string SelectLinesHandlingDuplicateColumnValues = "slhdcv";
 
             public const string SplitLineRanges = "splr";
             public const string SplitColumns = "spc";
@@ -132,6 +134,9 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string StringSelectionIsNotDemarked = "nmark";
                 public const string StringSelectionEquals = "eq";
                 public const string StringSelectionNotEquals = "neq";
+
+                public const string DuplicateHandlingExclude = "excl";
+                public const string DuplicateHandlingInclude = "incl";
 
                 public const string StringEditTypeRewrite = "rw";
                 public const string StringEditTypeUppercase = "uc";
@@ -223,6 +228,13 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionPosition}' = position; arguments: <line_number>"
                         + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionEach}' = each; arguments: <each_count>"
                         + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionLast}' = last"
+                        ;
+
+                    public const string HandlingType = "<handling_type>";
+
+                    public static readonly string DuplicateHandlingTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.HandlingType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.DuplicateHandlingExclude}' = exclude duplicates only"
+                        + $"\n\t- '{Constants.Commands.Arguments.DuplicateHandlingInclude}' = include duplicates only"
                         ;
 
                     public static readonly string StringSelectionTypeText = $"\n\n{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
