@@ -16,11 +16,11 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
     /// <summary>
     /// The core template for processing a single file using a data extractor and a data processor.
     /// </summary>
-    /// <typeparam name="TDataExtractor">The data extractor will be applied to each row to produce the processing input.</typeparam>
-    /// <typeparam name="TExtractionParameters">These define the parameters of the data extraction operation.</typeparam>
+    /// <typeparam name="TDataExtractor">The type of data extractor that will be applied to each row to produce the processing input.</typeparam>
+    /// <typeparam name="TExtractionParameters">The type of parameters of the data extraction operation.</typeparam>
     /// <typeparam name="TData">The type of data that is produced by the extractor to be processed by the processor.</typeparam>
-    /// <typeparam name="TDataProcessor">The data processor will process the input data and may also generate additional output.</typeparam>
-    /// <typeparam name="TProcessingParameters">These define the parameters of the processing operation.</typeparam>
+    /// <typeparam name="TDataProcessor">The type of data processor that will process the extracted data.</typeparam>
+    /// <typeparam name="TProcessingParameters">The type of parameters of the processing operation.</typeparam>
     public class TextFileProcessor<TDataExtractor, TExtractionParameters, TData, TDataProcessor, TProcessingParameters>
         where TDataExtractor : IDataExtractor<TExtractionParameters, TData>, new()
         where TDataProcessor : IDataProcessor<TProcessingParameters, TData>, new()

@@ -16,7 +16,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// <summary>
         /// Initializes the processor with specific processing parameters.
         /// </summary>
-        /// <param name="processingParameters"></param>
+        /// <param name="processingParameters">The parameters for the processing.</param>
         void Initialize(TProcessingParameters processingParameters);
 
         /// <summary>
