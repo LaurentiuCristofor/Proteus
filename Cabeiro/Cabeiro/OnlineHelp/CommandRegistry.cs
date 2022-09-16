@@ -256,10 +256,10 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
-                CabeiroConstants.Commands.SelectLinesHandlingDuplicateContent,
+                CabeiroConstants.Commands.SelectLinesHandlingRepeatedLines,
                 CommandCategory.Selection,
-                "(S)elect (L)ines (H)andling (D)uplicate (C)ontent",
-                CabeiroConstants.Commands.Descriptions.SelectLinesHandlingDuplicateContent,
+                "(S)elect (L)ines (H)andling (R)epeated (L)ines",
+                CabeiroConstants.Commands.Descriptions.SelectLinesHandlingRepeatedLines,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.HandlingType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
@@ -267,10 +267,10 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
-                CabeiroConstants.Commands.SelectLinesHandlingDuplicateColumnValues,
+                CabeiroConstants.Commands.SelectLinesHandlingRepeatedColumnValues,
                 CommandCategory.Selection,
-                "(S)elect (L)ines (H)andling (D)uplicate (C)olumn (V)alues",
-                CabeiroConstants.Commands.Descriptions.SelectLinesHandlingDuplicateColumnValues,
+                "(S)elect (L)ines (H)andling (R)epeated (C)olumn (V)alues",
+                CabeiroConstants.Commands.Descriptions.SelectLinesHandlingRepeatedColumnValues,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"

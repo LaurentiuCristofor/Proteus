@@ -32,7 +32,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             this.Lines = new List<string>();
 
-            this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath, trackProgress: true);
+            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath, trackProgress: true);
         }
 
         public bool Execute(ulong lineNumber, string line)

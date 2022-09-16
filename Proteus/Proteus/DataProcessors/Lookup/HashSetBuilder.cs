@@ -6,7 +6,7 @@
 
 using System.Collections.Generic;
 
-namespace LaurentiuCristofor.Proteus.DataProcessors.Builders
+namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
 {
     /// <summary>
     /// A builder of a HashSet&lt;string&gt; data structure.

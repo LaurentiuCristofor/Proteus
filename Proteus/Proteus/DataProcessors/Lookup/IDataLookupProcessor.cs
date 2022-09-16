@@ -4,7 +4,7 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-namespace LaurentiuCristofor.Proteus.DataProcessors
+namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
 {
     /// <summary>
     /// An interface for a data processing unit that uses a lookup data structure.

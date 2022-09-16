@@ -9,13 +9,12 @@ using System.IO;
 
 using LaurentiuCristofor.Proteus.Common;
 using LaurentiuCristofor.Proteus.DataExtractors;
-using LaurentiuCristofor.Proteus.DataProcessors;
-using LaurentiuCristofor.Proteus.DataProcessors.Builders;
+using LaurentiuCristofor.Proteus.DataProcessors.Lookup;
 
 namespace LaurentiuCristofor.Proteus.FileProcessors
 {
     /// <summary>
-    /// The core template for processing two files serially.
+    /// The core template for processing a first file to build a lookup data structure and then processing a second file using that lookup data structure.
     /// </summary>
     /// <typeparam name="TFirstDataExtractor">The type of data extractor that will be applied to each row of the first file.</typeparam>
     /// <typeparam name="TFirstExtractionParameters">The type of parameters of the first data extraction operation.</typeparam>
@@ -27,7 +26,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
     /// <typeparam name="TSecondExtractedData">The type of data that is produced by the second extractor.</typeparam>
     /// <typeparam name="TDataProcessor">The type of data processor that will process the second extracted data.</typeparam>
     /// <typeparam name="TProcessingParameters">The type of parameters of the processing operation.</typeparam>
-    public class SerialTwoFileProcessor<
+    public class LookupFileProcessor<
         TFirstDataExtractor, TFirstExtractionParameters, TFirstExtractedData,
         TLookupDataStructureBuilder, TLookupDataStructure,
         TSecondDataExtractor, TSecondExtractionParameters, TSecondExtractedData,
@@ -82,7 +81,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         /// </summary>
         protected TDataProcessor DataProcessor { get; set; }
 
-        public SerialTwoFileProcessor(
+        public LookupFileProcessor(
             string firstInputFilePath, string secondInputFilePath,
             TFirstExtractionParameters firstExtractionParameters, TSecondExtractionParameters secondExtractionParameters, TProcessingParameters processingParameters)
         {

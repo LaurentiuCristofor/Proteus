@@ -33,7 +33,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             this.StringSelector = new StringSelector();
             this.StringSelector.Initialize(this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument);
 
-            this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath);
+            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, ParsedLine lineData)

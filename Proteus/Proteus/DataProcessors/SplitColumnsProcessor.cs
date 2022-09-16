@@ -26,7 +26,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// <summary>
         /// A dictionary to help us manage the file writers that we will use for each column.
         /// </summary>
-        protected Dictionary<int, TextFileWriter> MapColumnNumberToFileWriter { get; set; }
+        protected Dictionary<int, FileWriter> MapColumnNumberToFileWriter { get; set; }
 
         public void Initialize(StringParameters processingParameters)
         {
@@ -34,7 +34,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.StringValue);
 
-            this.MapColumnNumberToFileWriter = new Dictionary<int, TextFileWriter>();
+            this.MapColumnNumberToFileWriter = new Dictionary<int, FileWriter>();
         }
 
         public bool Execute(ulong lineNumber, ParsedLine lineData)
@@ -61,7 +61,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 {
                     this.MapColumnNumberToFileWriter.Add(
                         columnNumber,
-                        new TextFileWriter(this.Parameters.OutputFilePath + $".{columnNumber}{this.Parameters.StringValue}"));
+                        new FileWriter(this.Parameters.OutputFilePath + $".{columnNumber}{this.Parameters.StringValue}"));
                 }
 
                 this.MapColumnNumberToFileWriter[columnNumber].WriteLine(lineData.Columns[columnIndex]);

@@ -21,7 +21,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
     /// <typeparam name="TData">The type of data that is produced by the extractor to be processed by the processor.</typeparam>
     /// <typeparam name="TDataProcessor">The type of data processor that will process the extracted data.</typeparam>
     /// <typeparam name="TProcessingParameters">The type of parameters of the processing operation.</typeparam>
-    public class TextFileProcessor<TDataExtractor, TExtractionParameters, TData, TDataProcessor, TProcessingParameters>
+    public class FileProcessor<TDataExtractor, TExtractionParameters, TData, TDataProcessor, TProcessingParameters>
         where TDataExtractor : IDataExtractor<TExtractionParameters, TData>, new()
         where TDataProcessor : IDataProcessor<TProcessingParameters, TData>, new()
     {
@@ -50,7 +50,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         /// </summary>
         protected TDataProcessor DataProcessor { get; set; }
 
-        public TextFileProcessor(string inputFilePath, TExtractionParameters extractionParameters, TProcessingParameters processingParameters)
+        public FileProcessor(string inputFilePath, TExtractionParameters extractionParameters, TProcessingParameters processingParameters)
         {
             this.DataExtractor = new TDataExtractor();
             this.DataExtractor.Initialize(extractionParameters);

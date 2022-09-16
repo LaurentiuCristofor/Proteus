@@ -9,11 +9,11 @@ namespace LaurentiuCristofor.Proteus.Common
     /// <summary>
     /// Types of criteria for handling duplicate values.
     /// </summary>
-    public enum DuplicateHandlingType
+    public enum RepetitionHandlingType
     {
         NotSet = 0,
 
-        Exclude = 1,
-        Include = 2,
+        Skip = 1,
+        Pick = 2,
     }
 }

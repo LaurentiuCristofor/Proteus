@@ -26,7 +26,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// <summary>
         /// A dictionary to help us manage the file writers that we will use for each column value.
         /// </summary>
-        protected Dictionary<string, TextFileWriter> MapColumnValueToFileWriter { get; set; }
+        protected Dictionary<string, FileWriter> MapColumnValueToFileWriter { get; set; }
 
         public void Initialize(StringAndIntegerParameters processingParameters)
         {
@@ -35,7 +35,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.StringValue);
             ArgumentChecker.CheckPositive(this.Parameters.IntegerValue);
 
-            this.MapColumnValueToFileWriter = new Dictionary<string, TextFileWriter>();
+            this.MapColumnValueToFileWriter = new Dictionary<string, FileWriter>();
         }
 
         public bool Execute(ulong lineNumber, ParsedLine lineData)
@@ -57,7 +57,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             {
                 if (this.OutputWriter == null)
                 {
-                    this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath + $".0{this.Parameters.StringValue}");
+                    this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath + $".0{this.Parameters.StringValue}");
                 }
 
                 this.OutputWriter.WriteLine(lineData.OriginalLine);
@@ -78,7 +78,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                     this.MapColumnValueToFileWriter.Add(
                         columnValue,
-                        new TextFileWriter(this.Parameters.OutputFilePath + $".{columnValueIdentifier}{this.Parameters.StringValue}"));
+                        new FileWriter(this.Parameters.OutputFilePath + $".{columnValueIdentifier}{this.Parameters.StringValue}"));
                 }
 
                 this.MapColumnValueToFileWriter[columnValue].WriteLine(lineData.OriginalLine);

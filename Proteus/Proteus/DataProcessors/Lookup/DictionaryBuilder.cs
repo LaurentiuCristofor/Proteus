@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 using LaurentiuCristofor.Proteus.DataExtractors;
 
-namespace LaurentiuCristofor.Proteus.DataProcessors.Builders
+namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
 {
     /// <summary>
     /// A builder of a Dictionary&lt;string, string&gt; data structure.

@@ -27,7 +27,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         {
             this.Parameters = processingParameters;
 
-            this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath);
+            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, ParsedLine lineData)

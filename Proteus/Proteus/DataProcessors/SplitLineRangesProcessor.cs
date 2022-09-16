@@ -35,7 +35,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             //
             if (this.OutputWriter == null)
             {
-                this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath + $".{lineNumber}{this.Parameters.StringValue}");
+                this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath + $".{lineNumber}{this.Parameters.StringValue}");
             }
 
             this.OutputWriter.WriteLine(line);

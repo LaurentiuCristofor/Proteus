@@ -10,7 +10,7 @@ using LaurentiuCristofor.Proteus.Common;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.FileOperations;
 
-namespace LaurentiuCristofor.Proteus.DataProcessors
+namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
 {
     /// <summary>
     /// A data processor that looks up a string in a data structure according to a selection criteria,
@@ -32,7 +32,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         {
             this.Parameters = processingParameters;
 
-            this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath);
+            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
         }
 
         public void AddLookupDataStructure(HashSet<string> lookupSet)

@@ -82,11 +82,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 // For this operation, the writing is performed after we've completed reading,
                 // so we want additional progress tracking for it.
                 //
-                this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath, trackProgress: true);
+                this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath, trackProgress: true);
             }
             else
             {
-                this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath);
+                this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
             }
         }
 

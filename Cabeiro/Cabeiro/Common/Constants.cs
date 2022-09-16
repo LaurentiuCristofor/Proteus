@@ -70,8 +70,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string SelectLinesByLineString = "slbls";
             public const string SelectLinesByColumnString = "slbcs";
             public const string SelectLinesByColumnCount = "slbcc";
-            public const string SelectLinesHandlingDuplicateContent = "slhdc";
-            public const string SelectLinesHandlingDuplicateColumnValues = "slhdcv";
+            public const string SelectLinesHandlingRepeatedLines = "slhrl";
+            public const string SelectLinesHandlingRepeatedColumnValues = "slhrcv";
 
             public const string SplitLineRanges = "splr";
             public const string SplitColumns = "spc";
@@ -91,8 +91,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string SelectLinesByColumnValue = "Selects lines by comparing a column's value against specified arguments.";
                 public const string SelectLinesByLineString = "Selects lines based on their string value matching specified properties.";
                 public const string SelectLinesByColumnString = "Selects lines based on a column's string value matching specified properties.";
-                public const string SelectLinesHandlingDuplicateContent = "Selects lines handling duplicate lines as specified.";
-                public const string SelectLinesHandlingDuplicateColumnValues = "Selects lines handling lines with duplicate column values as specified.";
+                public const string SelectLinesHandlingRepeatedLines = "Selects lines, handling repeated lines as specified.";
+                public const string SelectLinesHandlingRepeatedColumnValues = "Selects lines, handling lines with repeated column values as specified.";
 
                 public const string SplitLineRanges = "Splits a file into multiple files, each containing a range of lines of specified size. Last file will likely have fewer lines than the rest.";
                 public const string SplitColumns = "Splits a file into multiple files, one for each column. Resulting files may have different size than the original file, if the original file contained lines with varying number of columns.";
@@ -157,8 +157,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string StringSelectionEquals = "eq";
                 public const string StringSelectionNotEquals = "neq";
 
-                public const string DuplicateHandlingExclude = "excl";
-                public const string DuplicateHandlingInclude = "incl";
+                public const string RepetitionHandlingSkip = "skip";
+                public const string RepetitionHandlingPick = "pick";
 
                 public const string StringEditTypeRewrite = "rw";
                 public const string StringEditTypeUppercase = "uc";
@@ -262,8 +262,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
                     public const string HandlingType = "<handling_type>";
 
                     public static readonly string DuplicateHandlingTypeText = $"{Constants.Commands.Arguments.Descriptions.HandlingType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.DuplicateHandlingExclude}' = exclude duplicates only"
-                        + $"\n\t- '{Constants.Commands.Arguments.DuplicateHandlingInclude}' = include duplicates only"
+                        + $"\n\t- '{Constants.Commands.Arguments.RepetitionHandlingSkip}' = skip repetitions"
+                        + $"\n\t- '{Constants.Commands.Arguments.RepetitionHandlingPick}' = pick repetitions"
                         + "\n";
 
                     public static readonly string StringSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"

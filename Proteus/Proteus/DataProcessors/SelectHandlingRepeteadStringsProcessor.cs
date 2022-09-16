@@ -13,28 +13,28 @@ using LaurentiuCristofor.Proteus.FileOperations;
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// A data processor that checks a string to see if it's a duplicate of a previously processed value,
+    /// A data processor that checks a string to see if it's a repetition of a previously processed value,
     /// to decide whether to output the line or not.
     /// </summary>
-    public class SelectHandlingDuplicatesProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<DuplicateHandlingType>, ParsedLine>
+    public class SelectHandlingRepeteadStringsProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<RepetitionHandlingType>, ParsedLine>
     {
         /// <summary>
         /// Parameters of this operation.
         /// </summary>
-        protected OperationTypeParameters<DuplicateHandlingType> Parameters { get; set; }
+        protected OperationTypeParameters<RepetitionHandlingType> Parameters { get; set; }
 
         /// <summary>
         /// Set of values seen so far.
         /// </summary>
         protected HashSet<string> SetValues { get; set; }
 
-        public void Initialize(OperationTypeParameters<DuplicateHandlingType> processingParameters)
+        public void Initialize(OperationTypeParameters<RepetitionHandlingType> processingParameters)
         {
             this.Parameters = processingParameters;
 
             this.SetValues = new HashSet<string>();
 
-            this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath);
+            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, ParsedLine lineData)
@@ -50,13 +50,13 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             DataProcessorValidation.ValidateExtractedDataIsString(lineData);
 
             string data = lineData.ExtractedData.ToString();
-            bool isDuplicateData = false;
+            bool isRepeatedData = false;
 
             // Lookup data in our set;
             //
             if (this.SetValues.Contains(data))
             {
-                isDuplicateData = true;
+                isRepeatedData = true;
             }
             else
             {
@@ -68,16 +68,16 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             bool shouldOutputLine;
             switch (this.Parameters.OperationType)
             {
-                case DuplicateHandlingType.Include:
-                    shouldOutputLine = isDuplicateData;
+                case RepetitionHandlingType.Pick:
+                    shouldOutputLine = isRepeatedData;
                     break;
 
-                case DuplicateHandlingType.Exclude:
-                    shouldOutputLine = !isDuplicateData;
+                case RepetitionHandlingType.Skip:
+                    shouldOutputLine = !isRepeatedData;
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling duplicate handling type '{this.Parameters.OperationType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling repetition handling type '{this.Parameters.OperationType}'!");
             }
 
             if (shouldOutputLine)

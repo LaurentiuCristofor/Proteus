@@ -53,7 +53,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     throw new ProteusException($"Internal error: Proteus is not handling number insertion type '{this.Parameters.OperationType}'!");
             }
 
-            this.OutputWriter = new TextFileWriter(this.Parameters.OutputFilePath);
+            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, string line)

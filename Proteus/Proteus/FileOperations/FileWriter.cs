@@ -13,7 +13,7 @@ namespace LaurentiuCristofor.Proteus.FileOperations
     /// <summary>
     /// A TextWriter that keeps a count of the lines written.
     /// </summary>
-    public class TextFileWriter
+    public class FileWriter
     {
         /// <summary>
         /// The path of the output file.
@@ -37,9 +37,11 @@ namespace LaurentiuCristofor.Proteus.FileOperations
         /// </summary>
         private ulong CountLinesWritten { get; set; }
 
-        public TextFileWriter(string outputFilePath, bool trackProgress = false)
+        public FileWriter(string outputFilePath, bool trackProgress = false)
         {
             this.OutputFilePath = outputFilePath;
+
+            this.TrackProgress = trackProgress;
 
             this.OutputWriter = new StreamWriter(this.OutputFilePath);
 

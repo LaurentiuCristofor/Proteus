@@ -16,7 +16,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// <summary>
         /// A writer for producing the output file.
         /// </summary>
-        protected TextFileWriter OutputWriter { get; set; }
+        protected FileWriter OutputWriter { get; set; }
 
         public virtual void CompleteExecution()
         {

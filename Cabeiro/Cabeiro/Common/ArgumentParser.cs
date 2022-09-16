@@ -341,25 +341,25 @@ namespace LaurentiuCristofor.Cabeiro.Common
         }
 
         /// <summary>
-        /// Parses argument value as a DuplicateHandlingType indicator.
+        /// Parses argument value as a RepetitionHandlingType indicator.
         /// </summary>
         /// <param name="argument">The argument value to parse.</param>
-        /// <returns>A tuple containing the DuplicateHandlingType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
-        public static Tuple<DuplicateHandlingType, int> ParseDuplicateHandlingType(string argument)
+        /// <returns>A tuple containing the RepetitionHandlingType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<RepetitionHandlingType, int> ParseRepetitionHandlingType(string argument)
         {
             string lowercaseValue = argument.ToLower();
 
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.DuplicateHandlingExclude))
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.RepetitionHandlingSkip))
             {
-                return new Tuple<DuplicateHandlingType, int>(DuplicateHandlingType.Exclude, 0);
+                return new Tuple<RepetitionHandlingType, int>(RepetitionHandlingType.Skip, 0);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.DuplicateHandlingInclude))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.RepetitionHandlingPick))
             {
-                return new Tuple<DuplicateHandlingType, int>(DuplicateHandlingType.Include, 0);
+                return new Tuple<RepetitionHandlingType, int>(RepetitionHandlingType.Pick, 0);
             }
             else
             {
-                throw new CabeiroException($"Invalid duplicate handling type argument: {argument}!");
+                throw new CabeiroException($"Invalid repetition handling type argument: {argument}!");
             }
         }
 

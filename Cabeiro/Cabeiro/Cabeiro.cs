@@ -387,23 +387,23 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesHandlingDuplicateContent))
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesHandlingRepeatedLines))
             {
                 const int minimumArgumentNumber = 2;
                 const int maximumArgumentNumber = 3;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
-                    Tuple<DuplicateHandlingType, int> operationInfo = ArgumentParser.ParseDuplicateHandlingType(arguments[2]);
+                    Tuple<RepetitionHandlingType, int> operationInfo = ArgumentParser.ParseRepetitionHandlingType(arguments[2]);
                     ArgumentParser.ExtractLastArguments(0, 3, arguments, out _, out _, out string outputFilePath);
 
-                    SelectLinesHandlingDuplicateContent(
+                    SelectLinesHandlingRepeatedLines(
                         arguments[1],
                         operationInfo.Item1, arguments[2],
                         outputFilePath);
                     return;
                 }
             }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesHandlingDuplicateColumnValues))
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesHandlingRepeatedColumnValues))
             {
                 const int minimumArgumentNumber = 4;
                 const int maximumArgumentNumber = 5;
@@ -411,10 +411,10 @@ namespace LaurentiuCristofor.Cabeiro
                 {
                     int columnNumber = ArgumentParser.GetPositiveInteger(arguments[2]);
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
-                    Tuple<DuplicateHandlingType, int> operationInfo = ArgumentParser.ParseDuplicateHandlingType(arguments[4]);
+                    Tuple<RepetitionHandlingType, int> operationInfo = ArgumentParser.ParseRepetitionHandlingType(arguments[4]);
                     ArgumentParser.ExtractLastArguments(0, 5, arguments, out _, out _, out string outputFilePath);
 
-                    SelectLinesHandlingDuplicateColumnValues(
+                    SelectLinesHandlingRepeatedColumnValues(
                         arguments[1],
                         columnNumber,
                         columnSeparator,
@@ -507,7 +507,7 @@ namespace LaurentiuCristofor.Cabeiro
         private static void CountLines(string filePath)
         {
             var textFileProcessor
-                = new TextFileProcessor<LineExtractor, UnusedType, string, SinkProcessor, UnusedType>(
+                = new FileProcessor<LineExtractor, UnusedType, string, SinkProcessor, UnusedType>(
                     filePath,
                     extractionParameters: null,
                     processingParameters: null);
@@ -520,7 +520,7 @@ namespace LaurentiuCristofor.Cabeiro
             AnalyzeParameters processingParameters = new AnalyzeParameters(valuesLimit);
 
             var textFileProcessor
-                = new TextFileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, AnalyzeProcessor, AnalyzeParameters>(
+                = new FileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, AnalyzeProcessor, AnalyzeParameters>(
                     filePath,
                     extractionParameters: null,
                     processingParameters: processingParameters);
@@ -543,7 +543,7 @@ namespace LaurentiuCristofor.Cabeiro
             AnalyzeParameters processingParameters = new AnalyzeParameters(valuesLimit);
 
             var textFileProcessor
-                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, AnalyzeProcessor, AnalyzeParameters>(
+                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, AnalyzeProcessor, AnalyzeParameters>(
                     filePath,
                     extractionParameters: extractionParameters,
                     processingParameters: processingParameters);
@@ -563,7 +563,7 @@ namespace LaurentiuCristofor.Cabeiro
                 outputFilePath);
 
             var textFileProcessor
-                = new TextFileProcessor<LineExtractor, UnusedType, string, FileInvertProcessor, BaseOutputParameters>(
+                = new FileProcessor<LineExtractor, UnusedType, string, FileInvertProcessor, BaseOutputParameters>(
                     filePath,
                     extractionParameters: null,
                     processingParameters);
@@ -583,7 +583,7 @@ namespace LaurentiuCristofor.Cabeiro
                 outputFilePath);
 
             var textFileProcessor
-                = new TextFileProcessor<LineExtractor, UnusedType, string, SortProcessor, BaseOutputParameters>(
+                = new FileProcessor<LineExtractor, UnusedType, string, SortProcessor, BaseOutputParameters>(
                     filePath,
                     extractionParameters: null,
                     processingParameters);
@@ -611,7 +611,7 @@ namespace LaurentiuCristofor.Cabeiro
                 outputFilePath);
 
             var textFileProcessor
-                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SortByColumnValueProcessor, BaseOutputParameters>(
+                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SortByColumnValueProcessor, BaseOutputParameters>(
                     filePath,
                     extractionParameters,
                     processingParameters);
@@ -637,7 +637,7 @@ namespace LaurentiuCristofor.Cabeiro
                 secondArgument);
 
             var textFileProcessor
-                = new TextFileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, EditProcessor, OperationTypeParameters<StringEditType>>(
+                = new FileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, EditProcessor, OperationTypeParameters<StringEditType>>(
                     filePath,
                     extractionParameters: null,
                     processingParameters);
@@ -671,7 +671,7 @@ namespace LaurentiuCristofor.Cabeiro
                 secondArgument);
 
             var textFileProcessor
-                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, EditProcessor, OperationTypeParameters<StringEditType>>(
+                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, EditProcessor, OperationTypeParameters<StringEditType>>(
                     filePath,
                     extractionParameters,
                     processingParameters);
@@ -699,7 +699,7 @@ namespace LaurentiuCristofor.Cabeiro
                 secondArgument: firstArgument);
 
             var textFileProcessor
-                = new TextFileProcessor<LineExtractor, UnusedType, string, InsertLineProcessor, OperationTypeParameters<PositionInsertionType>>(
+                = new FileProcessor<LineExtractor, UnusedType, string, InsertLineProcessor, OperationTypeParameters<PositionInsertionType>>(
                     filePath,
                     extractionParameters: null,
                     processingParameters);
@@ -733,7 +733,7 @@ namespace LaurentiuCristofor.Cabeiro
                 secondArgument);
 
             var textFileProcessor
-                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectLineByColumnValueProcessor, OperationTypeParameters<ComparisonType>>(
+                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectLineByColumnValueProcessor, OperationTypeParameters<ComparisonType>>(
                     filePath,
                     extractionParameters,
                     processingParameters);
@@ -759,7 +759,7 @@ namespace LaurentiuCristofor.Cabeiro
                 secondArgument);
 
             var textFileProcessor
-                = new TextFileProcessor<LineExtractor, UnusedType, string, SelectLineByNumberProcessor, OperationTypeParameters<PositionSelectionType>>(
+                = new FileProcessor<LineExtractor, UnusedType, string, SelectLineByNumberProcessor, OperationTypeParameters<PositionSelectionType>>(
                     filePath,
                     extractionParameters: null,
                     processingParameters);
@@ -794,7 +794,7 @@ namespace LaurentiuCristofor.Cabeiro
                 secondArgument);
 
             var textFileProcessor
-                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectColumnByNumberProcessor, OperationTypeParameters<PositionSelectionType>>(
+                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectColumnByNumberProcessor, OperationTypeParameters<PositionSelectionType>>(
                     filePath,
                     extractionParameters,
                     processingParameters);
@@ -820,7 +820,7 @@ namespace LaurentiuCristofor.Cabeiro
                 secondArgument);
 
             var textFileProcessor
-                = new TextFileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, SelectStringProcessor, OperationTypeParameters<StringSelectionType>>(
+                = new FileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, SelectStringProcessor, OperationTypeParameters<StringSelectionType>>(
                     filePath,
                     extractionParameters: null,
                     processingParameters);
@@ -853,7 +853,7 @@ namespace LaurentiuCristofor.Cabeiro
                 secondArgument);
 
             var textFileProcessor
-                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectStringProcessor, OperationTypeParameters<StringSelectionType>>(
+                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectStringProcessor, OperationTypeParameters<StringSelectionType>>(
                     filePath,
                     extractionParameters,
                     processingParameters);
@@ -888,7 +888,7 @@ namespace LaurentiuCristofor.Cabeiro
                 secondArgument);
 
             var textFileProcessor
-                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectLineByColumnCountProcessor, OperationTypeParameters<ComparisonType>>(
+                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectLineByColumnCountProcessor, OperationTypeParameters<ComparisonType>>(
                     filePath,
                     extractionParameters,
                     processingParameters);
@@ -896,21 +896,21 @@ namespace LaurentiuCristofor.Cabeiro
             textFileProcessor.ProcessFile();
         }
 
-        private static void SelectLinesHandlingDuplicateContent(
+        private static void SelectLinesHandlingRepeatedLines(
             string filePath,
-            DuplicateHandlingType handlingType, string handlingTypeString,
+            RepetitionHandlingType handlingType, string handlingTypeString,
             string outputFilePath)
         {
-            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesHandlingDuplicateContent}.{handlingTypeString}";
+            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesHandlingRepeatedLines}.{handlingTypeString}";
             var filePathBuilder = new FilePathBuilder(filePath, outputFileExtension, firstArgument: null, secondArgument: null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OperationTypeParameters<DuplicateHandlingType> processingParameters = new OperationTypeParameters<DuplicateHandlingType>(
+            OperationTypeParameters<RepetitionHandlingType> processingParameters = new OperationTypeParameters<RepetitionHandlingType>(
                 outputFilePath,
                 handlingType);
 
             var textFileProcessor
-                = new TextFileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, SelectHandlingDuplicatesProcessor, OperationTypeParameters<DuplicateHandlingType>>(
+                = new FileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, SelectHandlingRepeteadStringsProcessor, OperationTypeParameters<RepetitionHandlingType>>(
                     filePath,
                     extractionParameters: null,
                     processingParameters);
@@ -918,11 +918,11 @@ namespace LaurentiuCristofor.Cabeiro
             textFileProcessor.ProcessFile();
         }
 
-        private static void SelectLinesHandlingDuplicateColumnValues(
+        private static void SelectLinesHandlingRepeatedColumnValues(
             string filePath,
             int columnNumber,
             string columnSeparator,
-            DuplicateHandlingType handlingType, string handlingTypeString,
+            RepetitionHandlingType handlingType, string handlingTypeString,
             string outputFilePath)
         {
             ColumnExtractionParameters extractionParameters = new ColumnExtractionParameters(
@@ -930,16 +930,16 @@ namespace LaurentiuCristofor.Cabeiro
                 columnNumber,
                 DataType.String);
 
-            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesHandlingDuplicateColumnValues}.{columnNumber}.{handlingTypeString}";
+            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesHandlingRepeatedColumnValues}.{columnNumber}.{handlingTypeString}";
             var filePathBuilder = new FilePathBuilder(filePath, outputFileExtension, firstArgument: null, secondArgument: null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OperationTypeParameters<DuplicateHandlingType> processingParameters = new OperationTypeParameters<DuplicateHandlingType>(
+            OperationTypeParameters<RepetitionHandlingType> processingParameters = new OperationTypeParameters<RepetitionHandlingType>(
                 outputFilePath,
                 handlingType);
 
             var textFileProcessor
-                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectHandlingDuplicatesProcessor, OperationTypeParameters<DuplicateHandlingType>>(
+                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectHandlingRepeteadStringsProcessor, OperationTypeParameters<RepetitionHandlingType>>(
                     filePath,
                     extractionParameters,
                     processingParameters);
@@ -967,7 +967,7 @@ namespace LaurentiuCristofor.Cabeiro
                 rangeSize);
 
             var textFileProcessor
-                = new TextFileProcessor<LineExtractor, UnusedType, string, SplitLineRangesProcessor, StringAndUnsignedIntegerParameters>(
+                = new FileProcessor<LineExtractor, UnusedType, string, SplitLineRangesProcessor, StringAndUnsignedIntegerParameters>(
                     filePath,
                     null,
                     processingParameters);
@@ -1002,7 +1002,7 @@ namespace LaurentiuCristofor.Cabeiro
                 CabeiroConstants.Files.Extensions.Txt);
 
             var textFileProcessor
-                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SplitColumnsProcessor, StringParameters>(
+                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SplitColumnsProcessor, StringParameters>(
                     filePath,
                     extractionParameters,
                     processingParameters);
@@ -1039,7 +1039,7 @@ namespace LaurentiuCristofor.Cabeiro
                 columnNumber);
 
             var textFileProcessor
-                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SplitColumnValuesProcessor, StringAndIntegerParameters>(
+                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SplitColumnValuesProcessor, StringAndIntegerParameters>(
                     filePath,
                     extractionParameters,
                     processingParameters);
@@ -1071,7 +1071,7 @@ namespace LaurentiuCristofor.Cabeiro
                 outputFilePath);
 
             var textFileProcessor
-                = new TextFileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SortBySecondColumnValueProcessor, BaseOutputParameters>(
+                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SortBySecondColumnValueProcessor, BaseOutputParameters>(
                     filePath,
                     extractionParameters,
                     processingParameters);
