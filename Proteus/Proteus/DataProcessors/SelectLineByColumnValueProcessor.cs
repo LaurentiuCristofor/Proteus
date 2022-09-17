@@ -40,8 +40,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 return true;
             }
 
-            DataProcessorValidation.ValidateOriginalLine(lineData);
-
             // Perform the comparison to decide whether to output the line.
             //
             if (lineData.ExtractedData.Compare(this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument))

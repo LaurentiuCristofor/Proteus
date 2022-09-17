@@ -40,7 +40,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 return true;
             }
 
-            DataProcessorValidation.ValidateOriginalLine(lineData);
             DataProcessorValidation.ValidateColumnInformation(lineData);
 
             // Package column count in a DataTypeContainer.

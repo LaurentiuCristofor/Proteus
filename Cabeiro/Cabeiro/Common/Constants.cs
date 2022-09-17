@@ -63,6 +63,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string EditLines = "el";
             public const string EditColumnValues = "ecv";
             public const string InsertLine = "il";
+            public const string JoinLines = "jl";
 
             public const string SelectLinesByColumnValue = "slbcv";
             public const string SelectLinesByNumber = "slbn";
@@ -72,6 +73,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string SelectLinesByColumnCount = "slbcc";
             public const string SelectLinesHandlingRepeatedLines = "slhrl";
             public const string SelectLinesHandlingRepeatedColumnValues = "slhrcv";
+            public const string SelectLinesByLookupInFile = "slblif";
+            public const string SelectLinesByColumnValueLookupInFile = "slbcvlif";
 
             public const string SplitLineRanges = "splr";
             public const string SplitColumns = "spc";
@@ -93,6 +96,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string SelectLinesByColumnString = "Selects lines based on a column's string value matching specified properties.";
                 public const string SelectLinesHandlingRepeatedLines = "Selects lines, handling repeated lines as specified.";
                 public const string SelectLinesHandlingRepeatedColumnValues = "Selects lines, handling lines with repeated column values as specified.";
+                public const string SelectLinesByLookupInFile = "Selects lines based on whether they appear in another file or not.";
+                public const string SelectLinesByColumnValueLookupInFile = "Selects lines based on whether their specified column's value appears in another file or not.";
 
                 public const string SplitLineRanges = "Splits a file into multiple files, each containing a range of lines of specified size. Last file will likely have fewer lines than the rest.";
                 public const string SplitColumns = "Splits a file into multiple files, one for each column. Resulting files may have different size than the original file, if the original file contained lines with varying number of columns.";
@@ -160,6 +165,12 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string RepetitionHandlingSkip = "skip";
                 public const string RepetitionHandlingPick = "pick";
 
+                public const string JoinInner = "in";
+                public const string JoinLeftOuter = "lo";
+
+                public const string LookupIncluded = "incl";
+                public const string LookupNotIncluded = "nincl";
+
                 public const string StringEditTypeRewrite = "rw";
                 public const string StringEditTypeUppercase = "uc";
                 public const string StringEditTypeLowercase = "lc";
@@ -197,8 +208,14 @@ namespace LaurentiuCristofor.Cabeiro.Common
                     public const string CommandName = "<command_name>";
                     public const string CategoryName = "<category_name>";
                     public const string InputFilePath = "<input_file_path>";
+                    public const string FirstInputFilePath = "<first_input_file_path>";
+                    public const string SecondInputFilePath = "<second_input_file_path>";
+                    public const string DataFilePath = "<data_file_path>";
+                    public const string LookupFilePath = "<lookup_file_path>";
                     public const string OutputFilePath = "<output_file_path>";
                     public const string ColumnNumber = "<column_number>";
+                    public const string FirstFileColumnNumber = "<first_file_column_number>";
+                    public const string SecondFileColumnNumber = "<second_file_column_number>";
                     public const string ColumnSeparator = "<column_separator>";
                     public const string FirstArgument = "<first_argument>";
                     public const string SecondArgument = "<second_argument>";
@@ -261,9 +278,23 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
                     public const string HandlingType = "<handling_type>";
 
-                    public static readonly string DuplicateHandlingTypeText = $"{Constants.Commands.Arguments.Descriptions.HandlingType} can take the values:"
+                    public static readonly string RepetitionHandlingTypeText = $"{Constants.Commands.Arguments.Descriptions.HandlingType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.RepetitionHandlingSkip}' = skip repetitions"
                         + $"\n\t- '{Constants.Commands.Arguments.RepetitionHandlingPick}' = pick repetitions"
+                        + "\n";
+
+                    public const string JoinType = "<join_type>";
+
+                    public static readonly string JoinTypeText = $"{Constants.Commands.Arguments.Descriptions.JoinType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.JoinInner}' = inner - omit lines not matching second file"
+                        + $"\n\t- '{Constants.Commands.Arguments.JoinLeftOuter}' = left outer - include lines not matching second file"
+                        + "\n";
+
+                    public const string LookupType = "<lookup_type>";
+
+                    public static readonly string LookupTypeText = $"{Constants.Commands.Arguments.Descriptions.LookupType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.LookupIncluded}' = included - include lines matching lookup file content"
+                        + $"\n\t- '{Constants.Commands.Arguments.LookupNotIncluded}' = not included - include lines not matching lookup file content"
                         + "\n";
 
                     public static readonly string StringSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
@@ -291,7 +322,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeTrimEnd}' = trim end"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeTrim}' = trim"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeInvert}' = invert"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypePrefixLineNumbers}' = prefix line numbers"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypePrefixLineNumbers}' = prefix line numbers; arguments: <separator_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeAddPrefix}' = add prefix; arguments: <prefix_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeAddSuffix}' = add suffix; arguments: <suffix_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeDeletePrefix}' = delete prefix; arguments: <prefix_value>"

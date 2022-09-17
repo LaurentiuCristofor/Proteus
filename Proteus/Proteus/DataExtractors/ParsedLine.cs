@@ -17,14 +17,6 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         //
         public string OriginalLine { get; protected set; }
 
-        // The column separator.
-        //
-        public string ColumnSeparator { get; protected set; }
-
-        // The column strings.
-        //
-        public string[] Columns { get; protected set; }
-
         /// <summary>
         /// The extracted data, packaged in a data type container.
         /// 
@@ -33,38 +25,39 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         public DataTypeContainer ExtractedData { get; protected set;}
 
         /// <summary>
+        /// The number of the extracted column, if ExtractedData contains a column.
+        /// </summary>
+        public int ExtractedColumnNumber { get; protected set; }
+
+        // The column strings.
+        //
+        public string[] Columns { get; protected set; }
+
+        // The column separator.
+        //
+        public string ColumnSeparator { get; protected set; }
+
+        /// <summary>
         /// A second extracted data, packaged in a data type container.
         /// 
         /// This is typically a second column value.
         /// </summary>
         public DataTypeContainer SecondExtractedData { get; protected set; }
 
-        // The string prefix that preceded the extracted string.
-        // This is used when editing columns, to construct the edited line.
-        //
-        public string LinePrefix { get; protected set; }
-
-        // The string suffix that followed the extracted string.
-        // This is used when editing columns, to construct the edited line.
-        //
-        public string LineSuffix { get; protected set; }
-
         public ParsedLine(
             string originalLine,
-            string columnSeparator,
-            string[] columns,
             DataTypeContainer extractedData,
-            DataTypeContainer secondExtractedData,
-            string linePrefix,
-            string lineSuffix)
+            int extractedColumnNumber = 0,
+            string[] columns = null,
+            string columnSeparator = null,
+            DataTypeContainer secondExtractedData = null)
         {
             this.OriginalLine = originalLine;
-            this.ColumnSeparator = columnSeparator;
-            this.Columns = columns;
             this.ExtractedData = extractedData;
+            this.ExtractedColumnNumber = extractedColumnNumber;
+            this.Columns = columns;
+            this.ColumnSeparator = columnSeparator;
             this.SecondExtractedData = secondExtractedData;
-            this.LinePrefix = linePrefix;
-            this.LineSuffix = lineSuffix;
         }
     }
 }

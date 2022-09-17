@@ -173,6 +173,22 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.PositionInsertionTypeText}");
             RegisterCommandDescription(commandDescription);
 
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.JoinLines,
+                CommandCategory.Editing,
+                "(J)oin (L)ines",
+                longDescription: null,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.FirstInputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstFileColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondInputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondFileColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.JoinType}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument}]"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.JoinTypeText}");
+            RegisterCommandDescription(commandDescription);
+
             // Line selection commands.
             //
             commandDescription = new CommandDescription(
@@ -263,7 +279,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.HandlingType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
-                $"{CabeiroConstants.Commands.Arguments.Descriptions.DuplicateHandlingTypeText}");
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.RepetitionHandlingTypeText}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -276,7 +292,33 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.HandlingType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
-                $"{CabeiroConstants.Commands.Arguments.Descriptions.DuplicateHandlingTypeText}");
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.RepetitionHandlingTypeText}");
+            RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.SelectLinesByLookupInFile,
+                CommandCategory.Selection,
+                "(S)elect (L)ines (B)y (L)ookup (I)n (F)ile",
+                CabeiroConstants.Commands.Descriptions.SelectLinesByLookupInFile,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.DataFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.LookupFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.LookupType}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.LookupTypeText}");
+            RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.SelectLinesByColumnValueLookupInFile,
+                CommandCategory.Selection,
+                "(S)elect (L)ines (B)y (C)olumn (V)alue (L)ookup (I)n (F)ile",
+                CabeiroConstants.Commands.Descriptions.SelectLinesByColumnValueLookupInFile,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.DataFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.LookupFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.LookupType}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.LookupTypeText}");
             RegisterCommandDescription(commandDescription);
 
             // Splitting commands.

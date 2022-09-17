@@ -364,6 +364,52 @@ namespace LaurentiuCristofor.Cabeiro.Common
         }
 
         /// <summary>
+        /// Parses argument value as a JoinType indicator.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the JoinType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<JoinType, int> ParseJoinType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.JoinInner))
+            {
+                return new Tuple<JoinType, int>(JoinType.Inner, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.JoinLeftOuter))
+            {
+                return new Tuple<JoinType, int>(JoinType.LeftOuter, 1);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid join type argument: {argument}!");
+            }
+        }
+
+        /// <summary>
+        /// Parses argument value as a LookupType indicator.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the LookupType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<LookupType, int> ParseLookupType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.LookupIncluded))
+            {
+                return new Tuple<LookupType, int>(LookupType.Included, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.LookupNotIncluded))
+            {
+                return new Tuple<LookupType, int>(LookupType.NotIncluded, 0);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid lookup type argument: {argument}!");
+            }
+        }
+
+        /// <summary>
         /// Parses argument value as a StringSelectionType indicator.
         /// </summary>
         /// <param name="argument">The argument value to parse.</param>

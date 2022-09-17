@@ -5,11 +5,13 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 using LaurentiuCristofor.Proteus.Common;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.DataProcessors;
+using LaurentiuCristofor.Proteus.DataProcessors.Lookup;
 using LaurentiuCristofor.Proteus.FileProcessors;
 
 using LaurentiuCristofor.Cabeiro.Common;
@@ -265,6 +267,32 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.JoinLines))
+            {
+                const int minimumArgumentNumber = 7;
+                const int maximumArgumentNumber = 9;
+                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
+                {
+                    string firstFilePath = arguments[1];
+                    int firstFileColumnNumber = ArgumentParser.GetPositiveInteger(arguments[2]);
+                    string columnSeparator = arguments[3];
+                    string secondFilePath = arguments[4];
+                    int secondFileColumnNumber = ArgumentParser.GetPositiveInteger(arguments[5]);
+                    Tuple<JoinType, int> operationInfo = ArgumentParser.ParseJoinType(arguments[6]);
+                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 7, arguments, out string firstArgument, out _, out string outputFilePath);
+
+                    JoinLines(
+                        firstFilePath,
+                        firstFileColumnNumber,
+                        columnSeparator,
+                        secondFilePath,
+                        secondFileColumnNumber,
+                        operationInfo.Item1, arguments[6],
+                        firstArgument,
+                        outputFilePath);
+                    return;
+                }
+            }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByColumnValue))
             {
                 const int minimumArgumentNumber = 7;
@@ -423,6 +451,48 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByLookupInFile))
+            {
+                const int minimumArgumentNumber = 4;
+                const int maximumArgumentNumber = 5;
+                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
+                {
+                    string dataFilePath = arguments[1];
+                    string lookupFilePath = arguments[2];
+                    Tuple<LookupType, int> operationInfo = ArgumentParser.ParseLookupType(arguments[3]);
+                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 4, arguments, out _, out _, out string outputFilePath);
+
+                    SelectLinesByLookupInFile(
+                        dataFilePath,
+                        lookupFilePath,
+                        operationInfo.Item1, arguments[3],
+                        outputFilePath);
+                    return;
+                }
+            }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByColumnValueLookupInFile))
+            {
+                const int minimumArgumentNumber = 6;
+                const int maximumArgumentNumber = 7;
+                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
+                {
+                    string dataFilePath = arguments[1];
+                    int columnNumber = ArgumentParser.GetPositiveInteger(arguments[2]);
+                    string columnSeparator = arguments[3];
+                    string lookupFilePath = arguments[4];
+                    Tuple<LookupType, int> operationInfo = ArgumentParser.ParseLookupType(arguments[5]);
+                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 6, arguments, out _, out _, out string outputFilePath);
+
+                    SelectLinesByColumnValueLookupInFile(
+                        dataFilePath,
+                        columnNumber,
+                        columnSeparator,
+                        lookupFilePath,
+                        operationInfo.Item1, arguments[5],
+                        outputFilePath);
+                    return;
+                }
+            }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SplitLineRanges))
             {
                 const int minimumArgumentNumber = 3;
@@ -506,26 +576,26 @@ namespace LaurentiuCristofor.Cabeiro
 
         private static void CountLines(string filePath)
         {
-            var textFileProcessor
+            var fileProcessor
                 = new FileProcessor<LineExtractor, UnusedType, string, SinkProcessor, UnusedType>(
                     filePath,
                     extractionParameters: null,
                     processingParameters: null);
 
-            textFileProcessor.ProcessFile();
+            fileProcessor.ProcessFile();
         }
 
         private static void AnalyzeLines(string filePath, int valuesLimit)
         {
             AnalyzeParameters processingParameters = new AnalyzeParameters(valuesLimit);
 
-            var textFileProcessor
+            var fileProcessor
                 = new FileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, AnalyzeProcessor, AnalyzeParameters>(
                     filePath,
                     extractionParameters: null,
                     processingParameters: processingParameters);
 
-            textFileProcessor.ProcessFile();
+            fileProcessor.ProcessFile();
         }
 
         private static void AnalyzeColumnValues(
@@ -542,13 +612,13 @@ namespace LaurentiuCristofor.Cabeiro
 
             AnalyzeParameters processingParameters = new AnalyzeParameters(valuesLimit);
 
-            var textFileProcessor
+            var fileProcessor
                 = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, AnalyzeProcessor, AnalyzeParameters>(
                     filePath,
                     extractionParameters: extractionParameters,
                     processingParameters: processingParameters);
 
-            textFileProcessor.ProcessFile();
+            fileProcessor.ProcessFile();
         }
 
         private static void InvertFile(
@@ -562,13 +632,13 @@ namespace LaurentiuCristofor.Cabeiro
             BaseOutputParameters processingParameters = new BaseOutputParameters(
                 outputFilePath);
 
-            var textFileProcessor
+            var fileProcessor
                 = new FileProcessor<LineExtractor, UnusedType, string, FileInvertProcessor, BaseOutputParameters>(
                     filePath,
                     extractionParameters: null,
                     processingParameters);
 
-            textFileProcessor.ProcessFile();
+            fileProcessor.ProcessFile();
         }
 
         private static void SortFile(
@@ -582,13 +652,13 @@ namespace LaurentiuCristofor.Cabeiro
             BaseOutputParameters processingParameters = new BaseOutputParameters(
                 outputFilePath);
 
-            var textFileProcessor
+            var fileProcessor
                 = new FileProcessor<LineExtractor, UnusedType, string, SortProcessor, BaseOutputParameters>(
                     filePath,
                     extractionParameters: null,
                     processingParameters);
 
-            textFileProcessor.ProcessFile();
+            fileProcessor.ProcessFile();
         }
 
         private static void SortFileByColumnValue(
@@ -610,13 +680,13 @@ namespace LaurentiuCristofor.Cabeiro
             BaseOutputParameters processingParameters = new BaseOutputParameters(
                 outputFilePath);
 
-            var textFileProcessor
+            var fileProcessor
                 = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SortByColumnValueProcessor, BaseOutputParameters>(
                     filePath,
                     extractionParameters,
                     processingParameters);
 
-            textFileProcessor.ProcessFile();
+            fileProcessor.ProcessFile();
         }
 
         private static void EditLines(
@@ -636,13 +706,13 @@ namespace LaurentiuCristofor.Cabeiro
                 firstArgument,
                 secondArgument);
 
-            var textFileProcessor
-                = new FileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, EditProcessor, OperationTypeParameters<StringEditType>>(
+            var fileProcessor
+                = new FileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, EditStringProcessor, OperationTypeParameters<StringEditType>>(
                     filePath,
                     extractionParameters: null,
                     processingParameters);
 
-            textFileProcessor.ProcessFile();
+            fileProcessor.ProcessFile();
         }
 
         private static void EditColumnValues(
@@ -657,8 +727,7 @@ namespace LaurentiuCristofor.Cabeiro
             ColumnExtractionParameters extractionParameters = new ColumnExtractionParameters(
                 columnSeparator,
                 columnNumber,
-                DataType.String,
-                constructLinePrefixAndSuffix: true);
+                DataType.String);
 
             string outputFileExtension = $".{CabeiroConstants.Commands.EditColumnValues}.{columnNumber}.{editTypeString.ToLower()}";
             var filePathBuilder = new EditOperationFilePathBuilder(editType, filePath, outputFileExtension, firstArgument, secondArgument, outputFilePath);
@@ -670,13 +739,13 @@ namespace LaurentiuCristofor.Cabeiro
                 firstArgument,
                 secondArgument);
 
-            var textFileProcessor
-                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, EditProcessor, OperationTypeParameters<StringEditType>>(
+            var fileProcessor
+                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, EditStringProcessor, OperationTypeParameters<StringEditType>>(
                     filePath,
                     extractionParameters,
                     processingParameters);
 
-            textFileProcessor.ProcessFile();
+            fileProcessor.ProcessFile();
         }
 
         private static void InsertLine(
@@ -698,13 +767,57 @@ namespace LaurentiuCristofor.Cabeiro
                 firstArgument: lineValue,
                 secondArgument: firstArgument);
 
-            var textFileProcessor
+            var fileProcessor
                 = new FileProcessor<LineExtractor, UnusedType, string, InsertLineProcessor, OperationTypeParameters<PositionInsertionType>>(
                     filePath,
                     extractionParameters: null,
                     processingParameters);
 
-            textFileProcessor.ProcessFile();
+            fileProcessor.ProcessFile();
+        }
+
+        private static void JoinLines(
+            string firstFilePath,
+            int firstFileColumnNumber,
+            string columnSeparator,
+            string secondFilePath,
+            int secondFileColumnNumber,
+            JoinType joinType, string joinTypeString,
+            string firstArgument,
+            string outputFilePath)
+        {
+            ColumnExtractionParameters firstFileExtractionParameters = new ColumnExtractionParameters(
+                columnSeparator,
+                firstFileColumnNumber,
+                DataType.String);
+
+            ColumnExtractionParameters secondFileExtractionParameters = new ColumnExtractionParameters(
+                columnSeparator,
+                secondFileColumnNumber,
+                DataType.String);
+
+            string outputFileExtension = $".{CabeiroConstants.Commands.JoinLines}.{firstFileColumnNumber}.{joinTypeString.ToLower()}";
+            var filePathBuilder = new FilePathBuilder(firstFilePath, outputFileExtension, firstArgument, secondArgument: null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            OperationTypeParameters<JoinType> processingParameters = new OperationTypeParameters<JoinType>(
+                outputFilePath,
+                joinType,
+                firstArgument);
+
+            var lookupFileProcessor
+                = new LookupFileProcessor<
+                    ColumnExtractor, ColumnExtractionParameters, ParsedLine,
+                    ColumnExtractor, ColumnExtractionParameters, ParsedLine,
+                    DictionaryBuilder, Dictionary<string, string>,
+                    JoinProcessor, OperationTypeParameters<JoinType>>(
+                    firstFilePath,
+                    firstFileExtractionParameters,
+                    secondFilePath,
+                    secondFileExtractionParameters,
+                    processingParameters);
+
+            lookupFileProcessor.ProcessFiles();
         }
 
         private static void SelectLinesByColumnValue(
@@ -732,13 +845,13 @@ namespace LaurentiuCristofor.Cabeiro
                 firstArgument,
                 secondArgument);
 
-            var textFileProcessor
+            var fileProcessor
                 = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectLineByColumnValueProcessor, OperationTypeParameters<ComparisonType>>(
                     filePath,
                     extractionParameters,
                     processingParameters);
 
-            textFileProcessor.ProcessFile();
+            fileProcessor.ProcessFile();
         }
 
         private static void SelectLinesByNumber(
@@ -758,13 +871,13 @@ namespace LaurentiuCristofor.Cabeiro
                 firstArgument,
                 secondArgument);
 
-            var textFileProcessor
+            var fileProcessor
                 = new FileProcessor<LineExtractor, UnusedType, string, SelectLineByNumberProcessor, OperationTypeParameters<PositionSelectionType>>(
                     filePath,
                     extractionParameters: null,
                     processingParameters);
 
-            textFileProcessor.ProcessFile();
+            fileProcessor.ProcessFile();
         }
 
         private static void SelectColumnsByNumber(
@@ -793,13 +906,13 @@ namespace LaurentiuCristofor.Cabeiro
                 firstArgument,
                 secondArgument);
 
-            var textFileProcessor
+            var fileProcessor
                 = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectColumnByNumberProcessor, OperationTypeParameters<PositionSelectionType>>(
                     filePath,
                     extractionParameters,
                     processingParameters);
 
-            textFileProcessor.ProcessFile();
+            fileProcessor.ProcessFile();
         }
 
         private static void SelectLinesByLineString(
@@ -819,13 +932,13 @@ namespace LaurentiuCristofor.Cabeiro
                 firstArgument,
                 secondArgument);
 
-            var textFileProcessor
+            var fileProcessor
                 = new FileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, SelectStringProcessor, OperationTypeParameters<StringSelectionType>>(
                     filePath,
                     extractionParameters: null,
                     processingParameters);
 
-            textFileProcessor.ProcessFile();
+            fileProcessor.ProcessFile();
         }
 
         private static void SelectLinesByColumnString(
@@ -852,13 +965,13 @@ namespace LaurentiuCristofor.Cabeiro
                 firstArgument,
                 secondArgument);
 
-            var textFileProcessor
+            var fileProcessor
                 = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectStringProcessor, OperationTypeParameters<StringSelectionType>>(
                     filePath,
                     extractionParameters,
                     processingParameters);
 
-            textFileProcessor.ProcessFile();
+            fileProcessor.ProcessFile();
         }
 
         private static void SelectLinesByColumnCount(
@@ -887,13 +1000,13 @@ namespace LaurentiuCristofor.Cabeiro
                 firstArgument,
                 secondArgument);
 
-            var textFileProcessor
+            var fileProcessor
                 = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectLineByColumnCountProcessor, OperationTypeParameters<ComparisonType>>(
                     filePath,
                     extractionParameters,
                     processingParameters);
 
-            textFileProcessor.ProcessFile();
+            fileProcessor.ProcessFile();
         }
 
         private static void SelectLinesHandlingRepeatedLines(
@@ -909,13 +1022,13 @@ namespace LaurentiuCristofor.Cabeiro
                 outputFilePath,
                 handlingType);
 
-            var textFileProcessor
+            var fileProcessor
                 = new FileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, SelectHandlingRepeteadStringsProcessor, OperationTypeParameters<RepetitionHandlingType>>(
                     filePath,
                     extractionParameters: null,
                     processingParameters);
 
-            textFileProcessor.ProcessFile();
+            fileProcessor.ProcessFile();
         }
 
         private static void SelectLinesHandlingRepeatedColumnValues(
@@ -938,13 +1051,78 @@ namespace LaurentiuCristofor.Cabeiro
                 outputFilePath,
                 handlingType);
 
-            var textFileProcessor
+            var fileProcessor
                 = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectHandlingRepeteadStringsProcessor, OperationTypeParameters<RepetitionHandlingType>>(
                     filePath,
                     extractionParameters,
                     processingParameters);
 
-            textFileProcessor.ProcessFile();
+            fileProcessor.ProcessFile();
+        }
+
+        private static void SelectLinesByLookupInFile(
+            string dataFilePath,
+            string lookupFilePath,
+            LookupType lookupType, string lookupTypeString,
+            string outputFilePath)
+        {
+            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesByLookupInFile}.{lookupTypeString.ToLower()}";
+            var filePathBuilder = new FilePathBuilder(dataFilePath, outputFileExtension, firstArgument: null, secondArgument: null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            OperationTypeParameters<LookupType> processingParameters = new OperationTypeParameters<LookupType>(
+                outputFilePath,
+                lookupType);
+
+            var lookupFileProcessor
+                = new LookupFileProcessor<
+                    LineAsParsedLineExtractor, UnusedType, ParsedLine,
+                    LineExtractor, UnusedType, string,
+                    HashSetBuilder, HashSet<string>,
+                    LookupStringProcessor, OperationTypeParameters<LookupType>>(
+                    dataFilePath,
+                    dataFileExtractionParameters: null,
+                    lookupFilePath,
+                    lookupFileExtractionParameters: null,
+                    processingParameters);
+
+            lookupFileProcessor.ProcessFiles();
+        }
+
+        private static void SelectLinesByColumnValueLookupInFile(
+            string dataFilePath,
+            int columnNumber,
+            string columnSeparator,
+            string lookupFilePath,
+            LookupType lookupType, string lookupTypeString,
+            string outputFilePath)
+        {
+            ColumnExtractionParameters dataFileExtractionParameters = new ColumnExtractionParameters(
+                columnSeparator,
+                columnNumber,
+                DataType.String);
+
+            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesByColumnValueLookupInFile}.{columnNumber}.{lookupTypeString.ToLower()}";
+            var filePathBuilder = new FilePathBuilder(dataFilePath, outputFileExtension, firstArgument: null, secondArgument: null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            OperationTypeParameters<LookupType> processingParameters = new OperationTypeParameters<LookupType>(
+                outputFilePath,
+                lookupType);
+
+            var lookupFileProcessor
+                = new LookupFileProcessor<
+                    ColumnExtractor, ColumnExtractionParameters, ParsedLine,
+                    LineExtractor, UnusedType, string,
+                    HashSetBuilder, HashSet<string>,
+                    LookupStringProcessor, OperationTypeParameters<LookupType>>(
+                    dataFilePath,
+                    dataFileExtractionParameters,
+                    lookupFilePath,
+                    lookupFileExtractionParameters: null,
+                    processingParameters);
+
+            lookupFileProcessor.ProcessFiles();
         }
 
         private static void SplitLineRanges(
@@ -966,13 +1144,13 @@ namespace LaurentiuCristofor.Cabeiro
                 CabeiroConstants.Files.Extensions.Txt,
                 rangeSize);
 
-            var textFileProcessor
+            var fileProcessor
                 = new FileProcessor<LineExtractor, UnusedType, string, SplitLineRangesProcessor, StringAndUnsignedIntegerParameters>(
                     filePath,
                     null,
                     processingParameters);
 
-            textFileProcessor.ProcessFile();
+            fileProcessor.ProcessFile();
         }
 
         private static void SplitColumns(
@@ -1001,13 +1179,13 @@ namespace LaurentiuCristofor.Cabeiro
                 outputFilePath,
                 CabeiroConstants.Files.Extensions.Txt);
 
-            var textFileProcessor
+            var fileProcessor
                 = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SplitColumnsProcessor, StringParameters>(
                     filePath,
                     extractionParameters,
                     processingParameters);
 
-            textFileProcessor.ProcessFile();
+            fileProcessor.ProcessFile();
         }
 
         private static void SplitColumnValues(
@@ -1038,13 +1216,13 @@ namespace LaurentiuCristofor.Cabeiro
                 CabeiroConstants.Files.Extensions.Txt,
                 columnNumber);
 
-            var textFileProcessor
+            var fileProcessor
                 = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SplitColumnValuesProcessor, StringAndIntegerParameters>(
                     filePath,
                     extractionParameters,
                     processingParameters);
 
-            textFileProcessor.ProcessFile();
+            fileProcessor.ProcessFile();
         }
 
         private static void SortFileBySecondColumnValue(
@@ -1070,13 +1248,13 @@ namespace LaurentiuCristofor.Cabeiro
             BaseOutputParameters processingParameters = new BaseOutputParameters(
                 outputFilePath);
 
-            var textFileProcessor
+            var fileProcessor
                 = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SortBySecondColumnValueProcessor, BaseOutputParameters>(
                     filePath,
                     extractionParameters,
                     processingParameters);
 
-            textFileProcessor.ProcessFile();
+            fileProcessor.ProcessFile();
         }
     }
 }

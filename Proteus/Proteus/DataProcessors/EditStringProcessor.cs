@@ -13,9 +13,9 @@ using LaurentiuCristofor.Proteus.FileOperations;
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// A data processor that edits a value passed through a DataTypeContainer.
+    /// A data processor that edits a string passed through a DataTypeContainer.
     /// </summary>
-    public class EditProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<StringEditType>, ParsedLine>
+    public class EditStringProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<StringEditType>, ParsedLine>
     {
         /// <summary>
         /// Parameters of this operation.
@@ -51,7 +51,30 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             string data = lineData.ExtractedData.ToString();
             string editedData = this.StringEditor.Edit(data, lineNumber);
-            string editedLine = lineData.LinePrefix + editedData + lineData.LineSuffix;
+
+            string editedLine = editedData;
+
+            // Check if we need to reconstruct a line from column parts;
+            // this is the case when we've been editing a column value.
+            //
+            if (lineData.ExtractedColumnNumber != 0)
+            {
+                // If we have a prefix, prepend it before the edited data.
+                //
+                string linePrefix = string.Join(lineData.ColumnSeparator, lineData.Columns, 0, lineData.ExtractedColumnNumber - 1);
+                if (!String.IsNullOrEmpty(linePrefix))
+                {
+                    editedLine = linePrefix + lineData.ColumnSeparator + editedLine;
+                }
+
+                // If we have a suffix, append it after the edited data.
+                //
+                string lineSuffix = string.Join(lineData.ColumnSeparator, lineData.Columns, lineData.ExtractedColumnNumber, lineData.Columns.Length - lineData.ExtractedColumnNumber);
+                if (!String.IsNullOrEmpty(lineSuffix))
+                {
+                    editedLine += lineData.ColumnSeparator + lineSuffix;
+                }
+            }
 
             // Do not output empty lines.
             //

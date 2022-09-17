@@ -16,35 +16,35 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
     /// <summary>
     /// The core template for processing a first file to build a lookup data structure and then processing a second file using that lookup data structure.
     /// </summary>
-    /// <typeparam name="TFirstDataExtractor">The type of data extractor that will be applied to each row of the first file.</typeparam>
-    /// <typeparam name="TFirstExtractionParameters">The type of parameters of the first data extraction operation.</typeparam>
-    /// <typeparam name="TFirstExtractedData">The type of data that is produced by the first extractor.</typeparam>
-    /// <typeparam name="TLookupDataStructureBuilder">The type of lookup data structure builder that is used on the first extracted data.</typeparam>
+    /// <typeparam name="TDataExtractor">The type of data extractor that will be applied to each row of the data file.</typeparam>
+    /// <typeparam name="TExtractionParameters">The type of parameters of the first data file extraction operation.</typeparam>
+    /// <typeparam name="TExtractedData">The type of data that is produced by the data file extractor.</typeparam>
+    /// <typeparam name="TLookupDataExtractor">The type of data extractor that will be applied to each row of the lookup file.</typeparam>
+    /// <typeparam name="TLookupExtractionParameters">The type of parameters of the lookup file extraction operation.</typeparam>
+    /// <typeparam name="TLookupExtractedData">The type of data that is produced by the lookup file extractor.</typeparam>
+    /// <typeparam name="TLookupDataStructureBuilder">The type of lookup data structure builder that is used on the lookup file extracted data.</typeparam>
     /// <typeparam name="TLookupDataStructure">The type of lookup data structure that is built.</typeparam>
-    /// <typeparam name="TSecondDataExtractor">The type of data extractor that will be applied to each row of the second file.</typeparam>
-    /// <typeparam name="TSecondExtractionParameters">The type of parameters of the second data extraction operation.</typeparam>
-    /// <typeparam name="TSecondExtractedData">The type of data that is produced by the second extractor.</typeparam>
-    /// <typeparam name="TDataProcessor">The type of data processor that will process the second extracted data.</typeparam>
+    /// <typeparam name="TDataProcessor">The type of data processor that will process the data file extracted data.</typeparam>
     /// <typeparam name="TProcessingParameters">The type of parameters of the processing operation.</typeparam>
     public class LookupFileProcessor<
-        TFirstDataExtractor, TFirstExtractionParameters, TFirstExtractedData,
+        TDataExtractor, TExtractionParameters, TExtractedData,
+        TLookupDataExtractor, TLookupExtractionParameters, TLookupExtractedData,
         TLookupDataStructureBuilder, TLookupDataStructure,
-        TSecondDataExtractor, TSecondExtractionParameters, TSecondExtractedData,
         TDataProcessor, TProcessingParameters>
-        where TFirstDataExtractor : IDataExtractor<TFirstExtractionParameters, TFirstExtractedData>, new()
-        where TLookupDataStructureBuilder : ILookupDataStructureBuilder<TFirstExtractedData, TLookupDataStructure>, new()
-        where TSecondDataExtractor : IDataExtractor<TSecondExtractionParameters, TSecondExtractedData>, new()
-        where TDataProcessor : IDataLookupProcessor<TProcessingParameters, TLookupDataStructure, TSecondExtractedData>, new()
+        where TDataExtractor : IDataExtractor<TExtractionParameters, TExtractedData>, new()
+        where TLookupDataExtractor : IDataExtractor<TLookupExtractionParameters, TLookupExtractedData>, new()
+        where TLookupDataStructureBuilder : ILookupDataStructureBuilder<TLookupExtractedData, TLookupDataStructure>, new()
+        where TDataProcessor : IDataLookupProcessor<TProcessingParameters, TLookupDataStructure, TExtractedData>, new()
     {
         /// <summary>
-        /// The path to the first file to process.
+        /// The path to the data file to process.
         /// </summary>
-        protected string FirstInputFilePath { get; set; }
+        protected string DataFilePath { get; set; }
 
         /// <summary>
-        /// The path to the second file to process.
+        /// The path to the lookup file to process.
         /// </summary>
-        protected string SecondInputFilePath { get; set; }
+        protected string LookupFilePath { get; set; }
 
         /// <summary>
         /// The object that we'll use to read the input files.
@@ -57,91 +57,94 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         protected ulong LineCounter { get; set; }
 
         /// <summary>
-        /// The data extractor that will be applied to each line of the first file.
+        /// The data extractor that will be applied to each line of the data file.
         /// </summary>
-        protected TFirstDataExtractor FirstDataExtractor { get; set; }
+        protected TDataExtractor DataFileExtractor { get; set; }
 
         /// <summary>
-        /// The lookup data structure builder that will operate on the content extracted from the first file.
+        /// The data extractor that will be applied to each line of the lookup file.
+        /// </summary>
+        protected TLookupDataExtractor LookupFileExtractor { get; set; }
+
+        /// <summary>
+        /// The lookup data structure builder that will operate on the content extracted from the lookup file.
         /// </summary>
         protected TLookupDataStructureBuilder LookupDataStructureBuilder { get; set; }
 
         /// <summary>
-        /// The data structure that will be constructed from the content extracted from the first file.
+        /// The data structure that will be constructed from the content extracted from the lookup file.
         /// </summary>
         protected TLookupDataStructure LookupDataStructure { get; set; }
 
         /// <summary>
-        /// The data extractor that will be applied to each line of the second file.
-        /// </summary>
-        protected TSecondDataExtractor SecondDataExtractor { get; set; }
-
-        /// <summary>
-        /// The data processor that will be applied to the output of the second extraction.
+        /// The data processor that will be applied to the output of the data file extraction.
         /// </summary>
         protected TDataProcessor DataProcessor { get; set; }
 
         public LookupFileProcessor(
-            string firstInputFilePath, string secondInputFilePath,
-            TFirstExtractionParameters firstExtractionParameters, TSecondExtractionParameters secondExtractionParameters, TProcessingParameters processingParameters)
+            string dataFilePath, TExtractionParameters dataFileExtractionParameters,
+            string lookupFilePath, TLookupExtractionParameters lookupFileExtractionParameters,
+            TProcessingParameters processingParameters)
         {
-            this.FirstDataExtractor = new TFirstDataExtractor();
-            this.FirstDataExtractor.Initialize(firstExtractionParameters);
+            this.DataFilePath = dataFilePath;
+
+            this.DataFileExtractor = new TDataExtractor();
+            this.DataFileExtractor.Initialize(dataFileExtractionParameters);
+
+            this.LookupFilePath = lookupFilePath;
+
+            this.LookupFileExtractor = new TLookupDataExtractor();
+            this.LookupFileExtractor.Initialize(lookupFileExtractionParameters);
 
             this.LookupDataStructureBuilder = new TLookupDataStructureBuilder(); 
-
-            this.SecondDataExtractor = new TSecondDataExtractor();
-            this.SecondDataExtractor.Initialize(secondExtractionParameters);
 
             this.DataProcessor = new TDataProcessor();
             this.DataProcessor.Initialize(processingParameters);
 
-            this.FirstInputFilePath = firstInputFilePath;
-            this.SecondInputFilePath = secondInputFilePath;
-
-            // Quickly check existence of second file, to avoid processing the first file for nothing.
+            // Quickly check existence of data file, to avoid processing the lookup file for nothing.
             //
-            this.InputReader = new StreamReader(this.SecondInputFilePath);
+            this.InputReader = new StreamReader(this.DataFilePath);
             this.InputReader.Close();
-            this.InputReader = new StreamReader(this.FirstInputFilePath);
+            this.InputReader = new StreamReader(this.LookupFilePath);
 
             this.LineCounter = 0;
         }
 
         /// <summary>
-        /// Processes the input file.
+        /// Processes the input files.
         /// </summary>
         public void ProcessFiles()
         {
-            while (ProcessNextRowOfFirstFile())
+            while (ProcessNextRowOfLookupFile())
             {
                 // Nothing else needs to be done, but to process each row.
             }
 
-            // Switch reader to second input file.
+            // Switch reader to data file.
             //
-            this.InputReader = new StreamReader(this.SecondInputFilePath);
+            this.InputReader = new StreamReader(this.DataFilePath);
 
             // Reset line counter.
+            // It's not necessary to reset the progress tracker
+            // because the status message from the end of the lookup file processing does that.
             //
             this.LineCounter = 0;
-            ProgressTracker.Reset();
 
             // Add lookup data structure that we just built to the data processor.
             //
             this.DataProcessor.AddLookupDataStructure(this.LookupDataStructure);
 
-            while (ProcessNextRowOfSecondFile())
+            while (ProcessNextRowOfDataFile())
             {
                 // Nothing else needs to be done, but to process each row.
             }
         }
 
         /// <summary>
-        /// Processes the next row in the first input file.
+        /// Processes the next row in the lookup file.
         /// </summary>
         /// <returns>True if processing should continue; false otherwise.</returns>
-        private bool ProcessNextRowOfFirstFile()
+        private bool ProcessNextRowOfLookupFile()
         {
             // Read next line.
             //
@@ -151,7 +154,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
             //
             if (nextRow == null)
             {
-                return EndFirstFileProcessing();
+                return EndLookupFileProcessing();
             }
 
             // Count line and track progress.
@@ -168,7 +171,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
 
             // Perform the extraction step.
             //
-            TFirstExtractedData nextData = this.FirstDataExtractor.ExtractData(this.LineCounter, nextRow);
+            TLookupExtractedData nextData = this.LookupFileExtractor.ExtractData(this.LineCounter, nextRow);
 
             // Then perform the lookup data structure building step.
             //
@@ -178,10 +181,10 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         }
 
         /// <summary>
-        /// Processes the next row in the second input file.
+        /// Processes the next row in the data file.
         /// </summary>
         /// <returns>True if processing should continue; false otherwise.</returns>
-        private bool ProcessNextRowOfSecondFile()
+        private bool ProcessNextRowOfDataFile()
         {
             // Read next line.
             //
@@ -191,7 +194,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
             //
             if (nextRow == null)
             {
-                return EndSecondFileProcessing();
+                return EndDataFileProcessing();
             }
 
             // Count line and track progress.
@@ -208,43 +211,43 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
 
             // Perform the extraction step.
             //
-            TSecondExtractedData nextData = this.SecondDataExtractor.ExtractData(this.LineCounter, nextRow);
+            TExtractedData nextData = this.DataFileExtractor.ExtractData(this.LineCounter, nextRow);
 
             // Then perform the processing step.
             // Check the result for an early processing termination.
             //
             if (!this.DataProcessor.Execute(this.LineCounter, nextData))
             {
-                return EndSecondFileProcessing();
+                return EndDataFileProcessing();
             }
 
             return true;
         }
 
         /// <summary>
-        /// Finalizes the processing of the first file.
+        /// Finalizes the processing of the lookup file.
         /// </summary>
         /// <returns>Always returns false to indicate that execution should terminate.</returns>
-        private bool EndFirstFileProcessing()
+        private bool EndLookupFileProcessing()
         {
             this.InputReader.Close();
 
-            OutputInterface.LogLine($"\n{this.LineCounter} lines were read from file { Path.GetFileName(this.FirstInputFilePath)}.");
+            OutputInterface.LogLine($"\n{this.LineCounter} lines were read from file { Path.GetFileName(this.DataFilePath)}.");
 
             return false;
         }
 
         /// <summary>
-        /// Finalizes the processing of the second file.
+        /// Finalizes the processing of the data file.
         /// </summary>
         /// <returns>Always returns false to indicate that execution should terminate.</returns>
-        private bool EndSecondFileProcessing()
+        private bool EndDataFileProcessing()
         {
             this.DataProcessor.CompleteExecution();
 
             this.InputReader.Close();
 
-            OutputInterface.LogLine($"\n{this.LineCounter} lines were read from file { Path.GetFileName(this.SecondInputFilePath)}.");
+            OutputInterface.LogLine($"\n{this.LineCounter} lines were read from file { Path.GetFileName(this.LookupFilePath)}.");
 
             return false;
         }

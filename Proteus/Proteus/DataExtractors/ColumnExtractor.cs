@@ -69,28 +69,9 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
                 }
             }
 
-            string linePrefix = null;
-            string lineSuffix = null;
-            if (this.Parameters.ConstructLinePrefixAndSuffix)
-            {
-                // Also extract the data before and after the column, so we can put the line back together, if needed.
-                //
-                linePrefix = string.Join(this.Parameters.Separators[0], columns, 0, columnIndex);
-                if (linePrefix != string.Empty)
-                {
-                    linePrefix = linePrefix + this.Parameters.Separators[0];
-                }
-
-                lineSuffix = string.Join(this.Parameters.Separators[0], columns, columnIndex + 1, columns.Length - 1 - columnIndex);
-                if (lineSuffix != string.Empty)
-                {
-                    lineSuffix = this.Parameters.Separators[0] + lineSuffix;
-                }
-            }
-
             // Package all the information that we processed for the line.
             //
-            ParsedLine parsedLine = new ParsedLine(line, this.Parameters.Separators[0], columns, columnData, secondColumnData, linePrefix, lineSuffix);
+            ParsedLine parsedLine = new ParsedLine(line, columnData, this.Parameters.ColumnNumber, columns, this.Parameters.Separators[0], secondColumnData);
             
             // Return the string parts.
             //

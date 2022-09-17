@@ -64,6 +64,7 @@ For detailed instructions on each specific command, execute:
 * EL - (E)dit (L)ines
 * ECV - (E)dit (C)olumn (V)alues
 * IL - (I)nsert (L)ine
+* JL - (J)oin (L)ines
 
 #### SELECTION commands
 
@@ -75,6 +76,8 @@ For detailed instructions on each specific command, execute:
 * SLBCC - (S)elect (L)ines (B)y (C)olumn (C)ount
 * SLHRL - (S)elect (L)ines (H)andling (R)epeated (L)ines
 * SLHRCV - (S)elect (L)ines (H)andling (R)epeated (C)olumn (V)alues
+* SLBLIF - (S)elect (L)ines (B)y (L)ookup (I)n (F)ile
+* SLBCVLIF - (S)elect (L)ines (B)y (C)olumn (V)alue (L)ookup (I)n (F)ile
 
 #### SPLITTING commands
 
