@@ -14,7 +14,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// A data processor that checks a string against a selection criterion,
     /// to decide whether to output the line or not.
     /// </summary>
-    public class SelectStringProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<StringSelectionType>, ParsedLine>
+    public class SelectLineByStringProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<StringSelectionType>, ParsedLine>
     {
         /// <summary>
         /// Parameters of this operation.

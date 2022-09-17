@@ -16,7 +16,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// A data processor that checks a string to see if it's a repetition of a previously processed value,
     /// to decide whether to output the line or not.
     /// </summary>
-    public class SelectHandlingRepeteadStringsProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<RepetitionHandlingType>, ParsedLine>
+    public class SelectLineHandlingRepeteadStringsProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<RepetitionHandlingType>, ParsedLine>
     {
         /// <summary>
         /// Parameters of this operation.

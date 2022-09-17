@@ -933,7 +933,7 @@ namespace LaurentiuCristofor.Cabeiro
                 secondArgument);
 
             var fileProcessor
-                = new FileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, SelectStringProcessor, OperationTypeParameters<StringSelectionType>>(
+                = new FileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, SelectLineByStringProcessor, OperationTypeParameters<StringSelectionType>>(
                     filePath,
                     extractionParameters: null,
                     processingParameters);
@@ -966,7 +966,7 @@ namespace LaurentiuCristofor.Cabeiro
                 secondArgument);
 
             var fileProcessor
-                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectStringProcessor, OperationTypeParameters<StringSelectionType>>(
+                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectLineByStringProcessor, OperationTypeParameters<StringSelectionType>>(
                     filePath,
                     extractionParameters,
                     processingParameters);
@@ -1023,7 +1023,7 @@ namespace LaurentiuCristofor.Cabeiro
                 handlingType);
 
             var fileProcessor
-                = new FileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, SelectHandlingRepeteadStringsProcessor, OperationTypeParameters<RepetitionHandlingType>>(
+                = new FileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, SelectLineHandlingRepeteadStringsProcessor, OperationTypeParameters<RepetitionHandlingType>>(
                     filePath,
                     extractionParameters: null,
                     processingParameters);
@@ -1052,7 +1052,7 @@ namespace LaurentiuCristofor.Cabeiro
                 handlingType);
 
             var fileProcessor
-                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectHandlingRepeteadStringsProcessor, OperationTypeParameters<RepetitionHandlingType>>(
+                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectLineHandlingRepeteadStringsProcessor, OperationTypeParameters<RepetitionHandlingType>>(
                     filePath,
                     extractionParameters,
                     processingParameters);
