@@ -43,6 +43,10 @@ For detailed instructions on each specific command, execute:
 
 ```Cabeiro help <command_name>```
 
+Commands operating on 'column values' interpret columns as values of a specific data type.
+Commands operating on 'column strings' interpret columns as plain strings.
+This distinction is important because, for example, `0` and `0.0` would be seen as the same value if they are interpreted as floating point data, but they will be seen as different values if they are interpreted as plain strings.
+
 #### HELP commands
 
 * HELP - Obtain help on Cabeiro functionality.
@@ -68,7 +72,7 @@ These commands change the order of the lines of a file.
 These commands modify the content of a file.
 
 * EL - (E)dit (L)ines
-* ECV - (E)dit (C)olumn (V)alues
+* ECS - (E)dit (C)olumn (S)trings
 * IL - (I)nsert (L)ine
 * JL - (J)oin (L)ines
 * CL - (C)oncatenate (L)ines
@@ -84,9 +88,9 @@ These commands extract a subset of a file, according to various criteria.
 * SLBCS - (S)elect (L)ines (B)y (C)olumn (S)tring
 * SLBCC - (S)elect (L)ines (B)y (C)olumn (C)ount
 * SLHRL - (S)elect (L)ines (H)andling (R)epeated (L)ines
-* SLHRCV - (S)elect (L)ines (H)andling (R)epeated (C)olumn (V)alues
+* SLHRCV - (S)elect (L)ines (H)andling (R)epeated (C)olumn (S)trings
 * SLBLIF - (S)elect (L)ines (B)y (L)ookup (I)n (F)ile
-* SLBCVLIF - (S)elect (L)ines (B)y (C)olumn (V)alue (L)ookup (I)n (F)ile
+* SLBCVLIF - (S)elect (L)ines (B)y (C)olumn (String) (L)ookup (I)n (F)ile
 
 #### SPLITTING commands
 
@@ -94,7 +98,7 @@ These commands split the content of a file across multiple files, based on vario
 
  * SPLR - (SP)lit (L)ine (R)anges
  * SPC - (SP)plit (C)olumns
- * SPCV - (SP)plit (C)olumn (V)alues
+ * SPCV - (SP)plit (C)olumn (S)trings
 
 #### POST_SORTING commands
 

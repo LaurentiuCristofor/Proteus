@@ -147,9 +147,9 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
-                CabeiroConstants.Commands.EditColumnValues,
+                CabeiroConstants.Commands.EditColumnStrings,
                 CommandCategory.Editing,
-                "(E)dit (C)olumn (V)alues",
+                "(E)dit (C)olumn (S)trings",
                 longDescription: null,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
@@ -295,10 +295,10 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
-                CabeiroConstants.Commands.SelectLinesHandlingRepeatedColumnValues,
+                CabeiroConstants.Commands.SelectLinesHandlingRepeatedColumnStrings,
                 CommandCategory.Selection,
-                "(S)elect (L)ines (H)andling (R)epeated (C)olumn (V)alues",
-                CabeiroConstants.Commands.Descriptions.SelectLinesHandlingRepeatedColumnValues,
+                "(S)elect (L)ines (H)andling (R)epeated (C)olumn (S)trings",
+                CabeiroConstants.Commands.Descriptions.SelectLinesHandlingRepeatedColumnStrings,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
@@ -320,10 +320,10 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
-                CabeiroConstants.Commands.SelectLinesByColumnValueLookupInFile,
+                CabeiroConstants.Commands.SelectLinesByColumnStringLookupInFile,
                 CommandCategory.Selection,
-                "(S)elect (L)ines (B)y (C)olumn (V)alue (L)ookup (I)n (F)ile",
-                CabeiroConstants.Commands.Descriptions.SelectLinesByColumnValueLookupInFile,
+                "(S)elect (L)ines (B)y (C)olumn (S)tring (L)ookup (I)n (F)ile",
+                CabeiroConstants.Commands.Descriptions.SelectLinesByColumnStringLookupInFile,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
@@ -358,10 +358,10 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
-                CabeiroConstants.Commands.SplitColumnValues,
+                CabeiroConstants.Commands.SplitColumnStrings,
                 CommandCategory.Splitting,
-                "(SP)lit (C)olumn (V)alues",
-                CabeiroConstants.Commands.Descriptions.SplitColumnValues,
+                "(SP)lit (C)olumn (S)trings",
+                CabeiroConstants.Commands.Descriptions.SplitColumnStrings,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"

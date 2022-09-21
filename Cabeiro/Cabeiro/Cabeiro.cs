@@ -227,7 +227,7 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.EditColumnValues))
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.EditColumnStrings))
             {
                 const int minimumArgumentNumber = 5;
                 const int maximumArgumentNumber = 8;
@@ -238,7 +238,7 @@ namespace LaurentiuCristofor.Cabeiro
                     Tuple<StringEditType, int> operationInfo = ArgumentParser.ParseStringEditType(arguments[4]);
                     ArgumentParser.ExtractLastArguments(operationInfo.Item2, 5, arguments, out string firstArgument, out string secondArgument, out string outputFilePath);
 
-                    EditColumnValues(
+                    EditColumnStrings(
                         arguments[1],
                         columnNumber,
                         columnSeparator,
@@ -451,7 +451,7 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesHandlingRepeatedColumnValues))
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesHandlingRepeatedColumnStrings))
             {
                 const int minimumArgumentNumber = 4;
                 const int maximumArgumentNumber = 5;
@@ -462,7 +462,7 @@ namespace LaurentiuCristofor.Cabeiro
                     Tuple<RepetitionHandlingType, int> operationInfo = ArgumentParser.ParseRepetitionHandlingType(arguments[4]);
                     ArgumentParser.ExtractLastArguments(0, 5, arguments, out _, out _, out string outputFilePath);
 
-                    SelectLinesHandlingRepeatedColumnValues(
+                    SelectLinesHandlingRepeatedColumnStrings(
                         arguments[1],
                         columnNumber,
                         columnSeparator,
@@ -490,7 +490,7 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByColumnValueLookupInFile))
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByColumnStringLookupInFile))
             {
                 const int minimumArgumentNumber = 6;
                 const int maximumArgumentNumber = 7;
@@ -503,7 +503,7 @@ namespace LaurentiuCristofor.Cabeiro
                     Tuple<LookupType, int> operationInfo = ArgumentParser.ParseLookupType(arguments[5]);
                     ArgumentParser.ExtractLastArguments(operationInfo.Item2, 6, arguments, out _, out _, out string outputFilePath);
 
-                    SelectLinesByColumnValueLookupInFile(
+                    SelectLinesByColumnStringLookupInFile(
                         dataFilePath,
                         columnNumber,
                         columnSeparator,
@@ -545,7 +545,7 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SplitColumnValues))
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SplitColumnStrings))
             {
                 const int minimumArgumentNumber = 4;
                 const int maximumArgumentNumber = 5;
@@ -555,7 +555,7 @@ namespace LaurentiuCristofor.Cabeiro
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
                     ArgumentParser.ExtractLastArguments(0, 4, arguments, out _, out _, out string outputFilePath);
 
-                    SplitColumnValues(
+                    SplitColumnStrings(
                         arguments[1],
                         columnNumber,
                         columnSeparator,
@@ -735,7 +735,7 @@ namespace LaurentiuCristofor.Cabeiro
             fileProcessor.ProcessFile();
         }
 
-        private static void EditColumnValues(
+        private static void EditColumnStrings(
             string filePath,
             int columnNumber,
             string columnSeparator,
@@ -749,7 +749,7 @@ namespace LaurentiuCristofor.Cabeiro
                 columnNumber,
                 DataType.String);
 
-            string outputFileExtension = $".{CabeiroConstants.Commands.EditColumnValues}.{columnNumber}.{editTypeString.ToLower()}";
+            string outputFileExtension = $".{CabeiroConstants.Commands.EditColumnStrings}.{columnNumber}.{editTypeString.ToLower()}";
             var filePathBuilder = new EditOperationFilePathBuilder(editType, filePath, outputFileExtension, firstArgument, secondArgument, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
@@ -1078,7 +1078,7 @@ namespace LaurentiuCristofor.Cabeiro
             fileProcessor.ProcessFile();
         }
 
-        private static void SelectLinesHandlingRepeatedColumnValues(
+        private static void SelectLinesHandlingRepeatedColumnStrings(
             string filePath,
             int columnNumber,
             string columnSeparator,
@@ -1090,7 +1090,7 @@ namespace LaurentiuCristofor.Cabeiro
                 columnNumber,
                 DataType.String);
 
-            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesHandlingRepeatedColumnValues}.{columnNumber}.{handlingTypeString}";
+            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesHandlingRepeatedColumnStrings}.{columnNumber}.{handlingTypeString}";
             var filePathBuilder = new FilePathBuilder(filePath, outputFileExtension, firstArgument: null, secondArgument: null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
@@ -1136,7 +1136,7 @@ namespace LaurentiuCristofor.Cabeiro
             lookupFileProcessor.ProcessFiles();
         }
 
-        private static void SelectLinesByColumnValueLookupInFile(
+        private static void SelectLinesByColumnStringLookupInFile(
             string dataFilePath,
             int columnNumber,
             string columnSeparator,
@@ -1149,7 +1149,7 @@ namespace LaurentiuCristofor.Cabeiro
                 columnNumber,
                 DataType.String);
 
-            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesByColumnValueLookupInFile}.{columnNumber}.{lookupTypeString.ToLower()}";
+            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesByColumnStringLookupInFile}.{columnNumber}.{lookupTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(dataFilePath, outputFileExtension, firstArgument: null, secondArgument: null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
@@ -1235,7 +1235,7 @@ namespace LaurentiuCristofor.Cabeiro
             fileProcessor.ProcessFile();
         }
 
-        private static void SplitColumnValues(
+        private static void SplitColumnStrings(
             string filePath,
             int columnNumber,
             string columnSeparator,
@@ -1252,7 +1252,7 @@ namespace LaurentiuCristofor.Cabeiro
             // The file name will be bundled by the processor with the number of each column, so we exclude the text extension from it;
             // it will get appended by the processor internally.
             //
-            string outputFileExtension = $".{CabeiroConstants.Commands.SplitColumnValues}.{columnNumber}";
+            string outputFileExtension = $".{CabeiroConstants.Commands.SplitColumnStrings}.{columnNumber}";
             var filePathBuilder = new FilePathBuilder(filePath, outputFileExtension, firstArgument: null, secondArgument: null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath(excludeTextExtension: true);
 

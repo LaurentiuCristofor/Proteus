@@ -61,7 +61,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string SortByColumnValue = "sbcv";
 
             public const string EditLines = "el";
-            public const string EditColumnValues = "ecv";
+            public const string EditColumnStrings = "ecs";
             public const string InsertLine = "il";
             public const string JoinLines = "jl";
             public const string ConcatenateLines = "cl";
@@ -73,13 +73,13 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string SelectLinesByColumnString = "slbcs";
             public const string SelectLinesByColumnCount = "slbcc";
             public const string SelectLinesHandlingRepeatedLines = "slhrl";
-            public const string SelectLinesHandlingRepeatedColumnValues = "slhrcv";
+            public const string SelectLinesHandlingRepeatedColumnStrings = "slhrcs";
             public const string SelectLinesByLookupInFile = "slblif";
-            public const string SelectLinesByColumnValueLookupInFile = "slbcvlif";
+            public const string SelectLinesByColumnStringLookupInFile = "slbcslif";
 
             public const string SplitLineRanges = "splr";
             public const string SplitColumns = "spc";
-            public const string SplitColumnValues = "spcv";
+            public const string SplitColumnStrings = "spcs";
 
             public const string SortBySecondColumnValue = "sb2cv";
 
@@ -96,13 +96,13 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string SelectLinesByLineString = "Selects lines based on their string value matching specified properties.";
                 public const string SelectLinesByColumnString = "Selects lines based on a column's string value matching specified properties.";
                 public const string SelectLinesHandlingRepeatedLines = "Selects lines, handling repeated lines as specified.";
-                public const string SelectLinesHandlingRepeatedColumnValues = "Selects lines, handling lines with repeated column values as specified.";
+                public const string SelectLinesHandlingRepeatedColumnStrings = "Selects lines, handling lines with repeated column strings as specified.";
                 public const string SelectLinesByLookupInFile = "Selects lines based on whether they appear in another file or not.";
-                public const string SelectLinesByColumnValueLookupInFile = "Selects lines based on whether their specified column's value appears in another file or not.";
+                public const string SelectLinesByColumnStringLookupInFile = "Selects lines based on whether their specified column's string appears in another file or not.";
 
                 public const string SplitLineRanges = "Splits a file into multiple files, each containing a range of lines of specified size. Last file will likely have fewer lines than the rest.";
                 public const string SplitColumns = "Splits a file into multiple files, one for each column. Resulting files may have different size than the original file, if the original file contained lines with varying number of columns.";
-                public const string SplitColumnValues = "Splits a file into multiple files, one for each different value taken by a specified column. Lines that do not have the specified column present are collected in output file \"0\".";
+                public const string SplitColumnStrings = "Splits a file into multiple files, one for each different string value present in a specified column. Lines that do not have the specified column present are collected in output file \"0\".";
             }
 
             // Command notes.
