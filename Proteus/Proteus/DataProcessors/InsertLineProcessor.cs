@@ -13,12 +13,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// A data processor that checks the line number,
     /// to decide whether to insert a line at that position or not.
     /// </summary>
-    public class InsertLineProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<PositionInsertionType>, string>
+    public class InsertLineProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeOutputParameters<PositionInsertionType>, string>
     {
         /// <summary>
         /// Parameters of this operation.
         /// </summary>
-        protected OperationTypeParameters<PositionInsertionType> Parameters { get; set; }
+        protected OperationTypeOutputParameters<PositionInsertionType> Parameters { get; set; }
 
         /// <summary>
         /// Second argument, as an unsigned integer value.
@@ -30,7 +30,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// </summary>
         protected ulong LastOutputLineNumber { get; set; }
 
-        public void Initialize(OperationTypeParameters<PositionInsertionType> processingParameters)
+        public void Initialize(OperationTypeOutputParameters<PositionInsertionType> processingParameters)
         {
             this.Parameters = processingParameters;
 

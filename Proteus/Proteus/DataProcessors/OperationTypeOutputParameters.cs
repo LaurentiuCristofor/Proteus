@@ -11,7 +11,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// Includes parameters for performing an operation specified by a type.
     /// </summary>
-    public class OperationTypeParameters<TOperationType> : BaseOutputParameters
+    public class OperationTypeOutputParameters<TOperationType> : BaseOutputParameters
     {
         /// <summary>
         /// The type of the operation that should be performed.
@@ -28,7 +28,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// </summary>
         public string SecondArgument { get; protected set; }
 
-        public OperationTypeParameters(
+        public OperationTypeOutputParameters(
             string outputFilePath,
             TOperationType operationType,
             string firstArgument = null,

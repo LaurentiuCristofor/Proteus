@@ -16,19 +16,19 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
     /// A data processor that looks up a string in a data structure according to a selection criteria,
     /// to decide whether to output the line or not.
     /// </summary>
-    public class LookupStringProcessor : BaseOutputProcessor, IDataLookupProcessor<OperationTypeParameters<LookupType>, HashSet<string>, ParsedLine>
+    public class LookupStringProcessor : BaseOutputProcessor, IDataLookupProcessor<OperationTypeOutputParameters<LookupType>, HashSet<string>, ParsedLine>
     {
         /// <summary>
         /// Parameters of this operation.
         /// </summary>
-        protected OperationTypeParameters<LookupType> Parameters { get; set; }
+        protected OperationTypeOutputParameters<LookupType> Parameters { get; set; }
 
         /// <summary>
         /// The lookup data structure used to perform the operation.
         /// </summary>
         protected HashSet<string> LookupSet { get; set; }
 
-        public void Initialize(OperationTypeParameters<LookupType> processingParameters)
+        public void Initialize(OperationTypeOutputParameters<LookupType> processingParameters)
         {
             this.Parameters = processingParameters;
 

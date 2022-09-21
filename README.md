@@ -49,11 +49,15 @@ For detailed instructions on each specific command, execute:
 
 #### INFORMATION commands
 
+These commands report information about the content of a file.
+
 * C - (C)ount lines
 * AL - (A)nalyze (L)ines
 * ACV - (A)nalyze (C)olumn (V)alues
 
 #### ORDERING commands
+
+These commands change the order of the lines of a file.
 
 * I - (I)nvert file
 * S - (S)ort file
@@ -61,12 +65,17 @@ For detailed instructions on each specific command, execute:
 
 #### EDITING commands
 
+These commands modify the content of a file.
+
 * EL - (E)dit (L)ines
 * ECV - (E)dit (C)olumn (V)alues
 * IL - (I)nsert (L)ine
 * JL - (J)oin (L)ines
+* CL - (C)oncatenate (L)ines
 
 #### SELECTION commands
+
+These commands extract a subset of a file, according to various criteria.
 
 * SLBCV - (S)elect (L)ines (B)y (C)olumn (V)alue
 * SLBN - (S)elect (L)ines (B)y (N)umber
@@ -81,10 +90,14 @@ For detailed instructions on each specific command, execute:
 
 #### SPLITTING commands
 
+These commands split the content of a file across multiple files, based on various criteria.
+
  * SPLR - (SP)lit (L)ine (R)anges
  * SPC - (SP)plit (C)olumns
  * SPCV - (SP)plit (C)olumn (V)alues
 
 #### POST_SORTING commands
+
+These commands expect that their input files had been previously sorted.
 
 * SB2CV - (S)ort file (B)y (2)nd (C)olumn (V)alue

@@ -64,6 +64,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string EditColumnValues = "ecv";
             public const string InsertLine = "il";
             public const string JoinLines = "jl";
+            public const string ConcatenateLines = "cl";
 
             public const string SelectLinesByColumnValue = "slbcv";
             public const string SelectLinesByNumber = "slbn";

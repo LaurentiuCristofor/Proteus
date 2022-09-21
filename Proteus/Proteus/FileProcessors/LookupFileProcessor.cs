@@ -24,7 +24,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
     /// <typeparam name="TLookupExtractedData">The type of data that is produced by the lookup file extractor.</typeparam>
     /// <typeparam name="TLookupDataStructureBuilder">The type of lookup data structure builder that is used on the lookup file extracted data.</typeparam>
     /// <typeparam name="TLookupDataStructure">The type of lookup data structure that is built.</typeparam>
-    /// <typeparam name="TDataProcessor">The type of data processor that will process the data file extracted data.</typeparam>
+    /// <typeparam name="TDataProcessor">The type of data processor that will process the data extracted from the data file.</typeparam>
     /// <typeparam name="TProcessingParameters">The type of parameters of the processing operation.</typeparam>
     public class LookupFileProcessor<
         TDataExtractor, TExtractionParameters, TExtractedData,

@@ -189,6 +189,18 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.JoinTypeText}");
             RegisterCommandDescription(commandDescription);
 
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.ConcatenateLines,
+                CommandCategory.Editing,
+                "(C)oncatenate (L)ines",
+                longDescription: null,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.FirstInputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondInputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                notes: null);
+            RegisterCommandDescription(commandDescription);
+
             // Line selection commands.
             //
             commandDescription = new CommandDescription(

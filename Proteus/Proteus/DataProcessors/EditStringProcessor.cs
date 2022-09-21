@@ -15,19 +15,19 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that edits a string passed through a DataTypeContainer.
     /// </summary>
-    public class EditStringProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeParameters<StringEditType>, ParsedLine>
+    public class EditStringProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeOutputParameters<StringEditType>, ParsedLine>
     {
         /// <summary>
         /// Parameters of this operation.
         /// </summary>
-        protected OperationTypeParameters<StringEditType> Parameters { get; set; }
+        protected OperationTypeOutputParameters<StringEditType> Parameters { get; set; }
 
         /// <summary>
         /// The editor used to perform the operation.
         /// </summary>
         protected StringEditor StringEditor { get; set; }
 
-        public void Initialize(OperationTypeParameters<StringEditType> processingParameters)
+        public void Initialize(OperationTypeOutputParameters<StringEditType> processingParameters)
         {
             this.Parameters = processingParameters;
 

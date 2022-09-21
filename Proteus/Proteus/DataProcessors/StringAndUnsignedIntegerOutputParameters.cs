@@ -11,20 +11,20 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// Includes a string and ulong pair of parameters.
     /// </summary>
-    public class StringAndIntegerParameters : StringParameters
+    public class StringAndUnsignedIntegerOutputParameters : StringOutputParameters
     {
         /// <summary>
-        /// The integer value.
+        /// The unsigned integer value.
         /// </summary>
-        public int IntegerValue { get; protected set; }
+        public ulong UnsignedIntegerValue { get; protected set; }
 
-        public StringAndIntegerParameters(
+        public StringAndUnsignedIntegerOutputParameters(
             string outputFilePath,
             string stringValue,
-            int integerValue)
+            ulong unsignedIntegerValue)
             : base(outputFilePath, stringValue)
         {
-            this.IntegerValue = integerValue;
+            this.UnsignedIntegerValue = unsignedIntegerValue;
         }
     }
 }
