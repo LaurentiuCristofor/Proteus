@@ -4,7 +4,7 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-namespace LaurentiuCristofor.Proteus.DataProcessors.SideBySide
+namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
 {
     /// <summary>
     /// Types of processing actions.

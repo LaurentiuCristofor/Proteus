@@ -4,15 +4,15 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using LaurentiuCristofor.Proteus.Common;
 using LaurentiuCristofor.Proteus.FileOperations;
 
-namespace LaurentiuCristofor.Proteus.DataProcessors.SideBySide
+namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
+
 {
     /// <summary>
     /// A data processor that concatenates lines from two files.
     /// </summary>
-    public class ConcatenateProcessor: BaseOutputProcessor, ISideBySideDataProcessor<StringOutputParameters, string>
+    public class ConcatenateProcessor: BaseOutputProcessor, IDualDataProcessor<StringOutputParameters, string>
     {
         /// <summary>
         /// Parameters of this operation.

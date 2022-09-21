@@ -4,14 +4,14 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-namespace LaurentiuCristofor.Proteus.DataProcessors.SideBySide
+namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
 {
     /// <summary>
     /// An interface for a data processing unit that processes two pieces of data at a time.
     /// </summary>
     /// <typeparam name="TProcessingParameters">The parameters of the processing operation.</typeparam>
     /// <typeparam name="TInputData">The type of data that will be processed.</typeparam>
-    public interface ISideBySideDataProcessor<TProcessingParameters, TInputData>
+    public interface IDualDataProcessor<TProcessingParameters, TInputData>
     {
         /// <summary>
         /// Initializes the processor with specific processing parameters.

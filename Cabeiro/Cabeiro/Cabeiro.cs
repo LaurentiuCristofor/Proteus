@@ -11,8 +11,8 @@ using System.Reflection;
 using LaurentiuCristofor.Proteus.Common;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.DataProcessors;
+using LaurentiuCristofor.Proteus.DataProcessors.Dual;
 using LaurentiuCristofor.Proteus.DataProcessors.Lookup;
-using LaurentiuCristofor.Proteus.DataProcessors.SideBySide;
 using LaurentiuCristofor.Proteus.FileProcessors;
 
 using LaurentiuCristofor.Cabeiro.Common;
@@ -854,8 +854,8 @@ namespace LaurentiuCristofor.Cabeiro
                 outputFilePath,
                 columnSeparator);
 
-            var sideBySideFileProcessor
-                = new SideBySideFileProcessor<
+            var dualFileProcessor
+                = new DualFileProcessor<
                     LineExtractor, UnusedType, string,
                     ConcatenateProcessor, StringOutputParameters>(
                     firstFilePath,
@@ -864,7 +864,7 @@ namespace LaurentiuCristofor.Cabeiro
                     secondExtractionParameters: null,
                     processingParameters);
 
-            sideBySideFileProcessor.ProcessFiles();
+            dualFileProcessor.ProcessFiles();
         }
 
         private static void SelectLinesByColumnValue(

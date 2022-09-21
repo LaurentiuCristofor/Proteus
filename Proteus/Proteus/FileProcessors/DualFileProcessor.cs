@@ -9,7 +9,7 @@ using System.IO;
 
 using LaurentiuCristofor.Proteus.Common;
 using LaurentiuCristofor.Proteus.DataExtractors;
-using LaurentiuCristofor.Proteus.DataProcessors.SideBySide;
+using LaurentiuCristofor.Proteus.DataProcessors.Dual;
 
 namespace LaurentiuCristofor.Proteus.FileProcessors
 {
@@ -21,11 +21,11 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
     /// <typeparam name="TExtractedData">The type of data that is produced by the extraction operations.</typeparam>
     /// <typeparam name="TDataProcessor">The type of data processor that will process the extracted data.</typeparam>
     /// <typeparam name="TProcessingParameters">The type of parameters of the processing operation.</typeparam>
-    public class SideBySideFileProcessor<
+    public class DualFileProcessor<
         TDataExtractor, TExtractionParameters, TExtractedData,
         TDataProcessor, TProcessingParameters>
         where TDataExtractor : IDataExtractor<TExtractionParameters, TExtractedData>, new()
-        where TDataProcessor : ISideBySideDataProcessor<TProcessingParameters, TExtractedData>, new()
+        where TDataProcessor : IDualDataProcessor<TProcessingParameters, TExtractedData>, new()
     {
         /// <summary>
         /// The path to the first file to process.
@@ -97,7 +97,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         /// </summary>
         protected bool hasProcessedSecondFile;
 
-        public SideBySideFileProcessor(
+        public DualFileProcessor(
             string firstInputFilePath, TExtractionParameters firstExtractionParameters,
             string secondInputFilePath, TExtractionParameters secondExtractionParameters,
             TProcessingParameters processingParameters)
