@@ -587,6 +587,48 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.MergeLines))
+            {
+                const int minimumArgumentNumber = 3;
+                const int maximumArgumentNumber = 4;
+                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
+                {
+                    string firstFilePath = arguments[1];
+                    string secondFilePath = arguments[2];
+                    ArgumentParser.ExtractLastArguments(0, 3, arguments, out _, out _, out string outputFilePath);
+
+                    MergeLines(
+                        firstFilePath,
+                        secondFilePath,
+                        outputFilePath);
+                    return;
+                }
+            }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.MergeLinesByColumnValue))
+            {
+                const int minimumArgumentNumber = 7;
+                const int maximumArgumentNumber = 8;
+                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
+                {
+                    string firstFilePath = arguments[1];
+                    int firstFileColumnNumber = ArgumentParser.GetPositiveInteger(arguments[2]);
+                    string columnSeparator = arguments[3];
+                    DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
+                    string secondFilePath = arguments[5];
+                    int secondFileColumnNumber = ArgumentParser.GetPositiveInteger(arguments[6]);
+                    ArgumentParser.ExtractLastArguments(0, 7, arguments, out _, out _, out string outputFilePath);
+
+                    MergeLinesByColumnValue(
+                        firstFilePath,
+                        firstFileColumnNumber,
+                        columnSeparator,
+                        dataType, arguments[4],
+                        secondFilePath,
+                        secondFileColumnNumber,
+                        outputFilePath);
+                    return;
+                }
+            }
 
             // If we reached this point, the user command did not match any existing command.
             // Display the program description as a reminder.
@@ -1302,6 +1344,70 @@ namespace LaurentiuCristofor.Cabeiro
                     processingParameters);
 
             fileProcessor.ProcessFile();
+        }
+
+        private static void MergeLines(
+            string firstFilePath,
+            string secondFilePath,
+            string outputFilePath)
+        {
+            string outputFileExtension = $".{CabeiroConstants.Commands.MergeLines}";
+            var filePathBuilder = new FilePathBuilder(firstFilePath, outputFileExtension, firstArgument: null, secondArgument: null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            BaseOutputParameters processingParameters = new BaseOutputParameters(
+                outputFilePath);
+
+            var dualFileProcessor
+                = new DualFileProcessor<
+                    LineAsParsedLineExtractor, UnusedType, ParsedLine,
+                    MergeProcessor, BaseOutputParameters>(
+                    firstFilePath,
+                    firstExtractionParameters: null,
+                    secondFilePath,
+                    secondExtractionParameters: null,
+                    processingParameters);
+
+            dualFileProcessor.ProcessFiles();
+        }
+
+        private static void MergeLinesByColumnValue(
+            string firstFilePath,
+            int firstFileColumnNumber,
+            string columnSeparator,
+            DataType dataType, string dataTypeString,
+            string secondFilePath,
+            int secondFileColumnNumber,
+            string outputFilePath)
+        {
+            ColumnExtractionParameters firstExtractionParameters = new ColumnExtractionParameters(
+                columnSeparator,
+                firstFileColumnNumber,
+                dataType);
+
+            ColumnExtractionParameters secondExtractionParameters = new ColumnExtractionParameters(
+                columnSeparator,
+                secondFileColumnNumber,
+                dataType);
+
+            string outputFileExtension = $".{CabeiroConstants.Commands.MergeLinesByColumnValue}.{firstFileColumnNumber}.{dataTypeString.ToLower()}";
+            var filePathBuilder = new FilePathBuilder(firstFilePath, outputFileExtension, firstArgument: null, secondArgument: null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            BaseOutputParameters processingParameters = new BaseOutputParameters(
+                outputFilePath);
+
+            var dualFileProcessor
+                = new DualFileProcessor<
+                    ColumnExtractor, ColumnExtractionParameters, ParsedLine,
+                    MergeProcessor, BaseOutputParameters>(
+                    firstFilePath,
+                    firstExtractionParameters,
+                    secondFilePath,
+                    secondExtractionParameters,
+                    processingParameters);
+
+            dualFileProcessor.ProcessFiles();
         }
     }
 }

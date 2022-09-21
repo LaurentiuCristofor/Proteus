@@ -82,6 +82,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string SplitColumnStrings = "spcs";
 
             public const string SortBySecondColumnValue = "sb2cv";
+            public const string MergeLines = "ml";
+            public const string MergeLinesByColumnValue = "mlbcv";
 
             // Command descriptions.
             //
@@ -103,6 +105,9 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string SplitLineRanges = "Splits a file into multiple files, each containing a range of lines of specified size. Last file will likely have fewer lines than the rest.";
                 public const string SplitColumns = "Splits a file into multiple files, one for each column. Resulting files may have different size than the original file, if the original file contained lines with varying number of columns.";
                 public const string SplitColumnStrings = "Splits a file into multiple files, one for each different string value present in a specified column. Lines that do not have the specified column present are collected in output file \"0\".";
+
+                public const string MergeLines = "Merges lines from two sorted files. Does not verify that the input files are sorted.";
+                public const string MergeLinesByColumnValue = "Merges lines from two files sorted on specific columns. Does not verify that the input files are sorted on those columns.";
             }
 
             // Command notes.

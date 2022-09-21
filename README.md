@@ -102,6 +102,8 @@ These commands split the content of a file across multiple files, based on vario
 
 #### POST_SORTING commands
 
-These commands expect that their input files had been previously sorted.
+These commands expect that their input files had been previously sorted; column value operations expect files to be sorted on that column.
 
 * SB2CV - (S)ort file (B)y (2)nd (C)olumn (V)alue
+* ML - (M)erge (L)ines
+* MLBCV - (M)erge (L)ines (B)y (C)olumn (V)alue

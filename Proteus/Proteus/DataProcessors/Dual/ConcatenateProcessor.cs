@@ -7,7 +7,6 @@
 using LaurentiuCristofor.Proteus.FileOperations;
 
 namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
-
 {
     /// <summary>
     /// A data processor that concatenates lines from two files.

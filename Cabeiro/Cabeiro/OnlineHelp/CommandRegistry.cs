@@ -385,6 +385,33 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}");
             RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.MergeLines,
+                CommandCategory.Post_Sorting,
+                "(M)erge (L)ines",
+                CabeiroConstants.Commands.Descriptions.MergeLines,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.FirstInputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondInputFilePath}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                notes: null);
+            RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.MergeLinesByColumnValue,
+                CommandCategory.Post_Sorting,
+                "(M)erge (L)ines (B)y (C)olumn (V)alue",
+                CabeiroConstants.Commands.Descriptions.MergeLinesByColumnValue,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.FirstInputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondInputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstFileColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondInputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondFileColumnNumber}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}");
+            RegisterCommandDescription(commandDescription);
         }
 
         /// <summary>
