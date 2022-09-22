@@ -565,37 +565,97 @@ namespace LaurentiuCristofor.Cabeiro.Common
             {
                 return new Tuple<StringEditType, int>(StringEditType.DeleteContentBeforeMarker, 1);
             }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeDeleteContentBeforeLastMarker))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.DeleteContentBeforeLastMarker, 1);
+            }
             else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeDeleteContentAfterMarker))
             {
                 return new Tuple<StringEditType, int>(StringEditType.DeleteContentAfterMarker, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeDeleteContentAfterLastMarker))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.DeleteContentAfterLastMarker, 1);
             }
             else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeKeepContentBeforeMarker))
             {
                 return new Tuple<StringEditType, int>(StringEditType.KeepContentBeforeMarker, 1);
             }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeKeepContentBeforeLastMarker))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.KeepContentBeforeLastMarker, 1);
+            }
             else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeKeepContentAfterMarker))
             {
                 return new Tuple<StringEditType, int>(StringEditType.KeepContentAfterMarker, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeKeepContentAfterLastMarker))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.KeepContentAfterLastMarker, 1);
             }
             else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeInsertContentBeforeMarker))
             {
                 return new Tuple<StringEditType, int>(StringEditType.InsertContentBeforeMarker, 2);
             }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeInsertContentBeforeLastMarker))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.InsertContentBeforeLastMarker, 2);
+            }
             else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeInsertContentAfterMarker))
             {
                 return new Tuple<StringEditType, int>(StringEditType.InsertContentAfterMarker, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeInsertContentAfterLastMarker))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.InsertContentAfterLastMarker, 2);
             }
             else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeDeleteContentBetweenMarkers))
             {
                 return new Tuple<StringEditType, int>(StringEditType.DeleteContentBetweenMarkers, 2);
             }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeDeleteContentBetweenLastMarkers))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.DeleteContentBetweenLastMarkers, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeDeleteContentBetweenInnermostMarkers))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.DeleteContentBetweenInnermostMarkers, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeDeleteContentBetweenOutermostMarkers))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.DeleteContentBetweenOutermostMarkers, 2);
+            }
             else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeKeepContentBetweenMarkers))
             {
                 return new Tuple<StringEditType, int>(StringEditType.KeepContentBetweenMarkers, 2);
             }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeKeepContentBetweenLastMarkers))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.KeepContentBetweenLastMarkers, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeKeepContentBetweenInnermostMarkers))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.KeepContentBetweenInnermostMarkers, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeKeepContentBetweenOutermostMarkers))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.KeepContentBetweenOutermostMarkers, 2);
+            }
             else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeKeepContentOutsideMarkers))
             {
                 return new Tuple<StringEditType, int>(StringEditType.KeepContentOutsideMarkers, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeKeepContentOutsideLastMarkers))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.KeepContentOutsideLastMarkers, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeKeepContentOutsideInnermostMarkers))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.KeepContentOutsideInnermostMarkers, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeKeepContentOutsideOutermostMarkers))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.KeepContentOutsideOutermostMarkers, 2);
             }
             else
             {

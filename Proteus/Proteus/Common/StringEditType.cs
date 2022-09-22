@@ -36,14 +36,36 @@ namespace LaurentiuCristofor.Proteus.Common
         InsertContentAtIndex = 62,
 
         ReplaceContent = 90,
-        DeleteContentBeforeMarker = 91,
-        DeleteContentAfterMarker = 92,
-        KeepContentBeforeMarker = 93,
-        KeepContentAfterMarker = 94,
-        InsertContentBeforeMarker = 95,
-        InsertContentAfterMarker = 96,
-        DeleteContentBetweenMarkers = 97,
-        KeepContentBetweenMarkers = 98,
-        KeepContentOutsideMarkers = 99,
+
+        DeleteContentBeforeMarker = 100,
+        DeleteContentAfterMarker = 101,
+        KeepContentBeforeMarker = 102,
+        KeepContentAfterMarker = 103,
+        InsertContentBeforeMarker = 104,
+        InsertContentAfterMarker = 105,
+
+        DeleteContentBeforeLastMarker = 110,
+        DeleteContentAfterLastMarker = 111,
+        KeepContentBeforeLastMarker = 112,
+        KeepContentAfterLastMarker = 113,
+        InsertContentBeforeLastMarker = 114,
+        InsertContentAfterLastMarker = 115,
+
+        DeleteContentBetweenMarkers = 140,
+        KeepContentBetweenMarkers = 141,
+        KeepContentOutsideMarkers = 142,
+
+        DeleteContentBetweenLastMarkers = 150,
+        KeepContentBetweenLastMarkers = 151,
+        KeepContentOutsideLastMarkers = 152,
+
+        DeleteContentBetweenInnermostMarkers = 160,
+        KeepContentBetweenInnermostMarkers = 161,
+        KeepContentOutsideInnermostMarkers = 162,
+
+        DeleteContentBetweenOutermostMarkers = 170,
+        KeepContentBetweenOutermostMarkers = 171,
+        KeepContentOutsideOutermostMarkers = 172,
+
     }
 }

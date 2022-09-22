@@ -211,9 +211,24 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string StringEditTypeKeepContentAfterMarker = "kcam";
                 public const string StringEditTypeInsertContentBeforeMarker = "icbm";
                 public const string StringEditTypeInsertContentAfterMarker = "icam";
+                public const string StringEditTypeDeleteContentBeforeLastMarker = "dcblm";
+                public const string StringEditTypeDeleteContentAfterLastMarker = "dcalm";
+                public const string StringEditTypeKeepContentBeforeLastMarker = "kcblm";
+                public const string StringEditTypeKeepContentAfterLastMarker = "kcalm";
+                public const string StringEditTypeInsertContentBeforeLastMarker = "icblm";
+                public const string StringEditTypeInsertContentAfterLastMarker = "icalm";
                 public const string StringEditTypeDeleteContentBetweenMarkers = "dcb2m";
                 public const string StringEditTypeKeepContentBetweenMarkers = "kcb2m";
                 public const string StringEditTypeKeepContentOutsideMarkers= "kco2m";
+                public const string StringEditTypeDeleteContentBetweenLastMarkers = "dcb2lm";
+                public const string StringEditTypeKeepContentBetweenLastMarkers = "kcb2lm";
+                public const string StringEditTypeKeepContentOutsideLastMarkers = "kco2lm";
+                public const string StringEditTypeDeleteContentBetweenInnermostMarkers = "dcb2im";
+                public const string StringEditTypeKeepContentBetweenInnermostMarkers = "kcb2im";
+                public const string StringEditTypeKeepContentOutsideInnermostMarkers = "kco2im";
+                public const string StringEditTypeDeleteContentBetweenOutermostMarkers = "dcb2om";
+                public const string StringEditTypeKeepContentBetweenOutermostMarkers = "kcb2om";
+                public const string StringEditTypeKeepContentOutsideOutermostMarkers = "kco2om";
 
                 // Command argument description strings.
                 //
@@ -355,9 +370,24 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentAfterMarker}' = keep content after marker; arguments: <marker>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeInsertContentBeforeMarker}' = insert content before marker; arguments: <content> <marker>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeInsertContentAfterMarker}' = insert content after marker; arguments: <content> <marker>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeDeleteContentBeforeLastMarker}' = delete content before last occurrence of marker; arguments: <marker>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeDeleteContentAfterLastMarker}' = delete content after last occurrence of marker; arguments: <marker>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentBeforeLastMarker}' = keep content before last occurrence of marker; arguments: <marker>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentAfterLastMarker}' = keep content after last occurrence of marker; arguments: <marker>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeInsertContentBeforeLastMarker}' = insert content before last occurrence of marker; arguments: <content> <marker>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeInsertContentAfterLastMarker}' = insert content after last occurrence of marker; arguments: <content> <marker>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeDeleteContentBetweenMarkers}' = delete content between markers; arguments: <first_marker> <second_marker>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentBetweenMarkers}' = keep content between markers; arguments: <first_marker> <second_marker>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentOutsideMarkers}' = keep content outside markers; arguments: <first_marker> <second_marker>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeDeleteContentBetweenLastMarkers}' = delete content between last occurrences of markers; arguments: <first_marker> <second_marker>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentBetweenLastMarkers}' = keep content between last occurrences of markers; arguments: <first_marker> <second_marker>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentOutsideLastMarkers}' = keep content outside last occurrences of markers; arguments: <first_marker> <second_marker>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeDeleteContentBetweenInnermostMarkers}' = delete content between innermost occurrences of markers; arguments: <first_marker> <second_marker>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentBetweenInnermostMarkers}' = keep content between innermost occurrences of markers; arguments: <first_marker> <second_marker>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentOutsideInnermostMarkers}' = keep content outside innermost occurrences of markers; arguments: <first_marker> <second_marker>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeDeleteContentBetweenOutermostMarkers}' = delete content between outermost occurrences of markers; arguments: <first_marker> <second_marker>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentBetweenOutermostMarkers}' = keep content between outermost occurrences of markers; arguments: <first_marker> <second_marker>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentOutsideOutermostMarkers}' = keep content outside outermost occurrences of markers; arguments: <first_marker> <second_marker>"
                         + "\n";
 
                     public const string LimitValues = "<limit_values>";
