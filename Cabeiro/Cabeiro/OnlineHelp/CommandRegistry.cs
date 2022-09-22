@@ -464,6 +464,20 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $"\n{CabeiroConstants.Commands.Arguments.Descriptions.LookupTypeText}");
             RegisterCommandDescription(commandDescription);
 
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.FindStateTransitions,
+                CommandCategory.Post_Sorting,
+                "(F)ind (S)tate (T)ransitions",
+                CabeiroConstants.Commands.Descriptions.FindStateTransitions,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondaryColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondaryColumnDataType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.PrimaryColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.PrimaryColumnDataType}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}");
+            RegisterCommandDescription(commandDescription);
         }
 
         /// <summary>

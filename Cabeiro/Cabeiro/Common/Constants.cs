@@ -88,6 +88,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string SelectLinesPostSortingHandlingRepeatedColumnStrings = "slpshrcs";
             public const string SelectLinesPostSortingByLookupInFile = "slpsblif";
             public const string SelectLinesPostSortingByColumnValueLookupInFile = "slpsbcvlif";
+            public const string FindStateTransitions = "fst";
 
             // Command descriptions.
             //
@@ -116,6 +117,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string SelectLinesPostSortingHandlingRepeatedColumnStrings = "Selects lines from a column-sorted file, handling lines with repeated column strings as specified.";
                 public const string SelectLinesPostSortingByLookupInFile = "Selects lines from a sorted file based on whether they appear in another sorted file or not. Does not verify the correct sorting of the input files.";
                 public const string SelectLinesPostSortingByColumnValueLookupInFile = "Selects lines from a column-sorted file based on whether their sorted column's value appears in the first column of another sorted file or not. Does not verify the correct sorting of the input files.";
+                public const string FindStateTransitions = "Selects pairs of lines from a column-sorted file, which match on the sorted column's values, but differ on a second column's 'state' values.";
             }
 
             // Command notes.

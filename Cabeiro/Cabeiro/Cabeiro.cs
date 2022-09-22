@@ -713,6 +713,30 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.FindStateTransitions))
+            {
+                const int minimumArgumentNumber = 7;
+                const int maximumArgumentNumber = 10;
+                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
+                {
+                    int secondColumnNumber = ArgumentParser.GetPositiveInteger(arguments[2]);
+                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
+                    DataType secondDataType = ArgumentParser.ParseDataType(arguments[4]);
+                    int firstColumnNumber = ArgumentParser.GetPositiveInteger(arguments[5]);
+                    DataType firstDataType = ArgumentParser.ParseDataType(arguments[6]);
+                    ArgumentParser.ExtractLastArguments(0, 7, arguments, out _, out _, out string outputFilePath);
+
+                    FindStateTransitions(
+                        arguments[1],
+                        secondColumnNumber,
+                        columnSeparator,
+                        secondDataType, arguments[4],
+                        firstColumnNumber,
+                        firstDataType,
+                        outputFilePath);
+                    return;
+                }
+            }
 
             // If we reached this point, the user command did not match any existing command.
             // Display the program description as a reminder.
@@ -1593,6 +1617,38 @@ namespace LaurentiuCristofor.Cabeiro
                     processingParameters);
 
             dualFileProcessor.ProcessFiles();
+        }
+
+        private static void FindStateTransitions(
+            string filePath,
+            int secondColumnNumber,
+            string columnSeparator,
+            DataType secondDataType, string secondDataTypeString,
+            int firstColumnNumber,
+            DataType firstDataType,
+            string outputFilePath)
+        {
+            ColumnExtractionParameters extractionParameters = new ColumnExtractionParameters(
+                columnSeparator,
+                firstColumnNumber,
+                firstDataType,
+                secondColumnNumber,
+                secondDataType);
+
+            string outputFileExtension = $".{CabeiroConstants.Commands.FindStateTransitions}.{secondColumnNumber}.{secondDataTypeString.ToLower()}";
+            var filePathBuilder = new FilePathBuilder(filePath, outputFileExtension, firstArgument: null, secondArgument: null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            BaseOutputParameters processingParameters = new BaseOutputParameters(
+                outputFilePath);
+
+            var fileProcessor
+                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, FindStateTransitionsProcessor, BaseOutputParameters>(
+                    filePath,
+                    extractionParameters,
+                    processingParameters);
+
+            fileProcessor.ProcessFile();
         }
     }
 }

@@ -111,3 +111,4 @@ These commands expect that their input files had been previously sorted; column 
 * SLPSHRCS - (S)elect (L)ines (P)ost (S)orting (H)andling (R)epeated (C)olumn (S)trings
 * SLPSBLIF - (S)elect (L)ines (P)ost (S)orting (B)y (L)ookup (I)n (F)ile
 * SLPSBCVLIF - (S)elect (L)ines (P)ost (S)orting (B)y (C)olumn (V)alue (L)ookup (I)n (F)ile
+* FST - (F)ind (S)tate (T)ransitions
