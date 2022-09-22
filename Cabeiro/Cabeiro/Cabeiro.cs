@@ -629,6 +629,50 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByLookupInFile))
+            {
+                const int minimumArgumentNumber = 4;
+                const int maximumArgumentNumber = 5;
+                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
+                {
+                    string dataFilePath = arguments[1];
+                    string lookupFilePath = arguments[2];
+                    Tuple<LookupType, int> operationInfo = ArgumentParser.ParseLookupType(arguments[3]);
+                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 4, arguments, out _, out _, out string outputFilePath);
+
+                    SelectLinesPostSortingByLookupInFile(
+                        dataFilePath,
+                        lookupFilePath,
+                        operationInfo.Item1, arguments[3],
+                        outputFilePath);
+                    return;
+                }
+            }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByColumnValueLookupInFile))
+            {
+                const int minimumArgumentNumber = 7;
+                const int maximumArgumentNumber = 8;
+                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
+                {
+                    string dataFilePath = arguments[1];
+                    int columnNumber = ArgumentParser.GetPositiveInteger(arguments[2]);
+                    string columnSeparator = arguments[3];
+                    DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
+                    string lookupFilePath = arguments[5];
+                    Tuple<LookupType, int> operationInfo = ArgumentParser.ParseLookupType(arguments[6]);
+                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 7, arguments, out _, out _, out string outputFilePath);
+
+                    SelectLinesPostSortingByColumnValueLookupInFile(
+                        dataFilePath,
+                        columnNumber,
+                        columnSeparator,
+                        dataType, arguments[4],
+                        lookupFilePath,
+                        operationInfo.Item1, arguments[6],
+                        outputFilePath);
+                    return;
+                }
+            }
 
             // If we reached this point, the user command did not match any existing command.
             // Display the program description as a reminder.
@@ -1405,6 +1449,73 @@ namespace LaurentiuCristofor.Cabeiro
                     firstExtractionParameters,
                     secondFilePath,
                     secondExtractionParameters,
+                    processingParameters);
+
+            dualFileProcessor.ProcessFiles();
+        }
+
+        private static void SelectLinesPostSortingByLookupInFile(
+            string dataFilePath,
+            string lookupFilePath,
+            LookupType lookupType, string lookupTypeString,
+            string outputFilePath)
+        {
+            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesPostSortingByLookupInFile}.{lookupTypeString.ToLower()}";
+            var filePathBuilder = new FilePathBuilder(dataFilePath, outputFileExtension, firstArgument: null, secondArgument: null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            OperationTypeOutputParameters<LookupType> processingParameters = new OperationTypeOutputParameters<LookupType>(
+                outputFilePath,
+                lookupType);
+
+            var dualFileProcessor
+                = new DualFileProcessor<
+                    LineAsParsedLineExtractor, UnusedType, ParsedLine,
+                    LookupProcessor, OperationTypeOutputParameters<LookupType>>(
+                    dataFilePath,
+                    firstExtractionParameters: null,
+                    lookupFilePath,
+                    secondExtractionParameters: null,
+                    processingParameters);
+
+            dualFileProcessor.ProcessFiles();
+        }
+
+        private static void SelectLinesPostSortingByColumnValueLookupInFile(
+            string dataFilePath,
+            int columnNumber,
+            string columnSeparator,
+            DataType dataType, string dataTypeString,
+            string lookupFilePath,
+            LookupType lookupType, string lookupTypeString,
+            string outputFilePath)
+        {
+            ColumnExtractionParameters dataFileExtractionParameters = new ColumnExtractionParameters(
+                columnSeparator,
+                columnNumber,
+                dataType);
+
+            ColumnExtractionParameters lookupFileExtractionParameters = new ColumnExtractionParameters(
+                columnSeparator,
+                columnNumber: 1,
+                dataType);
+
+            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesByColumnStringLookupInFile}.{columnNumber}.{dataTypeString.ToLower()}.{lookupTypeString.ToLower()}";
+            var filePathBuilder = new FilePathBuilder(dataFilePath, outputFileExtension, firstArgument: null, secondArgument: null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            OperationTypeOutputParameters<LookupType> processingParameters = new OperationTypeOutputParameters<LookupType>(
+                outputFilePath,
+                lookupType);
+
+            var dualFileProcessor
+                = new DualFileProcessor<
+                    ColumnExtractor, ColumnExtractionParameters, ParsedLine,
+                    LookupProcessor, OperationTypeOutputParameters<LookupType>>(
+                    dataFilePath,
+                    dataFileExtractionParameters,
+                    lookupFilePath,
+                    lookupFileExtractionParameters,
                     processingParameters);
 
             dualFileProcessor.ProcessFiles();

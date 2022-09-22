@@ -84,6 +84,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string SortBySecondColumnValue = "sb2cv";
             public const string MergeLines = "ml";
             public const string MergeLinesByColumnValue = "mlbcv";
+            public const string SelectLinesPostSortingByLookupInFile = "slpsblif";
+            public const string SelectLinesPostSortingByColumnValueLookupInFile = "slpsbcvlif";
 
             // Command descriptions.
             //
@@ -106,8 +108,10 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string SplitColumns = "Splits a file into multiple files, one for each column. Resulting files may have different size than the original file, if the original file contained lines with varying number of columns.";
                 public const string SplitColumnStrings = "Splits a file into multiple files, one for each different string value present in a specified column. Lines that do not have the specified column present are collected in output file \"0\".";
 
-                public const string MergeLines = "Merges lines from two sorted files. Does not verify that the input files are sorted.";
-                public const string MergeLinesByColumnValue = "Merges lines from two files sorted on specific columns. Does not verify that the input files are sorted on those columns.";
+                public const string MergeLines = "Merges lines from two sorted files. Does not verify the correct sorting of the input files.";
+                public const string MergeLinesByColumnValue = "Merges lines from two files sorted on specific columns. Does not verify the correct sorting of the input files.";
+                public const string SelectLinesPostSortingByLookupInFile = "Selects lines from a sorted file based on whether they appear in another sorted file or not. Does not verify the correct sorting of the input files.";
+                public const string SelectLinesPostSortingByColumnValueLookupInFile = "Selects lines from a column-sorted file based on whether their sorted column's value appears in the first column of another sorted file or not. Does not verify the correct sorting of the input files.";
             }
 
             // Command notes.

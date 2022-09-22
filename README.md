@@ -88,9 +88,9 @@ These commands extract a subset of a file, according to various criteria.
 * SLBCS - (S)elect (L)ines (B)y (C)olumn (S)tring
 * SLBCC - (S)elect (L)ines (B)y (C)olumn (C)ount
 * SLHRL - (S)elect (L)ines (H)andling (R)epeated (L)ines
-* SLHRCV - (S)elect (L)ines (H)andling (R)epeated (C)olumn (S)trings
+* SLHRCS - (S)elect (L)ines (H)andling (R)epeated (C)olumn (S)trings
 * SLBLIF - (S)elect (L)ines (B)y (L)ookup (I)n (F)ile
-* SLBCVLIF - (S)elect (L)ines (B)y (C)olumn (String) (L)ookup (I)n (F)ile
+* SLBCSLIF - (S)elect (L)ines (B)y (C)olumn (S)tring (L)ookup (I)n (F)ile
 
 #### SPLITTING commands
 
@@ -98,7 +98,7 @@ These commands split the content of a file across multiple files, based on vario
 
  * SPLR - (SP)lit (L)ine (R)anges
  * SPC - (SP)plit (C)olumns
- * SPCV - (SP)plit (C)olumn (S)trings
+ * SPCS - (SP)plit (C)olumn (S)trings
 
 #### POST_SORTING commands
 
@@ -107,3 +107,5 @@ These commands expect that their input files had been previously sorted; column 
 * SB2CV - (S)ort file (B)y (2)nd (C)olumn (V)alue
 * ML - (M)erge (L)ines
 * MLBCV - (M)erge (L)ines (B)y (C)olumn (V)alue
+* SLPSBLIF - (S)elect (L)ines (P)ost (S)orting (B)y (L)ookup (I)n (F)ile
+* SLPSBCVLIF - (S)elect (L)ines (P)ost (S)orting (B)y (C)olumn (V)alue (L)ookup (I)n (F)ile
