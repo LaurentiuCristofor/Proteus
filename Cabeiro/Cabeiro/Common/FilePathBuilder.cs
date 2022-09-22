@@ -24,14 +24,9 @@ namespace LaurentiuCristofor.Cabeiro.Common
         protected string OutputFileExtension { get; set; }
 
         /// <summary>
-        /// The first argument of the operation - it usually gets written into the extension.
+        /// The arguments of the operation - they usually get written into the extension.
         /// </summary>
-        protected string FirstArgument { get; set; }
-
-        /// <summary>
-        /// The second argument of the operation - it usually gets written into the extension.
-        /// </summary>
-        protected string SecondArgument { get; set; }
+        protected string[] OperationArguments { get; set; }
 
         /// <summary>
         /// Building this path if it was not provided is the purpose of the builder.
@@ -40,12 +35,11 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
         protected bool HasProcessedArguments { get; set; }
 
-        public FilePathBuilder(string inputFilePath, string outputFileExtension, string firstArgument, string secondArgument, string outputFilePath)
+        public FilePathBuilder(string inputFilePath, string outputFileExtension, string[] operationArguments, string outputFilePath)
         {
             this.InputFilePath = inputFilePath;
             this.OutputFileExtension = outputFileExtension;
-            this.FirstArgument = firstArgument;
-            this.SecondArgument = secondArgument;
+            this.OperationArguments = operationArguments;
             this.OutputFilePath = outputFilePath;
             this.HasProcessedArguments = false;
         }
@@ -63,16 +57,19 @@ namespace LaurentiuCristofor.Cabeiro.Common
         /// </summary>
         protected virtual void AppendArgumentsToExtension()
         {
-            // Append arguments to extension, if they're available.
-            //
-            if (this.FirstArgument != null)
+            if (this.OperationArguments == null)
             {
-                this.OutputFileExtension += $".{this.FirstArgument}";
+                return;
             }
 
-            if (this.SecondArgument != null)
+            // Append arguments to extension, if they're available.
+            //
+            for (int i = 0; i < this.OperationArguments.Length; ++i)
             {
-                this.OutputFileExtension += $".{this.SecondArgument}";
+                if (this.OperationArguments[i] != null)
+                {
+                    this.OutputFileExtension += $".{this.OperationArguments[i]}";
+                }
             }
         }
 

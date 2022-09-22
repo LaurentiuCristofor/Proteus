@@ -66,6 +66,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string InsertLine = "il";
             public const string JoinLines = "jl";
             public const string ConcatenateLines = "cl";
+            public const string TransformColumns = "tc";
 
             public const string SelectLinesByColumnValue = "slbcv";
             public const string SelectLinesByNumber = "slbn";
@@ -188,6 +189,9 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string LookupIncluded = "incl";
                 public const string LookupNotIncluded = "nincl";
 
+                public const string ColumnTransformationPack = "pack";
+                public const string ColumnTransformationUnpack = "unpack";
+
                 public const string StringEditTypeRewrite = "rw";
                 public const string StringEditTypeUppercase = "uc";
                 public const string StringEditTypeLowercase = "lc";
@@ -251,6 +255,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                     public const string ColumnSeparator = "<column_separator>";
                     public const string FirstArgument = "<first_argument>";
                     public const string SecondArgument = "<second_argument>";
+                    public const string ThirdArgument = "<third_argument>";
                     public const string PrimaryColumnNumber = "<primary_column_number>";
                     public const string PrimaryColumnDataType = "<primary_column_data_type>";
                     public const string SecondaryColumnNumber = "<secondary_column_number>";
@@ -327,6 +332,13 @@ namespace LaurentiuCristofor.Cabeiro.Common
                     public static readonly string LookupTypeText = $"{Constants.Commands.Arguments.Descriptions.LookupType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.LookupIncluded}' = included - include lines matching lookup file content"
                         + $"\n\t- '{Constants.Commands.Arguments.LookupNotIncluded}' = not included - include lines not matching lookup file content"
+                        + "\n";
+
+                    public const string TransformationType = "<transformation_type>";
+
+                    public static readonly string ColumnTransformationTypeText = $"{Constants.Commands.Arguments.Descriptions.TransformationType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.ColumnTransformationPack}' = pack column range; arguments: <start_column_number> <end_column_number> <packing_separator>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ColumnTransformationUnpack}' = unpack column; arguments: <column_number> <packing_separator>"
                         + "\n";
 
                     public static readonly string StringSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"

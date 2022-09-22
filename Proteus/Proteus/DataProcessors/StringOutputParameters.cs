@@ -23,7 +23,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             string stringValue)
             : base(outputFilePath)
         {
-            
             this.StringValue = stringValue;
         }
     }

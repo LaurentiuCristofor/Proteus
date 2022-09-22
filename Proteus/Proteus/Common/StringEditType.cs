@@ -66,6 +66,5 @@ namespace LaurentiuCristofor.Proteus.Common
         DeleteContentBetweenOutermostMarkers = 170,
         KeepContentBetweenOutermostMarkers = 171,
         KeepContentOutsideOutermostMarkers = 172,
-
     }
 }

@@ -12,14 +12,10 @@ namespace LaurentiuCristofor.Cabeiro.Common
     {
         protected StringEditType EditType { get; set; }
 
-        public EditOperationFilePathBuilder(StringEditType editType, string inputFilePath, string outputFileExtension, string firstArgument, string secondArgument, string outputFilePath)
-            : base(inputFilePath, outputFileExtension, firstArgument, secondArgument, outputFilePath)
+        public EditOperationFilePathBuilder(StringEditType editType, string inputFilePath, string outputFileExtension, string[] editArguments, string outputFilePath)
+            : base(inputFilePath, outputFileExtension, editArguments, outputFilePath)
         {
-            this.InputFilePath = inputFilePath;
-            this.OutputFileExtension = outputFileExtension;
-            this.FirstArgument = firstArgument;
-            this.SecondArgument = secondArgument;
-            this.OutputFilePath = outputFilePath;
+            this.EditType = editType;
         }
 
         protected override void ProcessArguments()
@@ -28,7 +24,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             //
             if (this.EditType == StringEditType.PrefixLineNumbers)
             {
-                this.FirstArgument = ArgumentParser.ParseSeparator(this.FirstArgument);
+                this.OperationArguments[0] = ArgumentParser.ParseSeparator(this.OperationArguments[0]);
             }
         }
 

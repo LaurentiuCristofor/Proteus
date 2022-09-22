@@ -77,6 +77,7 @@ These commands modify the content of a file.
 * IL - (I)nsert (L)ine
 * JL - (J)oin (L)ines
 * CL - (C)oncatenate (L)ines
+* TC - (T)ransform (C)olumns
 
 #### SELECTION commands
 

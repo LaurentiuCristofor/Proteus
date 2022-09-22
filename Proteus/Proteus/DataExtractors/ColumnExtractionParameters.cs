@@ -41,13 +41,10 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         /// </summary>
         public DataType SecondColumnDataType { get; protected set; }
 
-        public bool ConstructLinePrefixAndSuffix { get; protected set; }
-
         public ColumnExtractionParameters(
             string separator,
             int columnNumber,
-            DataType dataType,
-            bool constructLinePrefixAndSuffix = false)
+            DataType dataType)
         {
             ArgumentChecker.CheckPositive(columnNumber);
             ArgumentChecker.CheckDataType(dataType);
@@ -58,7 +55,6 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             this.ColumnDataType = dataType;
             this.SecondColumnNumber = 0;
             this.SecondColumnDataType = DataType.NotSet;
-            this.ConstructLinePrefixAndSuffix = constructLinePrefixAndSuffix;
         }
 
         public ColumnExtractionParameters(
@@ -79,7 +75,6 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             this.ColumnDataType = dataType;
             this.SecondColumnNumber = secondColumnNumber;
             this.SecondColumnDataType = secondDataType;
-            this.ConstructLinePrefixAndSuffix = false;
         }
     }
 }

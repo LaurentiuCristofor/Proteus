@@ -73,12 +73,12 @@ namespace LaurentiuCristofor.Proteus.Common
                 case StringEditType.DeleteContentAfterLastMarker:
                 case StringEditType.KeepContentBeforeLastMarker:
                 case StringEditType.KeepContentAfterLastMarker:
-                    ArgumentChecker.CheckNotNullAndNotEmpty(firstArgument);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstArgument);
                     break;
 
                 case StringEditType.ReplaceContent:
-                    ArgumentChecker.CheckNotNullAndNotEmpty(firstArgument);
-                    ArgumentChecker.CheckNotNull(secondArgument);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstArgument);
+                    ArgumentChecker.CheckNotNull(this.SecondArgument);
                     break;
 
                 case StringEditType.InsertContentBeforeMarker:
@@ -97,38 +97,38 @@ namespace LaurentiuCristofor.Proteus.Common
                 case StringEditType.DeleteContentBetweenOutermostMarkers:
                 case StringEditType.KeepContentBetweenOutermostMarkers:
                 case StringEditType.KeepContentOutsideOutermostMarkers:
-                    ArgumentChecker.CheckNotNullAndNotEmpty(firstArgument);
-                    ArgumentChecker.CheckNotNullAndNotEmpty(secondArgument);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstArgument);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(this.SecondArgument);
                     break;
 
                 case StringEditType.DeleteFirstCharacters:
                 case StringEditType.DeleteLastCharacters:
                 case StringEditType.KeepFirstCharacters:
                 case StringEditType.KeepLastCharacters:
-                    ArgumentChecker.CheckNotNull(firstArgument);
+                    ArgumentChecker.CheckNotNull(this.FirstArgument);
 
-                    this.FirstArgumentAsInt = int.Parse(firstArgument);
+                    this.FirstArgumentAsInt = int.Parse(this.FirstArgument);
 
                     ArgumentChecker.CheckNotNegative(this.FirstArgumentAsInt);
                     break;
 
                 case StringEditType.DeleteContentAtIndex:
                 case StringEditType.KeepContentAtIndex:
-                    ArgumentChecker.CheckNotNull(firstArgument);
-                    ArgumentChecker.CheckNotNull(secondArgument);
+                    ArgumentChecker.CheckNotNull(this.FirstArgument);
+                    ArgumentChecker.CheckNotNull(this.SecondArgument);
 
-                    this.FirstArgumentAsInt = int.Parse(firstArgument);
-                    this.SecondArgumentAsInt = int.Parse(secondArgument);
+                    this.FirstArgumentAsInt = int.Parse(this.FirstArgument);
+                    this.SecondArgumentAsInt = int.Parse(this.SecondArgument);
 
                     ArgumentChecker.CheckNotNegative(this.FirstArgumentAsInt);
                     ArgumentChecker.CheckPositive(this.SecondArgumentAsInt);
                     break;
 
                 case StringEditType.InsertContentAtIndex:
-                    ArgumentChecker.CheckNotNullAndNotEmpty(firstArgument);
-                    ArgumentChecker.CheckNotNull(secondArgument);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstArgument);
+                    ArgumentChecker.CheckNotNull(this.SecondArgument);
 
-                    this.SecondArgumentAsInt = int.Parse(secondArgument);
+                    this.SecondArgumentAsInt = int.Parse(this.SecondArgument);
 
                     ArgumentChecker.CheckNotNegative(this.FirstArgumentAsInt);
                     break;

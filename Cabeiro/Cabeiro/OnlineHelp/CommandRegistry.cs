@@ -213,6 +213,19 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 notes: null);
             RegisterCommandDescription(commandDescription);
 
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.TransformColumns,
+                CommandCategory.Editing,
+                "(T)ransform (C)olumns",
+                longDescription: null,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.TransformationType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} {CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument} [{CabeiroConstants.Commands.Arguments.Descriptions.ThirdArgument}]"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.ColumnTransformationTypeText}");
+            RegisterCommandDescription(commandDescription);
+
             // Line selection commands.
             //
             commandDescription = new CommandDescription(

@@ -42,7 +42,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 case PositionSelectionType.NotLast:
                 case PositionSelectionType.Each:
                 case PositionSelectionType.NotEach:
-                    ArgumentChecker.CheckNotNull(this.Parameters.FirstArgument);
+                    this.Parameters.CheckFirstArgumentIsAvailable();
 
                     this.FirstArgumentAsInt = int.Parse(this.Parameters.FirstArgument);
 
@@ -51,8 +51,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case PositionSelectionType.Between:
                 case PositionSelectionType.NotBetween:
-                    ArgumentChecker.CheckNotNull(this.Parameters.FirstArgument);
-                    ArgumentChecker.CheckNotNull(this.Parameters.SecondArgument);
+                    this.Parameters.CheckFirstArgumentIsAvailable();
+                    this.Parameters.CheckSecondArgumentIsAvailable();
 
                     this.FirstArgumentAsInt = int.Parse(this.Parameters.FirstArgument);
                     this.SecondArgumentAsInt = int.Parse(this.Parameters.SecondArgument);
@@ -157,7 +157,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                             //
                             line = string.Join(lineData.ColumnSeparator, lineData.Columns, countColumns - countLast, countLast);
                         }
-
                         break;
                     }
 
@@ -172,7 +171,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                         {
                             line = string.Join(lineData.ColumnSeparator, lineData.Columns, 0, countColumns - countLast);
                         }
-
                         break;
                     }
 
@@ -196,7 +194,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                                 line += lineData.Columns[columnIndex];
                             }
                         }
-
                         break;
                     }
 
@@ -220,7 +217,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                                 line += lineData.Columns[columnIndex];
                             }
                         }
-
                         break;
                     }
 

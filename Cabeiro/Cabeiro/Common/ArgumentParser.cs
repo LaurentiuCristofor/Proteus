@@ -140,29 +140,32 @@ namespace LaurentiuCristofor.Cabeiro.Common
         /// <param name="expectedOperationArguments">The number or arguments required for the current operation.</param>
         /// <param name="nextArgumentIndex">The index from where to extract the next argument.</param>
         /// <param name="arguments">The arguments that we work on.</param>
-        /// <param name="firstArgument">Will get set to the first argument, or null if no argument was expected.</param>
-        /// <param name="secondArgument">Will get set to the second argument, or null if no argument was expected.</param>
+        /// <param name="operationArguments">Will collect the arguments, or will be set to an empty array if no arguments were expected.</param>
         /// <param name="outputFilePath">Will get set to the output file path, or null if no argument was available.</param>
         public static void ExtractLastArguments(
             int expectedOperationArguments,
             int nextArgumentIndex,
             string[] arguments,
-            out string firstArgument,
-            out string secondArgument,
+            out string[] operationArguments,
             out string outputFilePath)
         {
-            firstArgument = null;
-            secondArgument = null;
+            operationArguments = new string[expectedOperationArguments];
 
             if (expectedOperationArguments >= 1)
             {
-                firstArgument = GetExpectedArgument(arguments, nextArgumentIndex);
+                operationArguments[0] = GetExpectedArgument(arguments, nextArgumentIndex);
                 nextArgumentIndex++;
             }
 
             if (expectedOperationArguments >= 2)
             {
-                secondArgument = GetExpectedArgument(arguments, nextArgumentIndex);
+                operationArguments[1] = GetExpectedArgument(arguments, nextArgumentIndex);
+                nextArgumentIndex++;
+            }
+
+            if (expectedOperationArguments >= 3)
+            {
+                operationArguments[2] = GetExpectedArgument(arguments, nextArgumentIndex);
                 nextArgumentIndex++;
             }
 
@@ -406,6 +409,29 @@ namespace LaurentiuCristofor.Cabeiro.Common
             else
             {
                 throw new CabeiroException($"Invalid lookup type argument: {argument}!");
+            }
+        }
+
+        /// <summary>
+        /// Parses argument value as a ColumnTransformationType indicator.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the ColumnTransformationType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<ColumnTransformationType, int> ParseColumnTransformationType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.ColumnTransformationPack))
+            {
+                return new Tuple<ColumnTransformationType, int>(ColumnTransformationType.Pack, 3);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ColumnTransformationUnpack))
+            {
+                return new Tuple<ColumnTransformationType, int>(ColumnTransformationType.Unpack, 2);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid column transformation type argument: {argument}!");
             }
         }
 
