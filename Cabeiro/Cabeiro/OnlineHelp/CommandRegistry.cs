@@ -132,6 +132,18 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}");
             RegisterCommandDescription(commandDescription);
 
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.OrderColumns,
+                CommandCategory.Ordering,
+                "(O)rder (C)olumns",
+                longDescription: null,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.NewFirstColumnsList}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.NewFirstColumnsListText}");
+            RegisterCommandDescription(commandDescription);
+
             // Editing commands.
             //
             commandDescription = new CommandDescription(

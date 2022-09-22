@@ -16,7 +16,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that splits a file into multiple ones based on the value of a specified column.
     /// </summary>
-    public class SplitColumnValuesProcessor : BaseOutputProcessor, IDataProcessor<StringAndIntegerOutputParameters, ParsedLine>
+    public class SplitColumnStringsProcessor : BaseOutputProcessor, IDataProcessor<StringAndIntegerOutputParameters, ParsedLine>
     {
         /// <summary>
         /// Parameters of this operation.
@@ -40,14 +40,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public bool Execute(ulong lineNumber, ParsedLine lineData)
         {
-            // We may not always be able to extract a column.
-            // Ignore these cases; the extractor will already have printed a warning message.
-            //
-            if (lineData == null)
-            {
-                return true;
-            }
-
+            DataProcessorValidation.ValidateLineData(lineData);
             DataProcessorValidation.ValidateColumnInformation(lineData);
 
             // Lines that don't have the column present will be written to a special file.

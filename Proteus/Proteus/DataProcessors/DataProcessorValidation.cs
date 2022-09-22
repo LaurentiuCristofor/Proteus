@@ -24,6 +24,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             }
         }
 
+        public static void ValidateLineData(ParsedLine lineData)
+        {
+            if (lineData == null)
+            {
+                throw new ProteusException("A data processor was called with null line data!");
+            }
+        }
+
         public static void ValidateColumnInformation(ParsedLine lineData)
         {
             if (lineData.Columns == null)

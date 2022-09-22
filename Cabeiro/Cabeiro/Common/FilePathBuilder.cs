@@ -172,13 +172,9 @@ namespace LaurentiuCristofor.Cabeiro.Common
             //
             string[] validParts = extension.Split(restrictedCharacters, StringSplitOptions.RemoveEmptyEntries);
 
-            // Put back together all the valid parts, to form a valid extension.
+            // Put back together all the valid parts, separated by a #, to form a valid extension.
             //
-            string sanitizedExtension = string.Empty;
-            foreach (string part in validParts)
-            {
-                sanitizedExtension += part;
-            }
+            string sanitizedExtension = string.Join('#', validParts);
 
             return sanitizedExtension;
         }

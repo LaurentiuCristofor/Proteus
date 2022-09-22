@@ -59,6 +59,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string Invert = "i";
             public const string Sort = "s";
             public const string SortByColumnValue = "sbcv";
+            public const string OrderColumns = "oc";
 
             public const string EditLines = "el";
             public const string EditColumnStrings = "ecs";
@@ -395,6 +396,10 @@ namespace LaurentiuCristofor.Cabeiro.Common
                     public const string LimitValues = "<limit_values>";
 
                     public static readonly string LimitValuesText = $"{Constants.Commands.Arguments.Descriptions.LimitValues} specifies how many values should be presented from the most frequent and least frequent sets of values; set this value to 0 if you want the command to produce a dump of all unique values encountered.\n";
+
+                    public const string NewFirstColumnsList = "<new_first_columns_list>";
+
+                    public static readonly string NewFirstColumnsListText = $"{Constants.Commands.Arguments.Descriptions.NewFirstColumnsList} is a comma-separated list of column numbers representing the new order of columns. Unspecified columns will appear last in their initial order.\n";
                 }
             }
         }

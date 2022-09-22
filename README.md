@@ -66,6 +66,7 @@ These commands change the order of the lines of a file.
 * I - (I)nvert file
 * S - (S)ort file
 * SBCV - (S)ort file (B)y (C)olumn (V)alue
+* OC - (O)rder (C)olumns
 
 #### EDITING commands
 

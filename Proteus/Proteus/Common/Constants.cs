@@ -11,6 +11,7 @@ namespace LaurentiuCristofor.Proteus.Common
         public abstract class Strings
         {
             public const string NameValueSeparator = "=";
+            public const string ListSeparator = ",";
 
             public const string Count = "Count";
             public const string UniqueCount = "UniqueCount";

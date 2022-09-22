@@ -209,6 +209,24 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.OrderColumns))
+            {
+                const int minimumArgumentNumber = 4;
+                const int maximumArgumentNumber = 5;
+                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
+                {
+                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[2]);
+                    string newFirstColumnsList = arguments[3];
+                    ArgumentParser.ExtractLastArguments(0, 4, arguments, out _, out _, out string outputFilePath);
+
+                    OrderColumns(
+                        arguments[1],
+                        columnSeparator,
+                        newFirstColumnsList,
+                        outputFilePath);
+                    return;
+                }
+            }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.EditLines))
             {
                 const int minimumArgumentNumber = 3;
@@ -859,6 +877,37 @@ namespace LaurentiuCristofor.Cabeiro
             fileProcessor.ProcessFile();
         }
 
+        private static void OrderColumns(
+            string filePath,
+            string columnSeparator,
+            string newFirstColumnsList,
+            string outputFilePath)
+        {
+            // We need a successful column extraction to extract all columns,
+            // so we'll just ask to extract the first column value, which must always exist if there is any data in the line.
+            //
+            ColumnExtractionParameters extractionParameters = new ColumnExtractionParameters(
+                columnSeparator,
+                columnNumber: 1,
+                DataType.String);
+
+            string outputFileExtension = $".{CabeiroConstants.Commands.OrderColumns}.{newFirstColumnsList}";
+            var filePathBuilder = new FilePathBuilder(filePath, outputFileExtension, firstArgument: null, secondArgument: null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            StringOutputParameters processingParameters = new StringOutputParameters(
+                outputFilePath,
+                newFirstColumnsList);
+
+            var fileProcessor
+                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, OrderColumnsProcessor, StringOutputParameters>(
+                    filePath,
+                    extractionParameters,
+                    processingParameters);
+
+            fileProcessor.ProcessFile();
+        }
+
         private static void EditLines(
             string filePath,
             StringEditType editType, string editTypeString,
@@ -1448,7 +1497,7 @@ namespace LaurentiuCristofor.Cabeiro
                 columnNumber);
 
             var fileProcessor
-                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SplitColumnValuesProcessor, StringAndIntegerOutputParameters>(
+                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SplitColumnStringsProcessor, StringAndIntegerOutputParameters>(
                     filePath,
                     extractionParameters,
                     processingParameters);
