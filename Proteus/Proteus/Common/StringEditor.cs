@@ -274,8 +274,7 @@ namespace LaurentiuCristofor.Proteus.Common
                         int index = data.IndexOf(this.FirstArgument);
                         if (index != -1)
                         {
-                            index += this.FirstArgument.Length;
-                            editedData = data.Substring(0, index);
+                            editedData = DeleteContentAfterMarker(data, this.FirstArgument, index);
                         }
                         break;
                     }
@@ -285,8 +284,7 @@ namespace LaurentiuCristofor.Proteus.Common
                         int index = data.LastIndexOf(this.FirstArgument);
                         if (index != -1)
                         {
-                            index += this.FirstArgument.Length;
-                            editedData = data.Substring(0, index);
+                            editedData = DeleteContentAfterMarker(data, this.FirstArgument, index);
                         }
                         break;
                     }
@@ -316,8 +314,7 @@ namespace LaurentiuCristofor.Proteus.Common
                         int index = data.IndexOf(this.FirstArgument);
                         if (index != -1)
                         {
-                            index += this.FirstArgument.Length;
-                            editedData = data.Substring(index);
+                            editedData = KeepContentAfterMarker(data, this.FirstArgument, index);
                         }
                         break;
                     }
@@ -327,8 +324,7 @@ namespace LaurentiuCristofor.Proteus.Common
                         int index = data.LastIndexOf(this.FirstArgument);
                         if (index != -1)
                         {
-                            index += this.FirstArgument.Length;
-                            editedData = data.Substring(index);
+                            editedData = KeepContentAfterMarker(data, this.FirstArgument, index);
                         }
                         break;
                     }
@@ -358,8 +354,7 @@ namespace LaurentiuCristofor.Proteus.Common
                         int index = data.IndexOf(this.SecondArgument);
                         if (index != -1)
                         {
-                            index += this.SecondArgument.Length;
-                            editedData = data.Insert(index, this.FirstArgument);
+                            editedData = InsertContentAfterMarker(data, this.SecondArgument, index, this.FirstArgument);
                         }
                         break;
                     }
@@ -369,166 +364,117 @@ namespace LaurentiuCristofor.Proteus.Common
                         int index = data.LastIndexOf(this.SecondArgument);
                         if (index != -1)
                         {
-                            index += this.SecondArgument.Length;
-                            editedData = data.Insert(index, this.FirstArgument);
+                            editedData = InsertContentAfterMarker(data, this.SecondArgument, index, this.FirstArgument);
                         }
                         break;
                     }
 
                 case StringEditType.DeleteContentBetweenMarkers:
                     {
-                        int indexFirstMarker;
-                        int indexSecondMarker;
-                        if (FindMarkers(data, this.FirstArgument, this.SecondArgument, out indexFirstMarker, out indexSecondMarker))
+                        if (FindMarkers(data, this.FirstArgument, this.SecondArgument, out int indexFirstMarker, out int indexSecondMarker))
                         {
-                            string dataPrefix = data.Substring(0, indexFirstMarker + this.FirstArgument.Length);
-                            string dataSuffix = data.Substring(indexSecondMarker, data.Length - indexSecondMarker);
-                            editedData = $"{dataPrefix}{dataSuffix}";
+                            editedData = DeleteContentBetweenMarkers(data, this.FirstArgument, indexFirstMarker, indexSecondMarker);
                         }
                         break;
-
                     }
 
                 case StringEditType.DeleteContentBetweenLastMarkers:
                     {
-                        int indexFirstMarker;
-                        int indexSecondMarker;
-                        if (FindLastMarkers(data, this.FirstArgument, this.SecondArgument, out indexFirstMarker, out indexSecondMarker))
+                        if (FindLastMarkers(data, this.FirstArgument, this.SecondArgument, out int indexFirstMarker, out int indexSecondMarker))
                         {
-                            string dataPrefix = data.Substring(0, indexFirstMarker + this.FirstArgument.Length);
-                            string dataSuffix = data.Substring(indexSecondMarker, data.Length - indexSecondMarker);
-                            editedData = $"{dataPrefix}{dataSuffix}";
+                            editedData = DeleteContentBetweenMarkers(data, this.FirstArgument, indexFirstMarker, indexSecondMarker);
                         }
                         break;
-
                     }
 
                 case StringEditType.DeleteContentBetweenInnermostMarkers:
                     {
-                        int indexFirstMarker;
-                        int indexSecondMarker;
-                        if (FindInnermostMarkers(data, this.FirstArgument, this.SecondArgument, out indexFirstMarker, out indexSecondMarker))
+                        if (FindInnermostMarkers(data, this.FirstArgument, this.SecondArgument, out int indexFirstMarker, out int indexSecondMarker))
                         {
-                            string dataPrefix = data.Substring(0, indexFirstMarker + this.FirstArgument.Length);
-                            string dataSuffix = data.Substring(indexSecondMarker, data.Length - indexSecondMarker);
-                            editedData = $"{dataPrefix}{dataSuffix}";
+                            editedData = DeleteContentBetweenMarkers(data, this.FirstArgument, indexFirstMarker, indexSecondMarker);
                         }
                         break;
-
                     }
 
                 case StringEditType.DeleteContentBetweenOutermostMarkers:
                     {
-                        int indexFirstMarker;
-                        int indexSecondMarker;
-                        if (FindOutermostMarkers(data, this.FirstArgument, this.SecondArgument, out indexFirstMarker, out indexSecondMarker))
+                        if (FindOutermostMarkers(data, this.FirstArgument, this.SecondArgument, out int indexFirstMarker, out int indexSecondMarker))
                         {
-                            string dataPrefix = data.Substring(0, indexFirstMarker + this.FirstArgument.Length);
-                            string dataSuffix = data.Substring(indexSecondMarker, data.Length - indexSecondMarker);
-                            editedData = $"{dataPrefix}{dataSuffix}";
+                            editedData = DeleteContentBetweenMarkers(data, this.FirstArgument, indexFirstMarker, indexSecondMarker);
                         }
                         break;
-
                     }
 
                 case StringEditType.KeepContentBetweenMarkers:
                     {
-                        int indexFirstMarker;
-                        int indexSecondMarker;
-                        if (FindMarkers(data, this.FirstArgument, this.SecondArgument, out indexFirstMarker, out indexSecondMarker))
+                        if (FindMarkers(data, this.FirstArgument, this.SecondArgument, out int indexFirstMarker, out int indexSecondMarker))
                         {
-                            editedData = data.Substring(indexFirstMarker + this.FirstArgument.Length, indexSecondMarker - indexFirstMarker - this.FirstArgument.Length);
+                            editedData = KeepContentBetweenMarkers(data, this.FirstArgument, indexFirstMarker, indexSecondMarker);
                         }
                         break;
                     }
 
                 case StringEditType.KeepContentBetweenLastMarkers:
                     {
-                        int indexFirstMarker;
-                        int indexSecondMarker;
-                        if (FindLastMarkers(data, this.FirstArgument, this.SecondArgument, out indexFirstMarker, out indexSecondMarker))
+                        if (FindLastMarkers(data, this.FirstArgument, this.SecondArgument, out int indexFirstMarker, out int indexSecondMarker))
                         {
-                            editedData = data.Substring(indexFirstMarker + this.FirstArgument.Length, indexSecondMarker - indexFirstMarker - this.FirstArgument.Length);
+                            editedData = KeepContentBetweenMarkers(data, this.FirstArgument, indexFirstMarker, indexSecondMarker);
                         }
                         break;
                     }
 
                 case StringEditType.KeepContentBetweenInnermostMarkers:
                     {
-                        int indexFirstMarker;
-                        int indexSecondMarker;
-                        if (FindInnermostMarkers(data, this.FirstArgument, this.SecondArgument, out indexFirstMarker, out indexSecondMarker))
+                        if (FindInnermostMarkers(data, this.FirstArgument, this.SecondArgument, out int indexFirstMarker, out int indexSecondMarker))
                         {
-                            editedData = data.Substring(indexFirstMarker + this.FirstArgument.Length, indexSecondMarker - indexFirstMarker - this.FirstArgument.Length);
+                            editedData = KeepContentBetweenMarkers(data, this.FirstArgument, indexFirstMarker, indexSecondMarker);
                         }
                         break;
                     }
 
                 case StringEditType.KeepContentBetweenOutermostMarkers:
                     {
-                        int indexFirstMarker;
-                        int indexSecondMarker;
-                        if (FindOutermostMarkers(data, this.FirstArgument, this.SecondArgument, out indexFirstMarker, out indexSecondMarker))
+                        if (FindOutermostMarkers(data, this.FirstArgument, this.SecondArgument, out int indexFirstMarker, out int indexSecondMarker))
                         {
-                            editedData = data.Substring(indexFirstMarker + this.FirstArgument.Length, indexSecondMarker - indexFirstMarker - this.FirstArgument.Length);
+                            editedData = KeepContentBetweenMarkers(data, this.FirstArgument, indexFirstMarker, indexSecondMarker);
                         }
                         break;
                     }
 
                 case StringEditType.KeepContentOutsideMarkers:
                     {
-                        int indexFirstMarker;
-                        int indexSecondMarker;
-                        if (FindMarkers(data, this.FirstArgument, this.SecondArgument, out indexFirstMarker, out indexSecondMarker))
+                        if (FindMarkers(data, this.FirstArgument, this.SecondArgument, out int indexFirstMarker, out int indexSecondMarker))
                         {
-                            string dataPrefix = data.Substring(0, indexFirstMarker);
-                            string dataSuffix = data.Substring(indexSecondMarker + this.SecondArgument.Length, data.Length - indexSecondMarker - this.SecondArgument.Length);
-                            editedData = $"{dataPrefix}{dataSuffix}";
+                            editedData = KeepContentOutsideMarkers(data, this.SecondArgument, indexFirstMarker, indexSecondMarker);
                         }
                         break;
-
                     }
 
                 case StringEditType.KeepContentOutsideLastMarkers:
                     {
-                        int indexFirstMarker;
-                        int indexSecondMarker;
-                        if (FindLastMarkers(data, this.FirstArgument, this.SecondArgument, out indexFirstMarker, out indexSecondMarker))
+                        if (FindLastMarkers(data, this.FirstArgument, this.SecondArgument, out int indexFirstMarker, out int indexSecondMarker))
                         {
-                            string dataPrefix = data.Substring(0, indexFirstMarker);
-                            string dataSuffix = data.Substring(indexSecondMarker + this.SecondArgument.Length, data.Length - indexSecondMarker - this.SecondArgument.Length);
-                            editedData = $"{dataPrefix}{dataSuffix}";
+                            editedData = KeepContentOutsideMarkers(data, this.SecondArgument, indexFirstMarker, indexSecondMarker);
                         }
                         break;
-
                     }
 
                 case StringEditType.KeepContentOutsideInnermostMarkers:
                     {
-                        int indexFirstMarker;
-                        int indexSecondMarker;
-                        if (FindInnermostMarkers(data, this.FirstArgument, this.SecondArgument, out indexFirstMarker, out indexSecondMarker))
+                        if (FindInnermostMarkers(data, this.FirstArgument, this.SecondArgument, out int indexFirstMarker, out int indexSecondMarker))
                         {
-                            string dataPrefix = data.Substring(0, indexFirstMarker);
-                            string dataSuffix = data.Substring(indexSecondMarker + this.SecondArgument.Length, data.Length - indexSecondMarker - this.SecondArgument.Length);
-                            editedData = $"{dataPrefix}{dataSuffix}";
+                            editedData = KeepContentOutsideMarkers(data, this.SecondArgument, indexFirstMarker, indexSecondMarker);
                         }
                         break;
-
                     }
 
                 case StringEditType.KeepContentOutsideOutermostMarkers:
                     {
-                        int indexFirstMarker;
-                        int indexSecondMarker;
-                        if (FindOutermostMarkers(data, this.FirstArgument, this.SecondArgument, out indexFirstMarker, out indexSecondMarker))
+                        if (FindOutermostMarkers(data, this.FirstArgument, this.SecondArgument, out int indexFirstMarker, out int indexSecondMarker))
                         {
-                            string dataPrefix = data.Substring(0, indexFirstMarker);
-                            string dataSuffix = data.Substring(indexSecondMarker + this.SecondArgument.Length, data.Length - indexSecondMarker - this.SecondArgument.Length);
-                            editedData = $"{dataPrefix}{dataSuffix}";
+                            editedData = KeepContentOutsideMarkers(data, this.SecondArgument, indexFirstMarker, indexSecondMarker);
                         }
                         break;
-
                     }
 
                 default:
@@ -657,6 +603,89 @@ namespace LaurentiuCristofor.Proteus.Common
             }
 
             return data.Substring(contentStartIndex, contentLength);
+        }
+
+        /// <summary>
+        /// Removes content after a marker string.
+        /// </summary>
+        /// <param name="data">The input string data.</param>
+        /// <param name="marker">The marker string.</param>
+        /// <param name="indexMarker">The index where the marker string was found in the input data string.</param>
+        /// <returns>Returns the edited string.</returns>
+        protected static string DeleteContentAfterMarker(string data, string marker, int indexMarker)
+        {
+            indexMarker += marker.Length;
+            return data.Substring(0, indexMarker);
+        }
+
+        /// <summary>
+        /// Keeps the content after a marker string.
+        /// </summary>
+        /// <param name="data">The input string data.</param>
+        /// <param name="marker">The marker string.</param>
+        /// <param name="indexMarker">The index where the marker string was found in the input data string.</param>
+        /// <returns>Returns the edited string.</returns>
+        protected static string KeepContentAfterMarker(string data, string marker, int indexMarker)
+        {
+            indexMarker += marker.Length;
+            return data.Substring(indexMarker);
+        }
+
+        /// <summary>
+        /// Inserts a string after a marker string.
+        /// </summary>
+        /// <param name="data">The input string data.</param>
+        /// <param name="marker">The marker string.</param>
+        /// <param name="indexMarker">The index where the marker string was found in the input data string.</param>
+        /// <param name="content">The string to insert.</param>
+        /// <returns>Returns the edited string.</returns>
+        protected static string InsertContentAfterMarker(string data, string marker, int indexMarker, string content)
+        {
+            indexMarker += marker.Length;
+            return data.Insert(indexMarker, content);
+        }
+
+        /// <summary>
+        /// Deletes the content found between two string markers.
+        /// </summary>
+        /// <param name="data">The input string data.</param>
+        /// <param name="firstMarker">The first marker string</param>
+        /// <param name="indexFirstMarker">The index where the first marker string was found in the input data string.</param>
+        /// <param name="indexSecondMarker">The index where the second marker string was found in the input data string.</param>
+        /// <returns>Returns the edited string.</returns>
+        protected static string DeleteContentBetweenMarkers(string data, string firstMarker, int indexFirstMarker, int indexSecondMarker)
+        {
+            string dataPrefix = data.Substring(0, indexFirstMarker + firstMarker.Length);
+            string dataSuffix = data.Substring(indexSecondMarker, data.Length - indexSecondMarker);
+            return $"{dataPrefix}{dataSuffix}";
+        }
+
+        /// <summary>
+        /// Keeps the content between two string markers.
+        /// </summary>
+        /// <param name="data">The input string data.</param>
+        /// <param name="firstMarker">The first marker string</param>
+        /// <param name="indexFirstMarker">The index where the first marker string was found in the input data string.</param>
+        /// <param name="indexSecondMarker">The index where the second marker string was found in the input data string.</param>
+        /// <returns>Returns the edited string.</returns>
+        protected static string KeepContentBetweenMarkers(string data, string firstMarker, int indexFirstMarker, int indexSecondMarker)
+        {
+            return data.Substring(indexFirstMarker + firstMarker.Length, indexSecondMarker - indexFirstMarker - firstMarker.Length);
+        }
+
+        /// <summary>
+        /// Keeps the content outside two string markers.
+        /// </summary>
+        /// <param name="data">The input string data.</param>
+        /// <param name="firstMarker">The first marker string</param>
+        /// <param name="indexFirstMarker">The index where the first marker string was found in the input data string.</param>
+        /// <param name="indexSecondMarker">The index where the second marker string was found in the input data string.</param>
+        /// <returns>Returns the edited string.</returns>
+        protected static string KeepContentOutsideMarkers(string data, string secondMarker, int indexFirstMarker, int indexSecondMarker)
+        {
+            string dataPrefix = data.Substring(0, indexFirstMarker);
+            string dataSuffix = data.Substring(indexSecondMarker + secondMarker.Length, data.Length - indexSecondMarker - secondMarker.Length);
+            return $"{dataPrefix}{dataSuffix}";
         }
 
         /// <summary>
