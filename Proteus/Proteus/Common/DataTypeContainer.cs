@@ -123,6 +123,7 @@ namespace LaurentiuCristofor.Proteus.Common
 
         /// <summary>
         /// Convert a string value to the data type indicated by the member field DataType.
+        /// Sets back the string value to the default string representation of the value.
         /// </summary>
         private void ParseStringValue()
         {
@@ -140,6 +141,7 @@ namespace LaurentiuCristofor.Proteus.Common
                         throw new ProteusException($"Invalid signed integer value: {this.StringValue}!");
                     }
                     this.IntegerValue = longValue;
+                    this.StringValue = longValue.ToString();
                     break;
 
                 case DataType.UnsignedInteger:
@@ -149,6 +151,7 @@ namespace LaurentiuCristofor.Proteus.Common
                         throw new ProteusException($"Invalid unsigned integer value: {this.StringValue}!");
                     }
                     this.UnsignedIntegerValue = ulongValue;
+                    this.StringValue = ulongValue.ToString();
                     break;
 
                 case DataType.FloatingPoint:
@@ -158,6 +161,7 @@ namespace LaurentiuCristofor.Proteus.Common
                         throw new ProteusException($"Invalid floating point value: {this.StringValue}!");
                     }
                     this.FloatingPointValue = doubleValue;
+                    this.StringValue = doubleValue.ToString();
                     break;
 
                 case DataType.DateTime:
@@ -167,6 +171,7 @@ namespace LaurentiuCristofor.Proteus.Common
                         throw new ProteusException($"Invalid DateTime value: {this.StringValue}!");
                     }
                     this.DateTimeValue = dateTimeValue;
+                    this.StringValue = dateTimeValue.ToString();
                     break;
 
                 default:
