@@ -107,5 +107,7 @@ These commands expect that their input files had been previously sorted; column 
 * SB2CV - (S)ort file (B)y (2)nd (C)olumn (V)alue
 * ML - (M)erge (L)ines
 * MLBCV - (M)erge (L)ines (B)y (C)olumn (V)alue
+* SLPSHRL - (S)elect (L)ines (P)ost (S)orting (H)andling (R)epeated (L)ines
+* SLPSHRCS - (S)elect (L)ines (P)ost (S)orting (H)andling (R)epeated (C)olumn (S)trings
 * SLPSBLIF - (S)elect (L)ines (P)ost (S)orting (B)y (L)ookup (I)n (F)ile
 * SLPSBCVLIF - (S)elect (L)ines (P)ost (S)orting (B)y (C)olumn (V)alue (L)ookup (I)n (F)ile

@@ -75,7 +75,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 //
                 if (this.CurrentPrimaryColumnData != null && lineData.ExtractedData.CompareTo(this.CurrentPrimaryColumnData) < 0)
                 {
-                    throw new ProteusException($"Input file is not sorted as expected! Value '{lineData.ExtractedData.ToString()}' succeeds value '{this.CurrentPrimaryColumnData.ToString()}'.");
+                    throw new ProteusException($"Input file is not sorted as expected! Value '{lineData.ExtractedData}' succeeds value '{this.CurrentPrimaryColumnData}'.");
                 }
 
                 // Update CurrentPrimaryColumnData to the newly seen value.

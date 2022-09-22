@@ -413,6 +413,30 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.SelectLinesPostSortingHandlingRepeatedLines,
+                CommandCategory.Post_Sorting,
+                "(S)elect (L)ines (P)ost (S)orting (H)andling (R)epeated (L)ines",
+                CabeiroConstants.Commands.Descriptions.SelectLinesPostSortingHandlingRepeatedLines,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.HandlingType}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.RepetitionHandlingTypeText}");
+            RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.SelectLinesPostSortingHandlingRepeatedColumnStrings,
+                CommandCategory.Post_Sorting,
+                "(S)elect (L)ines (P)ost (S)orting (H)andling (R)epeated (C)olumn (S)trings",
+                CabeiroConstants.Commands.Descriptions.SelectLinesPostSortingHandlingRepeatedColumnStrings,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.HandlingType}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.RepetitionHandlingTypeText}");
+            RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
                 CabeiroConstants.Commands.SelectLinesPostSortingByLookupInFile,
                 CommandCategory.Post_Sorting,
                 "(S)elect (L)ines (P)ost (S)orting (B)y (L)ookup (I)n (F)ile",

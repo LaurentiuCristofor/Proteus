@@ -84,6 +84,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string SortBySecondColumnValue = "sb2cv";
             public const string MergeLines = "ml";
             public const string MergeLinesByColumnValue = "mlbcv";
+            public const string SelectLinesPostSortingHandlingRepeatedLines = "slpshrl";
+            public const string SelectLinesPostSortingHandlingRepeatedColumnStrings = "slpshrcs";
             public const string SelectLinesPostSortingByLookupInFile = "slpsblif";
             public const string SelectLinesPostSortingByColumnValueLookupInFile = "slpsbcvlif";
 
@@ -110,6 +112,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
                 public const string MergeLines = "Merges lines from two sorted files. Does not verify the correct sorting of the input files.";
                 public const string MergeLinesByColumnValue = "Merges lines from two files sorted on specific columns. Does not verify the correct sorting of the input files.";
+                public const string SelectLinesPostSortingHandlingRepeatedLines = "Selects lines from a sorted file, handling repeated lines as specified.";
+                public const string SelectLinesPostSortingHandlingRepeatedColumnStrings = "Selects lines from a column-sorted file, handling lines with repeated column strings as specified.";
                 public const string SelectLinesPostSortingByLookupInFile = "Selects lines from a sorted file based on whether they appear in another sorted file or not. Does not verify the correct sorting of the input files.";
                 public const string SelectLinesPostSortingByColumnValueLookupInFile = "Selects lines from a column-sorted file based on whether their sorted column's value appears in the first column of another sorted file or not. Does not verify the correct sorting of the input files.";
             }
