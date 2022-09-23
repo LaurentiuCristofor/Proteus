@@ -21,11 +21,27 @@ namespace LaurentiuCristofor.Proteus.Common
             }
         }
 
+        internal static void CheckNotNull(DataTypeContainer argument)
+        {
+            if (argument == null)
+            {
+                throw new ProteusException($"An expected argument is missing!");
+            }
+        }
+
         internal static void CheckNotNullAndNotEmpty(string argument)
         {
             if (String.IsNullOrEmpty(argument))
             {
                 throw new ProteusException($"An expected argument is missing or is an empty string!");
+            }
+        }
+
+        internal static void CheckIsOneCharacter(string argument)
+        {
+            if (String.IsNullOrEmpty(argument) || argument.Length != 1)
+            {
+                throw new ProteusException($"An expected argument is missing or is not a one-character string!");
             }
         }
 

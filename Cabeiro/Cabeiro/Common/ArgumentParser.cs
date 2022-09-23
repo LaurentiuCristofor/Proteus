@@ -231,43 +231,43 @@ namespace LaurentiuCristofor.Cabeiro.Common
         {
             string lowercaseValue = argument.ToLower();
 
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonLessThan))
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeLessThan))
             {
                 return new Tuple<ComparisonType, int>(ComparisonType.LessThan, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonLessThanOrEqual))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeLessThanOrEqual))
             {
                 return new Tuple<ComparisonType, int>(ComparisonType.LessThanOrEqual, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonEqual))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeEqual))
             {
                 return new Tuple<ComparisonType, int>(ComparisonType.Equal, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonGreaterThanOrEqual))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeGreaterThanOrEqual))
             {
                 return new Tuple<ComparisonType, int>(ComparisonType.GreaterThanOrEqual, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonGreaterThan))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeGreaterThan))
             {
                 return new Tuple<ComparisonType, int>(ComparisonType.GreaterThan, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonNotEqual))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeNotEqual))
             {
                 return new Tuple<ComparisonType, int>(ComparisonType.NotEqual, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonBetween))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeBetween))
             {
                 return new Tuple<ComparisonType, int>(ComparisonType.Between, 2);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonStrictlyBetween))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeStrictlyBetween))
             {
                 return new Tuple<ComparisonType, int>(ComparisonType.StrictlyBetween, 2);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonNotBetween))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeNotBetween))
             {
                 return new Tuple<ComparisonType, int>(ComparisonType.NotBetween, 2);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonNotStrictlyBetween))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeNotStrictlyBetween))
             {
                 return new Tuple<ComparisonType, int>(ComparisonType.NotStrictlyBetween, 2);
             }
@@ -286,27 +286,27 @@ namespace LaurentiuCristofor.Cabeiro.Common
         {
             string lowercaseValue = argument.ToLower();
 
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionBetween))
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionTypeBetween))
             {
                 return new Tuple<PositionSelectionType, int>(PositionSelectionType.Between, 2);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionNotBetween))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionTypeNotBetween))
             {
                 return new Tuple<PositionSelectionType, int>(PositionSelectionType.NotBetween, 2);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionLast))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionTypeLast))
             {
                 return new Tuple<PositionSelectionType, int>(PositionSelectionType.Last, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionNotLast))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionTypeNotLast))
             {
                 return new Tuple<PositionSelectionType, int>(PositionSelectionType.NotLast, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionEach))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionTypeEach))
             {
                 return new Tuple<PositionSelectionType, int>(PositionSelectionType.Each, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionNotEach))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionTypeNotEach))
             {
                 return new Tuple<PositionSelectionType, int>(PositionSelectionType.NotEach, 1);
             }
@@ -325,15 +325,15 @@ namespace LaurentiuCristofor.Cabeiro.Common
         {
             string lowercaseValue = argument.ToLower();
 
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionInsertionPosition))
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionInsertionTypePosition))
             {
                 return new Tuple<PositionInsertionType, int>(PositionInsertionType.Position, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionInsertionEach))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionInsertionTypeEach))
             {
                 return new Tuple<PositionInsertionType, int>(PositionInsertionType.Each, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionInsertionLast))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionInsertionTypeLast))
             {
                 return new Tuple<PositionInsertionType, int>(PositionInsertionType.Last, 0);
             }
@@ -352,11 +352,11 @@ namespace LaurentiuCristofor.Cabeiro.Common
         {
             string lowercaseValue = argument.ToLower();
 
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.RepetitionHandlingSkip))
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.RepetitionHandlingTypeSkip))
             {
                 return new Tuple<RepetitionHandlingType, int>(RepetitionHandlingType.Skip, 0);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.RepetitionHandlingPick))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.RepetitionHandlingTypePick))
             {
                 return new Tuple<RepetitionHandlingType, int>(RepetitionHandlingType.Pick, 0);
             }
@@ -375,11 +375,11 @@ namespace LaurentiuCristofor.Cabeiro.Common
         {
             string lowercaseValue = argument.ToLower();
 
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.JoinInner))
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.JoinTypeInner))
             {
                 return new Tuple<JoinType, int>(JoinType.Inner, 0);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.JoinLeftOuter))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.JoinTypeLeftOuter))
             {
                 return new Tuple<JoinType, int>(JoinType.LeftOuter, 1);
             }
@@ -398,11 +398,11 @@ namespace LaurentiuCristofor.Cabeiro.Common
         {
             string lowercaseValue = argument.ToLower();
 
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.LookupIncluded))
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.LookupTypeIncluded))
             {
                 return new Tuple<LookupType, int>(LookupType.Included, 0);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.LookupNotIncluded))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.LookupTypeNotIncluded))
             {
                 return new Tuple<LookupType, int>(LookupType.NotIncluded, 0);
             }
@@ -421,11 +421,11 @@ namespace LaurentiuCristofor.Cabeiro.Common
         {
             string lowercaseValue = argument.ToLower();
 
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.ColumnTransformationPack))
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.ColumnTransformationTypePack))
             {
                 return new Tuple<ColumnTransformationType, int>(ColumnTransformationType.Pack, 3);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ColumnTransformationUnpack))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ColumnTransformationTypeUnpack))
             {
                 return new Tuple<ColumnTransformationType, int>(ColumnTransformationType.Unpack, 2);
             }
@@ -444,51 +444,51 @@ namespace LaurentiuCristofor.Cabeiro.Common
         {
             string lowercaseValue = argument.ToLower();
 
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionHasLengthBetween))
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeHasLengthBetween))
             {
                 return new Tuple<StringSelectionType, int>(StringSelectionType.HasLengthBetween, 2);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionHasLengthNotBetween))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeHasLengthNotBetween))
             {
                 return new Tuple<StringSelectionType, int>(StringSelectionType.HasLengthNotBetween, 2);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionIncludes))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeIncludes ))
             {
                 return new Tuple<StringSelectionType, int>(StringSelectionType.Includes, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionNotIncludes))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeNotIncludes))
             {
                 return new Tuple<StringSelectionType, int>(StringSelectionType.NotIncludes, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionStartsWith))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeStartsWith))
             {
                 return new Tuple<StringSelectionType, int>(StringSelectionType.StartsWith, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionNotStartsWith))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeNotStartsWith))
             {
                 return new Tuple<StringSelectionType, int>(StringSelectionType.NotStartsWith, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionEndsWith))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeEndsWith))
             {
                 return new Tuple<StringSelectionType, int>(StringSelectionType.EndsWith, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionNotEndsWith))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeNotEndsWith))
             {
                 return new Tuple<StringSelectionType, int>(StringSelectionType.NotEndsWith, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionIsDemarked))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeIsDemarked))
             {
                 return new Tuple<StringSelectionType, int>(StringSelectionType.IsDemarked, 2);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionIsNotDemarked))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeIsNotDemarked))
             {
                 return new Tuple<StringSelectionType, int>(StringSelectionType.IsNotDemarked, 2);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionEquals))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeEquals))
             {
                 return new Tuple<StringSelectionType, int>(StringSelectionType.Equals, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionNotEquals))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeNotEquals))
             {
                 return new Tuple<StringSelectionType, int>(StringSelectionType.NotEquals, 1);
             }
@@ -530,6 +530,26 @@ namespace LaurentiuCristofor.Cabeiro.Common
             else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeTrim))
             {
                 return new Tuple<StringEditType, int>(StringEditType.Trim, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeTrimCharsStart))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.TrimCharsStart, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeTrimCharsEnd))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.TrimCharsEnd, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeTrimChars))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.TrimChars, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypePadLeft))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.PadLeft, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypePadRight))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.PadRight, 2);
             }
             else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeInvert))
             {
@@ -686,6 +706,41 @@ namespace LaurentiuCristofor.Cabeiro.Common
             else
             {
                 throw new CabeiroException($"Invalid string edit type argument: {argument}!");
+            }
+        }
+
+        /// <summary>
+        /// Parses argument value as a ValueEditType indicator.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the ValueEditType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<ValueEditType, int> ParseValueEditType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.ValueEditTypeRewrite))
+            {
+                return new Tuple<ValueEditType, int>(ValueEditType.Rewrite, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ValueEditTypeAdd))
+            {
+                return new Tuple<ValueEditType, int>(ValueEditType.Add, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ValueEditTypeSubtract))
+            {
+                return new Tuple<ValueEditType, int>(ValueEditType.Subtract, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ValueEditTypeMultiply))
+            {
+                return new Tuple<ValueEditType, int>(ValueEditType.Multiply, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ValueEditTypeDivide))
+            {
+                return new Tuple<ValueEditType, int>(ValueEditType.Divide, 1);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid value edit type argument: {argument}!");
             }
         }
     }

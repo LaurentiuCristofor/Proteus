@@ -13,7 +13,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// Includes parameters for performing an operation specified by a type.
     /// </summary>
-    public class OperationTypeOutputParameters<TOperationType> : BaseOutputParameters
+    public class OperationOutputParameters<TOperationType> : BaseOutputParameters
     {
         /// <summary>
         /// The type of the operation that should be performed.
@@ -40,7 +40,22 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// </summary>
         public string ThirdArgument { get { return this.Arguments[2]; } }
 
-        public OperationTypeOutputParameters(
+        /// <summary>
+        /// Safe alias for the first argument of the operation.
+        /// </summary>
+        public string SafeFirstArgument { get { return (this.Arguments != null && this.Arguments.Length > 0) ? this.Arguments[0] : null; } }
+
+        /// <summary>
+        /// Safe alias for the second argument of the operation.
+        /// </summary>
+        public string SafeSecondArgument { get { return (this.Arguments != null && this.Arguments.Length > 1) ? this.Arguments[1] : null; } }
+
+        /// <summary>
+        /// Safe alias for the third argument of the operation.
+        /// </summary>
+        public string SafeThirdArgument { get { return (this.Arguments != null && this.Arguments.Length > 2) ? this.Arguments[2] : null; } }
+
+        public OperationOutputParameters(
             string outputFilePath,
             TOperationType operationType,
             string[] arguments = null)

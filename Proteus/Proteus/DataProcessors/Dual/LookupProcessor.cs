@@ -13,14 +13,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
     /// <summary>
     /// A data processor that selects lines from a first file based on whether they match a line from a second file.
     /// </summary>
-    public class LookupProcessor: BaseOutputProcessor, IDualDataProcessor<OperationTypeOutputParameters<LookupType>, ParsedLine>
+    public class LookupProcessor: BaseOutputProcessor, IDualDataProcessor<OperationOutputParameters<LookupType>, ParsedLine>
     {
         /// <summary>
         /// Parameters of this operation.
         /// </summary>
-        protected OperationTypeOutputParameters<LookupType> Parameters { get; set; }
+        protected OperationOutputParameters<LookupType> Parameters { get; set; }
 
-        public void Initialize(OperationTypeOutputParameters<LookupType> processingParameters)
+        public void Initialize(OperationOutputParameters<LookupType> processingParameters)
         {
             this.Parameters = processingParameters;
 

@@ -37,6 +37,16 @@ namespace LaurentiuCristofor.Proteus.Common
         protected int SecondArgumentAsInt { get; set; }
 
         /// <summary>
+        /// First operation argument, as a char[] value (set only if the operation expects a char[] argument).
+        /// </summary>
+        protected char[] FirstArgumentAsCharArray { get; set; }
+
+        /// <summary>
+        /// Second operation argument, as a char value (set only if the operation expects a char argument).
+        /// </summary>
+        protected char SecondArgumentAsChar { get; set; }
+
+        /// <summary>
         /// Initializes the edit operation parameters.
         /// </summary>
         /// <param name="editType">Type of operation.</param>
@@ -52,12 +62,31 @@ namespace LaurentiuCristofor.Proteus.Common
             switch (editType)
             {
                 case StringEditType.Rewrite:
+                case StringEditType.Invert:
                 case StringEditType.Uppercase:
                 case StringEditType.Lowercase:
                 case StringEditType.TrimStart:
                 case StringEditType.TrimEnd:
                 case StringEditType.Trim:
-                case StringEditType.Invert:
+                    break;
+
+                case StringEditType.TrimCharsStart:
+                case StringEditType.TrimCharsEnd:
+                case StringEditType.TrimChars:
+                    ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstArgument);
+
+                    this.FirstArgumentAsCharArray = this.FirstArgument.ToCharArray();
+                    break;
+
+                case StringEditType.PadLeft:
+                case StringEditType.PadRight:
+                    ArgumentChecker.CheckNotNull(this.FirstArgument);
+                    ArgumentChecker.CheckIsOneCharacter(this.SecondArgument);
+
+                    this.FirstArgumentAsInt = int.Parse(this.FirstArgument);
+                    this.SecondArgumentAsChar = this.SecondArgument.ToCharArray()[0];
+
+                    ArgumentChecker.CheckPositive(this.FirstArgumentAsInt);
                     break;
 
                 case StringEditType.PrefixLineNumbers:
@@ -157,6 +186,11 @@ namespace LaurentiuCristofor.Proteus.Common
             {
                 case StringEditType.Rewrite:
                     // Nothing to do, keep the data unchanged.
+                    //
+                    break;
+
+                case StringEditType.Invert:
+                    editedData = InvertString(data);
                     break;
 
                 case StringEditType.Uppercase:
@@ -179,8 +213,24 @@ namespace LaurentiuCristofor.Proteus.Common
                     editedData = data.Trim();
                     break;
 
-                case StringEditType.Invert:
-                    editedData = InvertString(data);
+                case StringEditType.TrimCharsStart:
+                    editedData = data.TrimStart(this.FirstArgumentAsCharArray);
+                    break;
+
+                case StringEditType.TrimCharsEnd:
+                    editedData = data.TrimEnd(this.FirstArgumentAsCharArray);
+                    break;
+
+                case StringEditType.TrimChars:
+                    editedData = data.Trim(this.FirstArgumentAsCharArray);
+                    break;
+
+                case StringEditType.PadLeft:
+                    editedData = data.PadLeft(this.FirstArgumentAsInt, this.SecondArgumentAsChar);
+                    break;
+
+                case StringEditType.PadRight:
+                    editedData = data.PadRight(this.FirstArgumentAsInt, this.SecondArgumentAsChar);
                     break;
 
                 case StringEditType.PrefixLineNumbers:

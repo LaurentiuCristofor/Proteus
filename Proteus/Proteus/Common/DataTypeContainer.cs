@@ -208,6 +208,169 @@ namespace LaurentiuCristofor.Proteus.Common
         }
 
         /// <summary>
+        /// Implements addition on types that support it.
+        /// </summary>
+        /// <param name="otherContainer">The operation argument.</param>
+        /// <returns>Returns the updated container.</returns>
+        public DataTypeContainer Add(DataTypeContainer otherContainer)
+        {
+            if (otherContainer.DataType != this.DataType)
+            {
+                throw new ProteusException($"Attempting to add a container of type {otherContainer.DataType} to a container of type {this.DataType}!");
+            }
+
+            switch (this.DataType)
+            {
+                case DataType.String:
+                    this.StringValue += otherContainer.StringValue;
+                    break;
+
+                case DataType.Integer:
+                    this.IntegerValue += otherContainer.IntegerValue;
+                    this.StringValue = this.IntegerValue.ToString();
+                    break;
+
+                case DataType.UnsignedInteger:
+                    this.UnsignedIntegerValue += otherContainer.UnsignedIntegerValue;
+                    this.StringValue = this.UnsignedIntegerValue.ToString();
+                    break;
+
+                case DataType.FloatingPoint:
+                    this.FloatingPointValue += otherContainer.FloatingPointValue;
+                    this.StringValue = this.FloatingPointValue.ToString();
+                    break;
+
+                case DataType.DateTime:
+                    throw new ProteusException($"Adding is not supported by data type: {this.DataType}!");
+
+                default:
+                    throw new ProteusException($"Internal error: Proteus is not handling data type: {this.DataType}!");
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// Implements subtraction on types that support it.
+        /// </summary>
+        /// <param name="otherContainer">The operation argument.</param>
+        /// <returns>Returns the updated container.</returns>
+        public DataTypeContainer Subtract(DataTypeContainer otherContainer)
+        {
+            if (otherContainer.DataType != this.DataType)
+            {
+                throw new ProteusException($"Attempting to subtract a container of type {otherContainer.DataType} from a container of type {this.DataType}!");
+            }
+
+            switch (this.DataType)
+            {
+                case DataType.Integer:
+                    this.IntegerValue -= otherContainer.IntegerValue;
+                    this.StringValue = this.IntegerValue.ToString();
+                    break;
+
+                case DataType.UnsignedInteger:
+                    this.UnsignedIntegerValue -= otherContainer.UnsignedIntegerValue;
+                    this.StringValue = this.UnsignedIntegerValue.ToString();
+                    break;
+
+                case DataType.FloatingPoint:
+                    this.FloatingPointValue -= otherContainer.FloatingPointValue;
+                    this.StringValue = this.FloatingPointValue.ToString();
+                    break;
+
+                case DataType.String:
+                case DataType.DateTime:
+                    throw new ProteusException($"Subtracting is not supported by data type: {this.DataType}!");
+
+                default:
+                    throw new ProteusException($"Internal error: Proteus is not handling data type: {this.DataType}!");
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// Implements multiplication on types that support it.
+        /// </summary>
+        /// <param name="otherContainer">The operation argument.</param>
+        /// <returns>Returns the updated container.</returns>
+        public DataTypeContainer Multiply(DataTypeContainer otherContainer)
+        {
+            if (otherContainer.DataType != this.DataType)
+            {
+                throw new ProteusException($"Attempting to multiply a container of type {otherContainer.DataType} with a container of type {this.DataType}!");
+            }
+
+            switch (this.DataType)
+            {
+                case DataType.Integer:
+                    this.IntegerValue *= otherContainer.IntegerValue;
+                    this.StringValue = this.IntegerValue.ToString();
+                    break;
+
+                case DataType.UnsignedInteger:
+                    this.UnsignedIntegerValue *= otherContainer.UnsignedIntegerValue;
+                    this.StringValue = this.UnsignedIntegerValue.ToString();
+                    break;
+
+                case DataType.FloatingPoint:
+                    this.FloatingPointValue *= otherContainer.FloatingPointValue;
+                    this.StringValue = this.FloatingPointValue.ToString();
+                    break;
+
+                case DataType.String:
+                case DataType.DateTime:
+                    throw new ProteusException($"Multiplying is not supported by data type: {this.DataType}!");
+
+                default:
+                    throw new ProteusException($"Internal error: Proteus is not handling data type: {this.DataType}!");
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// Implements division on types that support it.
+        /// </summary>
+        /// <param name="otherContainer">The operation argument.</param>
+        /// <returns>Returns the updated container.</returns>
+        public DataTypeContainer Divide(DataTypeContainer otherContainer)
+        {
+            if (otherContainer.DataType != this.DataType)
+            {
+                throw new ProteusException($"Attempting to divide a container of type {this.DataType} by a container of type {otherContainer.DataType}!");
+            }
+
+            switch (this.DataType)
+            {
+                case DataType.Integer:
+                    this.IntegerValue /= otherContainer.IntegerValue;
+                    this.StringValue = this.IntegerValue.ToString();
+                    break;
+
+                case DataType.UnsignedInteger:
+                    this.UnsignedIntegerValue /= otherContainer.UnsignedIntegerValue;
+                    this.StringValue = this.UnsignedIntegerValue.ToString();
+                    break;
+
+                case DataType.FloatingPoint:
+                    this.FloatingPointValue /= otherContainer.FloatingPointValue;
+                    this.StringValue = this.FloatingPointValue.ToString();
+                    break;
+
+                case DataType.String:
+                case DataType.DateTime:
+                    throw new ProteusException($"Multiplying is not supported by data type: {this.DataType}!");
+
+                default:
+                    throw new ProteusException($"Internal error: Proteus is not handling data type: {this.DataType}!");
+            }
+
+            return this;
+        }
+
+        /// <summary>
         /// Performs a type-specific comparison with another value, as indicated by the DataType value.
         /// </summary>
         /// <param name="otherContainer">The other DataTypeContainer value.</param>
@@ -216,7 +379,7 @@ namespace LaurentiuCristofor.Proteus.Common
         {
             if (otherContainer.DataType != this.DataType)
             {
-                throw new ProteusException($"Attempt to compare a container of type {this.DataType} with a container of type {otherContainer.DataType}!");
+                throw new ProteusException($"Attempting to compare a container of type {this.DataType} with a container of type {otherContainer.DataType}!");
             }
 
             switch (this.DataType)
@@ -245,7 +408,7 @@ namespace LaurentiuCristofor.Proteus.Common
         {
             if (otherObject == null || !(otherObject is DataTypeContainer))
             {
-                throw new ProteusException($"Attempt to compare container {this} with object {otherObject}!");
+                throw new ProteusException($"Attempting to compare container {this} with object {otherObject}!");
             }
 
             DataTypeContainer otherContainer = (DataTypeContainer)otherObject;

@@ -14,24 +14,24 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// A data processor that checks a string against a selection criterion,
     /// to decide whether to output the line or not.
     /// </summary>
-    public class SelectLineByStringProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeOutputParameters<StringSelectionType>, ParsedLine>
+    public class SelectLineByStringProcessor : BaseOutputProcessor, IDataProcessor<OperationOutputParameters<StringSelectionType>, ParsedLine>
     {
         /// <summary>
         /// Parameters of this operation.
         /// </summary>
-        protected OperationTypeOutputParameters<StringSelectionType> Parameters { get; set; }
+        protected OperationOutputParameters<StringSelectionType> Parameters { get; set; }
 
         /// <summary>
         /// The selector used to perform the operation.
         /// </summary>
         protected StringSelector StringSelector { get; set; }
 
-        public void Initialize(OperationTypeOutputParameters<StringSelectionType> processingParameters)
+        public void Initialize(OperationOutputParameters<StringSelectionType> processingParameters)
         {
             this.Parameters = processingParameters;
 
             this.StringSelector = new StringSelector();
-            this.StringSelector.Initialize(this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument);
+            this.StringSelector.Initialize(this.Parameters.OperationType, this.Parameters.SafeFirstArgument, this.Parameters.SafeSecondArgument);
 
             this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
         }

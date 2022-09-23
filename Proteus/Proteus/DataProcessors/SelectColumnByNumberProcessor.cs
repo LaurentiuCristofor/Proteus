@@ -15,12 +15,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that selects a subset of columns to output.
     /// </summary>
-    public class SelectColumnByNumberProcessor : BaseOutputProcessor, IDataProcessor<OperationTypeOutputParameters<PositionSelectionType>, ParsedLine>
+    public class SelectColumnByNumberProcessor : BaseOutputProcessor, IDataProcessor<OperationOutputParameters<PositionSelectionType>, ParsedLine>
     {
         /// <summary>
         /// Parameters of this operation.
         /// </summary>
-        protected OperationTypeOutputParameters<PositionSelectionType> Parameters { get; set; }
+        protected OperationOutputParameters<PositionSelectionType> Parameters { get; set; }
 
         /// <summary>
         /// First line number comparison argument, as an integer value.
@@ -32,7 +32,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// </summary>
         protected int SecondArgumentAsInt { get; set; }
 
-        public void Initialize(OperationTypeOutputParameters<PositionSelectionType> processingParameters)
+        public void Initialize(OperationOutputParameters<PositionSelectionType> processingParameters)
         {
             this.Parameters = processingParameters;
 

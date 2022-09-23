@@ -63,6 +63,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
             public const string EditLines = "el";
             public const string EditColumnStrings = "ecs";
+            public const string EditColumnValues = "ecv";
             public const string InsertLine = "il";
             public const string JoinLines = "jl";
             public const string ConcatenateLines = "cl";
@@ -145,60 +146,65 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string DataTypeFloatingPoint = "f";
                 public const string DataTypeDateTime = "dt";
 
-                public const string ComparisonLessThan = "lt";
-                public const string ComparisonLessThanOrEqual = "lte";
-                public const string ComparisonEqual = "eq";
-                public const string ComparisonGreaterThanOrEqual = "gte";
-                public const string ComparisonGreaterThan = "gt";
-                public const string ComparisonNotEqual = "neq";
-                public const string ComparisonBetween = "btwn";
-                public const string ComparisonStrictlyBetween = "sbtwn";
-                public const string ComparisonNotBetween = "nbtwn";
-                public const string ComparisonNotStrictlyBetween = "nsbtwn";
+                public const string ComparisonTypeLessThan = "lt";
+                public const string ComparisonTypeLessThanOrEqual = "lte";
+                public const string ComparisonTypeEqual = "eq";
+                public const string ComparisonTypeGreaterThanOrEqual = "gte";
+                public const string ComparisonTypeGreaterThan = "gt";
+                public const string ComparisonTypeNotEqual = "neq";
+                public const string ComparisonTypeBetween = "btwn";
+                public const string ComparisonTypeStrictlyBetween = "sbtwn";
+                public const string ComparisonTypeNotBetween = "nbtwn";
+                public const string ComparisonTypeNotStrictlyBetween = "nsbtwn";
 
-                public const string PositionSelectionLast = "last";
-                public const string PositionSelectionNotLast = "nlast";
-                public const string PositionSelectionBetween = "btwn";
-                public const string PositionSelectionNotBetween = "nbtwn";
-                public const string PositionSelectionEach = "each";
-                public const string PositionSelectionNotEach = "neach";
+                public const string PositionSelectionTypeLast = "last";
+                public const string PositionSelectionTypeNotLast = "nlast";
+                public const string PositionSelectionTypeBetween = "btwn";
+                public const string PositionSelectionTypeNotBetween = "nbtwn";
+                public const string PositionSelectionTypeEach = "each";
+                public const string PositionSelectionTypeNotEach = "neach";
 
-                public const string PositionInsertionPosition = "pos";
-                public const string PositionInsertionEach = "each";
-                public const string PositionInsertionLast = "last";
+                public const string PositionInsertionTypePosition = "pos";
+                public const string PositionInsertionTypeEach = "each";
+                public const string PositionInsertionTypeLast = "last";
 
-                public const string StringSelectionHasLengthBetween = "btwn";
-                public const string StringSelectionHasLengthNotBetween = "nbtwn";
-                public const string StringSelectionIncludes= "incl";
-                public const string StringSelectionNotIncludes = "nincl";
-                public const string StringSelectionStartsWith = "start";
-                public const string StringSelectionNotStartsWith = "nstart";
-                public const string StringSelectionEndsWith = "end";
-                public const string StringSelectionNotEndsWith = "nend";
-                public const string StringSelectionIsDemarked = "mark";
-                public const string StringSelectionIsNotDemarked = "nmark";
-                public const string StringSelectionEquals = "eq";
-                public const string StringSelectionNotEquals = "neq";
+                public const string StringSelectionTypeHasLengthBetween = "btwn";
+                public const string StringSelectionTypeHasLengthNotBetween = "nbtwn";
+                public const string StringSelectionTypeIncludes = "incl";
+                public const string StringSelectionTypeNotIncludes = "nincl";
+                public const string StringSelectionTypeStartsWith = "start";
+                public const string StringSelectionTypeNotStartsWith = "nstart";
+                public const string StringSelectionTypeEndsWith = "end";
+                public const string StringSelectionTypeNotEndsWith = "nend";
+                public const string StringSelectionTypeIsDemarked = "mark";
+                public const string StringSelectionTypeIsNotDemarked = "nmark";
+                public const string StringSelectionTypeEquals = "eq";
+                public const string StringSelectionTypeNotEquals = "neq";
 
-                public const string RepetitionHandlingSkip = "skip";
-                public const string RepetitionHandlingPick = "pick";
+                public const string RepetitionHandlingTypeSkip = "skip";
+                public const string RepetitionHandlingTypePick = "pick";
 
-                public const string JoinInner = "in";
-                public const string JoinLeftOuter = "lo";
+                public const string JoinTypeInner = "in";
+                public const string JoinTypeLeftOuter = "lo";
 
-                public const string LookupIncluded = "incl";
-                public const string LookupNotIncluded = "nincl";
+                public const string LookupTypeIncluded = "incl";
+                public const string LookupTypeNotIncluded = "nincl";
 
-                public const string ColumnTransformationPack = "pack";
-                public const string ColumnTransformationUnpack = "unpack";
+                public const string ColumnTransformationTypePack = "pack";
+                public const string ColumnTransformationTypeUnpack = "unpack";
 
                 public const string StringEditTypeRewrite = "rw";
+                public const string StringEditTypeInvert = "i";
                 public const string StringEditTypeUppercase = "uc";
                 public const string StringEditTypeLowercase = "lc";
                 public const string StringEditTypeTrimStart = "ts";
                 public const string StringEditTypeTrimEnd = "te";
                 public const string StringEditTypeTrim = "t";
-                public const string StringEditTypeInvert = "i";
+                public const string StringEditTypeTrimCharsStart = "tcs";
+                public const string StringEditTypeTrimCharsEnd = "tce";
+                public const string StringEditTypeTrimChars = "tc";
+                public const string StringEditTypePadLeft = "pl";
+                public const string StringEditTypePadRight = "pr";
                 public const string StringEditTypePrefixLineNumbers = "pln";
                 public const string StringEditTypeAddPrefix = "ap";
                 public const string StringEditTypeAddSuffix = "as";
@@ -236,6 +242,12 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string StringEditTypeDeleteContentBetweenOutermostMarkers = "dcb2om";
                 public const string StringEditTypeKeepContentBetweenOutermostMarkers = "kcb2om";
                 public const string StringEditTypeKeepContentOutsideOutermostMarkers = "kco2om";
+
+                public const string ValueEditTypeRewrite = "rw";
+                public const string ValueEditTypeAdd = "add";
+                public const string ValueEditTypeSubtract = "sub";
+                public const string ValueEditTypeMultiply = "mul";
+                public const string ValueEditTypeDivide = "div";
 
                 // Command argument description strings.
                 //
@@ -282,90 +294,95 @@ namespace LaurentiuCristofor.Cabeiro.Common
                     public const string ComparisonType = "<comparison_type>";
 
                     public static readonly string ComparisonTypeText = $"{Constants.Commands.Arguments.Descriptions.ComparisonType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonLessThan}' = less than; arguments: <value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonLessThanOrEqual}' = less than or equal; arguments: <value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonEqual}' = equal; arguments: <value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonGreaterThanOrEqual}' = greater than or equal; arguments: <value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonGreaterThan}' = greater than; arguments: <value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonNotEqual}' = not equal; arguments: <value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonBetween}' = between; arguments: <start_value> <end_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonStrictlyBetween}' = strictly between; arguments: <start_value> <end_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonNotBetween}' = not between; arguments: <start_value> <end_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonNotStrictlyBetween}' = not strictly between; arguments: <start_value> <end_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeLessThan}' = less than; arguments: <value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeLessThanOrEqual}' = less than or equal; arguments: <value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeEqual}' = equal; arguments: <value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeGreaterThanOrEqual}' = greater than or equal; arguments: <value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeGreaterThan}' = greater than; arguments: <value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeNotEqual}' = not equal; arguments: <value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeBetween}' = between; arguments: <start_value> <end_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeStrictlyBetween}' = strictly between; arguments: <start_value> <end_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeNotBetween}' = not between; arguments: <start_value> <end_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeNotStrictlyBetween}' = not strictly between; arguments: <start_value> <end_value>"
                         + "\n";
 
                     public const string SelectionType = "<selection_type>";
 
                     public static readonly string PositionSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionBetween}' = between; arguments: <start_value> <end_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionNotBetween}' = not between; arguments: <start_value> <end_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionLast}' = last; arguments: <last_count>"
-                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionNotLast}' = not last; arguments: <last_count>"
-                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionEach}' = each; arguments: <each_count>"
-                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionNotEach}' = not each; arguments: <each_count>"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionTypeBetween}' = between; arguments: <start_value> <end_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionTypeNotBetween}' = not between; arguments: <start_value> <end_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionTypeLast}' = last; arguments: <last_count>"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionTypeNotLast}' = not last; arguments: <last_count>"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionTypeEach}' = each; arguments: <each_count>"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionTypeNotEach}' = not each; arguments: <each_count>"
                         + "\n";
 
                     public const string InsertionType = "<insertion_type>";
 
                     public static readonly string PositionInsertionTypeText = $"{Constants.Commands.Arguments.Descriptions.InsertionType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionPosition}' = position; arguments: <line_number>"
-                        + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionEach}' = each; arguments: <each_count>"
-                        + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionLast}' = last"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionTypePosition}' = position; arguments: <line_number>"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionTypeEach}' = each; arguments: <each_count>"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionTypeLast}' = last"
                         + "\n";
 
                     public const string HandlingType = "<handling_type>";
 
                     public static readonly string RepetitionHandlingTypeText = $"{Constants.Commands.Arguments.Descriptions.HandlingType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.RepetitionHandlingSkip}' = skip repetitions"
-                        + $"\n\t- '{Constants.Commands.Arguments.RepetitionHandlingPick}' = pick repetitions"
+                        + $"\n\t- '{Constants.Commands.Arguments.RepetitionHandlingTypeSkip}' = skip repetitions"
+                        + $"\n\t- '{Constants.Commands.Arguments.RepetitionHandlingTypePick}' = pick repetitions"
                         + "\n";
 
                     public const string JoinType = "<join_type>";
 
                     public static readonly string JoinTypeText = $"{Constants.Commands.Arguments.Descriptions.JoinType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.JoinInner}' = inner - omit lines not matching second file"
-                        + $"\n\t- '{Constants.Commands.Arguments.JoinLeftOuter}' = left outer - include lines not matching second file"
+                        + $"\n\t- '{Constants.Commands.Arguments.JoinTypeInner}' = inner - omit lines not matching second file"
+                        + $"\n\t- '{Constants.Commands.Arguments.JoinTypeLeftOuter}' = left outer - include lines not matching second file"
                         + "\n";
 
                     public const string LookupType = "<lookup_type>";
 
                     public static readonly string LookupTypeText = $"{Constants.Commands.Arguments.Descriptions.LookupType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.LookupIncluded}' = included - include lines matching lookup file content"
-                        + $"\n\t- '{Constants.Commands.Arguments.LookupNotIncluded}' = not included - include lines not matching lookup file content"
+                        + $"\n\t- '{Constants.Commands.Arguments.LookupTypeIncluded}' = included - include lines matching lookup file content"
+                        + $"\n\t- '{Constants.Commands.Arguments.LookupTypeNotIncluded}' = not included - include lines not matching lookup file content"
                         + "\n";
 
                     public const string TransformationType = "<transformation_type>";
 
                     public static readonly string ColumnTransformationTypeText = $"{Constants.Commands.Arguments.Descriptions.TransformationType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.ColumnTransformationPack}' = pack column range; arguments: <start_column_number> <end_column_number> <packing_separator>"
-                        + $"\n\t- '{Constants.Commands.Arguments.ColumnTransformationUnpack}' = unpack column; arguments: <column_number> <packing_separator>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ColumnTransformationTypePack}' = pack column range; arguments: <start_column_number> <end_column_number> <packing_separator>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ColumnTransformationTypeUnpack}' = unpack column; arguments: <column_number> <packing_separator>"
                         + "\n";
 
                     public static readonly string StringSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionHasLengthBetween}' = has length between; arguments: <start_value> <end_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionHasLengthNotBetween}' = has length not between; arguments: <start_value> <end_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionIncludes}' = includes; arguments: <string_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionNotIncludes}' = not includes; arguments: <string_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionStartsWith}' = starts with; arguments: <string_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionNotStartsWith}' = not starts with; arguments: <string_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionEndsWith}' = ends with; arguments: <string_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionNotEndsWith}' = not ends with; arguments: <string_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionIsDemarked}' = is demarked; arguments: <prefix_value> <suffix_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionIsNotDemarked}' = is not demarked; arguments: <prefix_value> <suffix_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionEquals}' = equals; arguments: <string_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionNotEquals}' = not equals; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeHasLengthBetween}' = has length between; arguments: <start_value> <end_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeHasLengthNotBetween}' = has length not between; arguments: <start_value> <end_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeIncludes }' = includes; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotIncludes}' = not includes; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeStartsWith}' = starts with; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotStartsWith}' = not starts with; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeEndsWith}' = ends with; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotEndsWith}' = not ends with; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeIsDemarked}' = is demarked; arguments: <prefix_value> <suffix_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeIsNotDemarked}' = is not demarked; arguments: <prefix_value> <suffix_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeEquals}' = equals; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotEquals}' = not equals; arguments: <string_value>"
                         + "\n";
 
                     public const string EditType = "<edit_type>";
 
-                    public static readonly string EditTypeText = $"{Constants.Commands.Arguments.Descriptions.EditType} can take the values:"
+                    public static readonly string StringEditTypeText = $"{Constants.Commands.Arguments.Descriptions.EditType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeRewrite}' = rewrite"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeInvert}' = invert"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeUppercase}' = uppercase"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeLowercase}' = lowercase"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeTrimStart}' = trim start"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeTrimEnd}' = trim end"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeTrim}' = trim"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeInvert}' = invert"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeTrimCharsStart}' = trim characters start; arguments: <string_of_characters_to_trim>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeTrimCharsEnd}' = trim characters end; arguments: <string_of_characters_to_trim>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeTrimChars}' = trim characters; arguments: <string_of_characters_to_trim>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypePadLeft}' = pad left; arguments: <padding_size> <padding_character>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypePadRight}' = pad right; arguments: <padding_size> <padding_character>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypePrefixLineNumbers}' = prefix line numbers; arguments: <separator_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeAddPrefix}' = add prefix; arguments: <prefix_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeAddSuffix}' = add suffix; arguments: <suffix_value>"
@@ -404,6 +421,14 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentBetweenOutermostMarkers}' = keep content between outermost occurrences of markers; arguments: <first_marker> <second_marker>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentOutsideOutermostMarkers}' = keep content outside outermost occurrences of markers; arguments: <first_marker> <second_marker>"
                         + "\n";
+
+                    public static readonly string ValueEditTypeText = $"{Constants.Commands.Arguments.Descriptions.EditType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.ValueEditTypeRewrite}' = rewrite"
+                        + $"\n\t- '{Constants.Commands.Arguments.ValueEditTypeAdd}' = add; arguments: <value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ValueEditTypeSubtract}' = subtract; arguments: <value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ValueEditTypeMultiply}' = multiply; arguments: <value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ValueEditTypeDivide}' = divide; arguments: <value>"
+                        + "\nSome edit types are not supported by some data types.\n";
 
                     public const string LimitValues = "<limit_values>";
 

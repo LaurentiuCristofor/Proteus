@@ -155,7 +155,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.EditType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} [{CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument}]]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
-                $"{CabeiroConstants.Commands.Arguments.Descriptions.EditTypeText}");
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.StringEditTypeText}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -169,7 +169,23 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.EditType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} [{CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument}]]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
-                $"{CabeiroConstants.Commands.Arguments.Descriptions.EditTypeText}");
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.StringEditTypeText}");
+            RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.EditColumnValues,
+                CommandCategory.Editing,
+                "(E)dit (C)olumn (V)alues",
+                longDescription: null,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.EditType}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument}]"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
+                + $"\n{CabeiroConstants.Commands.Arguments.Descriptions.ValueEditTypeText}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(

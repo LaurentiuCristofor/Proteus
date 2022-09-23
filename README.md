@@ -74,6 +74,7 @@ These commands modify the content of a file.
 
 * EL - (E)dit (L)ines
 * ECS - (E)dit (C)olumn (S)trings
+* ECV - (E)dit (C)olumn (V)alues
 * IL - (I)nsert (L)ine
 * JL - (J)oin (L)ines
 * CL - (C)oncatenate (L)ines
