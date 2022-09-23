@@ -50,7 +50,7 @@ namespace LaurentiuCristofor.Cabeiro
             catch (Exception e)
             {
                 Console.Error.WriteLine($"\nAn error has occurred during the execution of {CabeiroConstants.Program.Name}:\n{e.Message}");
-                Console.Error.WriteLine($"\nFull exception information:\n\n{e.ToString()}");
+                Console.Error.WriteLine($"\nFull exception information:\n\n{e}");
             }
         }
 
@@ -69,7 +69,7 @@ namespace LaurentiuCristofor.Cabeiro
                 || (proteusInfo.Version.Major == expectedProteusMajorVersion && proteusInfo.Version.Minor < expectedProteusMinorVersion))
             {
                 CommandRegistry.DisplayProgramVersion();
-                throw new CabeiroException($"Cabeiro version {cabeiroInfo.Version.Major}.{cabeiroInfo.Version.Minor} expects Proteus version {expectedProteusMajorVersion}.{expectedProteusMinorVersion} but found version {proteusInfo.Version.Major}.{proteusInfo.Version.Minor}!");
+                throw new CabeiroException($"Cabeiro version {cabeiroInfo.Version.Major}.{cabeiroInfo.Version.Minor} expects Proteus version {expectedProteusMajorVersion}.{expectedProteusMinorVersion} but found version {proteusInfo.Version.Major}.{proteusInfo.Version.Minor} instead!");
             }
         }
 
@@ -123,7 +123,9 @@ namespace LaurentiuCristofor.Cabeiro
                 const int expectedArgumentNumber = 2;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, expectedArgumentNumber))
                 {
-                    CountLines(arguments[1]);
+                    string inputFilePath = arguments[1];
+
+                    CountLines(inputFilePath);
                     return;
                 }
             }
@@ -133,10 +135,11 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 3;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
-                    int valuesLimit = ArgumentParser.GetPositiveInteger(arguments[2], acceptZero: true);
+                    string inputFilePath = arguments[1];
+                    int valuesLimit = ArgumentParser.GetPositiveInteger(arguments[2]);
 
                     AnalyzeLines(
-                        arguments[1],
+                        inputFilePath,
                         valuesLimit);
                     return;
                 }
@@ -147,13 +150,14 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 6;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
-                    int columnNumber = ArgumentParser.GetPositiveInteger(arguments[2]);
+                    string inputFilePath = arguments[1];
+                    int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
                     DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
-                    int valuesLimit = ArgumentParser.GetPositiveInteger(arguments[5], acceptZero: true);
+                    int valuesLimit = ArgumentParser.GetPositiveInteger(arguments[5]);
 
                     AnalyzeColumnValues(
-                        arguments[1],
+                        inputFilePath,
                         columnNumber,
                         columnSeparator,
                         dataType,
@@ -167,10 +171,11 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 3;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
+                    string inputFilePath = arguments[1];
                     ArgumentParser.ExtractLastArguments(0, 2, arguments, out _, out string outputFilePath);
 
                     InvertFile(
-                        arguments[1],
+                        inputFilePath,
                         outputFilePath);
                     return;
                 }
@@ -181,10 +186,11 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 3;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
+                    string inputFilePath = arguments[1];
                     ArgumentParser.ExtractLastArguments(0, 2, arguments, out _, out string outputFilePath);
 
                     SortFile(
-                        arguments[1],
+                        inputFilePath,
                         outputFilePath);
                     return;
                 }
@@ -195,13 +201,14 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 8;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
-                    int columnNumber = ArgumentParser.GetPositiveInteger(arguments[2]);
+                    string inputFilePath = arguments[1];
+                    int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
                     DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
                     ArgumentParser.ExtractLastArguments(0, 5, arguments, out _, out string outputFilePath);
 
                     SortFileByColumnValue(
-                        arguments[1],
+                        inputFilePath,
                         columnNumber,
                         columnSeparator,
                         dataType, arguments[4],
@@ -215,12 +222,13 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 5;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
+                    string inputFilePath = arguments[1];
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[2]);
                     string newFirstColumnsList = arguments[3];
                     ArgumentParser.ExtractLastArguments(0, 4, arguments, out _, out string outputFilePath);
 
                     OrderColumns(
-                        arguments[1],
+                        inputFilePath,
                         columnSeparator,
                         newFirstColumnsList,
                         outputFilePath);
@@ -233,11 +241,12 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 6;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
+                    string inputFilePath = arguments[1];
                     Tuple<StringEditType, int> operationInfo = ArgumentParser.ParseStringEditType(arguments[2]);
                     ArgumentParser.ExtractLastArguments(operationInfo.Item2, 3, arguments, out string[] operationArguments, out string outputFilePath);
 
                     EditLines(
-                        arguments[1],
+                        inputFilePath,
                         operationInfo.Item1, arguments[2],
                         operationArguments,
                         outputFilePath);
@@ -250,13 +259,14 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 8;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
-                    int columnNumber = ArgumentParser.GetPositiveInteger(arguments[2]);
+                    string inputFilePath = arguments[1];
+                    int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
                     Tuple<StringEditType, int> operationInfo = ArgumentParser.ParseStringEditType(arguments[4]);
                     ArgumentParser.ExtractLastArguments(operationInfo.Item2, 5, arguments, out string[] operationArguments, out string outputFilePath);
 
                     EditColumnStrings(
-                        arguments[1],
+                        inputFilePath,
                         columnNumber,
                         columnSeparator,
                         operationInfo.Item1, arguments[4],
@@ -271,14 +281,15 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 8;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
-                    int columnNumber = ArgumentParser.GetPositiveInteger(arguments[2]);
+                    string inputFilePath = arguments[1];
+                    int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
                     DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
                     Tuple<ValueEditType, int> operationInfo = ArgumentParser.ParseValueEditType(arguments[5]);
                     ArgumentParser.ExtractLastArguments(operationInfo.Item2, 6, arguments, out string[] operationArguments, out string outputFilePath);
 
                     EditColumnValues(
-                        arguments[1],
+                        inputFilePath,
                         columnNumber,
                         columnSeparator,
                         dataType, arguments[4],
@@ -294,12 +305,13 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 6;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
+                    string inputFilePath = arguments[1];
                     string lineValue = arguments[2];
                     Tuple<PositionInsertionType, int> operationInfo = ArgumentParser.ParsePositionInsertionType(arguments[3]);
                     ArgumentParser.ExtractLastArguments(operationInfo.Item2, 4, arguments, out string[] operationArguments, out string outputFilePath);
 
                     InsertLine(
-                        arguments[1],
+                        inputFilePath,
                         lineValue,
                         operationInfo.Item1, arguments[3],
                         operationArguments,
@@ -314,10 +326,10 @@ namespace LaurentiuCristofor.Cabeiro
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
                     string firstFilePath = arguments[1];
-                    int firstFileColumnNumber = ArgumentParser.GetPositiveInteger(arguments[2]);
-                    string columnSeparator = arguments[3];
+                    int firstFileColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
+                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
                     string secondFilePath = arguments[4];
-                    int secondFileColumnNumber = ArgumentParser.GetPositiveInteger(arguments[5]);
+                    int secondFileColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[5]);
                     Tuple<JoinType, int> operationInfo = ArgumentParser.ParseJoinType(arguments[6]);
                     ArgumentParser.ExtractLastArguments(operationInfo.Item2, 7, arguments, out string[] operationArguments, out string outputFilePath);
 
@@ -341,7 +353,7 @@ namespace LaurentiuCristofor.Cabeiro
                 {
                     string firstFilePath = arguments[1];
                     string secondFilePath = arguments[2];
-                    string columnSeparator = arguments[3];
+                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
                     ArgumentParser.ExtractLastArguments(0, 4, arguments, out _, out string outputFilePath);
 
                     ConcatenateLines(
@@ -358,12 +370,13 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 8;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
+                    string inputFilePath = arguments[1];
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[2]);
                     Tuple<ColumnTransformationType, int> operationInfo = ArgumentParser.ParseColumnTransformationType(arguments[3]);
                     ArgumentParser.ExtractLastArguments(operationInfo.Item2, 4, arguments, out string[] operationArguments, out string outputFilePath);
 
                     TransformColumns(
-                        arguments[1],
+                        inputFilePath,
                         columnSeparator,
                         operationInfo.Item1, arguments[3],
                         operationArguments,
@@ -377,14 +390,15 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 9;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
-                    int columnNumber = ArgumentParser.GetPositiveInteger(arguments[2]);
+                    string inputFilePath = arguments[1];
+                    int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
                     DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
                     Tuple<ComparisonType, int> operationInfo = ArgumentParser.ParseComparisonType(arguments[5]);
                     ArgumentParser.ExtractLastArguments(operationInfo.Item2, 6, arguments, out string[] operationArguments, out string outputFilePath);
 
                     SelectLinesByColumnValue(
-                        arguments[1],
+                        inputFilePath,
                         columnNumber,
                         columnSeparator,
                         dataType, arguments[4],
@@ -400,11 +414,12 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 6;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
+                    string inputFilePath = arguments[1];
                     Tuple<PositionSelectionType, int> operationInfo = ArgumentParser.ParsePositionSelectionType(arguments[2]);
                     ArgumentParser.ExtractLastArguments(operationInfo.Item2, 3, arguments, out string[] operationArguments, out string outputFilePath);
 
                     SelectLinesByNumber(
-                        arguments[1],
+                        inputFilePath,
                         operationInfo.Item1, arguments[2],
                         operationArguments,
                         outputFilePath);
@@ -417,12 +432,13 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 7;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
+                    string inputFilePath = arguments[1];
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[2]);
                     Tuple<PositionSelectionType, int> operationInfo = ArgumentParser.ParsePositionSelectionType(arguments[3]);
                     ArgumentParser.ExtractLastArguments(operationInfo.Item2, 4, arguments, out string[] operationArguments, out string outputFilePath);
 
                     SelectColumnsByNumber(
-                        arguments[1],
+                        inputFilePath,
                         columnSeparator,
                         operationInfo.Item1, arguments[3],
                         operationArguments,
@@ -436,11 +452,12 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 6;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
+                    string inputFilePath = arguments[1];
                     Tuple<StringSelectionType, int> operationInfo = ArgumentParser.ParseStringSelectionType(arguments[2]);
                     ArgumentParser.ExtractLastArguments(operationInfo.Item2, 3, arguments, out string[] operationArguments, out string outputFilePath);
 
                     SelectLinesByLineString(
-                        arguments[1],
+                        inputFilePath,
                         operationInfo.Item1, arguments[2],
                         operationArguments,
                         outputFilePath);
@@ -453,13 +470,14 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 8;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
-                    int columnNumber = ArgumentParser.GetPositiveInteger(arguments[2]);
+                    string inputFilePath = arguments[1];
+                    int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
                     Tuple<StringSelectionType, int> operationInfo = ArgumentParser.ParseStringSelectionType(arguments[4]);
                     ArgumentParser.ExtractLastArguments(operationInfo.Item2, 5, arguments, out string[] operationArguments, out string outputFilePath);
 
                     SelectLinesByColumnString(
-                        arguments[1],
+                        inputFilePath,
                         columnNumber,
                         columnSeparator,
                         operationInfo.Item1, arguments[4],
@@ -474,12 +492,13 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 7;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
+                    string inputFilePath = arguments[1];
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[2]);
                     Tuple<ComparisonType, int> operationInfo = ArgumentParser.ParseComparisonType(arguments[3]);
                     ArgumentParser.ExtractLastArguments(operationInfo.Item2, 4, arguments, out string[] operationArguments, out string outputFilePath);
 
                     SelectLinesByColumnCount(
-                        arguments[1],
+                        inputFilePath,
                         columnSeparator,
                         operationInfo.Item1, arguments[3],
                         operationArguments,
@@ -493,12 +512,13 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 3;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
+                    string inputFilePath = arguments[1];
                     Tuple<RepetitionHandlingType, int> operationInfo = ArgumentParser.ParseRepetitionHandlingType(arguments[2]);
                     ArgumentParser.ExtractLastArguments(0, 3, arguments, out _, out string outputFilePath);
 
                     SelectLinesHandlingRepeatedLines(
                         isSorted: false,
-                        arguments[1],
+                        inputFilePath,
                         operationInfo.Item1, arguments[2],
                         outputFilePath);
                     return;
@@ -510,14 +530,15 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 5;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
-                    int columnNumber = ArgumentParser.GetPositiveInteger(arguments[2]);
+                    string inputFilePath = arguments[1];
+                    int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
                     Tuple<RepetitionHandlingType, int> operationInfo = ArgumentParser.ParseRepetitionHandlingType(arguments[4]);
                     ArgumentParser.ExtractLastArguments(0, 5, arguments, out _, out string outputFilePath);
 
                     SelectLinesHandlingRepeatedColumnStrings(
                         isSorted: false,
-                        arguments[1],
+                        inputFilePath,
                         columnNumber,
                         columnSeparator,
                         operationInfo.Item1, arguments[4],
@@ -551,8 +572,8 @@ namespace LaurentiuCristofor.Cabeiro
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
                     string dataFilePath = arguments[1];
-                    int columnNumber = ArgumentParser.GetPositiveInteger(arguments[2]);
-                    string columnSeparator = arguments[3];
+                    int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
+                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
                     string lookupFilePath = arguments[4];
                     Tuple<LookupType, int> operationInfo = ArgumentParser.ParseLookupType(arguments[5]);
                     ArgumentParser.ExtractLastArguments(operationInfo.Item2, 6, arguments, out _, out string outputFilePath);
@@ -573,11 +594,12 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 4;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
+                    string inputFilePath = arguments[1];
                     ulong rangeSize = ArgumentParser.GetUnsignedLongInteger(arguments[2]);
                     ArgumentParser.ExtractLastArguments(0, 3, arguments, out _, out string outputFilePath);
 
                     SplitLineRanges(
-                        arguments[1],
+                        inputFilePath,
                         rangeSize,
                         outputFilePath);
                     return;
@@ -589,11 +611,12 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 4;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
+                    string inputFilePath = arguments[1];
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[2]);
                     ArgumentParser.ExtractLastArguments(0, 3, arguments, out _, out string outputFilePath);
 
                     SplitColumns(
-                        arguments[1],
+                        inputFilePath,
                         columnSeparator,
                         outputFilePath);
                     return;
@@ -605,12 +628,13 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 5;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
-                    int columnNumber = ArgumentParser.GetPositiveInteger(arguments[2]);
+                    string inputFilePath = arguments[1];
+                    int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
                     ArgumentParser.ExtractLastArguments(0, 4, arguments, out _, out string outputFilePath);
 
                     SplitColumnStrings(
-                        arguments[1],
+                        inputFilePath,
                         columnNumber,
                         columnSeparator,
                         outputFilePath);
@@ -623,15 +647,16 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 10;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
-                    int secondColumnNumber = ArgumentParser.GetPositiveInteger(arguments[2]);
+                    string inputFilePath = arguments[1];
+                    int secondColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
                     DataType secondDataType = ArgumentParser.ParseDataType(arguments[4]);
-                    int firstColumnNumber = ArgumentParser.GetPositiveInteger(arguments[5]);
+                    int firstColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[5]);
                     DataType firstDataType = ArgumentParser.ParseDataType(arguments[6]);
                     ArgumentParser.ExtractLastArguments(0, 7, arguments, out _, out string outputFilePath);
 
                     SortFileBySecondColumnValue(
-                        arguments[1],
+                        inputFilePath,
                         secondColumnNumber,
                         columnSeparator,
                         secondDataType, arguments[4],
@@ -665,11 +690,11 @@ namespace LaurentiuCristofor.Cabeiro
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
                     string firstFilePath = arguments[1];
-                    int firstFileColumnNumber = ArgumentParser.GetPositiveInteger(arguments[2]);
-                    string columnSeparator = arguments[3];
+                    int firstFileColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
+                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
                     DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
                     string secondFilePath = arguments[5];
-                    int secondFileColumnNumber = ArgumentParser.GetPositiveInteger(arguments[6]);
+                    int secondFileColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[6]);
                     ArgumentParser.ExtractLastArguments(0, 7, arguments, out _, out string outputFilePath);
 
                     MergeLinesByColumnValue(
@@ -689,12 +714,13 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 3;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
+                    string inputFilePath = arguments[1];
                     Tuple<RepetitionHandlingType, int> operationInfo = ArgumentParser.ParseRepetitionHandlingType(arguments[2]);
                     ArgumentParser.ExtractLastArguments(0, 3, arguments, out _, out string outputFilePath);
 
                     SelectLinesHandlingRepeatedLines(
                         isSorted: true,
-                        arguments[1],
+                        inputFilePath,
                         operationInfo.Item1, arguments[2],
                         outputFilePath);
                     return;
@@ -706,14 +732,15 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 5;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
-                    int columnNumber = ArgumentParser.GetPositiveInteger(arguments[2]);
+                    string inputFilePath = arguments[1];
+                    int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
                     Tuple<RepetitionHandlingType, int> operationInfo = ArgumentParser.ParseRepetitionHandlingType(arguments[4]);
                     ArgumentParser.ExtractLastArguments(0, 5, arguments, out _, out string outputFilePath);
 
                     SelectLinesHandlingRepeatedColumnStrings(
                         isSorted: true,
-                        arguments[1],
+                        inputFilePath,
                         columnNumber,
                         columnSeparator,
                         operationInfo.Item1, arguments[4],
@@ -747,8 +774,8 @@ namespace LaurentiuCristofor.Cabeiro
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
                     string dataFilePath = arguments[1];
-                    int columnNumber = ArgumentParser.GetPositiveInteger(arguments[2]);
-                    string columnSeparator = arguments[3];
+                    int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
+                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
                     DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
                     string lookupFilePath = arguments[5];
                     Tuple<LookupType, int> operationInfo = ArgumentParser.ParseLookupType(arguments[6]);
@@ -771,15 +798,16 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 10;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
-                    int secondColumnNumber = ArgumentParser.GetPositiveInteger(arguments[2]);
+                    string inputFilePath = arguments[1];
+                    int secondColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
                     DataType secondDataType = ArgumentParser.ParseDataType(arguments[4]);
-                    int firstColumnNumber = ArgumentParser.GetPositiveInteger(arguments[5]);
+                    int firstColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[5]);
                     DataType firstDataType = ArgumentParser.ParseDataType(arguments[6]);
                     ArgumentParser.ExtractLastArguments(0, 7, arguments, out _, out string outputFilePath);
 
                     FindStateTransitions(
-                        arguments[1],
+                        inputFilePath,
                         secondColumnNumber,
                         columnSeparator,
                         secondDataType, arguments[4],

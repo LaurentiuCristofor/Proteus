@@ -79,19 +79,19 @@ namespace LaurentiuCristofor.Cabeiro.Common
         /// <returns>The output file path.</returns>
         public virtual string BuildOutputFilePath(bool excludeTextExtension = false)
         {
+            // If we already have a path, return it.
+            //
+            if (this.OutputFilePath != null)
+            {
+                return this.OutputFilePath;
+            }
+
             // Just in case we get called repeatedly,
             // check to avoid redundant processing.
             //
             if (!this.HasProcessedArguments)
             {
                 this.ProcessArguments();
-            }
-
-            // If we already have a path, return it.
-            //
-            if (this.OutputFilePath != null)
-            {
-                return this.OutputFilePath;
             }
 
             // Append the arguments to the extension.
@@ -127,9 +127,9 @@ namespace LaurentiuCristofor.Cabeiro.Common
         public static string BuildFilePath(string inputFilePath, string additionalExtension)
         {
             string path = RemoveFileExtension(inputFilePath);
-            string extension = SanitizeExtension(additionalExtension);
+            string sanitizedAdditionalExtension = SanitizeExtension(additionalExtension);
 
-            string newPath = path + extension;
+            string newPath = path + sanitizedAdditionalExtension;
 
             return newPath;
         }
@@ -143,12 +143,10 @@ namespace LaurentiuCristofor.Cabeiro.Common
         /// <returns>A path without the special extensions.</returns>
         private static string RemoveFileExtension(string filePath)
         {
-            int extensionLength = Constants.Files.Extensions.Txt.Length;
             if (filePath.EndsWith(Constants.Files.Extensions.Txt))
             {
-                return filePath.Remove(
-                    filePath.Length - extensionLength,
-                    extensionLength);
+                int extensionLength = Constants.Files.Extensions.Txt.Length;
+                return filePath.Substring(0, filePath.Length - extensionLength);
             }
 
             return filePath;

@@ -38,7 +38,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             if (maximumArgumentNumber < minimumArgumentNumber
                 || minimumArgumentNumber < 0)
             {
-                throw new ProteusException($"Internal error: invalid argument number range: {minimumArgumentNumber}-{maximumArgumentNumber}!");
+                throw new CabeiroException($"Internal error: invalid argument number range: {minimumArgumentNumber}-{maximumArgumentNumber}!");
             }
 
             return argumentNumber >= minimumArgumentNumber
@@ -55,30 +55,41 @@ namespace LaurentiuCristofor.Cabeiro.Common
         {
             if (expectedArgumentNumber < 0)
             {
-                throw new ProteusException($"Internal error: invalid expected argument number: {expectedArgumentNumber}!");
+                throw new CabeiroException($"Internal error: invalid expected argument number: {expectedArgumentNumber}!");
             }
 
             return argumentNumber == expectedArgumentNumber;
         }
 
         /// <summary>
+        /// Interprets an argument as a strictly positive integer value.
+        /// </summary>
+        /// <param name="argument">The argument value to process.</param>
+        /// <returns>An integer value or an exception if the value is not a valid strictly positive integer.</returns>
+        public static int GetStrictlyPositiveInteger(string argument)
+        {
+            int argumentValue = int.Parse(argument);
+
+            if (argumentValue <= 0)
+            {
+                throw new CabeiroException($"Invalid strictly positive integer value: {argumentValue}!");
+            }
+
+            return argumentValue;
+        }
+
+        /// <summary>
         /// Interprets an argument as a positive integer value.
         /// </summary>
         /// <param name="argument">The argument value to process.</param>
-        /// <param name="acceptZero">Whether a zero value is accepted.</param>
-        /// <returns>An integer value or an exception if the value is not a valid integer.</returns>
-        public static int GetPositiveInteger(string argument, bool acceptZero = false)
+        /// <returns>An integer value or an exception if the value is not a valid positive integer.</returns>
+        public static int GetPositiveInteger(string argument)
         {
             int argumentValue = int.Parse(argument);
 
             if (argumentValue < 0)
             {
                 throw new CabeiroException($"Invalid positive integer value: {argumentValue}!");
-            }
-
-            if (!acceptZero && argumentValue == 0)
-            {
-                throw new CabeiroException("A non-zero integer value was expected!");
             }
 
             return argumentValue;
@@ -112,7 +123,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
         {
             if (expectedArgumentIndex >= arguments.Length)
             {
-                throw new ProteusException($"Command is missing arguments!");
+                throw new CabeiroException($"Command is missing arguments!");
             }
 
             return arguments[expectedArgumentIndex];
@@ -154,19 +165,19 @@ namespace LaurentiuCristofor.Cabeiro.Common
             if (expectedOperationArguments >= 1)
             {
                 operationArguments[0] = GetExpectedArgument(arguments, nextArgumentIndex);
-                nextArgumentIndex++;
+                ++nextArgumentIndex;
             }
 
             if (expectedOperationArguments >= 2)
             {
                 operationArguments[1] = GetExpectedArgument(arguments, nextArgumentIndex);
-                nextArgumentIndex++;
+                ++nextArgumentIndex;
             }
 
             if (expectedOperationArguments >= 3)
             {
                 operationArguments[2] = GetExpectedArgument(arguments, nextArgumentIndex);
-                nextArgumentIndex++;
+                ++nextArgumentIndex;
             }
 
             outputFilePath = GetOptionalArgument(arguments, nextArgumentIndex);

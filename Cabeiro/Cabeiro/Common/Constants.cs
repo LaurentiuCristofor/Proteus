@@ -30,7 +30,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 + $"\t(2) Errors, warnings, and progress messages are always printed to standard error (you can redirect these using '2>').\n"
                 + $"\t(3) The output file will be overwritten if it already exists.\n"
                 + $"\t(4) A '.' is printed for each 1,000 rows, an 'o' for each 100,000, and an 'O' for each 1,000,000.\n"
-                + $"\t(5) The string 'tab' can be used on the command line if you need to indicate a tab character.\n"
+                + $"\t(5) The string 'tab' can be used on the command line if you need to indicate a tab character as column separator.\n"
                 + $"\t(6) Row and column numbers start from 1.\n";
 
             public static readonly string GetStartedTip = $"\n\nTo get started, execute '{Constants.Program.Name} help help'.";
@@ -120,7 +120,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string SelectLinesPostSortingHandlingRepeatedColumnStrings = "Selects lines from a column-sorted file, handling lines with repeated column strings as specified.";
                 public const string SelectLinesPostSortingByLookupInFile = "Selects lines from a sorted file based on whether they appear in another sorted file or not. Does not verify the correct sorting of the input files.";
                 public const string SelectLinesPostSortingByColumnValueLookupInFile = "Selects lines from a column-sorted file based on whether their sorted column's value appears in the first column of another sorted file or not. Does not verify the correct sorting of the input files.";
-                public const string FindStateTransitions = "Selects pairs of lines from a column-sorted file, which match on the sorted column's values, but differ on a second column's 'state' values.";
+                public const string FindStateTransitions = "Selects pairs of lines from a column-sorted file, which match on the sorted column's values, but differ on a second column's 'state' values. Two consecutive transitions will result in duplicate lines being output; for example, ABA will output AB and BA.";
             }
 
             // Command notes.
@@ -375,9 +375,9 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeInvert}' = invert"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeUppercase}' = uppercase"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeLowercase}' = lowercase"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeTrimStart}' = trim start"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeTrimEnd}' = trim end"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeTrim}' = trim"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeTrimStart}' = trim whitespace start"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeTrimEnd}' = trim whitespace end"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeTrim}' = trim whitespace"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeTrimCharsStart}' = trim characters start; arguments: <string_of_characters_to_trim>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeTrimCharsEnd}' = trim characters end; arguments: <string_of_characters_to_trim>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeTrimChars}' = trim characters; arguments: <string_of_characters_to_trim>"
@@ -436,7 +436,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
                     public const string NewFirstColumnsList = "<new_first_columns_list>";
 
-                    public static readonly string NewFirstColumnsListText = $"{Constants.Commands.Arguments.Descriptions.NewFirstColumnsList} is a comma-separated list of column numbers representing the new order of columns. Unspecified columns will appear last in their initial order.\n";
+                    public static readonly string NewFirstColumnsListText = $"{Constants.Commands.Arguments.Descriptions.NewFirstColumnsList} is a comma-separated list of column numbers representing the new order of columns requested. Unspecified columns will appear after the specified ones, in their initial order.\n";
                 }
             }
         }

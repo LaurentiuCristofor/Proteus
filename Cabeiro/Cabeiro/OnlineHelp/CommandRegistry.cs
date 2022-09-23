@@ -575,7 +575,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             //
             if (!mapCommandNameToDescription.TryGetValue(commandName.ToLower(), out commandDescription))
             {
-                Console.WriteLine($"{CabeiroConstants.Program.Name} does not include a command named '{commandName}'");
+                Console.WriteLine($"{CabeiroConstants.Program.Name} does not have a command named '{commandName}'");
                 return;
             }
 
@@ -594,7 +594,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             //
             if (!mapCategoryStringToEnum.TryGetValue(category.ToLower(), out commandCategory))
             {
-                Console.WriteLine($"{CabeiroConstants.Program.Name} does not include a command category named '{category}'");
+                Console.WriteLine($"{CabeiroConstants.Program.Name} does not have a command category named '{category}'");
                 return;
             }
 
@@ -613,7 +613,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             //
             if (!mapCategoryToDescriptionList.TryGetValue(commandCategory, out commandDescriptions))
             {
-                Console.WriteLine($"{CabeiroConstants.Program.Name} does not include any commands in category '{commandCategory}'");
+                Console.WriteLine($"{CabeiroConstants.Program.Name} does not have any commands in category '{commandCategory}'");
                 return;
             }
 
@@ -632,7 +632,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
         {
             if (categories.Count == 0)
             {
-                Console.WriteLine($"Sorry, {CabeiroConstants.Program.Name} does not include any command categories yet!");
+                Console.WriteLine($"Sorry, {CabeiroConstants.Program.Name} does not have any command categories yet!");
                 return;
             }
 
@@ -640,7 +640,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
 
             foreach (CommandCategory commandCategory in categories)
             {
-                Console.WriteLine($"\t{commandCategory.ToString()}");
+                Console.WriteLine($"\t{commandCategory}");
             }
         }
 
@@ -655,7 +655,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
 
             if (categories.Count == 0)
             {
-                Console.WriteLine($"Sorry, {CabeiroConstants.Program.Name} does not include any commands yet!");
+                Console.WriteLine($"Sorry, {CabeiroConstants.Program.Name} does not have any commands yet!");
                 return;
             }
 

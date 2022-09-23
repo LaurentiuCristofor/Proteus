@@ -30,7 +30,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
         protected override void AppendArgumentsToExtension()
         {
-            // For PLN we don't need to append its argument to the output file extension.
+            // For PLN we don't append its separator argument to the output file extension.
             //
             if (this.EditType == StringEditType.PrefixLineNumbers)
             {
