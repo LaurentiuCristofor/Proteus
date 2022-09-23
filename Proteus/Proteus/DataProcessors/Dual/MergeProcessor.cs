@@ -14,9 +14,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
     /// </summary>
     public class MergeProcessor: BaseOutputProcessor, IDualDataProcessor<BaseOutputParameters, ParsedLine>
     {
-        /// <summary>
-        /// Parameters of this operation.
-        /// </summary>
         protected BaseOutputParameters Parameters { get; set; }
 
         public void Initialize(BaseOutputParameters processingParameters)

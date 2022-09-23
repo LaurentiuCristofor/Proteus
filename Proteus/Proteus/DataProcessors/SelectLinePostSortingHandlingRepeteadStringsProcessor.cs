@@ -18,9 +18,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class SelectLinePostSortingHandlingRepeteadStringsProcessor : BaseOutputProcessor, IDataProcessor<OperationOutputParameters<RepetitionHandlingType>, ParsedLine>
     {
-        /// <summary>
-        /// Parameters of this operation.
-        /// </summary>
         protected OperationOutputParameters<RepetitionHandlingType> Parameters { get; set; }
 
         /// <summary>

@@ -11,9 +11,9 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
     /// <summary>
     /// A plain line extractor.
     /// </summary>
-    public class LineExtractor : IDataExtractor<UnusedType, string>
+    public class LineExtractor : IDataExtractor<Unused, string>
     {
-        public void Initialize(UnusedType unusedExtractionParameters)
+        public void Initialize(Unused unusedExtractionParameters)
         {
         }
 

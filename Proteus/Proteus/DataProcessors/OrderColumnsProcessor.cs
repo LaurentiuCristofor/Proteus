@@ -18,9 +18,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class OrderColumnsProcessor : BaseOutputProcessor, IDataProcessor<StringOutputParameters, ParsedLine>
     {
-        /// <summary>
-        /// Parameters of this operation.
-        /// </summary>
         protected StringOutputParameters Parameters { get; set; }
 
         /// <summary>
@@ -115,23 +112,25 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             //
             for (int i = 0; i < this.OrderedColumnNumbers.Length; ++i)
             {
+                int columnIndex = this.OrderedColumnNumbers[i] - 1;
                 if (String.IsNullOrEmpty(line))
                 {
-                    line = lineData.Columns[this.OrderedColumnNumbers[i] - 1];
+                    line = lineData.Columns[columnIndex];
                 }
                 else
                 {
-                    line += $"{lineData.ColumnSeparator}{lineData.Columns[this.OrderedColumnNumbers[i] - 1]}";
+                    line += $"{lineData.ColumnSeparator}{lineData.Columns[columnIndex]}";
                 }
             }
 
             // Finally, pick the values of the remaining columns.
             //
-            for (int i = this.MinUnorderedColumnNumber - 1; i < countColumns; ++i)
+            for (int columnIndex = this.MinUnorderedColumnNumber - 1; columnIndex < countColumns; ++columnIndex)
             {
-                if (!this.OrderedColumnNumbersSet.Contains(i + 1))
+                int columnNumber = columnIndex + 1;
+                if (!this.OrderedColumnNumbersSet.Contains(columnNumber))
                 {
-                    line += $"{lineData.ColumnSeparator}{lineData.Columns[i]}";
+                    line += $"{lineData.ColumnSeparator}{lineData.Columns[columnIndex]}";
                 }
             }
 

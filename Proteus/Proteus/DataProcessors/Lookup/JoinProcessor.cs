@@ -18,9 +18,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
     /// </summary>
     public class JoinProcessor : BaseOutputProcessor, IDataLookupProcessor<OperationOutputParameters<JoinType>, Dictionary<string, string>, ParsedLine>
     {
-        /// <summary>
-        /// Parameters of this operation.
-        /// </summary>
         protected OperationOutputParameters<JoinType> Parameters { get; set; }
 
         /// <summary>
@@ -60,8 +57,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
             //
             if (this.LookupDictionary.ContainsKey(data))
             {
-                string otherLine = this.LookupDictionary[data];
-                string outputLine = lineData.OriginalLine + lineData.ColumnSeparator + otherLine;
+                string joinLine = this.LookupDictionary[data];
+                string outputLine = lineData.OriginalLine + lineData.ColumnSeparator + joinLine;
                 this.OutputWriter.WriteLine(outputLine);
             }
             else

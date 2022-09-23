@@ -13,9 +13,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
     /// </summary>
     public class ConcatenateProcessor: BaseOutputProcessor, IDualDataProcessor<StringOutputParameters, string>
     {
-        /// <summary>
-        /// Parameters of this operation.
-        /// </summary>
         protected StringOutputParameters Parameters { get; set; }
 
         public void Initialize(StringOutputParameters processingParameters)

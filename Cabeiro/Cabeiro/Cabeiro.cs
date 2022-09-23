@@ -827,7 +827,7 @@ namespace LaurentiuCristofor.Cabeiro
         private static void CountLines(string inputFilePath)
         {
             var fileProcessor
-                = new FileProcessor<LineExtractor, UnusedType, string, SinkProcessor, UnusedType>(
+                = new FileProcessor<LineExtractor, Unused, string, SinkProcessor, Unused>(
                     inputFilePath,
                     extractionParameters: null,
                     processingParameters: null);
@@ -840,7 +840,7 @@ namespace LaurentiuCristofor.Cabeiro
             AnalyzeParameters processingParameters = new AnalyzeParameters(valuesLimit);
 
             var fileProcessor
-                = new FileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, AnalyzeProcessor, AnalyzeParameters>(
+                = new FileProcessor<LineAsParsedLineExtractor, Unused, ParsedLine, AnalyzeProcessor, AnalyzeParameters>(
                     inputFilePath,
                     extractionParameters: null,
                     processingParameters: processingParameters);
@@ -883,7 +883,7 @@ namespace LaurentiuCristofor.Cabeiro
                 outputFilePath);
 
             var fileProcessor
-                = new FileProcessor<LineExtractor, UnusedType, string, FileInvertProcessor, BaseOutputParameters>(
+                = new FileProcessor<LineExtractor, Unused, string, FileInvertProcessor, BaseOutputParameters>(
                     inputFilePath,
                     extractionParameters: null,
                     processingParameters);
@@ -903,7 +903,7 @@ namespace LaurentiuCristofor.Cabeiro
                 outputFilePath);
 
             var fileProcessor
-                = new FileProcessor<LineExtractor, UnusedType, string, SortProcessor, BaseOutputParameters>(
+                = new FileProcessor<LineExtractor, Unused, string, SortProcessor, BaseOutputParameters>(
                     inputFilePath,
                     extractionParameters: null,
                     processingParameters);
@@ -986,7 +986,7 @@ namespace LaurentiuCristofor.Cabeiro
                 editArguments);
 
             var fileProcessor
-                = new FileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, EditStringProcessor, OperationOutputParameters<StringEditType>>(
+                = new FileProcessor<LineAsParsedLineExtractor, Unused, ParsedLine, EditStringProcessor, OperationOutputParameters<StringEditType>>(
                     inputFilePath,
                     extractionParameters: null,
                     processingParameters);
@@ -1084,7 +1084,7 @@ namespace LaurentiuCristofor.Cabeiro
                 new string[] { lineValue, insertionArguments[0] });
 
             var fileProcessor
-                = new FileProcessor<LineExtractor, UnusedType, string, InsertLineProcessor, OperationOutputParameters<PositionInsertionType>>(
+                = new FileProcessor<LineExtractor, Unused, string, InsertLineProcessor, OperationOutputParameters<PositionInsertionType>>(
                     inputFilePath,
                     extractionParameters: null,
                     processingParameters);
@@ -1125,7 +1125,7 @@ namespace LaurentiuCristofor.Cabeiro
                 = new LookupFileProcessor<
                     ColumnExtractor, ColumnExtractionParameters, ParsedLine,
                     ColumnExtractor, ColumnExtractionParameters, ParsedLine,
-                    DictionaryBuilder, Dictionary<string, string>,
+                    JoinBuilder, Dictionary<string, string>,
                     JoinProcessor, OperationOutputParameters<JoinType>>(
                     firstFilePath,
                     firstExtractionParameters,
@@ -1152,7 +1152,7 @@ namespace LaurentiuCristofor.Cabeiro
 
             var dualFileProcessor
                 = new DualFileProcessor<
-                    LineExtractor, UnusedType, string,
+                    LineExtractor, Unused, string,
                     ConcatenateProcessor, StringOutputParameters>(
                     firstFilePath,
                     firstExtractionParameters: null,
@@ -1244,7 +1244,7 @@ namespace LaurentiuCristofor.Cabeiro
                 selectionArguments);
 
             var fileProcessor
-                = new FileProcessor<LineExtractor, UnusedType, string, SelectLineByNumberProcessor, OperationOutputParameters<PositionSelectionType>>(
+                = new FileProcessor<LineExtractor, Unused, string, SelectLineByNumberProcessor, OperationOutputParameters<PositionSelectionType>>(
                     inputFilePath,
                     extractionParameters: null,
                     processingParameters);
@@ -1301,7 +1301,7 @@ namespace LaurentiuCristofor.Cabeiro
                 selectionArguments);
 
             var fileProcessor
-                = new FileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, SelectLineByStringProcessor, OperationOutputParameters<StringSelectionType>>(
+                = new FileProcessor<LineAsParsedLineExtractor, Unused, ParsedLine, SelectLineByStringProcessor, OperationOutputParameters<StringSelectionType>>(
                     inputFilePath,
                     extractionParameters: null,
                     processingParameters);
@@ -1393,7 +1393,7 @@ namespace LaurentiuCristofor.Cabeiro
             if (isSorted)
             {
                 var fileProcessor
-                    = new FileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, SelectLinePostSortingHandlingRepeteadStringsProcessor, OperationOutputParameters<RepetitionHandlingType>>(
+                    = new FileProcessor<LineAsParsedLineExtractor, Unused, ParsedLine, SelectLinePostSortingHandlingRepeteadStringsProcessor, OperationOutputParameters<RepetitionHandlingType>>(
                         inputFilePath,
                         extractionParameters: null,
                         processingParameters);
@@ -1403,7 +1403,7 @@ namespace LaurentiuCristofor.Cabeiro
             else
             {
                 var fileProcessor
-                    = new FileProcessor<LineAsParsedLineExtractor, UnusedType, ParsedLine, SelectLineHandlingRepeteadStringsProcessor, OperationOutputParameters<RepetitionHandlingType>>(
+                    = new FileProcessor<LineAsParsedLineExtractor, Unused, ParsedLine, SelectLineHandlingRepeteadStringsProcessor, OperationOutputParameters<RepetitionHandlingType>>(
                         inputFilePath,
                         extractionParameters: null,
                         processingParameters);
@@ -1474,9 +1474,9 @@ namespace LaurentiuCristofor.Cabeiro
 
             var lookupFileProcessor
                 = new LookupFileProcessor<
-                    LineAsParsedLineExtractor, UnusedType, ParsedLine,
-                    LineExtractor, UnusedType, string,
-                    HashSetBuilder, HashSet<string>,
+                    LineAsParsedLineExtractor, Unused, ParsedLine,
+                    LineExtractor, Unused, string,
+                    LookupBuilder, HashSet<string>,
                     LookupStringProcessor, OperationOutputParameters<LookupType>>(
                     dataFilePath,
                     dataFileExtractionParameters: null,
@@ -1511,8 +1511,8 @@ namespace LaurentiuCristofor.Cabeiro
             var lookupFileProcessor
                 = new LookupFileProcessor<
                     ColumnExtractor, ColumnExtractionParameters, ParsedLine,
-                    LineExtractor, UnusedType, string,
-                    HashSetBuilder, HashSet<string>,
+                    LineExtractor, Unused, string,
+                    LookupBuilder, HashSet<string>,
                     LookupStringProcessor, OperationOutputParameters<LookupType>>(
                     dataFilePath,
                     dataFileExtractionParameters,
@@ -1537,13 +1537,13 @@ namespace LaurentiuCristofor.Cabeiro
 
             // The file extension is needed because the processor will need to append it for each file it creates.
             //
-            StringAndUnsignedIntegerOutputParameters processingParameters = new StringAndUnsignedIntegerOutputParameters(
+            StringAndULongOutputParameters processingParameters = new StringAndULongOutputParameters(
                 outputFilePath,
                 CabeiroConstants.Files.Extensions.Txt,
                 rangeSize);
 
             var fileProcessor
-                = new FileProcessor<LineExtractor, UnusedType, string, SplitLineRangesProcessor, StringAndUnsignedIntegerOutputParameters>(
+                = new FileProcessor<LineExtractor, Unused, string, SplitLineRangesProcessor, StringAndULongOutputParameters>(
                     inputFilePath,
                     null,
                     processingParameters);
@@ -1609,13 +1609,13 @@ namespace LaurentiuCristofor.Cabeiro
 
             // The file extension is needed because the processor will need to append it for each file it creates.
             //
-            StringAndIntegerOutputParameters processingParameters = new StringAndIntegerOutputParameters(
+            StringAndIntOutputParameters processingParameters = new StringAndIntOutputParameters(
                 outputFilePath,
                 CabeiroConstants.Files.Extensions.Txt,
                 columnNumber);
 
             var fileProcessor
-                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SplitColumnStringsProcessor, StringAndIntegerOutputParameters>(
+                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SplitColumnStringsProcessor, StringAndIntOutputParameters>(
                     inputFilePath,
                     extractionParameters,
                     processingParameters);
@@ -1669,7 +1669,7 @@ namespace LaurentiuCristofor.Cabeiro
 
             var dualFileProcessor
                 = new DualFileProcessor<
-                    LineAsParsedLineExtractor, UnusedType, ParsedLine,
+                    LineAsParsedLineExtractor, Unused, ParsedLine,
                     MergeProcessor, BaseOutputParameters>(
                     firstFilePath,
                     firstExtractionParameters: null,
@@ -1735,7 +1735,7 @@ namespace LaurentiuCristofor.Cabeiro
 
             var dualFileProcessor
                 = new DualFileProcessor<
-                    LineAsParsedLineExtractor, UnusedType, ParsedLine,
+                    LineAsParsedLineExtractor, Unused, ParsedLine,
                     LookupProcessor, OperationOutputParameters<LookupType>>(
                     dataFilePath,
                     firstExtractionParameters: null,

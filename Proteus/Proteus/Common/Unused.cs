@@ -7,9 +7,9 @@
 namespace LaurentiuCristofor.Proteus.Common
 {
     /// <summary>
-    /// This type is meant for use with templated instances when a more specific type is not needed.
+    /// This class is meant for use when a template argument is not needed.
     /// </summary>
-    public abstract class UnusedType
+    public abstract class Unused
     {
     }
 }

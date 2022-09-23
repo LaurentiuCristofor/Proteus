@@ -18,9 +18,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
     /// </summary>
     public class LookupStringProcessor : BaseOutputProcessor, IDataLookupProcessor<OperationOutputParameters<LookupType>, HashSet<string>, ParsedLine>
     {
-        /// <summary>
-        /// Parameters of this operation.
-        /// </summary>
         protected OperationOutputParameters<LookupType> Parameters { get; set; }
 
         /// <summary>

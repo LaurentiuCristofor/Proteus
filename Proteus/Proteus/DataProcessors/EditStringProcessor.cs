@@ -17,9 +17,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class EditStringProcessor : BaseOutputProcessor, IDataProcessor<OperationOutputParameters<StringEditType>, ParsedLine>
     {
-        /// <summary>
-        /// Parameters of this operation.
-        /// </summary>
         protected OperationOutputParameters<StringEditType> Parameters { get; set; }
 
         /// <summary>
@@ -32,7 +29,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             this.Parameters = processingParameters;
 
             this.StringEditor = new StringEditor();
-            this.StringEditor.Initialize(this.Parameters.OperationType, this.Parameters.SafeFirstArgument, this.Parameters.SafeSecondArgument);
+            this.StringEditor.Initialize(this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument);
 
             this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
         }
@@ -64,7 +61,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 string linePrefix = string.Join(lineData.ColumnSeparator, lineData.Columns, 0, lineData.ExtractedColumnNumber - 1);
                 if (!String.IsNullOrEmpty(linePrefix))
                 {
-                    editedLine = linePrefix + lineData.ColumnSeparator + editedLine;
+                    editedLine = linePrefix + lineData.ColumnSeparator + editedData;
                 }
 
                 // If we have a suffix, append it after the edited data.

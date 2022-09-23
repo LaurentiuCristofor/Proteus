@@ -16,9 +16,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class SelectLineByStringProcessor : BaseOutputProcessor, IDataProcessor<OperationOutputParameters<StringSelectionType>, ParsedLine>
     {
-        /// <summary>
-        /// Parameters of this operation.
-        /// </summary>
         protected OperationOutputParameters<StringSelectionType> Parameters { get; set; }
 
         /// <summary>
@@ -31,7 +28,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             this.Parameters = processingParameters;
 
             this.StringSelector = new StringSelector();
-            this.StringSelector.Initialize(this.Parameters.OperationType, this.Parameters.SafeFirstArgument, this.Parameters.SafeSecondArgument);
+            this.StringSelector.Initialize(this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument);
 
             this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
         }

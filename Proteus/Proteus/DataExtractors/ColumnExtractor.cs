@@ -35,7 +35,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
             if (this.Parameters.ColumnNumber > columns.Length)
             {
-                OutputInterface.LogWarning($"\nLine {lineNumber} is too short for column number {this.Parameters.ColumnNumber}!");
+                OutputInterface.LogWarning($"\nLine {lineNumber} is too short for extracting column number {this.Parameters.ColumnNumber}!");
                 return null;
             }
 
@@ -44,12 +44,12 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             int columnIndex = this.Parameters.ColumnNumber - 1;
             string columnString = columns[columnIndex];
 
-            // Parse the column according to the data type parameter.
+            // Parse the column value according to the data type parameter.
             //
             DataTypeContainer columnData = DataTypeContainer.TryParseStringValue(this.Parameters.ColumnDataType, columnString);
             if (columnData == null)
             {
-                OutputInterface.LogWarning($"\nInvalid value for column {this.Parameters.ColumnNumber} of line {lineNumber}: {columnString}!");
+                OutputInterface.LogWarning($"\nFound an invalid value for column {this.Parameters.ColumnNumber} of type {this.Parameters.ColumnDataType} in line {lineNumber}: {columnString}!");
                 return null;
             }
 
@@ -61,21 +61,23 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
                 int secondColumnIndex = this.Parameters.SecondColumnNumber - 1;
                 string secondColumnString = columns[secondColumnIndex];
 
+                // Parse the second column value according to the data type parameter.
+                //
                 secondColumnData = DataTypeContainer.TryParseStringValue(this.Parameters.SecondColumnDataType, secondColumnString);
                 if (secondColumnData == null)
                 {
-                    OutputInterface.LogWarning($"\nInvalid value for column {this.Parameters.SecondColumnNumber} of line {lineNumber}: {secondColumnString}!");
+                    OutputInterface.LogWarning($"\nFound an invalid value for column {this.Parameters.SecondColumnNumber} of type {this.Parameters.SecondColumnDataType} in line {lineNumber}: {secondColumnString}!");
                     return null;
                 }
             }
 
-            // Package all the information that we processed for the line.
+            // Package all the information that we extracted from the line.
             //
-            ParsedLine parsedLine = new ParsedLine(line, columnData, this.Parameters.ColumnNumber, columns, this.Parameters.Separators[0], secondColumnData);
+            ParsedLine lineData = new ParsedLine(line, columnData, this.Parameters.ColumnNumber, columns, this.Parameters.Separators[0], secondColumnData);
             
-            // Return the string parts.
+            // Return the line data.
             //
-            return parsedLine;
+            return lineData;
         }
     }
 }

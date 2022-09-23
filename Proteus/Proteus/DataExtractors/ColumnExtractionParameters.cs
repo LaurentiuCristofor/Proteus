@@ -15,7 +15,8 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
     {
         /// <summary>
         /// The string that should be used as column separator.
-        /// Despite this being an array, only one separator is ever provided.
+        /// 
+        /// The String.Split() API expects a string array, so we store our column separator in an array of one element.
         /// </summary>
         public string[] Separators { get; protected set; }
 
@@ -46,7 +47,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             int columnNumber,
             DataType dataType)
         {
-            ArgumentChecker.CheckPositive(columnNumber);
+            ArgumentChecker.CheckStrictlyPositive(columnNumber);
             ArgumentChecker.CheckDataType(dataType);
 
             this.Separators = new string[1];
@@ -64,9 +65,9 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             int secondColumnNumber,
             DataType secondDataType)
         {
-            ArgumentChecker.CheckPositive(columnNumber);
+            ArgumentChecker.CheckStrictlyPositive(columnNumber);
             ArgumentChecker.CheckDataType(dataType);
-            ArgumentChecker.CheckPositive(secondColumnNumber);
+            ArgumentChecker.CheckStrictlyPositive(secondColumnNumber);
             ArgumentChecker.CheckDataType(secondDataType);
 
             this.Separators = new string[1];

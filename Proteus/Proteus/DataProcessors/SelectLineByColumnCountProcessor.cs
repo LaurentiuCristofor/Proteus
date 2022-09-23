@@ -18,9 +18,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class SelectLineByColumnCountProcessor : BaseOutputProcessor, IDataProcessor<OperationOutputParameters<ComparisonType>, ParsedLine>
     {
-        /// <summary>
-        /// Parameters of this operation.
-        /// </summary>
         protected OperationOutputParameters<ComparisonType> Parameters { get; set; }
 
         public void Initialize(OperationOutputParameters<ComparisonType> processingParameters)

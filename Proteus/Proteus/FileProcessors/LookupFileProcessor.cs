@@ -105,6 +105,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
             //
             this.InputReader = new StreamReader(this.DataFilePath);
             this.InputReader.Close();
+
             this.InputReader = new StreamReader(this.LookupFilePath);
 
             this.LineCounter = 0;

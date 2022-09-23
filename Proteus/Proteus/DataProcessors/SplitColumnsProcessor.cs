@@ -18,9 +18,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class SplitColumnsProcessor : BaseOutputProcessor, IDataProcessor<StringOutputParameters, ParsedLine>
     {
-        /// <summary>
-        /// Parameters of this operation.
-        /// </summary>
         protected StringOutputParameters Parameters { get; set; }
 
         /// <summary>

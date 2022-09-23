@@ -15,9 +15,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
     /// </summary>
     public class LookupProcessor: BaseOutputProcessor, IDualDataProcessor<OperationOutputParameters<LookupType>, ParsedLine>
     {
-        /// <summary>
-        /// Parameters of this operation.
-        /// </summary>
         protected OperationOutputParameters<LookupType> Parameters { get; set; }
 
         public void Initialize(OperationOutputParameters<LookupType> processingParameters)
@@ -39,7 +36,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
             }
             else if (hasProcessedSecondFile)
             {
-                // None of the remaining lines in the first file will be able to match anything.
+                // None of the remaining lines in the first file will be able to match anything in the second file.
                 // If we're writing them out (if ProcessLine() returns true), then continue writing them all;
                 // otherwise, terminate processing.
                 //

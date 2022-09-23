@@ -17,9 +17,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class EditColumnValueProcessor : BaseOutputProcessor, IDataProcessor<ValueEditOutputParameters, ParsedLine>
     {
-        /// <summary>
-        /// Parameters of this operation.
-        /// </summary>
         protected ValueEditOutputParameters Parameters { get; set; }
 
         public void Initialize(ValueEditOutputParameters processingParameters)
@@ -57,28 +54,30 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             DataProcessorValidation.ValidateColumnInformation(lineData);
 
+            int columnIndex = lineData.ExtractedColumnNumber - 1;
+
             // Update the column string representation with the string representation of the edited data.
             //
             switch (this.Parameters.EditType)
             {
                 case ValueEditType.Rewrite:
-                    lineData.Columns[lineData.ExtractedColumnNumber - 1] = lineData.ExtractedData.ToString();
+                    lineData.Columns[columnIndex] = lineData.ExtractedData.ToString();
                     break;
 
                 case ValueEditType.Add:
-                    lineData.Columns[lineData.ExtractedColumnNumber - 1] = lineData.ExtractedData.Add(this.Parameters.Argument).ToString();
+                    lineData.Columns[columnIndex] = lineData.ExtractedData.Add(this.Parameters.Argument).ToString();
                     break;
 
                 case ValueEditType.Subtract:
-                    lineData.Columns[lineData.ExtractedColumnNumber - 1] = lineData.ExtractedData.Subtract(this.Parameters.Argument).ToString();
+                    lineData.Columns[columnIndex] = lineData.ExtractedData.Subtract(this.Parameters.Argument).ToString();
                     break;
 
                 case ValueEditType.Multiply:
-                    lineData.Columns[lineData.ExtractedColumnNumber - 1] = lineData.ExtractedData.Multiply(this.Parameters.Argument).ToString();
+                    lineData.Columns[columnIndex] = lineData.ExtractedData.Multiply(this.Parameters.Argument).ToString();
                     break;
 
                 case ValueEditType.Divide:
-                    lineData.Columns[lineData.ExtractedColumnNumber - 1] = lineData.ExtractedData.Divide(this.Parameters.Argument).ToString();
+                    lineData.Columns[columnIndex] = lineData.ExtractedData.Divide(this.Parameters.Argument).ToString();
                     break;
 
                 default:

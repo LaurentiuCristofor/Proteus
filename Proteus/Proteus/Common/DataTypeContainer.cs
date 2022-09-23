@@ -63,7 +63,7 @@ namespace LaurentiuCristofor.Proteus.Common
         /// Integer constructor.
         /// </summary>
         /// <param name="integerValue">Value to store.</param>
-        public DataTypeContainer(int integerValue)
+        public DataTypeContainer(long integerValue)
         {
             this.DataType = DataType.Integer;
             this.IntegerValue = integerValue;
@@ -361,7 +361,7 @@ namespace LaurentiuCristofor.Proteus.Common
 
                 case DataType.String:
                 case DataType.DateTime:
-                    throw new ProteusException($"Multiplying is not supported by data type: {this.DataType}!");
+                    throw new ProteusException($"Dividing is not supported by data type: {this.DataType}!");
 
                 default:
                     throw new ProteusException($"Internal error: Proteus is not handling data type: {this.DataType}!");
@@ -549,8 +549,12 @@ namespace LaurentiuCristofor.Proteus.Common
         {
             ArgumentChecker.CheckNotNull(firstThreshold);
             ArgumentChecker.CheckNotNull(secondThreshold);
+
             DataTypeContainer lowerBoundContainer = new DataTypeContainer(this.DataType, firstThreshold);
             DataTypeContainer upperBoundContainer = new DataTypeContainer(this.DataType, secondThreshold);
+
+            ArgumentChecker.CheckInterval(lowerBoundContainer, upperBoundContainer);
+
             int lowerBoundComparisonResult = this.CompareTo(lowerBoundContainer);
             int upperBoundComparisonResult = this.CompareTo(upperBoundContainer);
 

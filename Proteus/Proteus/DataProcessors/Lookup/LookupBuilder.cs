@@ -9,16 +9,16 @@ using System.Collections.Generic;
 namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
 {
     /// <summary>
-    /// A builder of a HashSet&lt;string&gt; data structure.
+    /// A builder of a HashSet&lt;string&gt; data structure, used for plain lookup operations.
     /// </summary>
-    public class HashSetBuilder : ILookupDataStructureBuilder<string, HashSet<string>>
+    public class LookupBuilder : ILookupDataStructureBuilder<string, HashSet<string>>
     {
         /// <summary>
         /// The lookup data structure that we'll construct.
         /// </summary>
         private HashSet<string> LookupSet { get; set; }
 
-        public HashSetBuilder()
+        public LookupBuilder()
         {
             this.LookupSet = new HashSet<string>();
         }

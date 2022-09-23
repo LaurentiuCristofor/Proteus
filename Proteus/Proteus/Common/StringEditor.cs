@@ -58,7 +58,8 @@ namespace LaurentiuCristofor.Proteus.Common
             this.FirstArgument = firstArgument;
             this.SecondArgument = secondArgument;
 
-            // Validate arguments for the operation.
+            // Validate arguments for the operation type.
+            //
             switch (editType)
             {
                 case StringEditType.Rewrite:
@@ -86,7 +87,7 @@ namespace LaurentiuCristofor.Proteus.Common
                     this.FirstArgumentAsInt = int.Parse(this.FirstArgument);
                     this.SecondArgumentAsChar = this.SecondArgument.ToCharArray()[0];
 
-                    ArgumentChecker.CheckPositive(this.FirstArgumentAsInt);
+                    ArgumentChecker.CheckStrictlyPositive(this.FirstArgumentAsInt);
                     break;
 
                 case StringEditType.PrefixLineNumbers:
@@ -138,7 +139,7 @@ namespace LaurentiuCristofor.Proteus.Common
 
                     this.FirstArgumentAsInt = int.Parse(this.FirstArgument);
 
-                    ArgumentChecker.CheckNotNegative(this.FirstArgumentAsInt);
+                    ArgumentChecker.CheckStrictlyPositive(this.FirstArgumentAsInt);
                     break;
 
                 case StringEditType.DeleteContentAtIndex:
@@ -149,8 +150,8 @@ namespace LaurentiuCristofor.Proteus.Common
                     this.FirstArgumentAsInt = int.Parse(this.FirstArgument);
                     this.SecondArgumentAsInt = int.Parse(this.SecondArgument);
 
-                    ArgumentChecker.CheckNotNegative(this.FirstArgumentAsInt);
-                    ArgumentChecker.CheckPositive(this.SecondArgumentAsInt);
+                    ArgumentChecker.CheckPositive(this.FirstArgumentAsInt);
+                    ArgumentChecker.CheckStrictlyPositive(this.SecondArgumentAsInt);
                     break;
 
                 case StringEditType.InsertContentAtIndex:
@@ -159,7 +160,7 @@ namespace LaurentiuCristofor.Proteus.Common
 
                     this.SecondArgumentAsInt = int.Parse(this.SecondArgument);
 
-                    ArgumentChecker.CheckNotNegative(this.FirstArgumentAsInt);
+                    ArgumentChecker.CheckPositive(this.FirstArgumentAsInt);
                     break;
 
                 default:

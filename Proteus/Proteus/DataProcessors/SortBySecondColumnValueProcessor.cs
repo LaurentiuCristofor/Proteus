@@ -18,9 +18,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class SortBySecondColumnValueProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, ParsedLine>
     {
-        /// <summary>
-        /// Parameters of this processor.
-        /// </summary>
         protected BaseOutputParameters Parameters { get; set; }
 
         /// <summary>

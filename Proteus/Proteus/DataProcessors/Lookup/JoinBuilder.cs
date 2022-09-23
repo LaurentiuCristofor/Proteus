@@ -12,16 +12,16 @@ using LaurentiuCristofor.Proteus.DataExtractors;
 namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
 {
     /// <summary>
-    /// A builder of a Dictionary&lt;string, string&gt; data structure.
+    /// A builder of a Dictionary&lt;string, string&gt; data structure used for lookup by join operations.
     /// </summary>
-    public class DictionaryBuilder : ILookupDataStructureBuilder<ParsedLine, Dictionary<string, string>>
+    public class JoinBuilder : ILookupDataStructureBuilder<ParsedLine, Dictionary<string, string>>
     {
         /// <summary>
         /// The lookup data structure that we'll construct.
         /// </summary>
         private Dictionary<string, string> LookupDictionary { get; set; }
 
-        public DictionaryBuilder()
+        public JoinBuilder()
         {
             this.LookupDictionary = new Dictionary<string, string>();
         }
@@ -36,6 +36,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
             DataProcessorValidation.ValidateExtractedDataIsString(lineData);
             DataProcessorValidation.ValidateColumnInformation(lineData);
 
+            // The line that we want to join with should not contain the data that we matched on, to prevent redundancy in the join output.
+            // We thus have to construct a new line without the content extracted in lineData.
+            //
             string linePrefix = string.Join(lineData.ColumnSeparator, lineData.Columns, 0, lineData.ExtractedColumnNumber - 1);
             string lineSuffix = string.Join(lineData.ColumnSeparator, lineData.Columns, lineData.ExtractedColumnNumber, lineData.Columns.Length - lineData.ExtractedColumnNumber);
             string lineToJoin = linePrefix;

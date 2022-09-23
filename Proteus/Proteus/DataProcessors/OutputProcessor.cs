@@ -13,9 +13,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class OutputProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, string>
     {
-        /// <summary>
-        /// Parameters of this processor.
-        /// </summary>
         protected BaseOutputParameters Parameters { get; set; }
 
         public void Initialize(BaseOutputParameters processingParameters)

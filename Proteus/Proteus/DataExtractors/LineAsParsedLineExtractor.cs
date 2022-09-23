@@ -13,9 +13,9 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
     /// <summary>
     /// An extractor that packages each input line in a ParsedLine instance without doing any actual parsing.
     /// </summary>
-    public class LineAsParsedLineExtractor : IDataExtractor<UnusedType, ParsedLine>
+    public class LineAsParsedLineExtractor : IDataExtractor<Unused, ParsedLine>
     {
-        public void Initialize(UnusedType unusedExtractionParameters)
+        public void Initialize(Unused unusedExtractionParameters)
         {
         }
 
@@ -24,8 +24,8 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             DataExtractorValidation.ValidateLine(line);
 
             DataTypeContainer lineContainer = new DataTypeContainer(line);
-            ParsedLine lineParts = new ParsedLine(line, lineContainer);
-            return lineParts;
+            ParsedLine lineData = new ParsedLine(line, lineContainer);
+            return lineData;
         }
     }
 }

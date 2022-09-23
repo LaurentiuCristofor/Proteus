@@ -17,9 +17,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class SelectLineByNumberProcessor : BaseOutputProcessor, IDataProcessor<OperationOutputParameters<PositionSelectionType>, string>
     {
-        /// <summary>
-        /// Parameters of this operation.
-        /// </summary>
         protected OperationOutputParameters<PositionSelectionType> Parameters { get; set; }
 
         /// <summary>
@@ -53,7 +50,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 case PositionSelectionType.NotLast:
                 case PositionSelectionType.Each:
                 case PositionSelectionType.NotEach:
-                    this.Parameters.CheckFirstArgumentIsAvailable();
+                    ArgumentChecker.CheckNotNull(this.Parameters.FirstArgument);
 
                     this.FirstArgumentAsULong = ulong.Parse(this.Parameters.FirstArgument);
 
@@ -62,8 +59,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case PositionSelectionType.Between:
                 case PositionSelectionType.NotBetween:
-                    this.Parameters.CheckFirstArgumentIsAvailable();
-                    this.Parameters.CheckSecondArgumentIsAvailable();
+                    ArgumentChecker.CheckNotNull(this.Parameters.FirstArgument);
+                    ArgumentChecker.CheckNotNull(this.Parameters.SecondArgument);
 
                     this.FirstArgumentAsULong = ulong.Parse(this.Parameters.FirstArgument);
                     this.SecondArgumentAsULong = ulong.Parse(this.Parameters.SecondArgument);
@@ -133,6 +130,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     // we'll remove a line before adding a new one, to keep the queue size constant.
                     // By the time we finish processing the file, the queue will contain all lines
                     // that we need to output and we'll output them in CompleteExecution().
+                    //
                     if ((ulong)this.SizeLimitedQueue.Count == this.FirstArgumentAsULong)
                     {
                         this.SizeLimitedQueue.Dequeue();
@@ -150,6 +148,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                         // Once the queue contains as many lines as we don't want to output,
                         // we'll remove a line when adding a new one, to keep the queue size constant;
                         // then we will output the line that we just removed.
+                        //
                         if ((ulong)this.SizeLimitedQueue.Count == this.FirstArgumentAsULong)
                         {
                             lineToOutput = this.SizeLimitedQueue.Dequeue();

@@ -9,22 +9,22 @@ using LaurentiuCristofor.Proteus.Common;
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// Includes a string and ulong pair of parameters.
+    /// Includes an int parameter along a string and output parameters.
     /// </summary>
-    public class StringAndIntegerOutputParameters : StringOutputParameters
+    public class StringAndIntOutputParameters : StringOutputParameters
     {
         /// <summary>
-        /// The integer value.
+        /// The int value.
         /// </summary>
-        public int IntegerValue { get; protected set; }
+        public int IntValue { get; protected set; }
 
-        public StringAndIntegerOutputParameters(
+        public StringAndIntOutputParameters(
             string outputFilePath,
             string stringValue,
-            int integerValue)
+            int intValue)
             : base(outputFilePath, stringValue)
         {
-            this.IntegerValue = integerValue;
+            this.IntValue = intValue;
         }
     }
 }

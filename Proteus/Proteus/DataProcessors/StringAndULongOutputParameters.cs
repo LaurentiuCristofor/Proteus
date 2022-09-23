@@ -9,22 +9,22 @@ using LaurentiuCristofor.Proteus.Common;
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// Includes a string and ulong pair of parameters.
+    /// Includes a ulong parameter along a string and output parameters.
     /// </summary>
-    public class StringAndUnsignedIntegerOutputParameters : StringOutputParameters
+    public class StringAndULongOutputParameters : StringOutputParameters
     {
         /// <summary>
-        /// The unsigned integer value.
+        /// The ulong value.
         /// </summary>
-        public ulong UnsignedIntegerValue { get; protected set; }
+        public ulong ULongValue { get; protected set; }
 
-        public StringAndUnsignedIntegerOutputParameters(
+        public StringAndULongOutputParameters(
             string outputFilePath,
             string stringValue,
-            ulong unsignedIntegerValue)
+            ulong uLongValue)
             : base(outputFilePath, stringValue)
         {
-            this.UnsignedIntegerValue = unsignedIntegerValue;
+            this.ULongValue = uLongValue;
         }
     }
 }

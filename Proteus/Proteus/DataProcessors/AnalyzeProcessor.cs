@@ -14,9 +14,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class AnalyzeProcessor : IDataProcessor<AnalyzeParameters, ParsedLine>
     {
-        /// <summary>
-        /// Parameters of this operation.
-        /// </summary>
         protected AnalyzeParameters Parameters { get; set; }
 
         /// <summary>
@@ -26,7 +23,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(AnalyzeParameters processingParameters)
         {
-            ArgumentChecker.CheckNotNegative(processingParameters.ValuesLimit);
+            ArgumentChecker.CheckPositive(processingParameters.ValuesLimit);
 
             this.Parameters = processingParameters;
 

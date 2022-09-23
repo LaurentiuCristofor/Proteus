@@ -17,9 +17,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class SelectColumnByNumberProcessor : BaseOutputProcessor, IDataProcessor<OperationOutputParameters<PositionSelectionType>, ParsedLine>
     {
-        /// <summary>
-        /// Parameters of this operation.
-        /// </summary>
         protected OperationOutputParameters<PositionSelectionType> Parameters { get; set; }
 
         /// <summary>
@@ -42,23 +39,23 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 case PositionSelectionType.NotLast:
                 case PositionSelectionType.Each:
                 case PositionSelectionType.NotEach:
-                    this.Parameters.CheckFirstArgumentIsAvailable();
+                    ArgumentChecker.CheckNotNull(this.Parameters.FirstArgument);
 
                     this.FirstArgumentAsInt = int.Parse(this.Parameters.FirstArgument);
 
-                    ArgumentChecker.CheckPositive(this.FirstArgumentAsInt);
+                    ArgumentChecker.CheckStrictlyPositive(this.FirstArgumentAsInt);
                     break;
 
                 case PositionSelectionType.Between:
                 case PositionSelectionType.NotBetween:
-                    this.Parameters.CheckFirstArgumentIsAvailable();
-                    this.Parameters.CheckSecondArgumentIsAvailable();
+                    ArgumentChecker.CheckNotNull(this.Parameters.FirstArgument);
+                    ArgumentChecker.CheckNotNull(this.Parameters.SecondArgument);
 
                     this.FirstArgumentAsInt = int.Parse(this.Parameters.FirstArgument);
                     this.SecondArgumentAsInt = int.Parse(this.Parameters.SecondArgument);
 
-                    ArgumentChecker.CheckPositive(this.FirstArgumentAsInt);
-                    ArgumentChecker.CheckPositive(this.SecondArgumentAsInt);
+                    ArgumentChecker.CheckStrictlyPositive(this.FirstArgumentAsInt);
+                    ArgumentChecker.CheckStrictlyPositive(this.SecondArgumentAsInt);
                     ArgumentChecker.CheckInterval(this.FirstArgumentAsInt, this.SecondArgumentAsInt);
                     break;
 

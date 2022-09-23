@@ -11,9 +11,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that doesn't change data and doesn't output data.
     /// </summary>
-    public class SinkProcessor : IDataProcessor<UnusedType, string>
+    public class SinkProcessor : IDataProcessor<Unused, string>
     {
-        public void Initialize(UnusedType unusedProcessingParameters)
+        public void Initialize(Unused unusedProcessingParameters)
         {
         }
 

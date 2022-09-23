@@ -17,7 +17,7 @@ namespace LaurentiuCristofor.Proteus.Common
         {
             if (argument == null)
             {
-                throw new ProteusException($"An expected argument is missing!");
+                throw new ProteusException($"An expected argument is null!");
             }
         }
 
@@ -25,7 +25,7 @@ namespace LaurentiuCristofor.Proteus.Common
         {
             if (argument == null)
             {
-                throw new ProteusException($"An expected argument is missing!");
+                throw new ProteusException($"An expected argument is null!");
             }
         }
 
@@ -33,7 +33,7 @@ namespace LaurentiuCristofor.Proteus.Common
         {
             if (String.IsNullOrEmpty(argument))
             {
-                throw new ProteusException($"An expected argument is missing or is an empty string!");
+                throw new ProteusException($"An expected argument is null or is an empty string!");
             }
         }
 
@@ -41,23 +41,23 @@ namespace LaurentiuCristofor.Proteus.Common
         {
             if (String.IsNullOrEmpty(argument) || argument.Length != 1)
             {
-                throw new ProteusException($"An expected argument is missing or is not a one-character string!");
+                throw new ProteusException($"An expected argument is null or is not a one-character string!");
+            }
+        }
+
+        internal static void CheckStrictlyPositive(int argument)
+        {
+            if (argument <= 0)
+            {
+                throw new ProteusException($"An integer argument is not strictly positive: {argument}!");
             }
         }
 
         internal static void CheckPositive(int argument)
         {
-            if (argument <= 0)
-            {
-                throw new ProteusException($"An integer argument is negative or zero: {argument}!");
-            }
-        }
-
-        internal static void CheckNotNegative(int argument)
-        {
             if (argument < 0)
             {
-                throw new ProteusException($"An integer argument is negative: {argument}!");
+                throw new ProteusException($"An integer argument is not positive: {argument}!");
             }
         }
 
@@ -73,7 +73,15 @@ namespace LaurentiuCristofor.Proteus.Common
         {
             if (intervalStart > intervalEnd)
             {
-                throw new ProteusException($"An incorrect integer interval was provided: the start is larger than the end: ({intervalStart}, {intervalEnd})!");
+                throw new ProteusException($"An incorrect interval was provided: the start is larger than the end: ({intervalStart}, {intervalEnd})!");
+            }
+        }
+
+        internal static void CheckInterval(DataTypeContainer intervalStart, DataTypeContainer intervalEnd)
+        {
+            if (intervalStart.CompareTo(intervalEnd) > 0)
+            {
+                throw new ProteusException($"An incorrect interval was provided: the start is larger than the end: ({intervalStart}, {intervalEnd})!");
             }
         }
 
@@ -81,7 +89,7 @@ namespace LaurentiuCristofor.Proteus.Common
         {
             if (intervalStart > intervalEnd)
             {
-                throw new ProteusException($"An incorrect integer interval was provided: the start is larger than the end: ({intervalStart}, {intervalEnd})!");
+                throw new ProteusException($"An incorrect interval was provided: the start is larger than the end: ({intervalStart}, {intervalEnd})!");
             }
         }
 
@@ -89,7 +97,7 @@ namespace LaurentiuCristofor.Proteus.Common
         {
             if (dataType == DataType.NotSet)
             {
-                throw new ProteusException($"A type argument is not set!");
+                throw new ProteusException($"A data type argument is not set!");
             }
         }
     }

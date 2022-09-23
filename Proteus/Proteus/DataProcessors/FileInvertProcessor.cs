@@ -16,9 +16,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class FileInvertProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, string>
     {
-        /// <summary>
-        /// Parameters of this processor.
-        /// </summary>
         protected BaseOutputParameters Parameters { get; set; }
 
         /// <summary>

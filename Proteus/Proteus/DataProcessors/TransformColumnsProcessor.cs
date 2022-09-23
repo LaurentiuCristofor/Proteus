@@ -17,9 +17,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class TransformColumnsProcessor : BaseOutputProcessor, IDataProcessor<OperationOutputParameters<ColumnTransformationType>, ParsedLine>
     {
-        /// <summary>
-        /// Parameters of this operation.
-        /// </summary>
         protected OperationOutputParameters<ColumnTransformationType> Parameters { get; set; }
 
         /// <summary>
@@ -39,25 +36,25 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             switch (this.Parameters.OperationType)
             {
                 case ColumnTransformationType.Pack:
-                    this.Parameters.CheckFirstArgumentIsAvailable();
-                    this.Parameters.CheckSecondArgumentIsAvailable();
-                    this.Parameters.CheckThirdArgumentIsAvailableAndNotEmpty();
+                    ArgumentChecker.CheckNotNull(this.Parameters.FirstArgument);
+                    ArgumentChecker.CheckNotNull(this.Parameters.SecondArgument);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.ThirdArgument);
 
                     this.FirstArgumentAsInt = int.Parse(this.Parameters.FirstArgument);
                     this.SecondArgumentAsInt = int.Parse(this.Parameters.SecondArgument);
 
-                    ArgumentChecker.CheckPositive(this.FirstArgumentAsInt);
-                    ArgumentChecker.CheckPositive(this.SecondArgumentAsInt);
+                    ArgumentChecker.CheckStrictlyPositive(this.FirstArgumentAsInt);
+                    ArgumentChecker.CheckStrictlyPositive(this.SecondArgumentAsInt);
                     ArgumentChecker.CheckInterval(this.FirstArgumentAsInt, this.SecondArgumentAsInt);
                     break;
 
                 case ColumnTransformationType.Unpack:
-                    this.Parameters.CheckFirstArgumentIsAvailable();
-                    this.Parameters.CheckSecondArgumentIsAvailableAndNotEmpty();
+                    ArgumentChecker.CheckNotNull(this.Parameters.FirstArgument);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.SecondArgument);
 
                     this.FirstArgumentAsInt = int.Parse(this.Parameters.FirstArgument);
 
-                    ArgumentChecker.CheckPositive(this.FirstArgumentAsInt);
+                    ArgumentChecker.CheckStrictlyPositive(this.FirstArgumentAsInt);
                     break;
 
                 default:

@@ -9,7 +9,7 @@ using LaurentiuCristofor.Proteus.Common;
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// Includes a string parameter.
+    /// Includes a string parameter along output parameters.
     /// </summary>
     public class StringOutputParameters : BaseOutputParameters
     {

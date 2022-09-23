@@ -15,9 +15,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class InsertLineProcessor : BaseOutputProcessor, IDataProcessor<OperationOutputParameters<PositionInsertionType>, string>
     {
-        /// <summary>
-        /// Parameters of this operation.
-        /// </summary>
         protected OperationOutputParameters<PositionInsertionType> Parameters { get; set; }
 
         /// <summary>
@@ -37,12 +34,13 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             switch (this.Parameters.OperationType)
             {
                 case PositionInsertionType.Last:
+                    ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.FirstArgument);
                     break;
 
                 case PositionInsertionType.Position:
                 case PositionInsertionType.Each:
-                    this.Parameters.CheckFirstArgumentIsAvailableAndNotEmpty();
-                    this.Parameters.CheckSecondArgumentIsAvailable();
+                    ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.FirstArgument);
+                    ArgumentChecker.CheckNotNull(this.Parameters.SecondArgument);
 
                     this.SecondArgumentAsULong = ulong.Parse(this.Parameters.SecondArgument);
 
@@ -76,7 +74,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     break;
 
                 case PositionInsertionType.Each:
-                    // Insert our line argument whenever the output line number is a multiple of our desired "each" argument.
+                    // Insert our line argument whenever its line number in the output file would be a multiple of our desired "each" argument.
                     //
                     if ((this.LastOutputLineNumber + 1) % this.SecondArgumentAsULong == 0)
                     {

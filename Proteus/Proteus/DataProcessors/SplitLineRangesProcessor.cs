@@ -12,19 +12,16 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that splits ranges of lines into their own files.
     /// </summary>
-    public class SplitLineRangesProcessor : BaseOutputProcessor, IDataProcessor<StringAndUnsignedIntegerOutputParameters, string>
+    public class SplitLineRangesProcessor : BaseOutputProcessor, IDataProcessor<StringAndULongOutputParameters, string>
     {
-        /// <summary>
-        /// Parameters of this operation.
-        /// </summary>
-        protected StringAndUnsignedIntegerOutputParameters Parameters { get; set; }
+        protected StringAndULongOutputParameters Parameters { get; set; }
 
-        public void Initialize(StringAndUnsignedIntegerOutputParameters processingParameters)
+        public void Initialize(StringAndULongOutputParameters processingParameters)
         {
             this.Parameters = processingParameters;
 
             ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.StringValue);
-            ArgumentChecker.CheckNotZero(this.Parameters.UnsignedIntegerValue);
+            ArgumentChecker.CheckNotZero(this.Parameters.ULongValue);
         }
 
         public bool Execute(ulong lineNumber, string line)
@@ -42,7 +39,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             // If we just finished outputting a range, close current file.
             //
-            if (lineNumber % this.Parameters.UnsignedIntegerValue == 0)
+            if (lineNumber % this.Parameters.ULongValue == 0)
             {
                 this.OutputWriter.CloseAndReport();
                 this.OutputWriter = null;
