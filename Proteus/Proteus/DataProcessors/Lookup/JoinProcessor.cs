@@ -58,7 +58,19 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
             if (this.LookupDictionary.ContainsKey(data))
             {
                 string joinLine = this.LookupDictionary[data];
-                string outputLine = lineData.OriginalLine + lineData.ColumnSeparator + joinLine;
+
+                // Special case: if there is no join line (the line in the join file only contained the join key and no other columns),
+                // then we will still output the current line as is.
+                // 
+                string outputLine = lineData.OriginalLine;
+
+                // Join the line with our line.
+                //
+                if (joinLine != null)
+                {
+                    outputLine += lineData.ColumnSeparator + joinLine;
+                }
+
                 this.OutputWriter.WriteLine(outputLine);
             }
             else

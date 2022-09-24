@@ -20,14 +20,19 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         protected OperationOutputParameters<ColumnTransformationType> Parameters { get; set; }
 
         /// <summary>
-        /// First line number comparison argument, as an integer value.
+        /// First argument, as an integer value, if expected.
         /// </summary>
         protected int FirstArgumentAsInt { get; set; }
 
         /// <summary>
-        /// Second line number comparison argument, as an integer value.
+        /// Second argument, as an integer value, if expected.
         /// </summary>
         protected int SecondArgumentAsInt { get; set; }
+
+        /// <summary>
+        /// Second argument, in a one-element string array, if expected.
+        /// </summary>
+        protected string[] SecondArgumentInStringArray { get; set; }
 
         public void Initialize(OperationOutputParameters<ColumnTransformationType> processingParameters)
         {
@@ -53,6 +58,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.SecondArgument);
 
                     this.FirstArgumentAsInt = int.Parse(this.Parameters.FirstArgument);
+                    this.SecondArgumentInStringArray = new string[1] { this.Parameters.SecondArgument };
 
                     ArgumentChecker.CheckStrictlyPositive(this.FirstArgumentAsInt);
                     break;
@@ -69,8 +75,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             DataProcessorValidation.ValidateLineData(lineData);
             DataProcessorValidation.ValidateColumnInformation(lineData);
 
-            string line;
-            string[] lineParts = new string[3];
+            string outputLine;
 
             int countColumns = lineData.Columns.Length;
 
@@ -87,7 +92,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                         {
                             // Nothing to pack for current line, just output original line.
                             //
-                            line = lineData.OriginalLine;
+                            outputLine = lineData.OriginalLine;
                             break;
                         }
                         else if (endColumnRangeIndex >= countColumns)
@@ -95,15 +100,13 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                             endColumnRangeIndex = countColumns - 1;
                         }
 
-                        // Build the line parts - the packed columns and the preceding and succeeding line parts.
+                        // Pack the column range.
                         //
-                        lineParts[0] = string.Join(lineData.ColumnSeparator, lineData.Columns, 0, beginColumnRangeIndex);
-                        lineParts[1] = string.Join(this.Parameters.ThirdArgument, lineData.Columns, beginColumnRangeIndex, endColumnRangeIndex - beginColumnRangeIndex + 1);
-                        lineParts[2] = string.Join(lineData.ColumnSeparator, lineData.Columns, endColumnRangeIndex + 1, countColumns - 1 - endColumnRangeIndex);
+                        string packedData = string.Join(this.Parameters.ThirdArgument, lineData.Columns, beginColumnRangeIndex, endColumnRangeIndex - beginColumnRangeIndex + 1);
 
-                        // Put together all parts.
+                        // Assemble the output line.
                         //
-                        line = string.Join(lineData.ColumnSeparator, lineParts);
+                        outputLine = LineAssembler.AssembleWithData(lineData.ColumnSeparator, lineData.Columns, packedData, beginColumnRangeIndex, endColumnRangeIndex);
                         break;
                     }
 
@@ -117,26 +120,18 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                         {
                             // Nothing to unpack for current line, just output original line.
                             //
-                            line = lineData.OriginalLine;
+                            outputLine = lineData.OriginalLine;
                             break;
                         }
 
-                        // Place packing separator in a string array.
-                        //
-                        string[] packingColumnSeparators = new string[1];
-                        packingColumnSeparators[0] = this.Parameters.SecondArgument;
-
                         // Unpack column value.
                         //
-                        string[] columnParts = lineData.Columns[columnIndex].Split(packingColumnSeparators, StringSplitOptions.None);
+                        string[] unpackedColumns = lineData.Columns[columnIndex].Split(this.SecondArgumentInStringArray, StringSplitOptions.None);
+                        string columnData = string.Join(lineData.ColumnSeparator, unpackedColumns);
 
-                        // Build the line parts - the unpacked columns and the preceding and succeeding line parts.
+                        // Assemble the output line.
                         //
-                        lineParts[0] = string.Join(lineData.ColumnSeparator, lineData.Columns, 0, columnIndex);
-                        lineParts[1] = string.Join(lineData.ColumnSeparator, columnParts);
-                        lineParts[2] = string.Join(lineData.ColumnSeparator, lineData.Columns, columnIndex + 1, countColumns - 1 - columnIndex);
-
-                        line = string.Join(lineData.ColumnSeparator, lineParts);
+                        outputLine = LineAssembler.AssembleWithData(lineData.ColumnSeparator, lineData.Columns, columnData, columnIndex, columnIndex);
                         break;
                     }
 
@@ -144,7 +139,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     throw new ProteusException($"Internal error: Proteus is not handling column transformation type '{this.Parameters.OperationType}'!");
             }
 
-            this.OutputWriter.WriteLine(line);
+            this.OutputWriter.WriteLine(outputLine);
 
             return true;
         }

@@ -111,6 +111,11 @@ namespace LaurentiuCristofor.Proteus.Common
                     ArgumentChecker.CheckNotNull(this.SecondArgument);
                     break;
 
+                case StringEditType.ReplaceString:
+                    ArgumentChecker.CheckNotNull(this.FirstArgument);
+                    ArgumentChecker.CheckNotNull(this.SecondArgument);
+                    break;
+
                 case StringEditType.InsertContentBeforeMarker:
                 case StringEditType.InsertContentAfterMarker:
                 case StringEditType.InsertContentBeforeLastMarker:
@@ -298,6 +303,13 @@ namespace LaurentiuCristofor.Proteus.Common
 
                 case StringEditType.ReplaceContent:
                     editedData = data.Replace(this.FirstArgument, this.SecondArgument);
+                    break;
+
+                case StringEditType.ReplaceString:
+                    if (data.Equals(this.FirstArgument))
+                    {
+                        editedData = this.SecondArgument;
+                    }
                     break;
 
                 case StringEditType.DeleteContentBeforeMarker:

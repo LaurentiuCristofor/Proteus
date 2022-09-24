@@ -618,6 +618,10 @@ namespace LaurentiuCristofor.Cabeiro.Common
             {
                 return new Tuple<StringEditType, int>(StringEditType.ReplaceContent, 2);
             }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeReplaceString))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.ReplaceString, 2);
+            }
             else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeDeleteContentBeforeMarker))
             {
                 return new Tuple<StringEditType, int>(StringEditType.DeleteContentBeforeMarker, 1);

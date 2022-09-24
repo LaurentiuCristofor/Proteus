@@ -56,21 +56,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             //
             if (lineData.ExtractedColumnNumber != 0)
             {
-                // If we have a prefix, prepend it before the edited data.
+                // Replace the column data with the edited one and join all the columns into a line.
                 //
-                string linePrefix = string.Join(lineData.ColumnSeparator, lineData.Columns, 0, lineData.ExtractedColumnNumber - 1);
-                if (!String.IsNullOrEmpty(linePrefix))
-                {
-                    editedLine = linePrefix + lineData.ColumnSeparator + editedData;
-                }
-
-                // If we have a suffix, append it after the edited data.
-                //
-                string lineSuffix = string.Join(lineData.ColumnSeparator, lineData.Columns, lineData.ExtractedColumnNumber, lineData.Columns.Length - lineData.ExtractedColumnNumber);
-                if (!String.IsNullOrEmpty(lineSuffix))
-                {
-                    editedLine += lineData.ColumnSeparator + lineSuffix;
-                }
+                int columnIndex = lineData.ExtractedColumnNumber - 1;
+                lineData.Columns[columnIndex] = editedData;
+                editedLine = string.Join(lineData.ColumnSeparator, lineData.Columns);
             }
 
             // Do not output empty lines.

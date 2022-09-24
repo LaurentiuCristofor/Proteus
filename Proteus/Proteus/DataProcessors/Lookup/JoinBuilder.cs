@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 
+using LaurentiuCristofor.Proteus.Common;
 using LaurentiuCristofor.Proteus.DataExtractors;
 
 namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
@@ -39,17 +40,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
             // The line that we want to join with should not contain the data that we matched on, to prevent redundancy in the join output.
             // We thus have to construct a new line without the content extracted in lineData.
             //
-            string linePrefix = string.Join(lineData.ColumnSeparator, lineData.Columns, 0, lineData.ExtractedColumnNumber - 1);
-            string lineSuffix = string.Join(lineData.ColumnSeparator, lineData.Columns, lineData.ExtractedColumnNumber, lineData.Columns.Length - lineData.ExtractedColumnNumber);
-            string lineToJoin = linePrefix;
-            if (String.IsNullOrEmpty(lineToJoin))
-            {
-                lineToJoin = lineSuffix;
-            }
-            else if (!String.IsNullOrEmpty(lineSuffix))
-            {
-                lineToJoin += lineData.ColumnSeparator + lineSuffix;
-            }
+            string lineToJoin = LineAssembler.AssembleWithoutColumn(lineData.ColumnSeparator, lineData.Columns, lineData.ExtractedColumnNumber);
 
             this.LookupDictionary.Add(lineData.ExtractedData.ToString(), lineToJoin);
 

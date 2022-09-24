@@ -42,6 +42,7 @@ namespace LaurentiuCristofor.Proteus.Common
         InsertContentAtIndex = 62,
 
         ReplaceContent = 90,
+        ReplaceString= 91,
 
         DeleteContentBeforeMarker = 100,
         DeleteContentAfterMarker = 101,

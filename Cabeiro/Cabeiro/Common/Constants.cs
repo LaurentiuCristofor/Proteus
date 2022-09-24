@@ -218,6 +218,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string StringEditTypeKeepContentAtIndex = "kcai";
                 public const string StringEditTypeInsertContentAtIndex = "icai";
                 public const string StringEditTypeReplaceContent = "rc";
+                public const string StringEditTypeReplaceString = "rs";
                 public const string StringEditTypeDeleteContentBeforeMarker = "dcbm";
                 public const string StringEditTypeDeleteContentAfterMarker = "dcam";
                 public const string StringEditTypeKeepContentBeforeMarker = "kcbm";
@@ -396,6 +397,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentAtIndex}' = keep content at index; arguments: <content_index> <content_length>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeInsertContentAtIndex}' = insert content at index; arguments: <content> <index>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeReplaceContent}' = replace content; arguments: <content> <replacement>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeReplaceString}' = replace whole string; arguments: <string> <replacement>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeDeleteContentBeforeMarker}' = delete content before marker; arguments: <marker>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeDeleteContentAfterMarker}' = delete content after marker; arguments: <marker>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentBeforeMarker}' = keep content before marker; arguments: <marker>"
