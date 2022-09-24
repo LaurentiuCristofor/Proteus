@@ -59,5 +59,86 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             this.ColumnSeparator = columnSeparator;
             this.SecondExtractedData = secondExtractedData;
         }
+
+        /// <summary>
+        /// Builds a line, excluding one column.
+        /// </summary>
+        /// <param name="columnNumber">The column number to omit.</param>
+        /// <returns>The new line, or null if the original line only consisted of the removed column.</returns>
+        public string AssembleWithoutColumn(int columnNumber)
+        {
+            if (columnNumber > this.Columns.Length)
+            {
+                return string.Join(this.ColumnSeparator, this.Columns);
+            }
+            else if (columnNumber == 1 && columnNumber == this.Columns.Length)
+            {
+                return null;
+            }
+
+            // Simply build a new column array, ommitting the entry for our column,
+            // and then build the line from it.
+            //
+            string[] newColumns = new string[this.Columns.Length - 1];
+            int columnIndex = columnNumber - 1;
+
+            for (int readIndex = 0, writeIndex = 0; readIndex < this.Columns.Length; ++readIndex)
+            {
+                if (readIndex == columnIndex)
+                {
+                    continue;
+                }
+
+                newColumns[writeIndex++] = this.Columns[readIndex];
+            }
+
+            return string.Join(this.ColumnSeparator, newColumns);
+        }
+
+        /// <summary>
+        /// Build a line, using the specified data instead of a range of columns.
+        /// </summary>
+        /// <param name="replacementData">The data to use instead of a range of columns.</param>
+        /// <param name="startColumnNumber">The starting column number of the range to replace.</param>
+        /// <param name="endColumnNumber">The end column number of the range to replace.</param>
+        /// <returns>The new line, or null if the range does not fit within the column array.</returns>
+        public string AssembleWithColumnRangeReplacement(int startColumnNumber, int endColumnNumber, string replacementData)
+        {
+            ArgumentChecker.CheckInterval(startColumnNumber, endColumnNumber);
+
+            if (startColumnNumber > this.Columns.Length)
+            {
+                return string.Join(this.ColumnSeparator, this.Columns);
+            }
+            else if (startColumnNumber == 1 && endColumnNumber == this.Columns.Length)
+            {
+                return replacementData;
+            }
+            else if (endColumnNumber > this.Columns.Length)
+            {
+                return null;
+            }
+
+            string[] newColumns = new string[this.Columns.Length - endColumnNumber + startColumnNumber];
+
+            int startColumnIndex = startColumnNumber - 1;
+            int endColumnIndex = endColumnNumber - 1;
+            for (int readIndex = 0, writeIndex = 0; readIndex < this.Columns.Length; ++readIndex)
+            {
+                if (readIndex == startColumnIndex)
+                {
+                    newColumns[writeIndex++] = replacementData;
+                    continue;
+                }
+                else if (readIndex > startColumnIndex && readIndex <= endColumnIndex)
+                {
+                    continue;
+                }
+
+                newColumns[writeIndex++] = this.Columns[readIndex];
+            }
+
+            return string.Join(this.ColumnSeparator, newColumns);
+        }
     }
 }

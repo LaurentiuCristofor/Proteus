@@ -40,7 +40,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
             // The line that we want to join with should not contain the data that we matched on, to prevent redundancy in the join output.
             // We thus have to construct a new line without the content extracted in lineData.
             //
-            string lineToJoin = LineAssembler.AssembleWithoutColumn(lineData.ColumnSeparator, lineData.Columns, lineData.ExtractedColumnNumber);
+            string lineToJoin = lineData.AssembleWithoutColumn(lineData.ExtractedColumnNumber);
 
             this.LookupDictionary.Add(lineData.ExtractedData.ToString(), lineToJoin);
 

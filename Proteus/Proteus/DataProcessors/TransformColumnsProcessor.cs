@@ -83,55 +83,44 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             {
                 case ColumnTransformationType.Pack:
                     {
-                        // Columns numbers start from 1 - convert them to indexes in the column array.
-                        //
-                        int beginColumnRangeIndex = this.FirstArgumentAsInt - 1;
-                        int endColumnRangeIndex = this.SecondArgumentAsInt - 1;
+                        int startColumnNumber = this.FirstArgumentAsInt;
+                        int endColumnNumber = this.SecondArgumentAsInt;
 
-                        if (beginColumnRangeIndex >= countColumns)
+                        string packedData = null;
+                        if (startColumnNumber <= countColumns)
                         {
-                            // Nothing to pack for current line, just output original line.
+                            if (endColumnNumber > countColumns)
+                            {
+                                endColumnNumber = countColumns;
+                            }
+
+                            // Pack the column range.
                             //
-                            outputLine = lineData.OriginalLine;
-                            break;
+                            packedData = string.Join(this.Parameters.ThirdArgument, lineData.Columns, startColumnNumber - 1, endColumnNumber - startColumnNumber + 1);
                         }
-                        else if (endColumnRangeIndex >= countColumns)
-                        {
-                            endColumnRangeIndex = countColumns - 1;
-                        }
-
-                        // Pack the column range.
-                        //
-                        string packedData = string.Join(this.Parameters.ThirdArgument, lineData.Columns, beginColumnRangeIndex, endColumnRangeIndex - beginColumnRangeIndex + 1);
 
                         // Assemble the output line.
                         //
-                        outputLine = LineAssembler.AssembleWithData(lineData.ColumnSeparator, lineData.Columns, packedData, beginColumnRangeIndex, endColumnRangeIndex);
+                        outputLine = lineData.AssembleWithColumnRangeReplacement(startColumnNumber, endColumnNumber, packedData);
                         break;
                     }
 
                 case ColumnTransformationType.Unpack:
                     {
-                        // Columns numbers start from 1 - convert them to indexes in the column array.
-                        //
-                        int columnIndex = this.FirstArgumentAsInt - 1;
+                        int columnNumber = this.FirstArgumentAsInt;
 
-                        if (columnIndex >= countColumns)
+                        string columnData = null;
+                        if (columnNumber <= countColumns)
                         {
-                            // Nothing to unpack for current line, just output original line.
+                            // Unpack column value.
                             //
-                            outputLine = lineData.OriginalLine;
-                            break;
+                            string[] unpackedColumns = lineData.Columns[columnNumber - 1].Split(this.SecondArgumentInStringArray, StringSplitOptions.None);
+                            columnData = string.Join(lineData.ColumnSeparator, unpackedColumns);
                         }
-
-                        // Unpack column value.
-                        //
-                        string[] unpackedColumns = lineData.Columns[columnIndex].Split(this.SecondArgumentInStringArray, StringSplitOptions.None);
-                        string columnData = string.Join(lineData.ColumnSeparator, unpackedColumns);
 
                         // Assemble the output line.
                         //
-                        outputLine = LineAssembler.AssembleWithData(lineData.ColumnSeparator, lineData.Columns, columnData, columnIndex, columnIndex);
+                        outputLine = lineData.AssembleWithColumnRangeReplacement(columnNumber, columnNumber, columnData);
                         break;
                     }
 
