@@ -218,7 +218,6 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string StringEditTypeKeepContentAtIndex = "kcai";
                 public const string StringEditTypeInsertContentAtIndex = "icai";
                 public const string StringEditTypeReplaceContent = "rc";
-                public const string StringEditTypeReplaceString = "rs";
                 public const string StringEditTypeDeleteContentBeforeMarker = "dcbm";
                 public const string StringEditTypeDeleteContentAfterMarker = "dcam";
                 public const string StringEditTypeKeepContentBeforeMarker = "kcbm";
@@ -243,6 +242,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string StringEditTypeDeleteContentBetweenOutermostMarkers = "dcb2om";
                 public const string StringEditTypeKeepContentBetweenOutermostMarkers = "kcb2om";
                 public const string StringEditTypeKeepContentOutsideOutermostMarkers = "kco2om";
+                public const string StringEditTypeSet = "s";
+                public const string StringEditTypeSetIfEquals = "sie";
 
                 public const string ValueEditTypeRewrite = "rw";
                 public const string ValueEditTypeAdd = "add";
@@ -397,7 +398,6 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentAtIndex}' = keep content at index; arguments: <content_index> <content_length>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeInsertContentAtIndex}' = insert content at index; arguments: <content> <index>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeReplaceContent}' = replace content; arguments: <content> <replacement>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeReplaceString}' = replace whole string; arguments: <string> <replacement>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeDeleteContentBeforeMarker}' = delete content before marker; arguments: <marker>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeDeleteContentAfterMarker}' = delete content after marker; arguments: <marker>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentBeforeMarker}' = keep content before marker; arguments: <marker>"
@@ -422,6 +422,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeDeleteContentBetweenOutermostMarkers}' = delete content between outermost occurrences of markers; arguments: <first_marker> <second_marker>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentBetweenOutermostMarkers}' = keep content between outermost occurrences of markers; arguments: <first_marker> <second_marker>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentOutsideOutermostMarkers}' = keep content outside outermost occurrences of markers; arguments: <first_marker> <second_marker>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeSet}' = set; arguments: <replacement>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeSetIfEquals}' = set if equals value; arguments: <value_to_match> <replacement>"
                         + "\n";
 
                     public static readonly string ValueEditTypeText = $"{Constants.Commands.Arguments.Descriptions.EditType} can take the values:"

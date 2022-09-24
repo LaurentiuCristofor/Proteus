@@ -42,7 +42,6 @@ namespace LaurentiuCristofor.Proteus.Common
         InsertContentAtIndex = 62,
 
         ReplaceContent = 90,
-        ReplaceString= 91,
 
         DeleteContentBeforeMarker = 100,
         DeleteContentAfterMarker = 101,
@@ -73,5 +72,8 @@ namespace LaurentiuCristofor.Proteus.Common
         DeleteContentBetweenOutermostMarkers = 170,
         KeepContentBetweenOutermostMarkers = 171,
         KeepContentOutsideOutermostMarkers = 172,
+
+        Set = 200,
+        SetIfEquals = 201,
     }
 }

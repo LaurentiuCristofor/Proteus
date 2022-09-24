@@ -618,10 +618,6 @@ namespace LaurentiuCristofor.Cabeiro.Common
             {
                 return new Tuple<StringEditType, int>(StringEditType.ReplaceContent, 2);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeReplaceString))
-            {
-                return new Tuple<StringEditType, int>(StringEditType.ReplaceString, 2);
-            }
             else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeDeleteContentBeforeMarker))
             {
                 return new Tuple<StringEditType, int>(StringEditType.DeleteContentBeforeMarker, 1);
@@ -717,6 +713,14 @@ namespace LaurentiuCristofor.Cabeiro.Common
             else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeKeepContentOutsideOutermostMarkers))
             {
                 return new Tuple<StringEditType, int>(StringEditType.KeepContentOutsideOutermostMarkers, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeSet))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.Set, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringEditTypeSetIfEquals))
+            {
+                return new Tuple<StringEditType, int>(StringEditType.SetIfEquals, 2);
             }
             else
             {

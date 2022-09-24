@@ -111,11 +111,6 @@ namespace LaurentiuCristofor.Proteus.Common
                     ArgumentChecker.CheckNotNull(this.SecondArgument);
                     break;
 
-                case StringEditType.ReplaceString:
-                    ArgumentChecker.CheckNotNull(this.FirstArgument);
-                    ArgumentChecker.CheckNotNull(this.SecondArgument);
-                    break;
-
                 case StringEditType.InsertContentBeforeMarker:
                 case StringEditType.InsertContentAfterMarker:
                 case StringEditType.InsertContentBeforeLastMarker:
@@ -166,6 +161,15 @@ namespace LaurentiuCristofor.Proteus.Common
                     this.SecondArgumentAsInt = int.Parse(this.SecondArgument);
 
                     ArgumentChecker.CheckPositive(this.FirstArgumentAsInt);
+                    break;
+
+                case StringEditType.Set:
+                    ArgumentChecker.CheckNotNull(this.FirstArgument);
+                    break;
+
+                case StringEditType.SetIfEquals:
+                    ArgumentChecker.CheckNotNull(this.FirstArgument);
+                    ArgumentChecker.CheckNotNull(this.SecondArgument);
                     break;
 
                 default:
@@ -303,13 +307,6 @@ namespace LaurentiuCristofor.Proteus.Common
 
                 case StringEditType.ReplaceContent:
                     editedData = data.Replace(this.FirstArgument, this.SecondArgument);
-                    break;
-
-                case StringEditType.ReplaceString:
-                    if (data.Equals(this.FirstArgument))
-                    {
-                        editedData = this.SecondArgument;
-                    }
                     break;
 
                 case StringEditType.DeleteContentBeforeMarker:
@@ -539,6 +536,17 @@ namespace LaurentiuCristofor.Proteus.Common
                         }
                         break;
                     }
+
+                case StringEditType.Set:
+                    editedData = this.FirstArgument;
+                    break;
+
+                case StringEditType.SetIfEquals:
+                    if (data.Equals(this.FirstArgument))
+                    {
+                        editedData = this.SecondArgument;
+                    }
+                    break;
 
                 default:
                     throw new ProteusException($"Internal error: Proteus is not handling string edit type '{this.EditType}'");
