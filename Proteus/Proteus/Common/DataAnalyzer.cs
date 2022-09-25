@@ -13,14 +13,9 @@ namespace LaurentiuCristofor.Proteus.Common
     public class DataAnalyzer
     {
         /// <summary>
-        /// Tracks the number of times we have seen each data.
+        /// The type of data that we analyze.
         /// </summary>
-        protected Dictionary<DataTypeContainer, ulong> MapDataToCount { get; set; }
-
-        /// <summary>
-        /// Offers a view of the data, ordered by count of instances encountered.
-        /// </summary>
-        protected List<Tuple<ulong, DataTypeContainer>> ListCountedData { get; set; }
+        public DataType DataType;
 
         /// <summary>
         /// The total number of data instances analyzed.
@@ -43,22 +38,43 @@ namespace LaurentiuCristofor.Proteus.Common
         public DataTypeContainer MinimumData { get; protected set; }
 
         /// <summary>
+        /// For numerical values, tracks the total, for computing the average value.
+        /// </summary>
+        public double TotalData { get; protected set; }
+
+        /// <summary>
         /// Tracks the data with the longest string representation.
         /// </summary>
-        public DataTypeContainer LongestData { get; protected set; }
+        public string LongestString { get; protected set; }
 
         /// <summary>
         /// Tracks the data with the shortest string representation.
         /// </summary>
-        public DataTypeContainer ShortestData { get; protected set; }
+        public string ShortestString { get; protected set; }
+
+        /// <summary>
+        /// Tracks the total string length, for computing the average string length.
+        /// </summary>
+        public long TotalStringLength { get; protected set; }
 
         /// <summary>
         /// The Shannon entropy of the analyzed data.
         /// </summary>
         public double Entropy { get; protected set; }
 
-        public DataAnalyzer()
+        /// <summary>
+        /// Tracks the number of times we have seen each data.
+        /// </summary>
+        protected Dictionary<DataTypeContainer, ulong> MapDataToCount { get; set; }
+
+        /// <summary>
+        /// Offers a view of the data, ordered by count of instances encountered.
+        /// </summary>
+        protected List<Tuple<ulong, DataTypeContainer>> ListCountedData { get; set; }
+
+        public DataAnalyzer(DataType dataType)
         {
+            this.DataType = dataType;
             this.MapDataToCount = new Dictionary<DataTypeContainer, ulong>();
         }
 
@@ -68,6 +84,11 @@ namespace LaurentiuCristofor.Proteus.Common
         /// <param name="data">Data to analyze.</param>
         public void AnalyzeData(DataTypeContainer data)
         {
+            if (data.DataType != this.DataType)
+            {
+                throw new ProteusException($"DataAnalyzer of type {this.DataType} was called on data of type {data.DataType}!");
+            }
+
             this.TotalDataCount++;
 
             // Create a map entry if one doesn't already exist.
@@ -100,18 +121,37 @@ namespace LaurentiuCristofor.Proteus.Common
 
             // Check if we need to update longest data.
             //
-            if (this.LongestData == null
-                || data.ToString().Length > this.LongestData.ToString().Length)
+            if (this.LongestString == null
+                || data.ToString().Length > this.LongestString.Length)
             {
-                this.LongestData = data;
+                this.LongestString = data.ToString();
             }
 
             // Check if we need to update shortest data.
             //
-            if (this.ShortestData == null
-                || data.ToString().Length < this.ShortestData.ToString().Length)
+            if (this.ShortestString == null
+                || data.ToString().Length < this.ShortestString.Length)
             {
-                this.ShortestData = data;
+                this.ShortestString = data.ToString();
+            }
+
+            // Update total string length.
+            //
+            this.TotalStringLength += data.ToString().Length;
+
+            // Update total data length.
+            //
+            if (this.DataType == DataType.Integer)
+            {
+                this.TotalData += data.IntegerValue;
+            }
+            else if (this.DataType == DataType.UnsignedInteger)
+            {
+                this.TotalData += data.UnsignedIntegerValue;
+            }
+            else if (this.DataType == DataType.FloatingPoint)
+            {
+                this.TotalData += data.FloatingPointValue;
             }
         }
 
@@ -221,8 +261,13 @@ namespace LaurentiuCristofor.Proteus.Common
             OutputInterface.OutputLine($"{Constants.Strings.UniqueCount}{Constants.Strings.NameValueSeparator}{this.UniqueDataCount}");
             OutputInterface.OutputLine($"{Constants.Strings.MaximumValue}{Constants.Strings.NameValueSeparator}{this.MaximumData}");
             OutputInterface.OutputLine($"{Constants.Strings.MinimumValue}{Constants.Strings.NameValueSeparator}{this.MinimumData}");
-            OutputInterface.OutputLine($"{Constants.Strings.LongestValue}{Constants.Strings.NameValueSeparator}{this.LongestData}");
-            OutputInterface.OutputLine($"{Constants.Strings.ShortestValue}{Constants.Strings.NameValueSeparator}{this.ShortestData}");
+            if (this.DataType == DataType.Integer || this.DataType == DataType.UnsignedInteger || this.DataType == DataType.FloatingPoint)
+            {
+                OutputInterface.OutputLine($"{Constants.Strings.AverageValue}{Constants.Strings.NameValueSeparator}{(double)this.TotalData / this.TotalDataCount}");
+            }
+            OutputInterface.OutputLine($"{Constants.Strings.LongestString}{Constants.Strings.NameValueSeparator}{this.LongestString}");
+            OutputInterface.OutputLine($"{Constants.Strings.ShortestString}{Constants.Strings.NameValueSeparator}{this.ShortestString}");
+            OutputInterface.OutputLine($"{Constants.Strings.AverageStringLength}{Constants.Strings.NameValueSeparator}{(double)this.TotalStringLength / this.TotalDataCount}");
             OutputInterface.OutputLine($"{Constants.Strings.Entropy}{Constants.Strings.NameValueSeparator}{this.Entropy}");
         }
 

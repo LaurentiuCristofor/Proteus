@@ -4,6 +4,8 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+using LaurentiuCristofor.Proteus.Common;
+
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
@@ -12,13 +14,20 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     public class AnalyzeParameters
     {
         /// <summary>
+        /// The type of data that we analyze.
+        /// </summary>
+        public DataType DataType { get; protected set; }
+
+        /// <summary>
         /// The number of top/bottom values that the analyze report should output.
         /// </summary>
         public int ValuesLimit { get; protected set; }
 
         public AnalyzeParameters(
+            DataType dataType,
             int valuesLimit)
         {
+            this.DataType = dataType;
             this.ValuesLimit = valuesLimit;
         }
     }

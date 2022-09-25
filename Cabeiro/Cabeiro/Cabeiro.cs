@@ -837,7 +837,7 @@ namespace LaurentiuCristofor.Cabeiro
 
         private static void AnalyzeLines(string inputFilePath, int valuesLimit)
         {
-            AnalyzeParameters processingParameters = new AnalyzeParameters(valuesLimit);
+            AnalyzeParameters processingParameters = new AnalyzeParameters(DataType.String, valuesLimit);
 
             var fileProcessor
                 = new FileProcessor<LineAsParsedLineExtractor, Unused, ParsedLine, AnalyzeProcessor, AnalyzeParameters>(
@@ -860,7 +860,7 @@ namespace LaurentiuCristofor.Cabeiro
                 columnNumber,
                 dataType);
 
-            AnalyzeParameters processingParameters = new AnalyzeParameters(valuesLimit);
+            AnalyzeParameters processingParameters = new AnalyzeParameters(dataType, valuesLimit);
 
             var fileProcessor
                 = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, AnalyzeProcessor, AnalyzeParameters>(

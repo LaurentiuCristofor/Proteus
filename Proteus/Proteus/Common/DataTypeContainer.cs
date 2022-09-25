@@ -22,32 +22,33 @@ namespace LaurentiuCristofor.Proteus.Common
 
         /// <summary>
         /// The original string value.
+        /// Always set to the string representation of the data.
         /// </summary>
-        protected string StringValue { get; set; }
+        public string StringValue { get; set; }
 
         /// <summary>
         /// A signed integer value.
-        /// Only used if specified by DataType.
+        /// Only set if specified by DataType.
         /// </summary>
-        protected long IntegerValue { get; set; }
+        public long IntegerValue { get; set; }
 
         /// <summary>
         /// An unsigned integer value.
-        /// Only used if specified by DataType.
+        /// Only set if specified by DataType.
         /// </summary>
-        protected ulong UnsignedIntegerValue { get; set; }
+        public ulong UnsignedIntegerValue { get; set; }
 
         /// <summary>
         /// A floating point value.
-        /// Only used if specified by DataType.
+        /// Only set if specified by DataType.
         /// </summary>
-        protected double FloatingPointValue { get; set; }
+        public double FloatingPointValue { get; set; }
 
         /// <summary>
         /// A DateTime value.
-        /// Only used if specified by DataType.
+        /// Only set if specified by DataType.
         /// </summary>
-        protected DateTime DateTimeValue { get; set; }
+        public DateTime DateTimeValue { get; set; }
 
         /// <summary>
         /// String constructor.

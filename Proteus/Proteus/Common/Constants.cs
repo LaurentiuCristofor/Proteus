@@ -17,8 +17,10 @@ namespace LaurentiuCristofor.Proteus.Common
             public const string UniqueCount = "UniqueCount";
             public const string MaximumValue = "MaximumValue";
             public const string MinimumValue = "MinimumValue";
-            public const string LongestValue = "LongestValue";
-            public const string ShortestValue = "ShortestValue";
+            public const string AverageValue = "AverageValue";
+            public const string LongestString = "LongestString";
+            public const string ShortestString = "ShortestString";
+            public const string AverageStringLength = "AverageStringLength";
             public const string Entropy = "Entropy";
 
             public const string Bottom = "Bottom";

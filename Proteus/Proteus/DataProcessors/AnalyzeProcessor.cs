@@ -27,7 +27,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             this.Parameters = processingParameters;
 
-            this.Analyzer = new DataAnalyzer();
+            this.Analyzer = new DataAnalyzer(this.Parameters.DataType);
         }
 
         public bool Execute(ulong lineNumber, ParsedLine lineData)
