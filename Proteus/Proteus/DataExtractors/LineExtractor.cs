@@ -19,8 +19,6 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
         public string ExtractData(ulong lineNumber, string line)
         {
-            DataExtractorValidation.ValidateLine(line);
-
             return line;
         }
     }

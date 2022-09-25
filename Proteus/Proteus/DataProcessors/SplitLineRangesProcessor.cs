@@ -26,8 +26,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public bool Execute(ulong lineNumber, string line)
         {
-            DataProcessorValidation.ValidateLine(line);
-
             // Open a new file, if we're at the beginning of a new range.
             //
             if (this.OutputWriter == null)

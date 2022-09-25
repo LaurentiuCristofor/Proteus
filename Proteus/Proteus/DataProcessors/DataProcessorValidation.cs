@@ -16,22 +16,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public static class DataProcessorValidation
     {
-        public static void ValidateLine(string line)
-        {
-            if (String.IsNullOrEmpty(line))
-            {
-                throw new ProteusException("A data processor was called with a null or empty line!");
-            }
-        }
-
-        public static void ValidateLineData(ParsedLine lineData)
-        {
-            if (lineData == null)
-            {
-                throw new ProteusException("A data processor was called with null line data!");
-            }
-        }
-
         public static void ValidateColumnInformation(ParsedLine lineData)
         {
             if (lineData.Columns == null)

@@ -89,8 +89,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public bool Execute(ulong lineNumber, string line)
         {
-            DataProcessorValidation.ValidateLine(line);
-
             // Decide whether to output the current line.
             //
             // By default, we will output the line and return true.

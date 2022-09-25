@@ -94,7 +94,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public bool Execute(ulong lineNumber, ParsedLine lineData)
         {
-            DataProcessorValidation.ValidateLineData(lineData);
             DataProcessorValidation.ValidateColumnInformation(lineData);
 
             int countColumns = lineData.Columns.Length;

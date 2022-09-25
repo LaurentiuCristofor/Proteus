@@ -29,7 +29,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public bool Execute(ulong lineNumber, ParsedLine lineData)
         {
-            DataProcessorValidation.ValidateLineData(lineData);
             DataProcessorValidation.ValidateColumnInformation(lineData);
 
             // Package column count in a DataTypeContainer.

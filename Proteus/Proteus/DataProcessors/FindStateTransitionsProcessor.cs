@@ -31,14 +31,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public bool Execute(ulong lineNumber, ParsedLine lineData)
         {
-            // We may not always be able to extract a column.
-            // Ignore these cases; the extractor will already have printed a warning message.
-            //
-            if (lineData == null)
-            {
-                return true;
-            }
-
             DataProcessorValidation.ValidateSecondExtractedData(lineData);
 
             // Verify that the input file is sorted on the primary column.

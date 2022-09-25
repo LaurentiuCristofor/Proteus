@@ -35,14 +35,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public bool Execute(ulong lineNumber, ParsedLine lineData)
         {
-            // We may not always be able to extract a column.
-            // Ignore these cases; the extractor will already have printed a warning message.
-            //
-            if (lineData == null)
-            {
-                return true;
-            }
-
             DataProcessorValidation.ValidateExtractedDataIsString(lineData);
 
             string data = lineData.ExtractedData.ToString();

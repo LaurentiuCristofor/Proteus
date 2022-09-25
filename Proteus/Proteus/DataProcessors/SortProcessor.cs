@@ -34,8 +34,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public bool Execute(ulong lineNumber, string line)
         {
-            DataProcessorValidation.ValidateLine(line);
-
             this.Lines.Add(line);
 
             return true;

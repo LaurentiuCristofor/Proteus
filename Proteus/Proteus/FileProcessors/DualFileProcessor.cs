@@ -26,6 +26,9 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         TDataProcessor, TProcessingParameters>
         where TDataExtractor : IDataExtractor<TExtractionParameters, TExtractedData>, new()
         where TDataProcessor : IDualDataProcessor<TProcessingParameters, TExtractedData>, new()
+        where TExtractionParameters : class
+        where TProcessingParameters : class
+        where TExtractedData : class
     {
         /// <summary>
         /// The path to the first file to process.
@@ -128,9 +131,9 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         /// </summary>
         public void ProcessFiles()
         {
-            while (ProcessCurrentRows())
+            while (PerformNextAction())
             {
-                // Nothing else needs to be done, but to process each row.
+                // Nothing else needs to be done.
             }
         }
 
@@ -156,9 +159,9 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
                 throw new ProteusException("Internal error: AdvanceInFile() was called on a file that has been processed already!");
             }
 
-            // Loop over empty lines.
+            // Keep processing lines until we are able to extract data from one.
             //
-            while (true)
+            do
             {
                 string nextRow = inputReader.ReadLine();
 
@@ -167,7 +170,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
                 if (nextRow == null)
                 {
                     hasProcessedFile = true;
-                    break;
+                    return;
                 }
 
                 // Count line and track progress.
@@ -175,21 +178,18 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
                 lineCounter++;
                 ProgressTracker.Track(lineCounter + otherLineCounter);
 
-                // Empty lines will get skipped; for all others, we pass them to the data extractor.
+                // Pass the line to the data extractor.
                 //
-                if (!String.IsNullOrEmpty(nextRow))
-                {
-                    nextExtractedData = dataExtractor.ExtractData(lineCounter, nextRow);
-                    break;
-                }
+                nextExtractedData = dataExtractor.ExtractData(lineCounter, nextRow);
             }
+            while (nextExtractedData == null);
         }
 
         /// <summary>
-        /// Processes the current rows from the input files.
+        /// Perform next action and then determine the next one.
         /// </summary>
         /// <returns>True if processing should continue; false otherwise.</returns>
-        private bool ProcessCurrentRows()
+        private bool PerformNextAction()
         {
             switch (this.NextAction)
             {

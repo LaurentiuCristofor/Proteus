@@ -31,10 +31,16 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         TLookupDataExtractor, TLookupExtractionParameters, TLookupExtractedData,
         TLookupDataStructureBuilder, TLookupDataStructure,
         TDataProcessor, TProcessingParameters>
-        where TDataExtractor : IDataExtractor<TExtractionParameters, TExtractedData>, new()
-        where TLookupDataExtractor : IDataExtractor<TLookupExtractionParameters, TLookupExtractedData>, new()
-        where TLookupDataStructureBuilder : ILookupDataStructureBuilder<TLookupExtractedData, TLookupDataStructure>, new()
-        where TDataProcessor : IDataLookupProcessor<TProcessingParameters, TLookupDataStructure, TExtractedData>, new()
+        where TDataExtractor : class, IDataExtractor<TExtractionParameters, TExtractedData>, new()
+        where TLookupDataExtractor : class, IDataExtractor<TLookupExtractionParameters, TLookupExtractedData>, new()
+        where TLookupDataStructureBuilder : class, ILookupDataStructureBuilder<TLookupExtractedData, TLookupDataStructure>, new()
+        where TDataProcessor : class, IDataLookupProcessor<TProcessingParameters, TLookupDataStructure, TExtractedData>, new()
+        where TExtractionParameters : class
+        where TLookupExtractionParameters : class
+        where TProcessingParameters : class
+        where TExtractedData : class
+        where TLookupExtractedData : class
+        where TLookupDataStructure : class
     {
         /// <summary>
         /// The path to the data file to process.
@@ -163,16 +169,16 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
             this.LineCounter++;
             ProgressTracker.Track(this.LineCounter);
 
-            // Empty lines will be skipped.
-            //
-            if (String.IsNullOrEmpty(nextRow))
-            {
-                return true;
-            }
-
             // Perform the extraction step.
             //
             TLookupExtractedData nextData = this.LookupFileExtractor.ExtractData(this.LineCounter, nextRow);
+
+            // Skip lines from which we could not extract data.
+            //
+            if (nextData == null)
+            {
+                return true;
+            }
 
             // Then perform the lookup data structure building step.
             //
@@ -203,16 +209,16 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
             this.LineCounter++;
             ProgressTracker.Track(this.LineCounter);
 
-            // Empty lines will be skipped.
-            //
-            if (String.IsNullOrEmpty(nextRow))
-            {
-                return true;
-            }
-
             // Perform the extraction step.
             //
             TExtractedData nextData = this.DataFileExtractor.ExtractData(this.LineCounter, nextRow);
+
+            // Skip lines from which we could not extract data.
+            //
+            if (nextData == null)
+            {
+                return true;
+            }
 
             // Then perform the processing step.
             // Check the result for an early processing termination.

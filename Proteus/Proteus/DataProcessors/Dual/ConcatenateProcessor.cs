@@ -31,9 +31,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
                 return ProcessingActionType.Terminate;
             }
 
-            DataProcessorValidation.ValidateLine(firstLine);
-            DataProcessorValidation.ValidateLine(secondLine);
-
             string concatenatedLines = firstLine + this.Parameters.StringValue + secondLine;
 
             this.OutputWriter.WriteLine(concatenatedLines);

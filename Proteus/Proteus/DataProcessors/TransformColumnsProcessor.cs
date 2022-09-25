@@ -72,7 +72,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public bool Execute(ulong lineNumber, ParsedLine lineData)
         {
-            DataProcessorValidation.ValidateLineData(lineData);
             DataProcessorValidation.ValidateColumnInformation(lineData);
 
             string outputLine;

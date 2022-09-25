@@ -27,8 +27,6 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
         public ParsedLine ExtractData(ulong lineNumber, string line)
         {
-            DataExtractorValidation.ValidateLine(line);
-
             // Split the line into columns using the separator parameter.
             //
             string[] columns = line.Split(this.Parameters.Separators, StringSplitOptions.None);

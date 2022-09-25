@@ -21,8 +21,6 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
         public ParsedLine ExtractData(ulong lineNumber, string line)
         {
-            DataExtractorValidation.ValidateLine(line);
-
             DataTypeContainer lineContainer = new DataTypeContainer(line);
             ParsedLine lineData = new ParsedLine(line, lineContainer);
             return lineData;

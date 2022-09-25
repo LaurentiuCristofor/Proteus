@@ -22,8 +22,11 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
     /// <typeparam name="TDataProcessor">The type of data processor that will process the extracted data.</typeparam>
     /// <typeparam name="TProcessingParameters">The type of parameters of the processing operation.</typeparam>
     public class FileProcessor<TDataExtractor, TExtractionParameters, TData, TDataProcessor, TProcessingParameters>
-        where TDataExtractor : IDataExtractor<TExtractionParameters, TData>, new()
-        where TDataProcessor : IDataProcessor<TProcessingParameters, TData>, new()
+        where TDataExtractor : class, IDataExtractor<TExtractionParameters, TData>, new()
+        where TDataProcessor : class, IDataProcessor<TProcessingParameters, TData>, new()
+        where TExtractionParameters : class
+        where TProcessingParameters : class
+        where TData : class
     {
         /// <summary>
         /// The path to the file to process.
@@ -96,16 +99,16 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
             this.LineCounter++;
             ProgressTracker.Track(this.LineCounter);
 
-            // Empty lines will be skipped.
-            //
-            if (String.IsNullOrEmpty(nextRow))
-            {
-                return true;
-            }
-
             // Perform the extraction step.
             //
             TData nextData = this.DataExtractor.ExtractData(this.LineCounter, nextRow);
+
+            // Skip lines from which we could not extract data.
+            //
+            if (nextData == null)
+            {
+                return true;
+            }
 
             // Then perform the processing step.
             // Check the result for an early processing termination.
