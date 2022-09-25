@@ -18,24 +18,24 @@ namespace LaurentiuCristofor.Proteus.FileOperations
         /// <summary>
         /// The path of the output file.
         /// </summary>
-        private string OutputFilePath { get; set; }
+        protected string OutputFilePath { get; set; }
 
         /// <summary>
         /// Indicates whether writing should track progress.
         /// 
         /// This is used when writing is performed separately from reading.
         /// </summary>
-        private bool TrackProgress { get; set; }
+        protected bool TrackProgress { get; set; }
 
         /// <summary>
         /// The writer for producing the output file.
         /// </summary>
-        private TextWriter OutputWriter { get; set; }
+        protected TextWriter OutputWriter { get; set; }
 
         /// <summary>
         /// A line counter for the output file.
         /// </summary>
-        private ulong CountLinesWritten { get; set; }
+        protected ulong CountLinesWritten { get; set; }
 
         public FileWriter(string outputFilePath, bool trackProgress = false)
         {

@@ -45,35 +45,6 @@ namespace LaurentiuCristofor.Cabeiro.Common
         }
 
         /// <summary>
-        /// A stub for performing additional argument processing, if appropriate.
-        /// </summary>
-        protected virtual void ProcessArguments()
-        {
-            this.HasProcessedArguments = true;
-        }
-
-        /// <summary>
-        /// Adds the arguments to the output file extension, to make it more descriptive of the performed operation.
-        /// </summary>
-        protected virtual void AppendArgumentsToExtension()
-        {
-            if (this.OperationArguments == null)
-            {
-                return;
-            }
-
-            // Append arguments to extension, if they're available.
-            //
-            for (int i = 0; i < this.OperationArguments.Length; ++i)
-            {
-                if (this.OperationArguments[i] != null)
-                {
-                    this.OutputFileExtension += $".{this.OperationArguments[i]}";
-                }
-            }
-        }
-
-        /// <summary>
         /// Builds the output file path and returns it.
         /// </summary>
         /// <returns>The output file path.</returns>
@@ -115,6 +86,35 @@ namespace LaurentiuCristofor.Cabeiro.Common
         }
 
         /// <summary>
+        /// A stub for performing additional argument processing, if appropriate.
+        /// </summary>
+        protected virtual void ProcessArguments()
+        {
+            this.HasProcessedArguments = true;
+        }
+
+        /// <summary>
+        /// Adds the arguments to the output file extension, to make it more descriptive of the performed operation.
+        /// </summary>
+        protected virtual void AppendArgumentsToExtension()
+        {
+            if (this.OperationArguments == null)
+            {
+                return;
+            }
+
+            // Append arguments to extension, if they're available.
+            //
+            for (int i = 0; i < this.OperationArguments.Length; ++i)
+            {
+                if (this.OperationArguments[i] != null)
+                {
+                    this.OutputFileExtension += $".{this.OperationArguments[i]}";
+                }
+            }
+        }
+
+        /// <summary>
         /// Builds a new file path from an existing file path by appending a specified extension.
         /// 
         /// Additionally:
@@ -124,7 +124,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
         /// <param name="inputFilePath">The input file path.</param>
         /// <param name="additionalExtension">The extension to add to the input file path.</param>
         /// <returns>The new file path.</returns>
-        public static string BuildFilePath(string inputFilePath, string additionalExtension)
+        protected static string BuildFilePath(string inputFilePath, string additionalExtension)
         {
             string path = RemoveFileExtension(inputFilePath);
             string sanitizedAdditionalExtension = SanitizeExtension(additionalExtension);
@@ -141,7 +141,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
         /// </summary>
         /// <param name="filePath">The path to process.</param>
         /// <returns>A path without the special extensions.</returns>
-        private static string RemoveFileExtension(string filePath)
+        protected static string RemoveFileExtension(string filePath)
         {
             if (filePath.EndsWith(Constants.Files.Extensions.Txt))
             {
@@ -157,7 +157,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
         /// </summary>
         /// <param name="extension">The extension to process.</param>
         /// <returns>A valid extension that does not include any restricted characters.</returns>
-        private static string SanitizeExtension(string extension)
+        protected static string SanitizeExtension(string extension)
         {
             // Gather all restricted characters in an array.
             //

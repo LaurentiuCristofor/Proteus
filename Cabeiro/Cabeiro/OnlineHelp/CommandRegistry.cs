@@ -522,48 +522,6 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
         }
 
         /// <summary>
-        /// Register a command description and update all our command registry data structures.
-        /// </summary>
-        /// <param name="commandDescription">The command description instance to register.</param>
-        private static void RegisterCommandDescription(CommandDescription commandDescription)
-        {
-            CommandCategory commandCategory = commandDescription.Category;
-
-            // First, check for a command name conflict.
-            //
-            if (mapCommandNameToDescription.ContainsKey(commandDescription.Command.ToLower()))
-            {
-                throw new CabeiroException($"Internal error: Command: {commandDescription.Command} has already been registered!");
-            }
-
-            // If we do not already have an entry for the command's category, create one now.
-            //
-            if (!mapCategoryToDescriptionList.ContainsKey(commandCategory))
-            {
-                mapCategoryToDescriptionList.Add(commandCategory, new List<CommandDescription>());
-            }
-
-            // Get the category's list of commands to update.
-            //
-            List<CommandDescription> categoryCommands = mapCategoryToDescriptionList[commandCategory];
-
-            // Add command description to our data structures.
-            //
-            mapCommandNameToDescription.Add(commandDescription.Command.ToLower(), commandDescription);
-            categoryCommands.Add(commandDescription);
-
-            // If the command category was not registered already, register it now.
-            //
-            if (!mapCategoryStringToEnum.ContainsKey(commandCategory.ToString().ToLower()))
-            {
-                // Add command category to our data structures.
-                //
-                categories.Add(commandCategory);
-                mapCategoryStringToEnum.Add(commandCategory.ToString().ToLower(), commandCategory);
-            }
-        }
-
-        /// <summary>
         /// Display the description of a command.
         /// </summary>
         /// <param name="commandName">The command whose description we want displayed.</param>
@@ -693,6 +651,48 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             if (displayGetStartedTip)
             {
                 Console.WriteLine(CabeiroConstants.Program.GetStartedTip);
+            }
+        }
+
+        /// <summary>
+        /// Register a command description and update all our command registry data structures.
+        /// </summary>
+        /// <param name="commandDescription">The command description instance to register.</param>
+        private static void RegisterCommandDescription(CommandDescription commandDescription)
+        {
+            CommandCategory commandCategory = commandDescription.Category;
+
+            // First, check for a command name conflict.
+            //
+            if (mapCommandNameToDescription.ContainsKey(commandDescription.Command.ToLower()))
+            {
+                throw new CabeiroException($"Internal error: Command: {commandDescription.Command} has already been registered!");
+            }
+
+            // If we do not already have an entry for the command's category, create one now.
+            //
+            if (!mapCategoryToDescriptionList.ContainsKey(commandCategory))
+            {
+                mapCategoryToDescriptionList.Add(commandCategory, new List<CommandDescription>());
+            }
+
+            // Get the category's list of commands to update.
+            //
+            List<CommandDescription> categoryCommands = mapCategoryToDescriptionList[commandCategory];
+
+            // Add command description to our data structures.
+            //
+            mapCommandNameToDescription.Add(commandDescription.Command.ToLower(), commandDescription);
+            categoryCommands.Add(commandDescription);
+
+            // If the command category was not registered already, register it now.
+            //
+            if (!mapCategoryStringToEnum.ContainsKey(commandCategory.ToString().ToLower()))
+            {
+                // Add command category to our data structures.
+                //
+                categories.Add(commandCategory);
+                mapCategoryStringToEnum.Add(commandCategory.ToString().ToLower(), commandCategory);
             }
         }
     }

@@ -18,32 +18,32 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
         /// <summary>
         /// The actual command string.
         /// </summary>
-        public string Command { get; set; }
+        public string Command { get; protected set; }
 
         /// <summary>
         /// The category of the command.
         /// </summary>
-        public CommandCategory Category { get; set; }
+        public CommandCategory Category { get; protected set; }
 
         /// <summary>
         /// A short description of the command.
         /// </summary>
-        public string ShortDescription { get; set; }
+        public string ShortDescription { get; protected set; }
 
         /// <summary>
         /// A longer description of the command, optional.
         /// </summary>
-        public string LongDescription { get; set; }
+        public string LongDescription { get; protected set; }
 
         /// <summary>
         /// A description of the command's arguments.
         /// </summary>
-        public string Arguments { get; set; }
+        public string Arguments { get; protected set; }
 
         /// <summary>
         /// Additional notes on the command or its arguments, optional.
         /// </summary>
-        public string Notes { get; set; }
+        public string Notes { get; protected set; }
 
         public CommandDescription(
             string command,
@@ -73,12 +73,12 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 throw new CabeiroException($"Internal error: invalid arguments string for CommandDescription: {arguments}");
             }
 
-            Command = command;
-            Category = category;
-            ShortDescription = shortDescription;
-            LongDescription = longDescription;
-            Arguments = arguments;
-            Notes = notes;
+            this.Command = command;
+            this.Category = category;
+            this.ShortDescription = shortDescription;
+            this.LongDescription = longDescription;
+            this.Arguments = arguments;
+            this.Notes = notes;
         }
 
         /// <summary>
@@ -86,22 +86,22 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
         /// </summary>
         public void Display()
         {
-            Console.WriteLine($"{Constants.Formatting.TextEmphasisWings} {Command.ToUpper()} command {Constants.Formatting.TextEmphasisWings}\n");
+            Console.WriteLine($"{Constants.Formatting.TextEmphasisWings} {this.Command.ToUpper()} command {Constants.Formatting.TextEmphasisWings}\n");
 
-            Console.WriteLine($"Category: {Category.ToString()}\n");
+            Console.WriteLine($"Category: {this.Category}\n");
 
-            Console.WriteLine($"Description:\n\n\t{ShortDescription}\n");
+            Console.WriteLine($"Description:\n\n\t{this.ShortDescription}\n");
 
-            if (!String.IsNullOrEmpty(LongDescription))
+            if (!String.IsNullOrEmpty(this.LongDescription))
             {
-                Console.WriteLine($"{LongDescription}\n");
+                Console.WriteLine($"{this.LongDescription}\n");
             }
 
-            Console.WriteLine($"Arguments:\n\n\t{Arguments}\n");
+            Console.WriteLine($"Arguments:\n\n\t{this.Arguments}\n");
 
-            if (!string.IsNullOrWhiteSpace(Notes))
+            if (!string.IsNullOrWhiteSpace(this.Notes))
             {
-                Console.WriteLine($"Notes:\n\n{Notes}");
+                Console.WriteLine($"Notes:\n\n{this.Notes}");
             }
         }
     }

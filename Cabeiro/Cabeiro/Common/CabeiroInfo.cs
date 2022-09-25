@@ -4,12 +4,11 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
 using System.Reflection;
 
 namespace LaurentiuCristofor.Cabeiro.Common
 {
-    class CabeiroInfo
+    public abstract class CabeiroInfo
     {
         public static AssemblyName GetAssemblyInfo()
         {

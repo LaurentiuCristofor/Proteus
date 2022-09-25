@@ -4,7 +4,6 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
 using System.IO;
 
 using LaurentiuCristofor.Proteus.Common;
@@ -81,7 +80,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         /// Processes the next row in the input file.
         /// </summary>
         /// <returns>True if processing should continue; false otherwise.</returns>
-        private bool ProcessNextRow()
+        protected bool ProcessNextRow()
         {
             // Read next line.
             //
@@ -125,7 +124,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         /// Finalizes the processing.
         /// </summary>
         /// <returns>Always returns false to indicate that execution should terminate.</returns>
-        private bool EndProcessing()
+        protected bool EndProcessing()
         {
             this.DataProcessor.CompleteExecution();
 

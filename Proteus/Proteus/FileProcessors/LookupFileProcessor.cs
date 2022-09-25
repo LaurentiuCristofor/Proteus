@@ -4,7 +4,6 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
 using System.IO;
 
 using LaurentiuCristofor.Proteus.Common;
@@ -151,7 +150,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         /// Processes the next row in the lookup file.
         /// </summary>
         /// <returns>True if processing should continue; false otherwise.</returns>
-        private bool ProcessNextRowOfLookupFile()
+        protected bool ProcessNextRowOfLookupFile()
         {
             // Read next line.
             //
@@ -191,7 +190,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         /// Processes the next row in the data file.
         /// </summary>
         /// <returns>True if processing should continue; false otherwise.</returns>
-        private bool ProcessNextRowOfDataFile()
+        protected bool ProcessNextRowOfDataFile()
         {
             // Read next line.
             //
@@ -235,7 +234,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         /// Finalizes the processing of the lookup file.
         /// </summary>
         /// <returns>Always returns false to indicate that execution should terminate.</returns>
-        private bool EndLookupFileProcessing()
+        protected bool EndLookupFileProcessing()
         {
             this.InputReader.Close();
 
@@ -248,7 +247,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         /// Finalizes the processing of the data file.
         /// </summary>
         /// <returns>Always returns false to indicate that execution should terminate.</returns>
-        private bool EndDataFileProcessing()
+        protected bool EndDataFileProcessing()
         {
             this.DataProcessor.CompleteExecution();
 

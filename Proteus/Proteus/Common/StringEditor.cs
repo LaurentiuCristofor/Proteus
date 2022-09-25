@@ -677,6 +677,122 @@ namespace LaurentiuCristofor.Proteus.Common
         }
 
         /// <summary>
+        /// Finds the indexes of two string markers; the second marker is expected to be found after the first.
+        /// This method finds the first occurrence of each marker in the input string.
+        /// </summary>
+        /// <param name="data">The string in which to search for the markers.</param>
+        /// <param name="firstMarker">The first marker.</param>
+        /// <param name="secondMarker">The second marker.</param>
+        /// <param name="indexFirstMarker">The output parameter into which to write the index at which the first marker was found.</param>
+        /// <param name="indexSecondMarker">The output parameter into which to write the index at which the second marker was found.</param>
+        /// <returns>True if both markers were found and false otherwise.</returns>
+        public static bool FindMarkers(string data, string firstMarker, string secondMarker, out int indexFirstMarker, out int indexSecondMarker)
+        {
+            indexSecondMarker = -1;
+
+            indexFirstMarker = data.IndexOf(firstMarker);
+            if (indexFirstMarker == -1 || indexFirstMarker + firstMarker.Length > data.Length - secondMarker.Length)
+            {
+                return false;
+            }
+
+            indexSecondMarker = data.IndexOf(secondMarker, indexFirstMarker + firstMarker.Length);
+            if (indexSecondMarker == -1)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Finds the indexes of two string markers; the second marker is expected to be found after the first.
+        /// This method finds the last occurrence of each marker in the input string.
+        /// </summary>
+        /// <param name="data">The string in which to search for the markers.</param>
+        /// <param name="firstMarker">The first marker.</param>
+        /// <param name="secondMarker">The second marker.</param>
+        /// <param name="indexFirstMarker">The output parameter into which to write the index at which the first marker was found.</param>
+        /// <param name="indexSecondMarker">The output parameter into which to write the index at which the second marker was found.</param>
+        /// <returns>True if both markers were found and false otherwise.</returns>
+        public static bool FindLastMarkers(string data, string firstMarker, string secondMarker, out int indexFirstMarker, out int indexSecondMarker)
+        {
+            indexSecondMarker = -1;
+
+            indexFirstMarker = data.LastIndexOf(firstMarker);
+            if (indexFirstMarker == -1 || indexFirstMarker + firstMarker.Length > data.Length - secondMarker.Length)
+            {
+                return false;
+            }
+
+            indexSecondMarker = data.LastIndexOf(secondMarker, indexFirstMarker + firstMarker.Length);
+            if (indexSecondMarker == -1)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Finds the indexes of two string markers; the second marker is expected to be found after the first.
+        /// This method finds the last occurrence of the first marker and the first occurrence of the second marker (after the first marker) in the input string.
+        /// </summary>
+        /// <param name="data">The string in which to search for the markers.</param>
+        /// <param name="firstMarker">The first marker.</param>
+        /// <param name="secondMarker">The second marker.</param>
+        /// <param name="indexFirstMarker">The output parameter into which to write the index at which the first marker was found.</param>
+        /// <param name="indexSecondMarker">The output parameter into which to write the index at which the second marker was found.</param>
+        /// <returns>True if both markers were found and false otherwise.</returns>
+        public static bool FindInnermostMarkers(string data, string firstMarker, string secondMarker, out int indexFirstMarker, out int indexSecondMarker)
+        {
+            indexSecondMarker = -1;
+
+            indexFirstMarker = data.LastIndexOf(firstMarker);
+            if (indexFirstMarker == -1 || indexFirstMarker + firstMarker.Length > data.Length - secondMarker.Length)
+            {
+                return false;
+            }
+
+            indexSecondMarker = data.IndexOf(secondMarker, indexFirstMarker + firstMarker.Length);
+            if (indexSecondMarker == -1)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Finds the indexes of two string markers; the second marker is expected to be found after the first.
+        /// This method finds the first occurrence of the first marker and the last occurrence of the second marker in the input string.
+        /// </summary>
+        /// <param name="data">The string in which to search for the markers.</param>
+        /// <param name="firstMarker">The first marker.</param>
+        /// <param name="secondMarker">The second marker.</param>
+        /// <param name="indexFirstMarker">The output parameter into which to write the index at which the first marker was found.</param>
+        /// <param name="indexSecondMarker">The output parameter into which to write the index at which the second marker was found.</param>
+        /// <returns>True if both markers were found and false otherwise.</returns>
+        public static bool FindOutermostMarkers(string data, string firstMarker, string secondMarker, out int indexFirstMarker, out int indexSecondMarker)
+        {
+            indexSecondMarker = -1;
+
+            indexFirstMarker = data.IndexOf(firstMarker);
+            if (indexFirstMarker == -1 || indexFirstMarker + firstMarker.Length > data.Length - secondMarker.Length)
+            {
+                return false;
+            }
+
+            indexSecondMarker = data.LastIndexOf(secondMarker, indexFirstMarker + firstMarker.Length);
+            if (indexSecondMarker == -1)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Removes content after a marker string.
         /// </summary>
         /// <param name="data">The input string data.</param>
@@ -757,122 +873,6 @@ namespace LaurentiuCristofor.Proteus.Common
             string dataPrefix = data.Substring(0, indexFirstMarker);
             string dataSuffix = data.Substring(indexSecondMarker + secondMarker.Length, data.Length - indexSecondMarker - secondMarker.Length);
             return $"{dataPrefix}{dataSuffix}";
-        }
-
-        /// <summary>
-        /// Finds the indexes of two string markers; the second marker is expected to be found after the first.
-        /// This method finds the first occurrence of each marker in the input string.
-        /// </summary>
-        /// <param name="data">The string in which to search for the markers.</param>
-        /// <param name="firstMarker">The first marker.</param>
-        /// <param name="secondMarker">The second marker.</param>
-        /// <param name="indexFirstMarker">The output parameter into which to write the index at which the first marker was found.</param>
-        /// <param name="indexSecondMarker">The output parameter into which to write the index at which the second marker was found.</param>
-        /// <returns>True if both markers were found and false otherwise.</returns>
-        protected static bool FindMarkers(string data, string firstMarker, string secondMarker, out int indexFirstMarker, out int indexSecondMarker)
-        {
-            indexSecondMarker = -1;
-
-            indexFirstMarker = data.IndexOf(firstMarker);
-            if (indexFirstMarker == -1 || indexFirstMarker + firstMarker.Length > data.Length - secondMarker.Length)
-            {
-                return false;
-            }
-
-            indexSecondMarker = data.IndexOf(secondMarker, indexFirstMarker + firstMarker.Length);
-            if (indexSecondMarker == -1)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// Finds the indexes of two string markers; the second marker is expected to be found after the first.
-        /// This method finds the last occurrence of each marker in the input string.
-        /// </summary>
-        /// <param name="data">The string in which to search for the markers.</param>
-        /// <param name="firstMarker">The first marker.</param>
-        /// <param name="secondMarker">The second marker.</param>
-        /// <param name="indexFirstMarker">The output parameter into which to write the index at which the first marker was found.</param>
-        /// <param name="indexSecondMarker">The output parameter into which to write the index at which the second marker was found.</param>
-        /// <returns>True if both markers were found and false otherwise.</returns>
-        protected static bool FindLastMarkers(string data, string firstMarker, string secondMarker, out int indexFirstMarker, out int indexSecondMarker)
-        {
-            indexSecondMarker = -1;
-
-            indexFirstMarker = data.LastIndexOf(firstMarker);
-            if (indexFirstMarker == -1 || indexFirstMarker + firstMarker.Length > data.Length - secondMarker.Length)
-            {
-                return false;
-            }
-
-            indexSecondMarker = data.LastIndexOf(secondMarker, indexFirstMarker + firstMarker.Length);
-            if (indexSecondMarker == -1)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// Finds the indexes of two string markers; the second marker is expected to be found after the first.
-        /// This method finds the last occurrence of the first marker and the first occurrence of the second marker (after the first marker) in the input string.
-        /// </summary>
-        /// <param name="data">The string in which to search for the markers.</param>
-        /// <param name="firstMarker">The first marker.</param>
-        /// <param name="secondMarker">The second marker.</param>
-        /// <param name="indexFirstMarker">The output parameter into which to write the index at which the first marker was found.</param>
-        /// <param name="indexSecondMarker">The output parameter into which to write the index at which the second marker was found.</param>
-        /// <returns>True if both markers were found and false otherwise.</returns>
-        protected static bool FindInnermostMarkers(string data, string firstMarker, string secondMarker, out int indexFirstMarker, out int indexSecondMarker)
-        {
-            indexSecondMarker = -1;
-
-            indexFirstMarker = data.LastIndexOf(firstMarker);
-            if (indexFirstMarker == -1 || indexFirstMarker + firstMarker.Length > data.Length - secondMarker.Length)
-            {
-                return false;
-            }
-
-            indexSecondMarker = data.IndexOf(secondMarker, indexFirstMarker + firstMarker.Length);
-            if (indexSecondMarker == -1)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// Finds the indexes of two string markers; the second marker is expected to be found after the first.
-        /// This method finds the first occurrence of the first marker and the last occurrence of the second marker in the input string.
-        /// </summary>
-        /// <param name="data">The string in which to search for the markers.</param>
-        /// <param name="firstMarker">The first marker.</param>
-        /// <param name="secondMarker">The second marker.</param>
-        /// <param name="indexFirstMarker">The output parameter into which to write the index at which the first marker was found.</param>
-        /// <param name="indexSecondMarker">The output parameter into which to write the index at which the second marker was found.</param>
-        /// <returns>True if both markers were found and false otherwise.</returns>
-        protected static bool FindOutermostMarkers(string data, string firstMarker, string secondMarker, out int indexFirstMarker, out int indexSecondMarker)
-        {
-            indexSecondMarker = -1;
-
-            indexFirstMarker = data.IndexOf(firstMarker);
-            if (indexFirstMarker == -1 || indexFirstMarker + firstMarker.Length > data.Length - secondMarker.Length)
-            {
-                return false;
-            }
-
-            indexSecondMarker = data.LastIndexOf(secondMarker, indexFirstMarker + firstMarker.Length);
-            if (indexSecondMarker == -1)
-            {
-                return false;
-            }
-
-            return true;
         }
     }
 }

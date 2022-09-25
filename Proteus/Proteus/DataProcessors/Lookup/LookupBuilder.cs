@@ -16,7 +16,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
         /// <summary>
         /// The lookup data structure that we'll construct.
         /// </summary>
-        private HashSet<string> LookupSet { get; set; }
+        protected HashSet<string> LookupSet { get; set; }
 
         public LookupBuilder()
         {

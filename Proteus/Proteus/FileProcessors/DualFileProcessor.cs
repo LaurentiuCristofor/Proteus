@@ -4,7 +4,6 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
 using System.IO;
 
 using LaurentiuCristofor.Proteus.Common;
@@ -146,7 +145,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         /// <param name="hasProcessedFile">A flag to indicate if the reader has reached the end of the file.</param>
         /// <param name="lineCounter">A reference to a line counter for the input file.</param>
         /// <param name="otherLineCounter">The line counter for the other file being processed.</param>
-        void AdvanceInFile(
+        protected void AdvanceInFile(
             ref StreamReader inputReader,
             ref TDataExtractor dataExtractor,
             ref TExtractedData nextExtractedData,
@@ -189,7 +188,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         /// Perform next action and then determine the next one.
         /// </summary>
         /// <returns>True if processing should continue; false otherwise.</returns>
-        private bool PerformNextAction()
+        protected bool PerformNextAction()
         {
             switch (this.NextAction)
             {
@@ -226,7 +225,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         /// Finalizes the processing of the files.
         /// </summary>
         /// <returns>Always returns false to indicate that execution should terminate.</returns>
-        private bool EndProcessing()
+        protected bool EndProcessing()
         {
             this.DataProcessor.CompleteExecution();
 

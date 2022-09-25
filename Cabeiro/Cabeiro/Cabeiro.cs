@@ -25,13 +25,13 @@ namespace LaurentiuCristofor.Cabeiro
     /// <summary>
     /// Entry point class.
     /// </summary>
-    public class Cabeiro
+    public abstract class Cabeiro
     {
         /// <summary>
         /// Entry point method.
         /// </summary>
         /// <param name="arguments">Our command line arguments.</param>
-        static void Main(string[] arguments)
+        public static void Main(string[] arguments)
         {
             try
             {

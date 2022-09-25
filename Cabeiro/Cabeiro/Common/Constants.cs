@@ -253,7 +253,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
                 // Command argument description strings.
                 //
-                public class Descriptions
+                public abstract class Descriptions
                 {
                     public const string CommandName = "<command_name>";
                     public const string CategoryName = "<category_name>";

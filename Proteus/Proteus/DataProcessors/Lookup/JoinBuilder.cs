@@ -4,10 +4,8 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
 using System.Collections.Generic;
 
-using LaurentiuCristofor.Proteus.Common;
 using LaurentiuCristofor.Proteus.DataExtractors;
 
 namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
@@ -20,7 +18,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
         /// <summary>
         /// The lookup data structure that we'll construct.
         /// </summary>
-        private Dictionary<string, string> LookupDictionary { get; set; }
+        protected Dictionary<string, string> LookupDictionary { get; set; }
 
         public JoinBuilder()
         {

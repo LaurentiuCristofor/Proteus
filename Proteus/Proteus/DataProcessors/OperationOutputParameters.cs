@@ -4,10 +4,6 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-
-using LaurentiuCristofor.Proteus.Common;
-
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
@@ -19,11 +15,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// The type of the operation that should be performed.
         /// </summary>
         public TOperationType OperationType { get; protected set; }
-
-        /// <summary>
-        /// The arguments of the operation.
-        /// </summary>
-        protected string[] Arguments { get; set; }
 
         /// <summary>
         /// The first argument of the operation.
@@ -39,6 +30,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// The third argument of the operation.
         /// </summary>
         public string ThirdArgument { get; protected set; }
+
+        /// <summary>
+        /// The arguments of the operation.
+        /// </summary>
+        protected string[] Arguments { get; set; }
 
         public OperationOutputParameters(
             string outputFilePath,
