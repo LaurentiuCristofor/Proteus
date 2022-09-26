@@ -128,6 +128,15 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public abstract class Notes
             {
                 public const string ConsoleOutput = "This command outputs to the console instead of writing to a file.\n";
+
+                public const string MemoryRequirementConstantLine = "Memory requirement: For regular data files: O(1); more specifically: O(N), where N is the size of a line.";
+                public const string MemoryRequirementConstantColumns = "Memory requirement: For regular data files: O(1); more specifically: O(N), where N is the maximum count of columns in a line.";
+                public const string MemoryRequirementLinearUnique = "Memory requirement: O(N), where N is the total size of unique data values found.";
+                public const string MemoryRequirementLinearTotal = "Memory requirement: O(N), where N is the total size of the input data file.";
+                public const string MemoryRequirementLinearTotalSecond = "Memory requirement: O(N), where N is the total size of the second input data file.";
+                public const string MemoryRequirementLinearUniqueLookup = "Memory requirement: O(N), where N is the total size of unique data found in the lookup file.";
+                public const string MemoryRequirementLinearPrimaryColumnRepetitions = "Memory requirement: O(N), where N is the largest number of lines having the same primary column value.";
+                public const string MemoryRequirementExceptionLast = "Exception: `last` and `nlast` require O(N) where N is the argument to these commands.";
             }
 
             // Command argument strings.
