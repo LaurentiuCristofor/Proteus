@@ -7,7 +7,10 @@
 using System.Collections.Generic;
 
 using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.DataHolders;
+using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.DataExtractors;
+using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
 using LaurentiuCristofor.Proteus.FileOperations;
 
 namespace LaurentiuCristofor.Proteus.DataProcessors
@@ -23,7 +26,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// <summary>
         /// Last seen data.
         /// </summary>
-        protected DataTypeContainer LastSeenData { get; set; }
+        protected IDataHolder LastSeenData { get; set; }
 
         public void Initialize(OperationOutputParameters<RepetitionHandlingType> processingParameters)
         {
@@ -36,7 +39,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         {
             DataProcessorValidation.ValidateExtractedDataIsString(lineData);
 
-            DataTypeContainer data = lineData.ExtractedData;
+            IDataHolder data = lineData.ExtractedData;
             bool isRepeatedData = false;
 
             // Verify that the input file is sorted on the extracted data.

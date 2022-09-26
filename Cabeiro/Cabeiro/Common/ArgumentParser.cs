@@ -6,7 +6,7 @@
 
 using System;
 
-using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.Types;
 
 namespace LaurentiuCristofor.Cabeiro.Common
 {

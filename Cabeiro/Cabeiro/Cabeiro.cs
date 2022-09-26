@@ -9,10 +9,13 @@ using System.Collections.Generic;
 using System.Reflection;
 
 using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.DataHolders;
+using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.DataProcessors;
 using LaurentiuCristofor.Proteus.DataProcessors.Dual;
 using LaurentiuCristofor.Proteus.DataProcessors.Lookup;
+using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
 using LaurentiuCristofor.Proteus.FileProcessors;
 
 using LaurentiuCristofor.Cabeiro.Common;
@@ -987,12 +990,12 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, editArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            // Construct DataTypeContainer argument, if one is expected.
+            // Construct IDataHolder argument, if one is expected.
             //
-            DataTypeContainer argument = null;
+            IDataHolder argument = null;
             if (editArguments.Length > 0)
             {
-                argument = DataTypeContainer.TryParseStringValue(dataType, editArguments[0]);
+                argument = DataHolderFactory.BuildDataHolder(dataType, editArguments[0]);
             }
 
             ValueEditOutputParameters processingParameters = new ValueEditOutputParameters(
@@ -1090,7 +1093,7 @@ namespace LaurentiuCristofor.Cabeiro
                     = new LookupFileProcessor<
                         ColumnExtractor, ColumnExtractionParameters, ParsedLine,
                         ColumnExtractor, ColumnExtractionParameters, ParsedLine,
-                        JoinBuilder, Dictionary<DataTypeContainer, List<string>>,
+                        JoinBuilder, Dictionary<IDataHolder, List<string>>,
                         JoinProcessor, OperationOutputParameters<JoinType>>(
                         firstFilePath,
                         firstExtractionParameters,
@@ -1463,7 +1466,7 @@ namespace LaurentiuCristofor.Cabeiro
                     = new LookupFileProcessor<
                         LineAsParsedLineExtractor, Unused, ParsedLine,
                         LineAsParsedLineExtractor, Unused, ParsedLine,
-                        LookupBuilder, HashSet<DataTypeContainer>,
+                        LookupBuilder, HashSet<IDataHolder>,
                         LookupProcessor, OperationOutputParameters<LookupType>>(
                         dataFilePath,
                         dataFileExtractionParameters: null,
@@ -1527,7 +1530,7 @@ namespace LaurentiuCristofor.Cabeiro
                     = new LookupFileProcessor<
                         ColumnExtractor, ColumnExtractionParameters, ParsedLine,
                         ColumnExtractor, ColumnExtractionParameters, ParsedLine,
-                        LookupBuilder, HashSet<DataTypeContainer>,
+                        LookupBuilder, HashSet<IDataHolder>,
                         LookupProcessor, OperationOutputParameters<LookupType>>(
                         dataFilePath,
                         dataFileExtractionParameters,

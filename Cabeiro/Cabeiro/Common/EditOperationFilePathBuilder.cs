@@ -4,7 +4,7 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.Types;
 
 namespace LaurentiuCristofor.Cabeiro.Common
 {

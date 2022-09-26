@@ -7,6 +7,7 @@
 using System.IO;
 
 using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.Utilities;
 
 namespace LaurentiuCristofor.Proteus.FileOperations
 {

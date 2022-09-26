@@ -4,17 +4,16 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-namespace LaurentiuCristofor.Proteus.Common
+namespace LaurentiuCristofor.Proteus.Common.Types
 {
     /// <summary>
-    /// Types of criteria for insertion at a position, where a position is identified by an integer value.
+    /// Types of criteria for handling duplicate values.
     /// </summary>
-    public enum PositionInsertionType
+    public enum RepetitionHandlingType
     {
         NotSet = 0,
 
-        Position = 1,
-        Each = 2,
-        Last = 3,
+        Skip = 1,
+        Pick = 2,
     }
 }

@@ -7,6 +7,7 @@
 using System;
 
 using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.DataExtractors;
 
 namespace LaurentiuCristofor.Proteus.DataProcessors
@@ -34,9 +35,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public static void ValidateExtractedDataIsString(ParsedLine lineData)
         {
-            if (lineData.ExtractedData.DataType != DataType.String)
+            if (lineData.ExtractedData.GetDataType() != DataType.String)
             {
-                throw new ProteusException($"A data processor that expected a string input was called with an input of type '{lineData.ExtractedData.DataType}'!");
+                throw new ProteusException($"A data processor that expected a string input was called with an input of type '{lineData.ExtractedData.GetDataType()}'!");
             }
         }
 

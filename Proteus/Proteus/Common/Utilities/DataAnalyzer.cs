@@ -7,7 +7,10 @@
 using System;
 using System.Collections.Generic;
 
-namespace LaurentiuCristofor.Proteus.Common
+using LaurentiuCristofor.Proteus.Common.DataHolders;
+using LaurentiuCristofor.Proteus.Common.Types;
+
+namespace LaurentiuCristofor.Proteus.Common.Utilities
 {
     public class DataAnalyzer
     {
@@ -29,12 +32,12 @@ namespace LaurentiuCristofor.Proteus.Common
         /// <summary>
         /// Tracks the maximum data value.
         /// </summary>
-        public DataTypeContainer MaximumData { get; protected set; }
+        public IDataHolder MaximumData { get; protected set; }
 
         /// <summary>
         /// Tracks the minimum data value.
         /// </summary>
-        public DataTypeContainer MinimumData { get; protected set; }
+        public IDataHolder MinimumData { get; protected set; }
 
         /// <summary>
         /// For numerical values, tracks the total, for computing the average value.
@@ -64,28 +67,28 @@ namespace LaurentiuCristofor.Proteus.Common
         /// <summary>
         /// Tracks the number of times we have seen each data.
         /// </summary>
-        protected Dictionary<DataTypeContainer, ulong> MapDataToCount { get; set; }
+        protected Dictionary<IDataHolder, ulong> MapDataToCount { get; set; }
 
         /// <summary>
         /// Offers a view of the data, ordered by count of instances encountered.
         /// </summary>
-        protected List<Tuple<ulong, DataTypeContainer>> ListCountedData { get; set; }
+        protected List<Tuple<ulong, IDataHolder>> ListCountedData { get; set; }
 
         public DataAnalyzer(DataType dataType)
         {
             this.DataType = dataType;
-            this.MapDataToCount = new Dictionary<DataTypeContainer, ulong>();
+            this.MapDataToCount = new Dictionary<IDataHolder, ulong>();
         }
 
         /// <summary>
         /// Analyze a piece of data.
         /// </summary>
         /// <param name="data">Data to analyze.</param>
-        public void AnalyzeData(DataTypeContainer data)
+        public void AnalyzeData(IDataHolder data)
         {
-            if (data.DataType != this.DataType)
+            if (data.GetDataType() != this.DataType)
             {
-                throw new ProteusException($"DataAnalyzer of type {this.DataType} was called on data of type {data.DataType}!");
+                throw new ProteusException($"DataAnalyzer of type {this.DataType} was called on data of type {data.GetDataType()}!");
             }
 
             this.TotalDataCount++;
@@ -142,15 +145,15 @@ namespace LaurentiuCristofor.Proteus.Common
             //
             if (this.DataType == DataType.Integer)
             {
-                this.TotalData += data.IntegerValue;
+                this.TotalData += data.GetIntegerValue();
             }
             else if (this.DataType == DataType.UnsignedInteger)
             {
-                this.TotalData += data.UnsignedIntegerValue;
+                this.TotalData += data.GetUnsignedIntegerValue();
             }
             else if (this.DataType == DataType.FloatingPoint)
             {
-                this.TotalData += data.FloatingPointValue;
+                this.TotalData += data.GetFloatingPointValue();
             }
         }
 
@@ -183,15 +186,15 @@ namespace LaurentiuCristofor.Proteus.Common
 
             // Initialize a list into which to collect and sort our data.
             //
-            this.ListCountedData = new List<Tuple<ulong, DataTypeContainer>>();
+            this.ListCountedData = new List<Tuple<ulong, IDataHolder>>();
 
             // Collect our data into the list and also compute its entropy.
             //
-            foreach (DataTypeContainer data in this.MapDataToCount.Keys)
+            foreach (IDataHolder data in this.MapDataToCount.Keys)
             {
                 ulong dataCount = this.MapDataToCount[data];
 
-                this.ListCountedData.Add(new Tuple<ulong, DataTypeContainer>(dataCount, data));
+                this.ListCountedData.Add(new Tuple<ulong, IDataHolder>(dataCount, data));
 
                 double dataProbability = (double)dataCount / this.TotalDataCount;
                 this.Entropy += -dataProbability * Math.Log(dataProbability, 2);
@@ -274,7 +277,7 @@ namespace LaurentiuCristofor.Proteus.Common
         /// Outputs the information collected about a single data value.
         /// </summary>
         /// <param name="valueInformation">The information collected.</param>
-        private void OutputValueInformation(Tuple<ulong, DataTypeContainer> valueInformation)
+        private void OutputValueInformation(Tuple<ulong, IDataHolder> valueInformation)
         {
             // We'll display the count and corresponding percentile value.
             //

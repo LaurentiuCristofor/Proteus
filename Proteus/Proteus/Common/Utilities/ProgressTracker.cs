@@ -4,7 +4,7 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-namespace LaurentiuCristofor.Proteus.Common
+namespace LaurentiuCristofor.Proteus.Common.Utilities
 {
     /// <summary>
     /// A character based execution progress tracker.

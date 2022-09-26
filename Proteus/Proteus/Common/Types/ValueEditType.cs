@@ -4,16 +4,19 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-namespace LaurentiuCristofor.Proteus.Common
+namespace LaurentiuCristofor.Proteus.Common.Types
 {
     /// <summary>
-    /// Types of join operations.
+    /// Types of value editing. 
     /// </summary>
-    public enum JoinType
+    public enum ValueEditType
     {
         NotSet = 0,
 
-        Inner = 1,
-        LeftOuter = 2,
+        Rewrite = 1,
+        Add = 2,
+        Subtract = 3,
+        Multiply = 4,
+        Divide = 5,
     }
 }

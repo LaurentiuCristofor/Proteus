@@ -7,7 +7,10 @@
 using System.Collections.Generic;
 
 using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.DataHolders;
+using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.DataExtractors;
+using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
 using LaurentiuCristofor.Proteus.FileOperations;
 
 namespace LaurentiuCristofor.Proteus.DataProcessors
@@ -23,13 +26,13 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// <summary>
         /// Set of values seen so far.
         /// </summary>
-        protected HashSet<DataTypeContainer> SetValues { get; set; }
+        protected HashSet<IDataHolder> SetValues { get; set; }
 
         public void Initialize(OperationOutputParameters<RepetitionHandlingType> processingParameters)
         {
             this.Parameters = processingParameters;
 
-            this.SetValues = new HashSet<DataTypeContainer>();
+            this.SetValues = new HashSet<IDataHolder>();
 
             this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
         }
@@ -38,7 +41,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         {
             DataProcessorValidation.ValidateExtractedDataIsString(lineData);
 
-            DataTypeContainer data = lineData.ExtractedData;
+            IDataHolder data = lineData.ExtractedData;
             bool isRepeatedData = false;
 
             // Lookup data in our set;

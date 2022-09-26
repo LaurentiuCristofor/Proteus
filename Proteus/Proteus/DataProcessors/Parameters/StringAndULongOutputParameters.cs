@@ -4,26 +4,25 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using LaurentiuCristofor.Proteus.Common;
-
-namespace LaurentiuCristofor.Proteus.DataProcessors
+namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
 {
     /// <summary>
-    /// Includes a string parameter along output parameters.
+    /// Includes a ulong parameter along a string and output parameters.
     /// </summary>
-    public class StringOutputParameters : BaseOutputParameters
+    public class StringAndULongOutputParameters : StringOutputParameters
     {
         /// <summary>
-        /// The string value.
+        /// The ulong value.
         /// </summary>
-        public string StringValue { get; protected set; }
+        public ulong ULongValue { get; protected set; }
 
-        public StringOutputParameters(
+        public StringAndULongOutputParameters(
             string outputFilePath,
-            string stringValue)
-            : base(outputFilePath)
+            string stringValue,
+            ulong uLongValue)
+            : base(outputFilePath, stringValue)
         {
-            this.StringValue = stringValue;
+            this.ULongValue = uLongValue;
         }
     }
 }

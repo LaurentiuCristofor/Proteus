@@ -5,6 +5,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.DataHolders;
 
 namespace LaurentiuCristofor.Proteus.DataExtractors
 {
@@ -19,7 +20,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
         public ParsedLine ExtractData(ulong lineNumber, string line)
         {
-            DataTypeContainer lineContainer = new DataTypeContainer(line);
+            IDataHolder lineContainer = new StringDataHolder(line);
             ParsedLine lineData = new ParsedLine(line, lineContainer);
             return lineData;
         }

@@ -4,10 +4,10 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-
-using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.DataHolders;
+using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.DataExtractors;
+using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
 using LaurentiuCristofor.Proteus.FileOperations;
 
 namespace LaurentiuCristofor.Proteus.DataProcessors
@@ -33,11 +33,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             // Package column count in a DataTypeContainer.
             //
-            DataTypeContainer columnCountContainer = new DataTypeContainer(lineData.Columns.Length);
+            IDataHolder columnCountContainer = new IntegerDataHolder(lineData.Columns.Length);
 
             // Perform the comparison to decide whether to output the line.
             //
-            if (columnCountContainer.Compare(this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument))
+            if (DataHolderFactory.Compare(columnCountContainer, this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument))
             {
                 this.OutputWriter.WriteLine(lineData.OriginalLine);
             }

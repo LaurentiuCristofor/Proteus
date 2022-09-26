@@ -4,19 +4,24 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-namespace LaurentiuCristofor.Proteus.Common
+namespace LaurentiuCristofor.Proteus.Common.Types
 {
     /// <summary>
-    /// Types of value editing. 
+    /// Types of value comparisons.
     /// </summary>
-    public enum ValueEditType
+    public enum ComparisonType
     {
         NotSet = 0,
 
-        Rewrite = 1,
-        Add = 2,
-        Subtract = 3,
-        Multiply = 4,
-        Divide = 5,
+        LessThan = 1,
+        LessThanOrEqual = 2,
+        Equal = 3,
+        GreaterThanOrEqual = 4,
+        GreaterThan = 5,
+        NotEqual = 6,
+        Between = 7,
+        StrictlyBetween = 8,
+        NotBetween = 9,
+        NotStrictlyBetween = 10,
     }
 }

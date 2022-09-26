@@ -6,7 +6,7 @@
 
 using System.Collections.Generic;
 
-using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.DataHolders;
 using LaurentiuCristofor.Proteus.DataExtractors;
 
 namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
@@ -14,16 +14,16 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
     /// <summary>
     /// A builder of a Dictionary data structure used for lookup by join operations.
     /// </summary>
-    public class JoinBuilder : ILookupDataStructureBuilder<ParsedLine, Dictionary<DataTypeContainer, List<string>>>
+    public class JoinBuilder : ILookupDataStructureBuilder<ParsedLine, Dictionary<IDataHolder, List<string>>>
     {
         /// <summary>
         /// The lookup data structure that we'll construct.
         /// </summary>
-        protected Dictionary<DataTypeContainer, List<string>> LookupDictionary { get; set; }
+        protected Dictionary<IDataHolder, List<string>> LookupDictionary { get; set; }
 
         public JoinBuilder()
         {
-            this.LookupDictionary = new Dictionary<DataTypeContainer, List<string>>();
+            this.LookupDictionary = new Dictionary<IDataHolder, List<string>>();
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
         /// </summary>
         /// <param name="lineData">The data to process.</param>
         /// <returns>A reference to the lookup data structure that was built so far.</returns>
-        public Dictionary<DataTypeContainer, List<string>> Execute(ParsedLine lineData)
+        public Dictionary<IDataHolder, List<string>> Execute(ParsedLine lineData)
         {
             DataProcessorValidation.ValidateExtractedDataIsString(lineData);
             DataProcessorValidation.ValidateColumnInformation(lineData);
@@ -41,7 +41,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
             //
             string lineToJoin = lineData.AssembleWithoutColumn(lineData.ExtractedColumnNumber);
 
-            DataTypeContainer lineKey = lineData.ExtractedData;
+            IDataHolder lineKey = lineData.ExtractedData;
 
             // If this is the first time we see this key, initalize a List<string>.
             //

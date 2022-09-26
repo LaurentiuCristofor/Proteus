@@ -4,20 +4,16 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-namespace LaurentiuCristofor.Proteus.Common
+namespace LaurentiuCristofor.Proteus.Common.Types
 {
     /// <summary>
-    /// Types of criteria for selection from a position, where a position is identified by an integer value.
+    /// Types of column transformations.
     /// </summary>
-    public enum PositionSelectionType
+    public enum ColumnTransformationType
     {
         NotSet = 0,
 
-        Between = 1,
-        NotBetween = 2,
-        Last = 3,
-        NotLast = 4,
-        Each = 5,
-        NotEach = 6,
+        Pack = 1,
+        Unpack = 2,
     }
 }

@@ -4,24 +4,20 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-namespace LaurentiuCristofor.Proteus.Common
+namespace LaurentiuCristofor.Proteus.Common.Types
 {
     /// <summary>
-    /// Types of value comparisons.
+    /// Types of criteria for selection from a position, where a position is identified by an integer value.
     /// </summary>
-    public enum ComparisonType
+    public enum PositionSelectionType
     {
         NotSet = 0,
 
-        LessThan = 1,
-        LessThanOrEqual = 2,
-        Equal = 3,
-        GreaterThanOrEqual = 4,
-        GreaterThan = 5,
-        NotEqual = 6,
-        Between = 7,
-        StrictlyBetween = 8,
-        NotBetween = 9,
-        NotStrictlyBetween = 10,
+        Between = 1,
+        NotBetween = 2,
+        Last = 3,
+        NotLast = 4,
+        Each = 5,
+        NotEach = 6,
     }
 }

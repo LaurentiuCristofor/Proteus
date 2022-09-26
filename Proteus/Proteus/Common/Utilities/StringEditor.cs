@@ -4,7 +4,9 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-namespace LaurentiuCristofor.Proteus.Common
+using LaurentiuCristofor.Proteus.Common.Types;
+
+namespace LaurentiuCristofor.Proteus.Common.Utilities
 {
     /// <summary>
     /// A class that performs specific string edit operations.

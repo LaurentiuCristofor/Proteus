@@ -5,6 +5,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using LaurentiuCristofor.Proteus.FileOperations;
+using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
 
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {

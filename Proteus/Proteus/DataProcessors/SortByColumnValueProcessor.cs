@@ -8,7 +8,9 @@ using System;
 using System.Collections.Generic;
 
 using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.DataHolders;
 using LaurentiuCristofor.Proteus.DataExtractors;
+using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
 using LaurentiuCristofor.Proteus.FileOperations;
 
 namespace LaurentiuCristofor.Proteus.DataProcessors
@@ -23,20 +25,20 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// <summary>
         /// Data structure used for loading the lines before sorting them.
         /// </summary>
-        protected List<Tuple<DataTypeContainer, string>> ColumnLineTuples { get; set; }
+        protected List<Tuple<IDataHolder, string>> ColumnLineTuples { get; set; }
 
         public void Initialize(BaseOutputParameters processingParameters)
         {
             this.Parameters = processingParameters;
 
-            this.ColumnLineTuples = new List<Tuple<DataTypeContainer, string>>();
+            this.ColumnLineTuples = new List<Tuple<IDataHolder, string>>();
 
             this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath, trackProgress: true);
         }
 
         public bool Execute(ulong lineNumber, ParsedLine lineData)
         {
-            this.ColumnLineTuples.Add(new Tuple<DataTypeContainer, string>(lineData.ExtractedData, lineData.OriginalLine));
+            this.ColumnLineTuples.Add(new Tuple<IDataHolder, string>(lineData.ExtractedData, lineData.OriginalLine));
 
             return true;
         }
@@ -50,7 +52,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             this.ColumnLineTuples.Sort();
 
-            foreach (Tuple<DataTypeContainer, string> tuple in this.ColumnLineTuples)
+            foreach (Tuple<IDataHolder, string> tuple in this.ColumnLineTuples)
             {
                 this.OutputWriter.WriteLine(tuple.Item2);
             }

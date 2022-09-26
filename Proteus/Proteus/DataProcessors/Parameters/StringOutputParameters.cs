@@ -4,22 +4,24 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-namespace LaurentiuCristofor.Proteus.DataProcessors
+namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
 {
     /// <summary>
-    /// Includes parameters for performing an operation that outputs results to a file.
+    /// Includes a string parameter along output parameters.
     /// </summary>
-    public class BaseOutputParameters
+    public class StringOutputParameters : BaseOutputParameters
     {
         /// <summary>
-        /// The path where we should store the output of the operation.
+        /// The string value.
         /// </summary>
-        public string OutputFilePath { get; protected set; }
+        public string StringValue { get; protected set; }
 
-        public BaseOutputParameters(
-            string outputFilePath)
+        public StringOutputParameters(
+            string outputFilePath,
+            string stringValue)
+            : base(outputFilePath)
         {
-            this.OutputFilePath = outputFilePath;
+            this.StringValue = stringValue;
         }
     }
 }

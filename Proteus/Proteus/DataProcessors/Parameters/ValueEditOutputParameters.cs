@@ -4,11 +4,10 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
+using LaurentiuCristofor.Proteus.Common.DataHolders;
+using LaurentiuCristofor.Proteus.Common.Types;
 
-using LaurentiuCristofor.Proteus.Common;
-
-namespace LaurentiuCristofor.Proteus.DataProcessors
+namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
 {
     /// <summary>
     /// Includes parameters for performing a value edit operation.
@@ -23,12 +22,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// <summary>
         /// The argument of the operation.
         /// </summary>
-        public DataTypeContainer Argument { get; protected set; }
+        public IDataHolder Argument { get; protected set; }
 
         public ValueEditOutputParameters(
             string outputFilePath,
             ValueEditType editType,
-            DataTypeContainer argument = null)
+            IDataHolder argument = null)
             : base(outputFilePath)
         {
             this.EditType = editType;

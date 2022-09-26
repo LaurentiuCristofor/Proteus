@@ -4,26 +4,16 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-namespace LaurentiuCristofor.Proteus.Common
+namespace LaurentiuCristofor.Proteus.Common.Types
 {
     /// <summary>
-    /// Types of string selection criteria.
+    /// Types of join operations.
     /// </summary>
-    public enum StringSelectionType
+    public enum JoinType
     {
         NotSet = 0,
 
-        HasLengthBetween = 1,
-        HasLengthNotBetween = 2,
-        Includes = 3,
-        NotIncludes = 4,
-        StartsWith = 5,
-        NotStartsWith = 6,
-        EndsWith = 7,
-        NotEndsWith = 8,
-        IsDemarked = 9,
-        IsNotDemarked = 10,
-        Equals = 11,
-        NotEquals = 12,
+        Inner = 1,
+        LeftOuter = 2,
     }
 }

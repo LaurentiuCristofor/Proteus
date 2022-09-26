@@ -4,10 +4,10 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-
-using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.DataHolders;
+using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.DataExtractors;
+using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
 using LaurentiuCristofor.Proteus.FileOperations;
 
 namespace LaurentiuCristofor.Proteus.DataProcessors
@@ -31,7 +31,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         {
             // Perform the comparison to decide whether to output the line.
             //
-            if (lineData.ExtractedData.Compare(this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument))
+            if (DataHolderFactory.Compare(lineData.ExtractedData, this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument))
             {
                 this.OutputWriter.WriteLine(lineData.OriginalLine);
             }

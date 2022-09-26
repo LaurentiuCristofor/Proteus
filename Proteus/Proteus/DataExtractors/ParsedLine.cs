@@ -6,6 +6,8 @@
 
 using LaurentiuCristofor.Proteus.Common;
 
+using LaurentiuCristofor.Proteus.Common.DataHolders;
+
 namespace LaurentiuCristofor.Proteus.DataExtractors
 {
     /// <summary>
@@ -18,11 +20,11 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         public string OriginalLine { get; protected set; }
 
         /// <summary>
-        /// The extracted data, packaged in a data type container.
+        /// The extracted data.
         /// 
         /// This can be a column or a line.
         /// </summary>
-        public DataTypeContainer ExtractedData { get; protected set;}
+        public IDataHolder ExtractedData { get; protected set;}
 
         /// <summary>
         /// The number of the extracted column, if ExtractedData contains a column.
@@ -38,19 +40,19 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         public string ColumnSeparator { get; protected set; }
 
         /// <summary>
-        /// A second extracted data, packaged in a data type container.
+        /// A second extracted data.
         /// 
         /// This is typically a second column value.
         /// </summary>
-        public DataTypeContainer SecondExtractedData { get; protected set; }
+        public IDataHolder SecondExtractedData { get; protected set; }
 
         public ParsedLine(
             string originalLine,
-            DataTypeContainer extractedData,
+            IDataHolder extractedData,
             int extractedColumnNumber = 0,
             string[] columns = null,
             string columnSeparator = null,
-            DataTypeContainer secondExtractedData = null)
+            IDataHolder secondExtractedData = null)
         {
             this.OriginalLine = originalLine;
             this.ExtractedData = extractedData;

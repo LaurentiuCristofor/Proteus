@@ -7,6 +7,7 @@
 using System;
 
 using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.DataHolders;
 
 namespace LaurentiuCristofor.Proteus.DataExtractors
 {
@@ -44,7 +45,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
             // Parse the column value according to the data type parameter.
             //
-            DataTypeContainer columnData = DataTypeContainer.TryParseStringValue(this.Parameters.ColumnDataType, columnString);
+            IDataHolder columnData = DataHolderFactory.BuildDataHolder(this.Parameters.ColumnDataType, columnString);
             if (columnData == null)
             {
                 OutputInterface.LogWarning($"\nFound an invalid value for column {this.Parameters.ColumnNumber} of type {this.Parameters.ColumnDataType} in line {lineNumber}: {columnString}!");
@@ -53,7 +54,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
             // Check if we need to extract a second column value.
             //
-            DataTypeContainer secondColumnData = null;
+            IDataHolder secondColumnData = null;
             if (this.Parameters.SecondColumnNumber > 0)
             {
                 int secondColumnIndex = this.Parameters.SecondColumnNumber - 1;
@@ -61,7 +62,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
                 // Parse the second column value according to the data type parameter.
                 //
-                secondColumnData = DataTypeContainer.TryParseStringValue(this.Parameters.SecondColumnDataType, secondColumnString);
+                secondColumnData = DataHolderFactory.BuildDataHolder(this.Parameters.SecondColumnDataType, secondColumnString);
                 if (secondColumnData == null)
                 {
                     OutputInterface.LogWarning($"\nFound an invalid value for column {this.Parameters.SecondColumnNumber} of type {this.Parameters.SecondColumnDataType} in line {lineNumber}: {secondColumnString}!");

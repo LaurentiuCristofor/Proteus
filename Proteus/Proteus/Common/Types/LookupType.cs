@@ -4,16 +4,16 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-namespace LaurentiuCristofor.Proteus.Common
+namespace LaurentiuCristofor.Proteus.Common.Types
 {
     /// <summary>
-    /// Types of column transformations.
+    /// Types of lookup criteria.
     /// </summary>
-    public enum ColumnTransformationType
+    public enum LookupType
     {
         NotSet = 0,
 
-        Pack = 1,
-        Unpack = 2,
+        Included = 1,
+        NotIncluded = 2,
     }
 }
