@@ -50,6 +50,15 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
             }
             else if (hasProcessedSecondFile)
             {
+                // We can complete processing the second file while collecting lines to join with the first.
+                // Check if the line from the first file can be joined with the last matched key.
+                //
+                if (firstLineData.ExtractedData.Equals(this.LastMatchedKey))
+                {
+                    JoinLineAndOutput(firstLineData);
+                    return ProcessingActionType.AdvanceFirst;
+                }
+
                 // None of the remaining lines in the first file will be able to match anything in the second file.
                 // Proceed according to the type of join.
                 // 
