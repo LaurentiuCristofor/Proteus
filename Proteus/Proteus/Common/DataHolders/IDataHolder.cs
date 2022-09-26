@@ -21,6 +21,12 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
         DataType GetDataType();
 
         /// <summary>
+        /// Returns true if the underlying data is of numerical type.
+        /// </summary>
+        /// <returns></returns>
+        bool IsNumerical();
+
+        /// <summary>
         /// If the underlying value can be mapped to an integer, return it.
         /// Otherwise, throw an exception.
         /// </summary>

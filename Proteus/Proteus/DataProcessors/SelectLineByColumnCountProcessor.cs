@@ -37,7 +37,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             // Perform the comparison to decide whether to output the line.
             //
-            if (DataHolderFactory.Compare(columnCountContainer, this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument))
+            if (DataHolderOperations.Compare(columnCountContainer, this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument))
             {
                 this.OutputWriter.WriteLine(lineData.OriginalLine);
             }

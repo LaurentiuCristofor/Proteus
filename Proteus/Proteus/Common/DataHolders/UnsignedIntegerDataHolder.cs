@@ -27,6 +27,11 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
             return DataType.UnsignedInteger;
         }
 
+        public bool IsNumerical()
+        {
+            return true;
+        }
+
         public long GetIntegerValue()
         {
             throw new NotImplementedException();

@@ -143,15 +143,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
 
             // Update total data length.
             //
-            if (this.DataType == DataType.Integer)
-            {
-                this.TotalData += data.GetIntegerValue();
-            }
-            else if (this.DataType == DataType.UnsignedInteger)
-            {
-                this.TotalData += data.GetUnsignedIntegerValue();
-            }
-            else if (this.DataType == DataType.FloatingPoint)
+            if (data.IsNumerical())
             {
                 this.TotalData += data.GetFloatingPointValue();
             }
@@ -263,7 +255,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
             OutputInterface.OutputLine($"{Constants.Strings.UniqueCount}{Constants.Strings.NameValueSeparator}{this.UniqueDataCount}");
             OutputInterface.OutputLine($"{Constants.Strings.MaximumValue}{Constants.Strings.NameValueSeparator}{this.MaximumData}");
             OutputInterface.OutputLine($"{Constants.Strings.MinimumValue}{Constants.Strings.NameValueSeparator}{this.MinimumData}");
-            if (this.DataType == DataType.Integer || this.DataType == DataType.UnsignedInteger || this.DataType == DataType.FloatingPoint)
+            if (DataHolderOperations.IsNumerical(this.DataType))
             {
                 OutputInterface.OutputLine($"{Constants.Strings.AverageValue}{Constants.Strings.NameValueSeparator}{(double)this.TotalData / this.TotalDataCount}");
             }

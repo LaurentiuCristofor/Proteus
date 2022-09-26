@@ -13,7 +13,7 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
     /// <summary>
     /// A class providing static functions that operate on IDataType instances.
     /// </summary>
-    public abstract class DataHolderFactory
+    public abstract class DataHolderOperations
     {
         /// <summary>
         /// Interprets a string value as the specified data type
@@ -63,7 +63,17 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
         }
 
         /// <summary>
-        /// Perform a comparison of data against the provided arguments.
+        /// Returns whether a specified data type is a numerical one.
+        /// </summary>
+        /// <param name="dataType">The data type.</param>
+        /// <returns>True if the data type is numerical; false otherwise.</returns>
+        public static bool IsNumerical(DataType dataType)
+        {
+            return (dataType == DataType.Integer || dataType == DataType.UnsignedInteger || dataType == DataType.FloatingPoint);
+        }
+
+        /// <summary>
+        /// Performs a comparison of data against the provided arguments.
         /// </summary>
         /// <param name="data">The data to compare.</param>
         /// <param name="comparisonType">The comparison type.</param>
@@ -110,7 +120,7 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
         }
 
         /// <summary>
-        /// Perform a comparison of data against a threshold.
+        /// Performs a comparison of data against a threshold.
         /// </summary>
         /// <param name="data">The data to compare.</param>
         /// <param name="comparisonType">The comparison type.</param>
@@ -148,7 +158,7 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
         }
 
         /// <summary>
-        /// Perform a comparison of data against 2 thresholds.
+        /// Performs a comparison of data against 2 thresholds.
         /// </summary>
         /// <param name="data">The data to compare.</param>
         /// <param name="comparisonType">The comparison type.</param>

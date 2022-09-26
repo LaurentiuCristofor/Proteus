@@ -990,12 +990,12 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, editArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            // Construct IDataHolder argument, if one is expected.
+            // Construct IDataHolder argument, if one is provided.
             //
             IDataHolder argument = null;
             if (editArguments.Length > 0)
             {
-                argument = DataHolderFactory.BuildDataHolder(dataType, editArguments[0]);
+                argument = DataHolderOperations.BuildDataHolder(dataType, editArguments[0]);
             }
 
             ValueEditOutputParameters processingParameters = new ValueEditOutputParameters(
