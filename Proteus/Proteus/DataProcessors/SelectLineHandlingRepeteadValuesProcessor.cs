@@ -13,21 +13,23 @@ using LaurentiuCristofor.Proteus.FileOperations;
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// A data processor that checks a string to see if it's a repetition of a previously processed value,
+    /// A data processor that checks a value to see if it's a repetition of a previously processed value,
     /// to decide whether to output the line or not.
     /// </summary>
-    public class SelectLinePostSortingHandlingRepeteadStringsProcessor : BaseOutputProcessor, IDataProcessor<OperationOutputParameters<RepetitionHandlingType>, ParsedLine>
+    public class SelectLineHandlingRepeteadValuesProcessor : BaseOutputProcessor, IDataProcessor<OperationOutputParameters<RepetitionHandlingType>, ParsedLine>
     {
         protected OperationOutputParameters<RepetitionHandlingType> Parameters { get; set; }
 
         /// <summary>
-        /// Last seen data.
+        /// Set of values seen so far.
         /// </summary>
-        protected string LastSeenData { get; set; }
+        protected HashSet<DataTypeContainer> SetValues { get; set; }
 
         public void Initialize(OperationOutputParameters<RepetitionHandlingType> processingParameters)
         {
             this.Parameters = processingParameters;
+
+            this.SetValues = new HashSet<DataTypeContainer>();
 
             this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
         }
@@ -36,25 +38,18 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         {
             DataProcessorValidation.ValidateExtractedDataIsString(lineData);
 
-            string data = lineData.ExtractedData.ToString();
+            DataTypeContainer data = lineData.ExtractedData;
             bool isRepeatedData = false;
 
-            // Verify that the input file is sorted on the extracted data.
+            // Lookup data in our set;
             //
-            if (data.CompareTo(this.LastSeenData) < 0)
-            {
-                throw new ProteusException($"Input file is not sorted as expected! Value '{data}' succeeds value '{this.LastSeenData}'.");
-            }
-
-            // Compare data with our last seen data;
-            //
-            if (data.Equals(this.LastSeenData))
+            if (this.SetValues.Contains(data))
             {
                 isRepeatedData = true;
             }
             else
             {
-                this.LastSeenData = data;
+                this.SetValues.Add(data);
             }
 
             // Determine whether to output the line based on the handling type.

@@ -356,16 +356,18 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
-                CabeiroConstants.Commands.SelectLinesHandlingRepeatedColumnStrings,
+                CabeiroConstants.Commands.SelectLinesHandlingRepeatedColumnValues,
                 CommandCategory.Selection,
-                "(S)elect (L)ines (H)andling (R)epeated (C)olumn (S)trings",
-                CabeiroConstants.Commands.Descriptions.SelectLinesHandlingRepeatedColumnStrings,
+                "(S)elect (L)ines (H)andling (R)epeated (C)olumn (V)alues",
+                CabeiroConstants.Commands.Descriptions.SelectLinesHandlingRepeatedColumnValues,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataType}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.HandlingType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
-                $"{CabeiroConstants.Commands.Arguments.Descriptions.RepetitionHandlingTypeText}"
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
+                + $"\n{CabeiroConstants.Commands.Arguments.Descriptions.RepetitionHandlingTypeText}"
                 + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearUnique}");
             RegisterCommandDescription(commandDescription);
 
@@ -424,15 +426,17 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
-                CabeiroConstants.Commands.SplitColumnStrings,
+                CabeiroConstants.Commands.SplitColumnValues,
                 CommandCategory.Splitting,
-                "(SP)lit (C)olumn (S)trings",
-                CabeiroConstants.Commands.Descriptions.SplitColumnStrings,
+                "(SP)lit (C)olumn (V)alues",
+                CabeiroConstants.Commands.Descriptions.SplitColumnValues,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
-                $"{CabeiroConstants.Commands.Notes.MemoryRequirementLinearUnique}");
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
+                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearUnique}");
             RegisterCommandDescription(commandDescription);
 
             // PostSorting commands.
@@ -493,16 +497,18 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
-                CabeiroConstants.Commands.SelectLinesPostSortingHandlingRepeatedColumnStrings,
+                CabeiroConstants.Commands.SelectLinesPostSortingHandlingRepeatedColumnValues,
                 CommandCategory.Post_Sorting,
-                "(S)elect (L)ines (P)ost (S)orting (H)andling (R)epeated (C)olumn (S)trings",
-                CabeiroConstants.Commands.Descriptions.SelectLinesPostSortingHandlingRepeatedColumnStrings,
+                "(S)elect (L)ines (P)ost (S)orting (H)andling (R)epeated (C)olumn (V)alues",
+                CabeiroConstants.Commands.Descriptions.SelectLinesPostSortingHandlingRepeatedColumnValues,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataType}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.HandlingType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
-                $"{CabeiroConstants.Commands.Arguments.Descriptions.RepetitionHandlingTypeText}"
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
+                + $"\n{CabeiroConstants.Commands.Arguments.Descriptions.RepetitionHandlingTypeText}"
                 + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
 

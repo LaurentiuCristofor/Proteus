@@ -76,19 +76,19 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string SelectLinesByColumnString = "slbcs";
             public const string SelectLinesByColumnCount = "slbcc";
             public const string SelectLinesHandlingRepeatedLines = "slhrl";
-            public const string SelectLinesHandlingRepeatedColumnStrings = "slhrcs";
+            public const string SelectLinesHandlingRepeatedColumnValues = "slhrcv";
             public const string SelectLinesByLookupInFile = "slblif";
             public const string SelectLinesByColumnValueLookupInFile = "slbcvlif";
 
             public const string SplitLineRanges = "splr";
             public const string SplitColumns = "spc";
-            public const string SplitColumnStrings = "spcs";
+            public const string SplitColumnValues = "spcv";
 
             public const string SortBySecondColumnValue = "sb2cv";
             public const string MergeLines = "ml";
             public const string MergeLinesByColumnValue = "mlbcv";
             public const string SelectLinesPostSortingHandlingRepeatedLines = "slpshrl";
-            public const string SelectLinesPostSortingHandlingRepeatedColumnStrings = "slpshrcs";
+            public const string SelectLinesPostSortingHandlingRepeatedColumnValues = "slpshrcv";
             public const string SelectLinesPostSortingByLookupInFile = "slpsblif";
             public const string SelectLinesPostSortingByColumnValueLookupInFile = "slpsbcvlif";
             public const string JoinLinesPostSorting = "jlps";
@@ -107,18 +107,18 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string SelectLinesByLineString = "Selects lines based on their string value matching specified properties.";
                 public const string SelectLinesByColumnString = "Selects lines based on a column's string value matching specified properties.";
                 public const string SelectLinesHandlingRepeatedLines = "Selects lines, handling repeated lines as specified.";
-                public const string SelectLinesHandlingRepeatedColumnStrings = "Selects lines, handling lines with repeated column strings as specified.";
+                public const string SelectLinesHandlingRepeatedColumnValues = "Selects lines, handling lines with repeated column values as specified.";
                 public const string SelectLinesByLookupInFile = "Selects lines based on whether they appear in another file or not.";
                 public const string SelectLinesByColumnValueLookupInFile = "Selects lines based on whether their specified column's value appears in another file or not.";
 
                 public const string SplitLineRanges = "Splits a file into multiple files, each containing a range of lines of specified size. Last file will likely have fewer lines than the rest.";
                 public const string SplitColumns = "Splits a file into multiple files, one for each column. Resulting files may have different size than the original file, if the original file contained lines with varying number of columns.";
-                public const string SplitColumnStrings = "Splits a file into multiple files, one for each different string value present in a specified column. Lines that do not have the specified column present are collected in output file \"0\".";
+                public const string SplitColumnValues = "Splits a file into multiple files, one for each different value present in a specified column. Lines that do not have the specified column present are ignored.";
 
                 public const string MergeLines = "Merges lines from two sorted files. Does not verify the correct sorting of the input files.";
                 public const string MergeLinesByColumnValue = "Merges lines from two files sorted on specific columns. Does not verify the correct sorting of the input files.";
                 public const string SelectLinesPostSortingHandlingRepeatedLines = "Selects lines from a sorted file, handling repeated lines as specified.";
-                public const string SelectLinesPostSortingHandlingRepeatedColumnStrings = "Selects lines from a column-sorted file, handling lines with repeated column strings as specified.";
+                public const string SelectLinesPostSortingHandlingRepeatedColumnValues = "Selects lines from a column-sorted file, handling lines with repeated column values as specified.";
                 public const string SelectLinesPostSortingByLookupInFile = "Selects lines from a sorted file based on whether they appear in another sorted file or not. Does not verify the correct sorting of the input files.";
                 public const string SelectLinesPostSortingByColumnValueLookupInFile = "Selects lines from a column-sorted file based on whether their sorted column's value appears in the first column of another sorted file or not. Does not verify the correct sorting of the input files.";
                 public const string JoinLinesPostSorting = "Joins the lines of two column-sorted files. Does not verify the correct sorting of the input files.";

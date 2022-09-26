@@ -533,26 +533,28 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesHandlingRepeatedColumnStrings)
-                || ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingHandlingRepeatedColumnStrings))
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesHandlingRepeatedColumnValues)
+                || ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingHandlingRepeatedColumnValues))
             {
-                const int minimumArgumentNumber = 4;
-                const int maximumArgumentNumber = 5;
+                const int minimumArgumentNumber = 5;
+                const int maximumArgumentNumber = 6;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
                     string inputFilePath = arguments[1];
                     int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
-                    Tuple<RepetitionHandlingType, int> operationInfo = ArgumentParser.ParseRepetitionHandlingType(arguments[4]);
-                    ArgumentParser.ExtractLastArguments(0, 5, arguments, out _, out string outputFilePath);
+                    DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
+                    Tuple<RepetitionHandlingType, int> operationInfo = ArgumentParser.ParseRepetitionHandlingType(arguments[5]);
+                    ArgumentParser.ExtractLastArguments(0, 6, arguments, out _, out string outputFilePath);
 
-                    bool isSorted = ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingHandlingRepeatedColumnStrings);
+                    bool isSorted = ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingHandlingRepeatedColumnValues);
 
-                    SelectLinesHandlingRepeatedColumnStrings(
+                    SelectLinesHandlingRepeatedColumnValues(
                         isSorted,
                         inputFilePath,
                         columnNumber,
                         columnSeparator,
+                        dataType, arguments[4],
                         operationInfo.Item1, arguments[4],
                         outputFilePath);
                     return;
@@ -646,21 +648,23 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SplitColumnStrings))
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SplitColumnValues))
             {
-                const int minimumArgumentNumber = 4;
-                const int maximumArgumentNumber = 5;
+                const int minimumArgumentNumber = 5;
+                const int maximumArgumentNumber = 6;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
                     string inputFilePath = arguments[1];
                     int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
-                    ArgumentParser.ExtractLastArguments(0, 4, arguments, out _, out string outputFilePath);
+                    DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
+                    ArgumentParser.ExtractLastArguments(0, 5, arguments, out _, out string outputFilePath);
 
-                    SplitColumnStrings(
+                    SplitColumnValues(
                         inputFilePath,
                         columnNumber,
                         columnSeparator,
+                        dataType, arguments[4],
                         outputFilePath);
                     return;
                 }
@@ -1355,7 +1359,7 @@ namespace LaurentiuCristofor.Cabeiro
             if (isSorted)
             {
                 var fileProcessor
-                    = new FileProcessor<LineAsParsedLineExtractor, Unused, ParsedLine, SelectLinePostSortingHandlingRepeteadStringsProcessor, OperationOutputParameters<RepetitionHandlingType>>(
+                    = new FileProcessor<LineAsParsedLineExtractor, Unused, ParsedLine, SelectLinePostSortingHandlingRepeteadValuesProcessor, OperationOutputParameters<RepetitionHandlingType>>(
                         inputFilePath,
                         extractionParameters: null,
                         processingParameters);
@@ -1365,7 +1369,7 @@ namespace LaurentiuCristofor.Cabeiro
             else
             {
                 var fileProcessor
-                    = new FileProcessor<LineAsParsedLineExtractor, Unused, ParsedLine, SelectLineHandlingRepeteadStringsProcessor, OperationOutputParameters<RepetitionHandlingType>>(
+                    = new FileProcessor<LineAsParsedLineExtractor, Unused, ParsedLine, SelectLineHandlingRepeteadValuesProcessor, OperationOutputParameters<RepetitionHandlingType>>(
                         inputFilePath,
                         extractionParameters: null,
                         processingParameters);
@@ -1374,23 +1378,24 @@ namespace LaurentiuCristofor.Cabeiro
             }
         }
 
-        private static void SelectLinesHandlingRepeatedColumnStrings(
+        private static void SelectLinesHandlingRepeatedColumnValues(
             bool isSorted,
             string inputFilePath, 
             int columnNumber,
             string columnSeparator,
+            DataType dataType, string dataTypeString,
             RepetitionHandlingType handlingType, string handlingTypeString,
             string outputFilePath)
         {
             ColumnExtractionParameters extractionParameters = new ColumnExtractionParameters(
                 columnSeparator,
                 columnNumber,
-                DataType.String);
+                dataType);
 
             string outputFileExtension
                 = isSorted
-                ? $".{CabeiroConstants.Commands.SelectLinesPostSortingHandlingRepeatedColumnStrings}.{columnNumber}.{handlingTypeString}"
-                : $".{CabeiroConstants.Commands.SelectLinesHandlingRepeatedColumnStrings}.{columnNumber}.{handlingTypeString}";
+                ? $".{CabeiroConstants.Commands.SelectLinesPostSortingHandlingRepeatedColumnValues}.{columnNumber}.{dataTypeString.ToLower()}.{handlingTypeString.ToLower()}"
+                : $".{CabeiroConstants.Commands.SelectLinesHandlingRepeatedColumnValues}.{columnNumber}.{dataTypeString.ToLower()}.{handlingTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, operationArguments: null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
@@ -1401,7 +1406,7 @@ namespace LaurentiuCristofor.Cabeiro
             if (isSorted)
             {
                 var fileProcessor
-                    = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectLinePostSortingHandlingRepeteadStringsProcessor, OperationOutputParameters<RepetitionHandlingType>>(
+                    = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectLinePostSortingHandlingRepeteadValuesProcessor, OperationOutputParameters<RepetitionHandlingType>>(
                         inputFilePath,
                         extractionParameters,
                         processingParameters);
@@ -1411,7 +1416,7 @@ namespace LaurentiuCristofor.Cabeiro
             else
             {
                 var fileProcessor
-                    = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectLineHandlingRepeteadStringsProcessor, OperationOutputParameters<RepetitionHandlingType>>(
+                    = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectLineHandlingRepeteadValuesProcessor, OperationOutputParameters<RepetitionHandlingType>>(
                         inputFilePath,
                         extractionParameters,
                         processingParameters);
@@ -1597,10 +1602,11 @@ namespace LaurentiuCristofor.Cabeiro
             fileProcessor.ProcessFile();
         }
 
-        private static void SplitColumnStrings(
+        private static void SplitColumnValues(
             string inputFilePath,
             int columnNumber,
             string columnSeparator,
+            DataType dataType, string dataTypeString,
             string outputFilePath)
         {
             // We need a successful column extraction to extract all columns,
@@ -1608,25 +1614,24 @@ namespace LaurentiuCristofor.Cabeiro
             //
             ColumnExtractionParameters extractionParameters = new ColumnExtractionParameters(
                 columnSeparator,
-                columnNumber: 1,
-                DataType.String);
+                columnNumber,
+                dataType);
 
             // The file name will be bundled by the processor with the number of each column, so we exclude the text extension from it;
             // it will get appended by the processor internally.
             //
-            string outputFileExtension = $".{CabeiroConstants.Commands.SplitColumnStrings}.{columnNumber}";
+            string outputFileExtension = $".{CabeiroConstants.Commands.SplitColumnValues}.{columnNumber}.{dataTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, operationArguments: null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath(excludeTextExtension: true);
 
             // The file extension is needed because the processor will need to append it for each file it creates.
             //
-            StringAndIntOutputParameters processingParameters = new StringAndIntOutputParameters(
+            StringOutputParameters processingParameters = new StringOutputParameters(
                 outputFilePath,
-                CabeiroConstants.Files.Extensions.Txt,
-                columnNumber);
+                CabeiroConstants.Files.Extensions.Txt);
 
             var fileProcessor
-                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SplitColumnStringsProcessor, StringAndIntOutputParameters>(
+                = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SplitColumnValuesProcessor, StringOutputParameters>(
                     inputFilePath,
                     extractionParameters,
                     processingParameters);
