@@ -16,14 +16,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
     /// A data processor that looks up a string in a data structure,
     /// to find a line to join with the currently processed line.
     /// </summary>
-    public class JoinProcessor : BaseOutputProcessor, IDataLookupProcessor<OperationOutputParameters<JoinType>, Dictionary<string, string>, ParsedLine>
+    public class JoinProcessor : BaseOutputProcessor, IDataLookupProcessor<OperationOutputParameters<JoinType>, Dictionary<string, List<string>>, ParsedLine>
     {
         protected OperationOutputParameters<JoinType> Parameters { get; set; }
 
         /// <summary>
         /// The lookup data structure used to perform the operation.
         /// </summary>
-        protected Dictionary<string, string> LookupDictionary { get; set; }
+        protected Dictionary<string, List<string>> LookupDictionary { get; set; }
 
         public void Initialize(OperationOutputParameters<JoinType> processingParameters)
         {
@@ -32,7 +32,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
             this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
         }
 
-        public void AddLookupDataStructure(Dictionary<string, string> lookupDictionary)
+        public void AddLookupDataStructure(Dictionary<string, List<string>> lookupDictionary)
         {
             this.LookupDictionary = lookupDictionary;
         }
@@ -42,28 +42,31 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
             DataProcessorValidation.ValidateExtractedDataIsString(lineData);
             DataProcessorValidation.ValidateColumnInformation(lineData);
 
-            string data = lineData.ExtractedData.ToString();
+            string lineKey = lineData.ExtractedData.ToString();
 
             // The case where we find a match in the lookup dictionary
             // is handled in the same way for all join types.
             //
-            if (this.LookupDictionary.ContainsKey(data))
+            if (this.LookupDictionary.ContainsKey(lineKey))
             {
-                string joinLine = this.LookupDictionary[data];
+                List<string> joinLines = this.LookupDictionary[lineKey];
 
-                // Special case: if there is no join line (the line in the join file only contained the join key and no other columns),
-                // then we will still output the current line as is.
-                // 
-                string outputLine = lineData.OriginalLine;
-
-                // Join the line with our line.
-                //
-                if (joinLine != null)
+                foreach (string joinLine in joinLines)
                 {
-                    outputLine += lineData.ColumnSeparator + joinLine;
-                }
+                    // Special case: if there is no join line (the line in the join file only contained the join key and no other columns),
+                    // then we will still output the current line as is.
+                    // 
+                    string outputLine = lineData.OriginalLine;
 
-                this.OutputWriter.WriteLine(outputLine);
+                    // Join the line with our line.
+                    //
+                    if (joinLine != null)
+                    {
+                        outputLine += lineData.ColumnSeparator + joinLine;
+                    }
+
+                    this.OutputWriter.WriteLine(outputLine);
+                }
             }
             else
             {

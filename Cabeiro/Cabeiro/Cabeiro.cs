@@ -1125,7 +1125,7 @@ namespace LaurentiuCristofor.Cabeiro
                 = new LookupFileProcessor<
                     ColumnExtractor, ColumnExtractionParameters, ParsedLine,
                     ColumnExtractor, ColumnExtractionParameters, ParsedLine,
-                    JoinBuilder, Dictionary<string, string>,
+                    JoinBuilder, Dictionary<string, List<string>>,
                     JoinProcessor, OperationOutputParameters<JoinType>>(
                     firstFilePath,
                     firstExtractionParameters,

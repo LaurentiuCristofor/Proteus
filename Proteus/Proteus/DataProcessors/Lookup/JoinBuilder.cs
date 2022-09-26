@@ -13,16 +13,16 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
     /// <summary>
     /// A builder of a Dictionary&lt;string, string&gt; data structure used for lookup by join operations.
     /// </summary>
-    public class JoinBuilder : ILookupDataStructureBuilder<ParsedLine, Dictionary<string, string>>
+    public class JoinBuilder : ILookupDataStructureBuilder<ParsedLine, Dictionary<string, List<string>>>
     {
         /// <summary>
         /// The lookup data structure that we'll construct.
         /// </summary>
-        protected Dictionary<string, string> LookupDictionary { get; set; }
+        protected Dictionary<string, List<string>> LookupDictionary { get; set; }
 
         public JoinBuilder()
         {
-            this.LookupDictionary = new Dictionary<string, string>();
+            this.LookupDictionary = new Dictionary<string, List<string>>();
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
         /// </summary>
         /// <param name="lineData">The data to process.</param>
         /// <returns>A reference to the lookup data structure that was built so far.</returns>
-        public Dictionary<string, string> Execute(ParsedLine lineData)
+        public Dictionary<string, List<string>> Execute(ParsedLine lineData)
         {
             DataProcessorValidation.ValidateExtractedDataIsString(lineData);
             DataProcessorValidation.ValidateColumnInformation(lineData);
@@ -40,7 +40,16 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
             //
             string lineToJoin = lineData.AssembleWithoutColumn(lineData.ExtractedColumnNumber);
 
-            this.LookupDictionary.Add(lineData.ExtractedData.ToString(), lineToJoin);
+            string lineKey = lineData.ExtractedData.ToString();
+
+            // If this is the first time we see this key, initalize a List<string>.
+            //
+            if (!this.LookupDictionary.ContainsKey(lineKey))
+            {
+                this.LookupDictionary.Add(lineKey, new List<string>());
+            }
+
+            this.LookupDictionary[lineKey].Add(lineToJoin);
 
             return this.LookupDictionary;
         }
