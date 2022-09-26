@@ -217,6 +217,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.FirstInputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstFileColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataType}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondInputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondFileColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.JoinType}"
@@ -530,6 +531,24 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
                 + $"\n{CabeiroConstants.Commands.Arguments.Descriptions.LookupTypeText}"
                 + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
+            RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.JoinLinesPostSorting,
+                CommandCategory.Post_Sorting,
+                "(J)oin (L)ines (P)ost (S)orting",
+                longDescription: null,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.FirstInputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstFileColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondInputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondFileColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.JoinType}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument}]"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.JoinTypeText}"
+                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearJoinKeyRepetitions}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(

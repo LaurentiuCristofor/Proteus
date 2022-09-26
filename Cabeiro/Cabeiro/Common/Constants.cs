@@ -91,6 +91,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string SelectLinesPostSortingHandlingRepeatedColumnStrings = "slpshrcs";
             public const string SelectLinesPostSortingByLookupInFile = "slpsblif";
             public const string SelectLinesPostSortingByColumnValueLookupInFile = "slpsbcvlif";
+            public const string JoinLinesPostSorting = "jlps";
             public const string FindStateTransitions = "fst";
 
             // Command descriptions.
@@ -120,6 +121,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string SelectLinesPostSortingHandlingRepeatedColumnStrings = "Selects lines from a column-sorted file, handling lines with repeated column strings as specified.";
                 public const string SelectLinesPostSortingByLookupInFile = "Selects lines from a sorted file based on whether they appear in another sorted file or not. Does not verify the correct sorting of the input files.";
                 public const string SelectLinesPostSortingByColumnValueLookupInFile = "Selects lines from a column-sorted file based on whether their sorted column's value appears in the first column of another sorted file or not. Does not verify the correct sorting of the input files.";
+                public const string JoinLinesPostSorting = "Joins the lines of two column-sorted files. Does not verify the correct sorting of the input files.";
                 public const string FindStateTransitions = "Selects pairs of lines from a column-sorted file, which match on the sorted column's values, but differ on a second column's 'state' values. Two consecutive transitions will result in duplicate lines being output; for example, ABA will output AB and BA.";
             }
 
@@ -136,6 +138,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string MemoryRequirementLinearTotalSecond = "Memory requirement: O(N), where N is the total size of the second input data file.";
                 public const string MemoryRequirementLinearUniqueLookup = "Memory requirement: O(N), where N is the total size of unique data found in the lookup file.";
                 public const string MemoryRequirementLinearPrimaryColumnRepetitions = "Memory requirement: O(N), where N is the largest number of lines having the same primary column value.";
+                public const string MemoryRequirementLinearJoinKeyRepetitions = "Memory requirement: O(N), where N is the largest number of lines having the same join column value in the second input data file.";
                 public const string MemoryRequirementExceptionLast = "Exception: `last` and `nlast` require O(N) where N is the argument to these commands.";
             }
 

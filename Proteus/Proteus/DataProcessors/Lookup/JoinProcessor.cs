@@ -16,14 +16,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
     /// A data processor that looks up a string in a data structure,
     /// to find a line to join with the currently processed line.
     /// </summary>
-    public class JoinProcessor : BaseOutputProcessor, IDataLookupProcessor<OperationOutputParameters<JoinType>, Dictionary<string, List<string>>, ParsedLine>
+    public class JoinProcessor : BaseOutputProcessor, IDataLookupProcessor<OperationOutputParameters<JoinType>, Dictionary<DataTypeContainer, List<string>>, ParsedLine>
     {
         protected OperationOutputParameters<JoinType> Parameters { get; set; }
 
         /// <summary>
         /// The lookup data structure used to perform the operation.
         /// </summary>
-        protected Dictionary<string, List<string>> LookupDictionary { get; set; }
+        protected Dictionary<DataTypeContainer, List<string>> LookupDictionary { get; set; }
 
         public void Initialize(OperationOutputParameters<JoinType> processingParameters)
         {
@@ -32,7 +32,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
             this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
         }
 
-        public void AddLookupDataStructure(Dictionary<string, List<string>> lookupDictionary)
+        public void AddLookupDataStructure(Dictionary<DataTypeContainer, List<string>> lookupDictionary)
         {
             this.LookupDictionary = lookupDictionary;
         }
@@ -42,7 +42,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
             DataProcessorValidation.ValidateExtractedDataIsString(lineData);
             DataProcessorValidation.ValidateColumnInformation(lineData);
 
-            string lineKey = lineData.ExtractedData.ToString();
+            DataTypeContainer lineKey = lineData.ExtractedData;
 
             // The case where we find a match in the lookup dictionary
             // is handled in the same way for all join types.

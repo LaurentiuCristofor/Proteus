@@ -321,22 +321,24 @@ namespace LaurentiuCristofor.Cabeiro
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.JoinLines))
             {
-                const int minimumArgumentNumber = 7;
-                const int maximumArgumentNumber = 9;
+                const int minimumArgumentNumber = 8;
+                const int maximumArgumentNumber = 10;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
                     string firstFilePath = arguments[1];
                     int firstFileColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
-                    string secondFilePath = arguments[4];
-                    int secondFileColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[5]);
-                    Tuple<JoinType, int> operationInfo = ArgumentParser.ParseJoinType(arguments[6]);
-                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 7, arguments, out string[] operationArguments, out string outputFilePath);
+                    DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
+                    string secondFilePath = arguments[5];
+                    int secondFileColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[6]);
+                    Tuple<JoinType, int> operationInfo = ArgumentParser.ParseJoinType(arguments[7]);
+                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 8, arguments, out string[] operationArguments, out string outputFilePath);
 
                     JoinLines(
                         firstFilePath,
                         firstFileColumnNumber,
                         columnSeparator,
+                        dataType, arguments[4],
                         secondFilePath,
                         secondFileColumnNumber,
                         operationInfo.Item1, arguments[6],
@@ -792,6 +794,34 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.JoinLinesPostSorting))
+            {
+                const int minimumArgumentNumber = 8;
+                const int maximumArgumentNumber = 10;
+                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
+                {
+                    string firstFilePath = arguments[1];
+                    int firstFileColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
+                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
+                    DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
+                    string secondFilePath = arguments[5];
+                    int secondFileColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[6]);
+                    Tuple<JoinType, int> operationInfo = ArgumentParser.ParseJoinType(arguments[7]);
+                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 8, arguments, out string[] operationArguments, out string outputFilePath);
+
+                    JoinLinesPostSorting(
+                        firstFilePath,
+                        firstFileColumnNumber,
+                        columnSeparator,
+                        dataType, arguments[4],
+                        secondFilePath,
+                        secondFileColumnNumber,
+                        operationInfo.Item1, arguments[6],
+                        operationArguments,
+                        outputFilePath);
+                    return;
+                }
+            }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.FindStateTransitions))
             {
                 const int minimumArgumentNumber = 7;
@@ -1096,6 +1126,7 @@ namespace LaurentiuCristofor.Cabeiro
             string firstFilePath,
             int firstFileColumnNumber,
             string columnSeparator,
+            DataType dataType, string dataTypeString,
             string secondFilePath,
             int secondFileColumnNumber,
             JoinType joinType, string joinTypeString,
@@ -1105,14 +1136,14 @@ namespace LaurentiuCristofor.Cabeiro
             ColumnExtractionParameters firstExtractionParameters = new ColumnExtractionParameters(
                 columnSeparator,
                 firstFileColumnNumber,
-                DataType.String);
+                dataType);
 
             ColumnExtractionParameters secondExtractionParameters = new ColumnExtractionParameters(
                 columnSeparator,
                 secondFileColumnNumber,
-                DataType.String);
+                dataType);
 
-            string outputFileExtension = $".{CabeiroConstants.Commands.JoinLines}.{firstFileColumnNumber}.{joinTypeString.ToLower()}";
+            string outputFileExtension = $".{CabeiroConstants.Commands.JoinLines}.{firstFileColumnNumber}.{dataTypeString.ToLower()}.{joinTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(firstFilePath, outputFileExtension, joinArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
@@ -1125,7 +1156,7 @@ namespace LaurentiuCristofor.Cabeiro
                 = new LookupFileProcessor<
                     ColumnExtractor, ColumnExtractionParameters, ParsedLine,
                     ColumnExtractor, ColumnExtractionParameters, ParsedLine,
-                    JoinBuilder, Dictionary<string, List<string>>,
+                    JoinBuilder, Dictionary<DataTypeContainer, List<string>>,
                     JoinProcessor, OperationOutputParameters<JoinType>>(
                     firstFilePath,
                     firstExtractionParameters,
@@ -1736,7 +1767,7 @@ namespace LaurentiuCristofor.Cabeiro
             var dualFileProcessor
                 = new DualFileProcessor<
                     LineAsParsedLineExtractor, Unused, ParsedLine,
-                    LookupProcessor, OperationOutputParameters<LookupType>>(
+                    LookupPostSortingProcessor, OperationOutputParameters<LookupType>>(
                     dataFilePath,
                     firstExtractionParameters: null,
                     lookupFilePath,
@@ -1776,11 +1807,54 @@ namespace LaurentiuCristofor.Cabeiro
             var dualFileProcessor
                 = new DualFileProcessor<
                     ColumnExtractor, ColumnExtractionParameters, ParsedLine,
-                    LookupProcessor, OperationOutputParameters<LookupType>>(
+                    LookupPostSortingProcessor, OperationOutputParameters<LookupType>>(
                     dataFilePath,
                     dataFileExtractionParameters,
                     lookupFilePath,
                     lookupFileExtractionParameters,
+                    processingParameters);
+
+            dualFileProcessor.ProcessFiles();
+        }
+
+        private static void JoinLinesPostSorting(
+            string firstFilePath,
+            int firstFileColumnNumber,
+            string columnSeparator,
+            DataType dataType, string dataTypeString,
+            string secondFilePath,
+            int secondFileColumnNumber,
+            JoinType joinType, string joinTypeString,
+            string[] joinArguments,
+            string outputFilePath)
+        {
+            ColumnExtractionParameters firstExtractionParameters = new ColumnExtractionParameters(
+                columnSeparator,
+                firstFileColumnNumber,
+                dataType);
+
+            ColumnExtractionParameters secondExtractionParameters = new ColumnExtractionParameters(
+                columnSeparator,
+                secondFileColumnNumber,
+                dataType);
+
+            string outputFileExtension = $".{CabeiroConstants.Commands.JoinLines}.{firstFileColumnNumber}.{dataTypeString.ToLower()}.{joinTypeString.ToLower()}";
+            var filePathBuilder = new FilePathBuilder(firstFilePath, outputFileExtension, joinArguments, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            OperationOutputParameters<JoinType> processingParameters = new OperationOutputParameters<JoinType>(
+                outputFilePath,
+                joinType,
+                joinArguments);
+
+            var dualFileProcessor
+                = new DualFileProcessor<
+                    ColumnExtractor, ColumnExtractionParameters, ParsedLine,
+                    JoinPostSortingProcessor, OperationOutputParameters<JoinType>>(
+                    firstFilePath,
+                    firstExtractionParameters,
+                    secondFilePath,
+                    secondExtractionParameters,
                     processingParameters);
 
             dualFileProcessor.ProcessFiles();
