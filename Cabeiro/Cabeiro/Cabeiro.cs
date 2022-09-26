@@ -319,7 +319,8 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.JoinLines))
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.JoinLines)
+                || ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.JoinLinesPostSorting))
             {
                 const int minimumArgumentNumber = 8;
                 const int maximumArgumentNumber = 10;
@@ -334,7 +335,10 @@ namespace LaurentiuCristofor.Cabeiro
                     Tuple<JoinType, int> operationInfo = ArgumentParser.ParseJoinType(arguments[7]);
                     ArgumentParser.ExtractLastArguments(operationInfo.Item2, 8, arguments, out string[] operationArguments, out string outputFilePath);
 
+                    bool isSorted = ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.JoinLinesPostSorting);
+
                     JoinLines(
+                        isSorted,
                         firstFilePath,
                         firstFileColumnNumber,
                         columnSeparator,
@@ -508,7 +512,8 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesHandlingRepeatedLines))
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesHandlingRepeatedLines)
+                || ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingHandlingRepeatedLines))
             {
                 const int minimumArgumentNumber = 2;
                 const int maximumArgumentNumber = 3;
@@ -518,15 +523,18 @@ namespace LaurentiuCristofor.Cabeiro
                     Tuple<RepetitionHandlingType, int> operationInfo = ArgumentParser.ParseRepetitionHandlingType(arguments[2]);
                     ArgumentParser.ExtractLastArguments(0, 3, arguments, out _, out string outputFilePath);
 
+                    bool isSorted = ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingHandlingRepeatedLines);
+
                     SelectLinesHandlingRepeatedLines(
-                        isSorted: false,
+                        isSorted,
                         inputFilePath,
                         operationInfo.Item1, arguments[2],
                         outputFilePath);
                     return;
                 }
             }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesHandlingRepeatedColumnStrings))
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesHandlingRepeatedColumnStrings)
+                || ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingHandlingRepeatedColumnStrings))
             {
                 const int minimumArgumentNumber = 4;
                 const int maximumArgumentNumber = 5;
@@ -538,8 +546,10 @@ namespace LaurentiuCristofor.Cabeiro
                     Tuple<RepetitionHandlingType, int> operationInfo = ArgumentParser.ParseRepetitionHandlingType(arguments[4]);
                     ArgumentParser.ExtractLastArguments(0, 5, arguments, out _, out string outputFilePath);
 
+                    bool isSorted = ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingHandlingRepeatedColumnStrings);
+
                     SelectLinesHandlingRepeatedColumnStrings(
-                        isSorted: false,
+                        isSorted,
                         inputFilePath,
                         columnNumber,
                         columnSeparator,
@@ -548,7 +558,8 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByLookupInFile))
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByLookupInFile)
+                || ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByLookupInFile))
             {
                 const int minimumArgumentNumber = 4;
                 const int maximumArgumentNumber = 5;
@@ -559,7 +570,10 @@ namespace LaurentiuCristofor.Cabeiro
                     Tuple<LookupType, int> operationInfo = ArgumentParser.ParseLookupType(arguments[3]);
                     ArgumentParser.ExtractLastArguments(operationInfo.Item2, 4, arguments, out _, out string outputFilePath);
 
+                    bool isSorted = ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByLookupInFile);
+
                     SelectLinesByLookupInFile(
+                        isSorted,
                         dataFilePath,
                         lookupFilePath,
                         operationInfo.Item1, arguments[3],
@@ -567,7 +581,8 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByColumnValueLookupInFile))
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByColumnValueLookupInFile)
+                || ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByColumnValueLookupInFile))
             {
                 const int minimumArgumentNumber = 8;
                 const int maximumArgumentNumber = 9;
@@ -582,7 +597,10 @@ namespace LaurentiuCristofor.Cabeiro
                     Tuple<LookupType, int> operationInfo = ArgumentParser.ParseLookupType(arguments[7]);
                     ArgumentParser.ExtractLastArguments(operationInfo.Item2, 8, arguments, out _, out string outputFilePath);
 
+                    bool isSorted = ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByColumnValueLookupInFile);
+
                     SelectLinesByColumnValueLookupInFile(
+                        isSorted,
                         dataFilePath,
                         dataFileColumnNumber,
                         columnSeparator,
@@ -710,118 +728,6 @@ namespace LaurentiuCristofor.Cabeiro
                         dataType, arguments[4],
                         secondFilePath,
                         secondFileColumnNumber,
-                        outputFilePath);
-                    return;
-                }
-            }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingHandlingRepeatedLines))
-            {
-                const int minimumArgumentNumber = 2;
-                const int maximumArgumentNumber = 3;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    Tuple<RepetitionHandlingType, int> operationInfo = ArgumentParser.ParseRepetitionHandlingType(arguments[2]);
-                    ArgumentParser.ExtractLastArguments(0, 3, arguments, out _, out string outputFilePath);
-
-                    SelectLinesHandlingRepeatedLines(
-                        isSorted: true,
-                        inputFilePath,
-                        operationInfo.Item1, arguments[2],
-                        outputFilePath);
-                    return;
-                }
-            }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingHandlingRepeatedColumnStrings))
-            {
-                const int minimumArgumentNumber = 4;
-                const int maximumArgumentNumber = 5;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
-                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
-                    Tuple<RepetitionHandlingType, int> operationInfo = ArgumentParser.ParseRepetitionHandlingType(arguments[4]);
-                    ArgumentParser.ExtractLastArguments(0, 5, arguments, out _, out string outputFilePath);
-
-                    SelectLinesHandlingRepeatedColumnStrings(
-                        isSorted: true,
-                        inputFilePath,
-                        columnNumber,
-                        columnSeparator,
-                        operationInfo.Item1, arguments[4],
-                        outputFilePath);
-                    return;
-                }
-            }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByLookupInFile))
-            {
-                const int minimumArgumentNumber = 4;
-                const int maximumArgumentNumber = 5;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string dataFilePath = arguments[1];
-                    string lookupFilePath = arguments[2];
-                    Tuple<LookupType, int> operationInfo = ArgumentParser.ParseLookupType(arguments[3]);
-                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 4, arguments, out _, out string outputFilePath);
-
-                    SelectLinesPostSortingByLookupInFile(
-                        dataFilePath,
-                        lookupFilePath,
-                        operationInfo.Item1, arguments[3],
-                        outputFilePath);
-                    return;
-                }
-            }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByColumnValueLookupInFile))
-            {
-                const int minimumArgumentNumber = 7;
-                const int maximumArgumentNumber = 8;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string dataFilePath = arguments[1];
-                    int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
-                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
-                    DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
-                    string lookupFilePath = arguments[5];
-                    Tuple<LookupType, int> operationInfo = ArgumentParser.ParseLookupType(arguments[6]);
-                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 7, arguments, out _, out string outputFilePath);
-
-                    SelectLinesPostSortingByColumnValueLookupInFile(
-                        dataFilePath,
-                        columnNumber,
-                        columnSeparator,
-                        dataType, arguments[4],
-                        lookupFilePath,
-                        operationInfo.Item1, arguments[6],
-                        outputFilePath);
-                    return;
-                }
-            }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.JoinLinesPostSorting))
-            {
-                const int minimumArgumentNumber = 8;
-                const int maximumArgumentNumber = 10;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string firstFilePath = arguments[1];
-                    int firstFileColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
-                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
-                    DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
-                    string secondFilePath = arguments[5];
-                    int secondFileColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[6]);
-                    Tuple<JoinType, int> operationInfo = ArgumentParser.ParseJoinType(arguments[7]);
-                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 8, arguments, out string[] operationArguments, out string outputFilePath);
-
-                    JoinLinesPostSorting(
-                        firstFilePath,
-                        firstFileColumnNumber,
-                        columnSeparator,
-                        dataType, arguments[4],
-                        secondFilePath,
-                        secondFileColumnNumber,
-                        operationInfo.Item1, arguments[6],
-                        operationArguments,
                         outputFilePath);
                     return;
                 }
@@ -1127,6 +1033,7 @@ namespace LaurentiuCristofor.Cabeiro
         }
 
         private static void JoinLines(
+            bool isSorted,
             string firstFilePath,
             int firstFileColumnNumber,
             string columnSeparator,
@@ -1147,7 +1054,10 @@ namespace LaurentiuCristofor.Cabeiro
                 secondFileColumnNumber,
                 dataType);
 
-            string outputFileExtension = $".{CabeiroConstants.Commands.JoinLines}.{firstFileColumnNumber}.{dataTypeString.ToLower()}.{joinTypeString.ToLower()}";
+            string outputFileExtension
+                = isSorted
+                ? $".{CabeiroConstants.Commands.JoinLinesPostSorting}.{firstFileColumnNumber}.{dataTypeString.ToLower()}.{joinTypeString.ToLower()}"
+                : $".{CabeiroConstants.Commands.JoinLines}.{firstFileColumnNumber}.{dataTypeString.ToLower()}.{joinTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(firstFilePath, outputFileExtension, joinArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
@@ -1156,19 +1066,36 @@ namespace LaurentiuCristofor.Cabeiro
                 joinType,
                 joinArguments);
 
-            var lookupFileProcessor
-                = new LookupFileProcessor<
-                    ColumnExtractor, ColumnExtractionParameters, ParsedLine,
-                    ColumnExtractor, ColumnExtractionParameters, ParsedLine,
-                    JoinBuilder, Dictionary<DataTypeContainer, List<string>>,
-                    JoinProcessor, OperationOutputParameters<JoinType>>(
-                    firstFilePath,
-                    firstExtractionParameters,
-                    secondFilePath,
-                    secondExtractionParameters,
-                    processingParameters);
+            if (isSorted)
+            {
+                var dualFileProcessor
+                    = new DualFileProcessor<
+                        ColumnExtractor, ColumnExtractionParameters, ParsedLine,
+                        JoinPostSortingProcessor, OperationOutputParameters<JoinType>>(
+                        firstFilePath,
+                        firstExtractionParameters,
+                        secondFilePath,
+                        secondExtractionParameters,
+                        processingParameters);
 
-            lookupFileProcessor.ProcessFiles();
+                dualFileProcessor.ProcessFiles();
+            }
+            else
+            {
+                var lookupFileProcessor
+                    = new LookupFileProcessor<
+                        ColumnExtractor, ColumnExtractionParameters, ParsedLine,
+                        ColumnExtractor, ColumnExtractionParameters, ParsedLine,
+                        JoinBuilder, Dictionary<DataTypeContainer, List<string>>,
+                        JoinProcessor, OperationOutputParameters<JoinType>>(
+                        firstFilePath,
+                        firstExtractionParameters,
+                        secondFilePath,
+                        secondExtractionParameters,
+                        processingParameters);
+
+                lookupFileProcessor.ProcessFiles();
+            }
         }
 
         private static void ConcatenateLines(
@@ -1494,12 +1421,16 @@ namespace LaurentiuCristofor.Cabeiro
         }
 
         private static void SelectLinesByLookupInFile(
+            bool isSorted,
             string dataFilePath,
             string lookupFilePath,
             LookupType lookupType, string lookupTypeString,
             string outputFilePath)
         {
-            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesByLookupInFile}.{lookupTypeString.ToLower()}";
+            string outputFileExtension
+                = isSorted
+                ? $".{CabeiroConstants.Commands.SelectLinesPostSortingByLookupInFile}.{lookupTypeString.ToLower()}"
+                : $".{CabeiroConstants.Commands.SelectLinesByLookupInFile}.{lookupTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(dataFilePath, outputFileExtension, operationArguments: null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
@@ -1507,22 +1438,40 @@ namespace LaurentiuCristofor.Cabeiro
                 outputFilePath,
                 lookupType);
 
-            var lookupFileProcessor
-                = new LookupFileProcessor<
-                    LineAsParsedLineExtractor, Unused, ParsedLine,
-                    LineAsParsedLineExtractor, Unused, ParsedLine,
-                    LookupBuilder, HashSet<DataTypeContainer>,
-                    LookupProcessor, OperationOutputParameters<LookupType>>(
-                    dataFilePath,
-                    dataFileExtractionParameters: null,
-                    lookupFilePath,
-                    lookupFileExtractionParameters: null,
-                    processingParameters);
+            if (isSorted)
+            {
+                var dualFileProcessor
+                    = new DualFileProcessor<
+                        LineAsParsedLineExtractor, Unused, ParsedLine,
+                        LookupPostSortingProcessor, OperationOutputParameters<LookupType>>(
+                        dataFilePath,
+                        firstExtractionParameters: null,
+                        lookupFilePath,
+                        secondExtractionParameters: null,
+                        processingParameters);
 
-            lookupFileProcessor.ProcessFiles();
+                dualFileProcessor.ProcessFiles();
+            }
+            else
+            {
+                var lookupFileProcessor
+                    = new LookupFileProcessor<
+                        LineAsParsedLineExtractor, Unused, ParsedLine,
+                        LineAsParsedLineExtractor, Unused, ParsedLine,
+                        LookupBuilder, HashSet<DataTypeContainer>,
+                        LookupProcessor, OperationOutputParameters<LookupType>>(
+                        dataFilePath,
+                        dataFileExtractionParameters: null,
+                        lookupFilePath,
+                        lookupFileExtractionParameters: null,
+                        processingParameters);
+
+                lookupFileProcessor.ProcessFiles();
+            }
         }
 
         private static void SelectLinesByColumnValueLookupInFile(
+            bool isSorted,
             string dataFilePath,
             int dataFileColumnNumber,
             string columnSeparator,
@@ -1542,7 +1491,10 @@ namespace LaurentiuCristofor.Cabeiro
                 lookupFileColumnNumber,
                 dataType);
 
-            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesByColumnValueLookupInFile}.{dataFileColumnNumber}.{dataTypeString.ToLower()}.{lookupTypeString.ToLower()}";
+            string outputFileExtension
+                = isSorted
+                ? $".{CabeiroConstants.Commands.SelectLinesPostSortingByColumnValueLookupInFile}.{dataFileColumnNumber}.{dataTypeString.ToLower()}.{lookupTypeString.ToLower()}"
+                : $".{CabeiroConstants.Commands.SelectLinesByColumnValueLookupInFile}.{dataFileColumnNumber}.{dataTypeString.ToLower()}.{lookupTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(dataFilePath, outputFileExtension, operationArguments: null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
@@ -1550,19 +1502,36 @@ namespace LaurentiuCristofor.Cabeiro
                 outputFilePath,
                 lookupType);
 
-            var lookupFileProcessor
-                = new LookupFileProcessor<
-                    ColumnExtractor, ColumnExtractionParameters, ParsedLine,
-                    ColumnExtractor, ColumnExtractionParameters, ParsedLine,
-                    LookupBuilder, HashSet<DataTypeContainer>,
-                    LookupProcessor, OperationOutputParameters<LookupType>>(
-                    dataFilePath,
-                    dataFileExtractionParameters,
-                    lookupFilePath,
-                    lookupFileExtractionParameters,
-                    processingParameters);
+            if (isSorted)
+            {
+                var dualFileProcessor
+                    = new DualFileProcessor<
+                        ColumnExtractor, ColumnExtractionParameters, ParsedLine,
+                        LookupPostSortingProcessor, OperationOutputParameters<LookupType>>(
+                        dataFilePath,
+                        dataFileExtractionParameters,
+                        lookupFilePath,
+                        lookupFileExtractionParameters,
+                        processingParameters);
 
-            lookupFileProcessor.ProcessFiles();
+                dualFileProcessor.ProcessFiles();
+            }
+            else
+            {
+                var lookupFileProcessor
+                    = new LookupFileProcessor<
+                        ColumnExtractor, ColumnExtractionParameters, ParsedLine,
+                        ColumnExtractor, ColumnExtractionParameters, ParsedLine,
+                        LookupBuilder, HashSet<DataTypeContainer>,
+                        LookupProcessor, OperationOutputParameters<LookupType>>(
+                        dataFilePath,
+                        dataFileExtractionParameters,
+                        lookupFilePath,
+                        lookupFileExtractionParameters,
+                        processingParameters);
+
+                lookupFileProcessor.ProcessFiles();
+            }
         }
 
         private static void SplitLineRanges(
@@ -1752,116 +1721,6 @@ namespace LaurentiuCristofor.Cabeiro
                 = new DualFileProcessor<
                     ColumnExtractor, ColumnExtractionParameters, ParsedLine,
                     MergeProcessor, BaseOutputParameters>(
-                    firstFilePath,
-                    firstExtractionParameters,
-                    secondFilePath,
-                    secondExtractionParameters,
-                    processingParameters);
-
-            dualFileProcessor.ProcessFiles();
-        }
-
-        private static void SelectLinesPostSortingByLookupInFile(
-            string dataFilePath,
-            string lookupFilePath,
-            LookupType lookupType, string lookupTypeString,
-            string outputFilePath)
-        {
-            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesPostSortingByLookupInFile}.{lookupTypeString.ToLower()}";
-            var filePathBuilder = new FilePathBuilder(dataFilePath, outputFileExtension, operationArguments: null, outputFilePath);
-            outputFilePath = filePathBuilder.BuildOutputFilePath();
-
-            OperationOutputParameters<LookupType> processingParameters = new OperationOutputParameters<LookupType>(
-                outputFilePath,
-                lookupType);
-
-            var dualFileProcessor
-                = new DualFileProcessor<
-                    LineAsParsedLineExtractor, Unused, ParsedLine,
-                    LookupPostSortingProcessor, OperationOutputParameters<LookupType>>(
-                    dataFilePath,
-                    firstExtractionParameters: null,
-                    lookupFilePath,
-                    secondExtractionParameters: null,
-                    processingParameters);
-
-            dualFileProcessor.ProcessFiles();
-        }
-
-        private static void SelectLinesPostSortingByColumnValueLookupInFile(
-            string dataFilePath,
-            int columnNumber,
-            string columnSeparator,
-            DataType dataType, string dataTypeString,
-            string lookupFilePath,
-            LookupType lookupType, string lookupTypeString,
-            string outputFilePath)
-        {
-            ColumnExtractionParameters dataFileExtractionParameters = new ColumnExtractionParameters(
-                columnSeparator,
-                columnNumber,
-                dataType);
-
-            ColumnExtractionParameters lookupFileExtractionParameters = new ColumnExtractionParameters(
-                columnSeparator,
-                columnNumber: 1,
-                dataType);
-
-            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesPostSortingByColumnValueLookupInFile}.{columnNumber}.{dataTypeString.ToLower()}.{lookupTypeString.ToLower()}";
-            var filePathBuilder = new FilePathBuilder(dataFilePath, outputFileExtension, operationArguments: null, outputFilePath);
-            outputFilePath = filePathBuilder.BuildOutputFilePath();
-
-            OperationOutputParameters<LookupType> processingParameters = new OperationOutputParameters<LookupType>(
-                outputFilePath,
-                lookupType);
-
-            var dualFileProcessor
-                = new DualFileProcessor<
-                    ColumnExtractor, ColumnExtractionParameters, ParsedLine,
-                    LookupPostSortingProcessor, OperationOutputParameters<LookupType>>(
-                    dataFilePath,
-                    dataFileExtractionParameters,
-                    lookupFilePath,
-                    lookupFileExtractionParameters,
-                    processingParameters);
-
-            dualFileProcessor.ProcessFiles();
-        }
-
-        private static void JoinLinesPostSorting(
-            string firstFilePath,
-            int firstFileColumnNumber,
-            string columnSeparator,
-            DataType dataType, string dataTypeString,
-            string secondFilePath,
-            int secondFileColumnNumber,
-            JoinType joinType, string joinTypeString,
-            string[] joinArguments,
-            string outputFilePath)
-        {
-            ColumnExtractionParameters firstExtractionParameters = new ColumnExtractionParameters(
-                columnSeparator,
-                firstFileColumnNumber,
-                dataType);
-
-            ColumnExtractionParameters secondExtractionParameters = new ColumnExtractionParameters(
-                columnSeparator,
-                secondFileColumnNumber,
-                dataType);
-
-            string outputFileExtension = $".{CabeiroConstants.Commands.JoinLines}.{firstFileColumnNumber}.{dataTypeString.ToLower()}.{joinTypeString.ToLower()}";
-            var filePathBuilder = new FilePathBuilder(firstFilePath, outputFileExtension, joinArguments, outputFilePath);
-            outputFilePath = filePathBuilder.BuildOutputFilePath();
-
-            OperationOutputParameters<JoinType> processingParameters = new OperationOutputParameters<JoinType>(
-                outputFilePath,
-                joinType,
-                joinArguments);
-
-            var dualFileProcessor
-                = new DualFileProcessor<
-                    ColumnExtractor, ColumnExtractionParameters, ParsedLine,
-                    JoinPostSortingProcessor, OperationOutputParameters<JoinType>>(
                     firstFilePath,
                     firstExtractionParameters,
                     secondFilePath,
