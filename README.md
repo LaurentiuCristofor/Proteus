@@ -93,7 +93,7 @@ These commands extract a subset of a file, according to various criteria.
 * SLHRL - (S)elect (L)ines (H)andling (R)epeated (L)ines
 * SLHRCS - (S)elect (L)ines (H)andling (R)epeated (C)olumn (S)trings
 * SLBLIF - (S)elect (L)ines (B)y (L)ookup (I)n (F)ile
-* SLBCSLIF - (S)elect (L)ines (B)y (C)olumn (S)tring (L)ookup (I)n (F)ile
+* SLBCSLIF - (S)elect (L)ines (B)y (C)olumn (V)alue (L)ookup (I)n (F)ile
 
 #### SPLITTING commands
 
@@ -114,4 +114,5 @@ These commands expect that their input files had been previously sorted; column 
 * SLPSHRCS - (S)elect (L)ines (P)ost (S)orting (H)andling (R)epeated (C)olumn (S)trings
 * SLPSBLIF - (S)elect (L)ines (P)ost (S)orting (B)y (L)ookup (I)n (F)ile
 * SLPSBCVLIF - (S)elect (L)ines (P)ost (S)orting (B)y (C)olumn (V)alue (L)ookup (I)n (F)ile
+* JLPS - (J)oin (L)ines (P)ost (S)orting
 * FST - (F)ind (S)tate (T)ransitions

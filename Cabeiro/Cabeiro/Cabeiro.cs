@@ -567,24 +567,28 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByColumnStringLookupInFile))
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByColumnValueLookupInFile))
             {
-                const int minimumArgumentNumber = 6;
-                const int maximumArgumentNumber = 7;
+                const int minimumArgumentNumber = 8;
+                const int maximumArgumentNumber = 9;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
                     string dataFilePath = arguments[1];
-                    int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
+                    int dataFileColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
-                    string lookupFilePath = arguments[4];
-                    Tuple<LookupType, int> operationInfo = ArgumentParser.ParseLookupType(arguments[5]);
-                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 6, arguments, out _, out string outputFilePath);
+                    DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
+                    string lookupFilePath = arguments[5];
+                    int lookupFileColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[6]);
+                    Tuple<LookupType, int> operationInfo = ArgumentParser.ParseLookupType(arguments[7]);
+                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 8, arguments, out _, out string outputFilePath);
 
-                    SelectLinesByColumnStringLookupInFile(
+                    SelectLinesByColumnValueLookupInFile(
                         dataFilePath,
-                        columnNumber,
+                        dataFileColumnNumber,
                         columnSeparator,
+                        dataType, arguments[4],
                         lookupFilePath,
+                        lookupFileColumnNumber,
                         operationInfo.Item1, arguments[5],
                         outputFilePath);
                     return;
@@ -1506,9 +1510,9 @@ namespace LaurentiuCristofor.Cabeiro
             var lookupFileProcessor
                 = new LookupFileProcessor<
                     LineAsParsedLineExtractor, Unused, ParsedLine,
-                    LineExtractor, Unused, string,
-                    LookupBuilder, HashSet<string>,
-                    LookupStringProcessor, OperationOutputParameters<LookupType>>(
+                    LineAsParsedLineExtractor, Unused, ParsedLine,
+                    LookupBuilder, HashSet<DataTypeContainer>,
+                    LookupProcessor, OperationOutputParameters<LookupType>>(
                     dataFilePath,
                     dataFileExtractionParameters: null,
                     lookupFilePath,
@@ -1518,20 +1522,27 @@ namespace LaurentiuCristofor.Cabeiro
             lookupFileProcessor.ProcessFiles();
         }
 
-        private static void SelectLinesByColumnStringLookupInFile(
+        private static void SelectLinesByColumnValueLookupInFile(
             string dataFilePath,
-            int columnNumber,
+            int dataFileColumnNumber,
             string columnSeparator,
+            DataType dataType, string dataTypeString,
             string lookupFilePath,
+            int lookupFileColumnNumber,
             LookupType lookupType, string lookupTypeString,
             string outputFilePath)
         {
             ColumnExtractionParameters dataFileExtractionParameters = new ColumnExtractionParameters(
                 columnSeparator,
-                columnNumber,
-                DataType.String);
+                dataFileColumnNumber,
+                dataType);
 
-            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesByColumnStringLookupInFile}.{columnNumber}.{lookupTypeString.ToLower()}";
+            ColumnExtractionParameters lookupFileExtractionParameters = new ColumnExtractionParameters(
+                columnSeparator,
+                lookupFileColumnNumber,
+                dataType);
+
+            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesByColumnValueLookupInFile}.{dataFileColumnNumber}.{dataTypeString.ToLower()}.{lookupTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(dataFilePath, outputFileExtension, operationArguments: null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
@@ -1542,13 +1553,13 @@ namespace LaurentiuCristofor.Cabeiro
             var lookupFileProcessor
                 = new LookupFileProcessor<
                     ColumnExtractor, ColumnExtractionParameters, ParsedLine,
-                    LineExtractor, Unused, string,
-                    LookupBuilder, HashSet<string>,
-                    LookupStringProcessor, OperationOutputParameters<LookupType>>(
+                    ColumnExtractor, ColumnExtractionParameters, ParsedLine,
+                    LookupBuilder, HashSet<DataTypeContainer>,
+                    LookupProcessor, OperationOutputParameters<LookupType>>(
                     dataFilePath,
                     dataFileExtractionParameters,
                     lookupFilePath,
-                    lookupFileExtractionParameters: null,
+                    lookupFileExtractionParameters,
                     processingParameters);
 
             lookupFileProcessor.ProcessFiles();
@@ -1796,7 +1807,7 @@ namespace LaurentiuCristofor.Cabeiro
                 columnNumber: 1,
                 dataType);
 
-            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesByColumnStringLookupInFile}.{columnNumber}.{dataTypeString.ToLower()}.{lookupTypeString.ToLower()}";
+            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesPostSortingByColumnValueLookupInFile}.{columnNumber}.{dataTypeString.ToLower()}.{lookupTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(dataFilePath, outputFileExtension, operationArguments: null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 

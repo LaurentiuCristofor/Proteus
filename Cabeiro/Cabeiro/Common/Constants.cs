@@ -78,7 +78,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string SelectLinesHandlingRepeatedLines = "slhrl";
             public const string SelectLinesHandlingRepeatedColumnStrings = "slhrcs";
             public const string SelectLinesByLookupInFile = "slblif";
-            public const string SelectLinesByColumnStringLookupInFile = "slbcslif";
+            public const string SelectLinesByColumnValueLookupInFile = "slbcvlif";
 
             public const string SplitLineRanges = "splr";
             public const string SplitColumns = "spc";
@@ -109,7 +109,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string SelectLinesHandlingRepeatedLines = "Selects lines, handling repeated lines as specified.";
                 public const string SelectLinesHandlingRepeatedColumnStrings = "Selects lines, handling lines with repeated column strings as specified.";
                 public const string SelectLinesByLookupInFile = "Selects lines based on whether they appear in another file or not.";
-                public const string SelectLinesByColumnStringLookupInFile = "Selects lines based on whether their specified column's string appears in another file or not.";
+                public const string SelectLinesByColumnValueLookupInFile = "Selects lines based on whether their specified column's value appears in another file or not.";
 
                 public const string SplitLineRanges = "Splits a file into multiple files, each containing a range of lines of specified size. Last file will likely have fewer lines than the rest.";
                 public const string SplitColumns = "Splits a file into multiple files, one for each column. Resulting files may have different size than the original file, if the original file contained lines with varying number of columns.";
@@ -278,6 +278,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
                     public const string ColumnNumber = "<column_number>";
                     public const string FirstFileColumnNumber = "<first_file_column_number>";
                     public const string SecondFileColumnNumber = "<second_file_column_number>";
+                    public const string DataFileColumnNumber = "<first_file_column_number>";
+                    public const string LookupFileColumnNumber = "<second_file_column_number>";
                     public const string ColumnSeparator = "<column_separator>";
                     public const string FirstArgument = "<first_argument>";
                     public const string SecondArgument = "<second_argument>";

@@ -6,31 +6,34 @@
 
 using System.Collections.Generic;
 
+using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.DataExtractors;
+
 namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
 {
     /// <summary>
-    /// A builder of a HashSet&lt;string&gt; data structure, used for plain lookup operations.
+    /// A builder of a HashSet data structure, used for plain lookup operations.
     /// </summary>
-    public class LookupBuilder : ILookupDataStructureBuilder<string, HashSet<string>>
+    public class LookupBuilder : ILookupDataStructureBuilder<ParsedLine, HashSet<DataTypeContainer>>
     {
         /// <summary>
         /// The lookup data structure that we'll construct.
         /// </summary>
-        protected HashSet<string> LookupSet { get; set; }
+        protected HashSet<DataTypeContainer> LookupSet { get; set; }
 
         public LookupBuilder()
         {
-            this.LookupSet = new HashSet<string>();
+            this.LookupSet = new HashSet<DataTypeContainer>();
         }
 
         /// <summary>
         /// Execute the builder on a unit of data.
         /// </summary>
-        /// <param name="inputData">The data to process.</param>
+        /// <param name="lineData">The data to process.</param>
         /// <returns>A reference to the lookup data structure that was built so far.</returns>
-        public HashSet<string> Execute(string inputData)
+        public HashSet<DataTypeContainer> Execute(ParsedLine lineData)
         {
-            this.LookupSet.Add(inputData);
+            this.LookupSet.Add(lineData.ExtractedData);
 
             return this.LookupSet;
         }

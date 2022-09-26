@@ -13,17 +13,17 @@ using LaurentiuCristofor.Proteus.FileOperations;
 namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
 {
     /// <summary>
-    /// A data processor that looks up a string in a data structure according to a selection criteria,
+    /// A data processor that looks up a DataTypeContainer in a data structure according to a selection criteria,
     /// to decide whether to output the line or not.
     /// </summary>
-    public class LookupStringProcessor : BaseOutputProcessor, IDataLookupProcessor<OperationOutputParameters<LookupType>, HashSet<string>, ParsedLine>
+    public class LookupProcessor : BaseOutputProcessor, IDataLookupProcessor<OperationOutputParameters<LookupType>, HashSet<DataTypeContainer>, ParsedLine>
     {
         protected OperationOutputParameters<LookupType> Parameters { get; set; }
 
         /// <summary>
         /// The lookup data structure used to perform the operation.
         /// </summary>
-        protected HashSet<string> LookupSet { get; set; }
+        protected HashSet<DataTypeContainer> LookupSet { get; set; }
 
         public void Initialize(OperationOutputParameters<LookupType> processingParameters)
         {
@@ -32,7 +32,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
             this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
         }
 
-        public void AddLookupDataStructure(HashSet<string> lookupSet)
+        public void AddLookupDataStructure(HashSet<DataTypeContainer> lookupSet)
         {
             this.LookupSet = lookupSet;
         }
@@ -41,9 +41,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
         {
             DataProcessorValidation.ValidateExtractedDataIsString(lineData);
 
-            string data = lineData.ExtractedData.ToString();
-
-            bool isDataIncluded = this.LookupSet.Contains(data);
+            bool isDataIncluded = this.LookupSet.Contains(lineData.ExtractedData);
 
             bool shouldOutputLine;
             switch (this.Parameters.OperationType)

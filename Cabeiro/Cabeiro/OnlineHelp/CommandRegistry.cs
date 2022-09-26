@@ -223,7 +223,8 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.JoinType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument}]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
-                $"{CabeiroConstants.Commands.Arguments.Descriptions.JoinTypeText}"
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
+                + $"\n{CabeiroConstants.Commands.Arguments.Descriptions.JoinTypeText}"
                 + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearTotalSecond}");
             RegisterCommandDescription(commandDescription);
 
@@ -382,14 +383,16 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
-                CabeiroConstants.Commands.SelectLinesByColumnStringLookupInFile,
+                CabeiroConstants.Commands.SelectLinesByColumnValueLookupInFile,
                 CommandCategory.Selection,
-                "(S)elect (L)ines (B)y (C)olumn (S)tring (L)ookup (I)n (F)ile",
-                CabeiroConstants.Commands.Descriptions.SelectLinesByColumnStringLookupInFile,
+                "(S)elect (L)ines (B)y (C)olumn (V)alue (L)ookup (I)n (F)ile",
+                CabeiroConstants.Commands.Descriptions.SelectLinesByColumnValueLookupInFile,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataFilePath}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataFileColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataType}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.LookupFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.LookupFileColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.LookupType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.LookupTypeText}"
@@ -547,7 +550,8 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.JoinType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument}]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
-                $"{CabeiroConstants.Commands.Arguments.Descriptions.JoinTypeText}"
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
+                + $"\n{CabeiroConstants.Commands.Arguments.Descriptions.JoinTypeText}"
                 + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearJoinKeyRepetitions}");
             RegisterCommandDescription(commandDescription);
 
