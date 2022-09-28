@@ -347,7 +347,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             commandDescription = new CommandDescription(
                 CabeiroConstants.Commands.SelectLinesByLineStringRelativeToOtherLines,
                 CommandCategory.Selection,
-                "(S)elect (L)ines (B)y (L)ine (S)tring (R)elative (T)o (O)ther (L)ines",
+                "(S)elect (L)ines (B)y (L)ine (S)tring (R)elative to other lines",
                 CabeiroConstants.Commands.Descriptions.SelectLinesByLineStringRelativeToOtherLines,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.SelectionType}"
@@ -359,7 +359,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             commandDescription = new CommandDescription(
                 CabeiroConstants.Commands.SelectLinesByColumnValueRelativeToOtherLines,
                 CommandCategory.Selection,
-                "(S)elect (L)ines (B)y (C)olumn (V)alue (R)elative (T)o (O)ther (L)ines",
+                "(S)elect (L)ines (B)y (C)olumn (V)alue (R)elative to other lines",
                 CabeiroConstants.Commands.Descriptions.SelectLinesByColumnValueRelativeToOtherLines,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
@@ -488,7 +488,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             commandDescription = new CommandDescription(
                 CabeiroConstants.Commands.SelectLinesPostSortingByLineStringRelativeToOtherLines,
                 CommandCategory.Post_Sorting,
-                "(S)elect (L)ines (P)ost (S)orting (B)y (L)ine (S)tring (R)elative (T)o (O)ther (L)ines",
+                "(S)elect (L)ines (P)ost (S)orting (B)y (L)ine (S)tring (R)elative to other lines",
                 CabeiroConstants.Commands.Descriptions.SelectLinesPostSortingByLineStringRelativeToOtherLines,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.SelectionType}"
@@ -500,7 +500,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             commandDescription = new CommandDescription(
                 CabeiroConstants.Commands.SelectLinesPostSortingByColumnValueRelativeToOtherLines,
                 CommandCategory.Post_Sorting,
-                "(S)elect (L)ines (P)ost (S)orting (B)y (C)olumn (V)alue (R)elative (T)o (O)ther (L)ines",
+                "(S)elect (L)ines (P)ost (S)orting (B)y (C)olumn (V)alue (R)elative to other lines",
                 CabeiroConstants.Commands.Descriptions.SelectLinesPostSortingByColumnValueRelativeToOtherLines,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
