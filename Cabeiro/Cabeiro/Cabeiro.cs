@@ -516,20 +516,20 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesHandlingRepeatedLines)
-                || ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingHandlingRepeatedLines))
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByLineStringRelativeToOtherLines)
+                || ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByLineStringRelativeToOtherLines))
             {
                 const int minimumArgumentNumber = 2;
                 const int maximumArgumentNumber = 3;
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
                     string inputFilePath = arguments[1];
-                    Tuple<RepetitionHandlingType, int> operationInfo = ArgumentParser.ParseRepetitionHandlingType(arguments[2]);
+                    Tuple<RelativeValueSelectionType, int> operationInfo = ArgumentParser.ParseRelativeValueSelectionType(arguments[2]);
                     ArgumentParser.ExtractLastArguments(0, 3, arguments, out _, out string outputFilePath);
 
-                    bool isSorted = ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingHandlingRepeatedLines);
+                    bool isSorted = ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByLineStringRelativeToOtherLines);
 
-                    SelectLinesHandlingRepeatedLines(
+                    SelectLinesByLineStringRelativeToOtherLines(
                         isSorted,
                         inputFilePath,
                         operationInfo.Item1, arguments[2],
@@ -537,8 +537,8 @@ namespace LaurentiuCristofor.Cabeiro
                     return;
                 }
             }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesHandlingRepeatedColumnValues)
-                || ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingHandlingRepeatedColumnValues))
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByColumnValueRelativeToOtherLines)
+                || ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByColumnValueRelativeToOtherLines))
             {
                 const int minimumArgumentNumber = 5;
                 const int maximumArgumentNumber = 6;
@@ -548,12 +548,12 @@ namespace LaurentiuCristofor.Cabeiro
                     int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
                     string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
                     DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
-                    Tuple<RepetitionHandlingType, int> operationInfo = ArgumentParser.ParseRepetitionHandlingType(arguments[5]);
+                    Tuple<RelativeValueSelectionType, int> operationInfo = ArgumentParser.ParseRelativeValueSelectionType(arguments[5]);
                     ArgumentParser.ExtractLastArguments(0, 6, arguments, out _, out string outputFilePath);
 
-                    bool isSorted = ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingHandlingRepeatedColumnValues);
+                    bool isSorted = ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByColumnValueRelativeToOtherLines);
 
-                    SelectLinesHandlingRepeatedColumnValues(
+                    SelectLinesByColumnValueRelativeToOtherLines(
                         isSorted,
                         inputFilePath,
                         columnNumber,
@@ -1343,27 +1343,27 @@ namespace LaurentiuCristofor.Cabeiro
             fileProcessor.ProcessFile();
         }
 
-        private static void SelectLinesHandlingRepeatedLines(
+        private static void SelectLinesByLineStringRelativeToOtherLines(
             bool isSorted,
             string inputFilePath,
-            RepetitionHandlingType handlingType, string handlingTypeString,
+            RelativeValueSelectionType handlingType, string handlingTypeString,
             string outputFilePath)
         {
             string outputFileExtension
                 = isSorted 
-                ? $".{CabeiroConstants.Commands.SelectLinesPostSortingHandlingRepeatedLines}.{handlingTypeString}"
-                : $".{CabeiroConstants.Commands.SelectLinesHandlingRepeatedLines}.{handlingTypeString}";
+                ? $".{CabeiroConstants.Commands.SelectLinesPostSortingByLineStringRelativeToOtherLines}.{handlingTypeString}"
+                : $".{CabeiroConstants.Commands.SelectLinesByLineStringRelativeToOtherLines}.{handlingTypeString}";
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, operationArguments: null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputOperationParameters<RepetitionHandlingType> processingParameters = new OutputOperationParameters<RepetitionHandlingType>(
+            OutputOperationParameters<RelativeValueSelectionType> processingParameters = new OutputOperationParameters<RelativeValueSelectionType>(
                 outputFilePath,
                 handlingType);
 
             if (isSorted)
             {
                 var fileProcessor
-                    = new FileProcessor<LineAsParsedLineExtractor, Unused, ParsedLine, SelectLinePostSortingHandlingRepeteadValuesProcessor, OutputOperationParameters<RepetitionHandlingType>>(
+                    = new FileProcessor<LineAsParsedLineExtractor, Unused, ParsedLine, SelectLinePostSortingByValueRelativeToOtherLinesProcessor, OutputOperationParameters<RelativeValueSelectionType>>(
                         inputFilePath,
                         extractionParameters: null,
                         processingParameters);
@@ -1373,7 +1373,7 @@ namespace LaurentiuCristofor.Cabeiro
             else
             {
                 var fileProcessor
-                    = new FileProcessor<LineAsParsedLineExtractor, Unused, ParsedLine, SelectLineHandlingRepeteadValuesProcessor, OutputOperationParameters<RepetitionHandlingType>>(
+                    = new FileProcessor<LineAsParsedLineExtractor, Unused, ParsedLine, SelectLineByValueRelativeToOtherLinesProcessor, OutputOperationParameters<RelativeValueSelectionType>>(
                         inputFilePath,
                         extractionParameters: null,
                         processingParameters);
@@ -1382,13 +1382,13 @@ namespace LaurentiuCristofor.Cabeiro
             }
         }
 
-        private static void SelectLinesHandlingRepeatedColumnValues(
+        private static void SelectLinesByColumnValueRelativeToOtherLines(
             bool isSorted,
             string inputFilePath, 
             int columnNumber,
             string columnSeparator,
             DataType dataType, string dataTypeString,
-            RepetitionHandlingType handlingType, string handlingTypeString,
+            RelativeValueSelectionType handlingType, string handlingTypeString,
             string outputFilePath)
         {
             ColumnExtractionParameters extractionParameters = new ColumnExtractionParameters(
@@ -1398,19 +1398,19 @@ namespace LaurentiuCristofor.Cabeiro
 
             string outputFileExtension
                 = isSorted
-                ? $".{CabeiroConstants.Commands.SelectLinesPostSortingHandlingRepeatedColumnValues}.{columnNumber}.{dataTypeString.ToLower()}.{handlingTypeString.ToLower()}"
-                : $".{CabeiroConstants.Commands.SelectLinesHandlingRepeatedColumnValues}.{columnNumber}.{dataTypeString.ToLower()}.{handlingTypeString.ToLower()}";
+                ? $".{CabeiroConstants.Commands.SelectLinesPostSortingByColumnValueRelativeToOtherLines}.{columnNumber}.{dataTypeString.ToLower()}.{handlingTypeString.ToLower()}"
+                : $".{CabeiroConstants.Commands.SelectLinesByColumnValueRelativeToOtherLines}.{columnNumber}.{dataTypeString.ToLower()}.{handlingTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, operationArguments: null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputOperationParameters<RepetitionHandlingType> processingParameters = new OutputOperationParameters<RepetitionHandlingType>(
+            OutputOperationParameters<RelativeValueSelectionType> processingParameters = new OutputOperationParameters<RelativeValueSelectionType>(
                 outputFilePath,
                 handlingType);
 
             if (isSorted)
             {
                 var fileProcessor
-                    = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectLinePostSortingHandlingRepeteadValuesProcessor, OutputOperationParameters<RepetitionHandlingType>>(
+                    = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectLinePostSortingByValueRelativeToOtherLinesProcessor, OutputOperationParameters<RelativeValueSelectionType>>(
                         inputFilePath,
                         extractionParameters,
                         processingParameters);
@@ -1420,7 +1420,7 @@ namespace LaurentiuCristofor.Cabeiro
             else
             {
                 var fileProcessor
-                    = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectLineHandlingRepeteadValuesProcessor, OutputOperationParameters<RepetitionHandlingType>>(
+                    = new FileProcessor<ColumnExtractor, ColumnExtractionParameters, ParsedLine, SelectLineByValueRelativeToOtherLinesProcessor, OutputOperationParameters<RelativeValueSelectionType>>(
                         inputFilePath,
                         extractionParameters,
                         processingParameters);

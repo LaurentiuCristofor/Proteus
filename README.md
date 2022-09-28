@@ -90,8 +90,8 @@ These commands extract a subset of a file, according to various criteria.
 * SLBLS - (S)elect (L)ines (B)y (L)ine (S)tring
 * SLBCS - (S)elect (L)ines (B)y (C)olumn (S)tring
 * SLBCC - (S)elect (L)ines (B)y (C)olumn (C)ount
-* SLHRL - (S)elect (L)ines (H)andling (R)epeated (L)ines
-* SLHRCV - (S)elect (L)ines (H)andling (R)epeated (C)olumn (V)alues
+* SLBLSRTOL - (S)elect (L)ines (B)y (L)ine (S)tring (R)elative (T)o (O)ther (L)ines
+* SLBCVRTOL - (S)elect (L)ines (B)y (C)olumn (V)alue (R)elative (T)o (O)ther (L)ines
 * SLBLIF - (S)elect (L)ines (B)y (L)ookup (I)n (F)ile
 * SLBCVLIF - (S)elect (L)ines (B)y (C)olumn (V)alue (L)ookup (I)n (F)ile
 
@@ -110,8 +110,8 @@ These commands expect that their input files had been previously sorted; column 
 * SB2CV - (S)ort file (B)y (2)nd (C)olumn (V)alue
 * ML - (M)erge (L)ines
 * MLBCV - (M)erge (L)ines (B)y (C)olumn (V)alue
-* SLPSHRL - (S)elect (L)ines (P)ost (S)orting (H)andling (R)epeated (L)ines
-* SLPSHRCV - (S)elect (L)ines (P)ost (S)orting (H)andling (R)epeated (C)olumn (V)alues
+* SLPSBLSRTOL - (S)elect (L)ines (P)ost (S)orting (B)y (L)ine (S)tring (R)elative (T)o (O)ther (L)ines
+* SLPSBCVRTOL - (S)elect (L)ines (P)ost (S)orting (B)y (C)olumn (V)alue (R)elative (T)o (O)ther (L)ines
 * SLPSBLIF - (S)elect (L)ines (P)ost (S)orting (B)y (L)ookup (I)n (F)ile
 * SLPSBCVLIF - (S)elect (L)ines (P)ost (S)orting (B)y (C)olumn (V)alue (L)ookup (I)n (F)ile
 * JLPS - (J)oin (L)ines (P)ost (S)orting

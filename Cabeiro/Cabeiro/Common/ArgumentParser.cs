@@ -356,25 +356,33 @@ namespace LaurentiuCristofor.Cabeiro.Common
         }
 
         /// <summary>
-        /// Parses argument value as a RepetitionHandlingType indicator.
+        /// Parses argument value as a RelativeValueSelectionType indicator.
         /// </summary>
         /// <param name="argument">The argument value to parse.</param>
-        /// <returns>A tuple containing the RepetitionHandlingType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
-        public static Tuple<RepetitionHandlingType, int> ParseRepetitionHandlingType(string argument)
+        /// <returns>A tuple containing the RelativeValueSelectionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<RelativeValueSelectionType, int> ParseRelativeValueSelectionType(string argument)
         {
             string lowercaseValue = argument.ToLower();
 
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.RepetitionHandlingTypeSkip))
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.RelativeValueSelectionFirst))
             {
-                return new Tuple<RepetitionHandlingType, int>(RepetitionHandlingType.Skip, 0);
+                return new Tuple<RelativeValueSelectionType, int>(RelativeValueSelectionType.First, 0);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.RepetitionHandlingTypePick))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.RelativeValueSelectionNotFirst))
             {
-                return new Tuple<RepetitionHandlingType, int>(RepetitionHandlingType.Pick, 0);
+                return new Tuple<RelativeValueSelectionType, int>(RelativeValueSelectionType.NotFirst, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.RelativeValueSelectionLast))
+            {
+                return new Tuple<RelativeValueSelectionType, int>(RelativeValueSelectionType.Last, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.RelativeValueSelectionNotLast))
+            {
+                return new Tuple<RelativeValueSelectionType, int>(RelativeValueSelectionType.NotLast, 0);
             }
             else
             {
-                throw new CabeiroException($"Invalid repetition handling type argument: {argument}!");
+                throw new CabeiroException($"Invalid relative value selection type argument: {argument}!");
             }
         }
 

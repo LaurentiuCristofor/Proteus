@@ -76,8 +76,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string SelectLinesByLineString = "slbls";
             public const string SelectLinesByColumnString = "slbcs";
             public const string SelectLinesByColumnCount = "slbcc";
-            public const string SelectLinesHandlingRepeatedLines = "slhrl";
-            public const string SelectLinesHandlingRepeatedColumnValues = "slhrcv";
+            public const string SelectLinesByLineStringRelativeToOtherLines = "slblsrtol";
+            public const string SelectLinesByColumnValueRelativeToOtherLines = "slbcvrtol";
             public const string SelectLinesByLookupInFile = "slblif";
             public const string SelectLinesByColumnValueLookupInFile = "slbcvlif";
 
@@ -88,8 +88,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string SortBySecondColumnValue = "sb2cv";
             public const string MergeLines = "ml";
             public const string MergeLinesByColumnValue = "mlbcv";
-            public const string SelectLinesPostSortingHandlingRepeatedLines = "slpshrl";
-            public const string SelectLinesPostSortingHandlingRepeatedColumnValues = "slpshrcv";
+            public const string SelectLinesPostSortingByLineStringRelativeToOtherLines = "slpsblsrtol";
+            public const string SelectLinesPostSortingByColumnValueRelativeToOtherLines = "slpsbcvrtol";
             public const string SelectLinesPostSortingByLookupInFile = "slpsblif";
             public const string SelectLinesPostSortingByColumnValueLookupInFile = "slpsbcvlif";
             public const string JoinLinesPostSorting = "jlps";
@@ -107,8 +107,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string SelectLinesByColumnValue = "Selects lines by comparing a column's value against specified arguments.";
                 public const string SelectLinesByLineString = "Selects lines based on their string value matching specified properties.";
                 public const string SelectLinesByColumnString = "Selects lines based on a column's string value matching specified properties.";
-                public const string SelectLinesHandlingRepeatedLines = "Selects lines, handling repeated lines as specified.";
-                public const string SelectLinesHandlingRepeatedColumnValues = "Selects lines, handling lines with repeated column values as specified.";
+                public const string SelectLinesByLineStringRelativeToOtherLines = "Selects lines, based on their relationship to other lines.";
+                public const string SelectLinesByColumnValueRelativeToOtherLines = "Selects lines, based on a column value's relationship to those of other lines.";
                 public const string SelectLinesByLookupInFile = "Selects lines based on whether they appear in another file or not.";
                 public const string SelectLinesByColumnValueLookupInFile = "Selects lines based on whether their specified column's value appears in another file or not.";
 
@@ -118,8 +118,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
                 public const string MergeLines = "Merges lines from two sorted files. Does not verify the correct sorting of the input files.";
                 public const string MergeLinesByColumnValue = "Merges lines from two files sorted on specific columns. Does not verify the correct sorting of the input files.";
-                public const string SelectLinesPostSortingHandlingRepeatedLines = "Selects lines from a sorted file, handling repeated lines as specified.";
-                public const string SelectLinesPostSortingHandlingRepeatedColumnValues = "Selects lines from a column-sorted file, handling lines with repeated column values as specified.";
+                public const string SelectLinesPostSortingByLineStringRelativeToOtherLines = "Selects lines from a sorted file, based on their relationship to other lines.";
+                public const string SelectLinesPostSortingByColumnValueRelativeToOtherLines = "Selects lines from a column-sorted file, based on that column value's relationship to those of other lines.";
                 public const string SelectLinesPostSortingByLookupInFile = "Selects lines from a sorted file based on whether they appear in another sorted file or not. Does not verify the correct sorting of the input files.";
                 public const string SelectLinesPostSortingByColumnValueLookupInFile = "Selects lines from a column-sorted file based on whether their sorted column's value appears in the first column of another sorted file or not. Does not verify the correct sorting of the input files.";
                 public const string JoinLinesPostSorting = "Joins the lines of two column-sorted files. Does not verify the correct sorting of the input files.";
@@ -194,8 +194,10 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string StringSelectionTypeEquals = "eq";
                 public const string StringSelectionTypeNotEquals = "neq";
 
-                public const string RepetitionHandlingTypeSkip = "skip";
-                public const string RepetitionHandlingTypePick = "pick";
+                public const string RelativeValueSelectionFirst = "first";
+                public const string RelativeValueSelectionNotFirst = "nfirst";
+                public const string RelativeValueSelectionLast = "last";
+                public const string RelativeValueSelectionNotLast = "nlast";
 
                 public const string JoinTypeInner = "in";
                 public const string JoinTypeLeftOuter = "lo";
@@ -342,11 +344,11 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionTypeLast}' = last"
                         + "\n";
 
-                    public const string HandlingType = "<handling_type>";
-
-                    public static readonly string RepetitionHandlingTypeText = $"{Constants.Commands.Arguments.Descriptions.HandlingType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.RepetitionHandlingTypeSkip}' = skip repetitions"
-                        + $"\n\t- '{Constants.Commands.Arguments.RepetitionHandlingTypePick}' = pick repetitions"
+                    public static readonly string RelativeValueSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.RelativeValueSelectionFirst}' = first occurrence"
+                        + $"\n\t- '{Constants.Commands.Arguments.RelativeValueSelectionNotFirst}' = not first occurrence"
+                        + $"\n\t- '{Constants.Commands.Arguments.RelativeValueSelectionLast}' = last occurrence"
+                        + $"\n\t- '{Constants.Commands.Arguments.RelativeValueSelectionNotLast}' = not last occurrence"
                         + "\n";
 
                     public const string JoinType = "<join_type>";

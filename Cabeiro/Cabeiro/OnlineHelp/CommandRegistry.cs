@@ -345,30 +345,30 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
-                CabeiroConstants.Commands.SelectLinesHandlingRepeatedLines,
+                CabeiroConstants.Commands.SelectLinesByLineStringRelativeToOtherLines,
                 CommandCategory.Selection,
-                "(S)elect (L)ines (H)andling (R)epeated (L)ines",
-                CabeiroConstants.Commands.Descriptions.SelectLinesHandlingRepeatedLines,
+                "(S)elect (L)ines (B)y (L)ine (S)tring (R)elative (T)o (O)ther (L)ines",
+                CabeiroConstants.Commands.Descriptions.SelectLinesByLineStringRelativeToOtherLines,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.HandlingType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SelectionType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
-                $"{CabeiroConstants.Commands.Arguments.Descriptions.RepetitionHandlingTypeText}"
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.RelativeValueSelectionTypeText}"
                 + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearUnique}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
-                CabeiroConstants.Commands.SelectLinesHandlingRepeatedColumnValues,
+                CabeiroConstants.Commands.SelectLinesByColumnValueRelativeToOtherLines,
                 CommandCategory.Selection,
-                "(S)elect (L)ines (H)andling (R)epeated (C)olumn (V)alues",
-                CabeiroConstants.Commands.Descriptions.SelectLinesHandlingRepeatedColumnValues,
+                "(S)elect (L)ines (B)y (C)olumn (V)alue (R)elative (T)o (O)ther (L)ines",
+                CabeiroConstants.Commands.Descriptions.SelectLinesByColumnValueRelativeToOtherLines,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataType}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.HandlingType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SelectionType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
-                + $"\n{CabeiroConstants.Commands.Arguments.Descriptions.RepetitionHandlingTypeText}"
+                + $"\n{CabeiroConstants.Commands.Arguments.Descriptions.RelativeValueSelectionTypeText}"
                 + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearUnique}");
             RegisterCommandDescription(commandDescription);
 
@@ -486,30 +486,30 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
-                CabeiroConstants.Commands.SelectLinesPostSortingHandlingRepeatedLines,
+                CabeiroConstants.Commands.SelectLinesPostSortingByLineStringRelativeToOtherLines,
                 CommandCategory.Post_Sorting,
-                "(S)elect (L)ines (P)ost (S)orting (H)andling (R)epeated (L)ines",
-                CabeiroConstants.Commands.Descriptions.SelectLinesPostSortingHandlingRepeatedLines,
+                "(S)elect (L)ines (P)ost (S)orting (B)y (L)ine (S)tring (R)elative (T)o (O)ther (L)ines",
+                CabeiroConstants.Commands.Descriptions.SelectLinesPostSortingByLineStringRelativeToOtherLines,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.HandlingType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SelectionType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
-                $"{CabeiroConstants.Commands.Arguments.Descriptions.RepetitionHandlingTypeText}"
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.RelativeValueSelectionTypeText}"
                 + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
-                CabeiroConstants.Commands.SelectLinesPostSortingHandlingRepeatedColumnValues,
+                CabeiroConstants.Commands.SelectLinesPostSortingByColumnValueRelativeToOtherLines,
                 CommandCategory.Post_Sorting,
-                "(S)elect (L)ines (P)ost (S)orting (H)andling (R)epeated (C)olumn (V)alues",
-                CabeiroConstants.Commands.Descriptions.SelectLinesPostSortingHandlingRepeatedColumnValues,
+                "(S)elect (L)ines (P)ost (S)orting (B)y (C)olumn (V)alue (R)elative (T)o (O)ther (L)ines",
+                CabeiroConstants.Commands.Descriptions.SelectLinesPostSortingByColumnValueRelativeToOtherLines,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataType}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.HandlingType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SelectionType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
-                + $"\n{CabeiroConstants.Commands.Arguments.Descriptions.RepetitionHandlingTypeText}"
+                + $"\n{CabeiroConstants.Commands.Arguments.Descriptions.RelativeValueSelectionTypeText}"
                 + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
 
