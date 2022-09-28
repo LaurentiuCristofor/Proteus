@@ -2,25 +2,37 @@
 A growing library of data processing functions.
 
 # Cabeiro
-A command line tool that exposes Proteus functionality.
+A command line tool that exposes Proteus functionality for data investigation and data processing.
 
-## History
+## Overview
 
-Around 2007, I was working on a project that involved analyzing log files and I found that I often needed to perform various simple filtering and editing operations on these files.
-At first, I wrote some scripts to perform these operations, but then, as their number increased, I decided to write a command line tool that I named *LogTools*.
-Over the next decade, I kept implementing more operations in LogTools, such that it grew to support many different filtering and editing operations.
+The primary goal of Cabeiro is to help with the analysis of text data organized in a table format; i.e. each line consists of a set of column values delimited by some form of column separator.
+In this scenario, the user doesn''t know exactly what they are looking for, so they need to execute various probing queries, which will guide their next operations.
+Cabeiro offers a large variety of data selection approaches that can help in such process.
+However, due to the atomic nature of the operations provided, Cabeiro is not suitable for performing complex data processing operations in a production environment; in such scenario, a custom data processing tool would be required and such tool could be written on top of the Proteus library.
 
-The philosophy of the tool was to support very simple operations, such that each of them would be easy to understand and use, but these simple operations could also be chained to support arbitrarily complex ones.
-And by having the result of each operation saved within its own file, one could always go back to trying a different set of operations starting from an intermediate data set.
-When used for data analysis, this allowed performing what I call ""interactive analysis"" of a data file.
- 
-In 2019, I decided to start writing from scratch a new open-source version: *Cabeiro*.
-I also decided to separate the core file processing operations from the command line tool, so that's how the *Proteus* library came into being.
-Unlike LogTools, which was written piece by piece in a hurry over a long period of time, and which included lots of duplicated code pieces, Cabeiro is meant to identify processing patterns, so as to share as much code as possible between similar operations.
-Cabeiro also attempts to avoid providing duplicated functionality; where LogTools sometimes offered special-cased versions of certain functions, Cabeiro will attempt to provide only the more general functionality.
-Thus, Cabeiro means to accomplish all that LogTools did, but also, to easily permit the addition of new functionality, by simply extending existing processing patterns.
+A secondary goal of Cabeiro is to provide a set of text file editing operations that can be used for manipulating text data or for cleaning up a data file.
 
-If you work with log data or with any type of text data stored in a tabular format, you may find Cabeiro to be a very useful tool.
+Thus, Cabeiro can help with data analysis and data cleanup operations, while the Proteus library can be reused to create custom tools when performance is needed for executing more complex data processing operations.
+
+### Performance notes
+
+Most of the Cabeiro operations scan an input file, so their performance is linear in terms of the size of the input file.
+The memory use of each command varies according to its type of processing and is mentioned in the online help description of the command.
+Most commands only need to access a single line of data at a time, but some commands need access to the entire file''s content.
+
+If you operate on very large files and you don''t have enough memory to hold all their data, then some operations may run out of memory.
+Some of Cabeiro''s operations are meant to help processing files that are too large to hold in memory.
+For example, you can break a file into smaller chunks, sort them, then merge them back into one large sorted file.
+Some memory-expensive operations also have less-expensive alternatives that work on sorted files.
+
+### Design notes
+
+Cabeiro will never support very complex data processing operations .
+Its philosophy is to provide only simple and generic data processing operations.
+If I decide to implement support for more complex data processing operations, that will happen as part of new command line tool distinct from Cabeiro.
+
+The Proteus library, however, is meant to grow and eventually provide support for more complex data analysis scenarios. 
 
 ## Getting started with Cabeiro
 
@@ -116,3 +128,21 @@ These commands expect that their input files had been previously sorted; column 
 * SLPSBCVLIF - (S)elect (L)ines (P)ost (S)orting (B)y (C)olumn (V)alue (L)ookup (I)n (F)ile
 * JLPS - (J)oin (L)ines (P)ost (S)orting
 * FST - (F)ind (S)tate (T)ransitions
+
+## History
+
+Around 2007, I was working on a project that involved analyzing log files and I found that I often needed to perform various simple filtering and editing operations on these files.
+At first, I wrote some scripts to help me perform these operations, but then, as their number increased, I decided to write a command line tool that I named *LogTools*.
+Over the next decade, I kept adding more functionality to LogTools, such that it grew to support many different filtering and editing operations.
+
+The philosophy of the tool was to support very simple operations, such that each of them would be easy to understand and use, but these simple operations could also be chained to support arbitrarily complex ones.
+And by having the result of each operation saved within its own file, I could always go back to trying a different set of operations starting from an intermediate data set.
+When used for data analysis, this allowed me to perform what I call an ""interactive analysis"" of a data file.
+ 
+In 2019, I decided to start writing from scratch a new open-source version of LogTools and name it *Cabeiro*.
+I also decided to separate the core file processing operations from the command line tool, so that's how the *Proteus* library came into being.
+LogTools had been written piece by piece over a long period of time, often, by copying the code of an operation and then editing it to perform a new one.
+This approach resulted in a lot of duplication of its processing patterns, despite some efforts to factor common processing in generic functions.
+With Cabeiro I set out to identify these processing patterns, so as to share as much code as possible between similar operations.
+Cabeiro also attempts to avoid providing duplicated functionality; where LogTools sometimes offered special-cased versions of certain functions, Cabeiro attempts to provide only the more general functionality.
+Thus, Cabeiro and Proteus mean to accomplish all that LogTools did, but also, to easily permit the addition of new functionality, by simply extending existing processing patterns.
