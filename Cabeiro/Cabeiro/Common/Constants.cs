@@ -76,8 +76,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string SelectLinesByLineString = "slbls";
             public const string SelectLinesByColumnString = "slbcs";
             public const string SelectLinesByColumnCount = "slbcc";
-            public const string SelectLinesByLineStringRelativeToOtherLines = "slblsrtol";
-            public const string SelectLinesByColumnValueRelativeToOtherLines = "slbcvrtol";
+            public const string SelectLinesByLineStringRelativeToOtherLines = "slblsr";
+            public const string SelectLinesByColumnValueRelativeToOtherLines = "slbcvr";
             public const string SelectLinesByLookupInFile = "slblif";
             public const string SelectLinesByColumnValueLookupInFile = "slbcvlif";
 
@@ -88,8 +88,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string SortBySecondColumnValue = "sb2cv";
             public const string MergeLines = "ml";
             public const string MergeLinesByColumnValue = "mlbcv";
-            public const string SelectLinesPostSortingByLineStringRelativeToOtherLines = "slpsblsrtol";
-            public const string SelectLinesPostSortingByColumnValueRelativeToOtherLines = "slpsbcvrtol";
+            public const string SelectLinesPostSortingByLineStringRelativeToOtherLines = "slpsblsr";
+            public const string SelectLinesPostSortingByColumnValueRelativeToOtherLines = "slpsbcvr";
             public const string SelectLinesPostSortingByLookupInFile = "slpsblif";
             public const string SelectLinesPostSortingByColumnValueLookupInFile = "slpsbcvlif";
             public const string JoinLinesPostSorting = "jlps";
