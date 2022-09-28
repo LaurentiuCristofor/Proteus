@@ -13,13 +13,13 @@ using LaurentiuCristofor.Proteus.FileOperations;
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// A data processor that edits a value passed through a DataTypeContainer.
+    /// A data processor that edits a column value.
     /// </summary>
-    public class EditColumnValueProcessor : BaseOutputProcessor, IDataProcessor<ValueEditOutputParameters, ParsedLine>
+    public class EditColumnValueProcessor : BaseOutputProcessor, IDataProcessor<OutputValueEditParameters, ParsedLine>
     {
-        protected ValueEditOutputParameters Parameters { get; set; }
+        protected OutputValueEditParameters Parameters { get; set; }
 
-        public void Initialize(ValueEditOutputParameters processingParameters)
+        public void Initialize(OutputValueEditParameters processingParameters)
         {
             this.Parameters = processingParameters;
 

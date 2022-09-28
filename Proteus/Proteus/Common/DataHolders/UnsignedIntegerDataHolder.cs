@@ -10,9 +10,6 @@ using LaurentiuCristofor.Proteus.Common.Types;
 
 namespace LaurentiuCristofor.Proteus.Common.DataHolders
 {
-    /// <summary>
-    /// An IDataType implementation that manages unsigned integers.
-    /// </summary>
     public class UnsignedIntegerDataHolder : IDataHolder
     {
         protected ulong Data { get; set; }

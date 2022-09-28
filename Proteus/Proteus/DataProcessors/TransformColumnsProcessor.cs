@@ -17,9 +17,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that selects a subset of columns to output.
     /// </summary>
-    public class TransformColumnsProcessor : BaseOutputProcessor, IDataProcessor<OperationOutputParameters<ColumnTransformationType>, ParsedLine>
+    public class TransformColumnsProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<ColumnTransformationType>, ParsedLine>
     {
-        protected OperationOutputParameters<ColumnTransformationType> Parameters { get; set; }
+        protected OutputOperationParameters<ColumnTransformationType> Parameters { get; set; }
 
         /// <summary>
         /// First argument, as an integer value, if expected.
@@ -36,7 +36,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// </summary>
         protected string[] SecondArgumentInStringArray { get; set; }
 
-        public void Initialize(OperationOutputParameters<ColumnTransformationType> processingParameters)
+        public void Initialize(OutputOperationParameters<ColumnTransformationType> processingParameters)
         {
             this.Parameters = processingParameters;
 

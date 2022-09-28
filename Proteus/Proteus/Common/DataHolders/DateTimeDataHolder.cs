@@ -10,9 +10,6 @@ using LaurentiuCristofor.Proteus.Common.Types;
 
 namespace LaurentiuCristofor.Proteus.Common.DataHolders
 {
-    /// <summary>
-    /// An IDataType implementation that manages DateTime values.
-    /// </summary>
     public class DateTimeDataHolder : IDataHolder
     {
         protected DateTime Data { get; set; }

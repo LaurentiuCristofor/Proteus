@@ -17,9 +17,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// A data processor that checks the line number against a selection criterion,
     /// to decide whether to output the line or not.
     /// </summary>
-    public class SelectLineByNumberProcessor : BaseOutputProcessor, IDataProcessor<OperationOutputParameters<PositionSelectionType>, string>
+    public class SelectLineByNumberProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<PositionSelectionType>, string>
     {
-        protected OperationOutputParameters<PositionSelectionType> Parameters { get; set; }
+        protected OutputOperationParameters<PositionSelectionType> Parameters { get; set; }
 
         /// <summary>
         /// First line number comparison argument, as an unsigned integer value.
@@ -36,7 +36,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// </summary>
         protected Queue<string> SizeLimitedQueue { get; set; }
 
-        public void Initialize(OperationOutputParameters<PositionSelectionType> processingParameters)
+        public void Initialize(OutputOperationParameters<PositionSelectionType> processingParameters)
         {
             this.Parameters = processingParameters;
 

@@ -12,7 +12,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
     /// <summary>
     /// Includes parameters for performing a value edit operation.
     /// </summary>
-    public class ValueEditOutputParameters : BaseOutputParameters
+    public class OutputValueEditParameters : BaseOutputParameters
     {
         /// <summary>
         /// The type of the edit operation that should be performed.
@@ -24,7 +24,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
         /// </summary>
         public IDataHolder Argument { get; protected set; }
 
-        public ValueEditOutputParameters(
+        public OutputValueEditParameters(
             string outputFilePath,
             ValueEditType editType,
             IDataHolder argument = null)

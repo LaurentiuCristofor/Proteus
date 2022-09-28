@@ -64,8 +64,8 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
                     ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstArgument);
                     break;
 
-                case StringSelectionType.IsDemarked:
-                case StringSelectionType.IsNotDemarked:
+                case StringSelectionType.StartsAndEndsWith:
+                case StringSelectionType.NotStartsAndEndsWith:
                     ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstArgument);
                     ArgumentChecker.CheckNotNullAndNotEmpty(this.SecondArgument);
                     break;
@@ -127,10 +127,10 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
                 case StringSelectionType.NotEndsWith:
                     return !data.EndsWith(this.FirstArgument);
 
-                case StringSelectionType.IsDemarked:
+                case StringSelectionType.StartsAndEndsWith:
                     return data.StartsWith(this.FirstArgument) && data.EndsWith(this.SecondArgument);
 
-                case StringSelectionType.IsNotDemarked:
+                case StringSelectionType.NotStartsAndEndsWith:
                     return !data.StartsWith(this.FirstArgument) || !data.EndsWith(this.SecondArgument);
 
                 case StringSelectionType.Equals:

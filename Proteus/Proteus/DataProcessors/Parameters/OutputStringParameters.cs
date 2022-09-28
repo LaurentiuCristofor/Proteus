@@ -9,14 +9,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
     /// <summary>
     /// Includes a string parameter along output parameters.
     /// </summary>
-    public class StringOutputParameters : BaseOutputParameters
+    public class OutputStringParameters : BaseOutputParameters
     {
         /// <summary>
         /// The string value.
         /// </summary>
         public string StringValue { get; protected set; }
 
-        public StringOutputParameters(
+        public OutputStringParameters(
             string outputFilePath,
             string stringValue)
             : base(outputFilePath)

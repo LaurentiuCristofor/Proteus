@@ -21,14 +21,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
         /// <summary>
         /// The number of top/bottom values that the analyze report should output.
         /// </summary>
-        public int ValuesLimit { get; protected set; }
+        public int OutputLimit { get; protected set; }
 
         public AnalyzeParameters(
             DataType dataType,
-            int valuesLimit)
+            int outputLimit)
         {
             this.DataType = dataType;
-            this.ValuesLimit = valuesLimit;
+            this.OutputLimit = outputLimit;
         }
     }
 }

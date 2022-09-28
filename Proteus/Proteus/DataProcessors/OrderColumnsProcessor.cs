@@ -17,9 +17,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that re-orders the columns of the input row.
     /// </summary>
-    public class OrderColumnsProcessor : BaseOutputProcessor, IDataProcessor<StringOutputParameters, ParsedLine>
+    public class OrderColumnsProcessor : BaseOutputProcessor, IDataProcessor<OutputStringParameters, ParsedLine>
     {
-        protected StringOutputParameters Parameters { get; set; }
+        protected OutputStringParameters Parameters { get; set; }
 
         /// <summary>
         /// An array of column numbers that should be ordered first.
@@ -41,7 +41,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// </summary>
         protected int MinUnorderedColumnNumber { get; set; }
 
-        public void Initialize(StringOutputParameters processingParameters)
+        public void Initialize(OutputStringParameters processingParameters)
         {
             this.Parameters = processingParameters;
 

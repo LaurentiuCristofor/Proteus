@@ -10,9 +10,6 @@ using LaurentiuCristofor.Proteus.Common.Types;
 
 namespace LaurentiuCristofor.Proteus.Common.DataHolders
 {
-    /// <summary>
-    /// An IDataType implementation that manages floating point values.
-    /// </summary>
     public class FloatingPointDataHolder : IDataHolder
     {
         protected double Data { get; set; }

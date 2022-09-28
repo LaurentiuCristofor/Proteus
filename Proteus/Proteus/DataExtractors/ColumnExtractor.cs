@@ -15,7 +15,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
     /// A column extractor that does the following:
     /// - extracts a specific column from a line.
     /// - parses the column value into a specific type.
-    /// - returns a StringParts instance that packs the original line parts with the parsed column value.
+    /// - returns a ParsedLine instance that packs the original line parts along the parsed column value.
     /// </summary>
     public class ColumnExtractor : IDataExtractor<ColumnExtractionParameters, ParsedLine>
     {

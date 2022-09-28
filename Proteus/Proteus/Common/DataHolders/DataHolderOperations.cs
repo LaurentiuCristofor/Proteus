@@ -17,11 +17,11 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
     {
         /// <summary>
         /// Interprets a string value as the specified data type
-        /// and returns an instance of IDataType representing the equivalent value of that type.
+        /// and returns an instance of IDataHolder representing the equivalent value of that type.
         /// </summary>
         /// <param name="dataType">The data type to interpret the string as.</param>
         /// <param name="stringValue">The string to interpret.</param>
-        /// <returns>An instance of IDataType, or null if the string did not represent a value of the specified data type.</returns>
+        /// <returns>An instance of IDataHolder, or null if the string did not represent a value of the specified data type.</returns>
         public static IDataHolder BuildDataHolder(DataType dataType, string stringValue)
         {
             switch (dataType)

@@ -13,11 +13,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that splits ranges of lines into their own files.
     /// </summary>
-    public class SplitLineRangesProcessor : BaseOutputProcessor, IDataProcessor<StringAndULongOutputParameters, string>
+    public class SplitLineRangesProcessor : BaseOutputProcessor, IDataProcessor<OutputStringAndULongParameters, string>
     {
-        protected StringAndULongOutputParameters Parameters { get; set; }
+        protected OutputStringAndULongParameters Parameters { get; set; }
 
-        public void Initialize(StringAndULongOutputParameters processingParameters)
+        public void Initialize(OutputStringAndULongParameters processingParameters)
         {
             this.Parameters = processingParameters;
 

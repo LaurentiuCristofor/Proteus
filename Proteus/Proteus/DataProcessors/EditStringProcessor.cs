@@ -15,18 +15,18 @@ using LaurentiuCristofor.Proteus.FileOperations;
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// A data processor that edits a string passed through a DataTypeContainer.
+    /// A data processor that edits a string.
     /// </summary>
-    public class EditStringProcessor : BaseOutputProcessor, IDataProcessor<OperationOutputParameters<StringEditType>, ParsedLine>
+    public class EditStringProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<StringEditType>, ParsedLine>
     {
-        protected OperationOutputParameters<StringEditType> Parameters { get; set; }
+        protected OutputOperationParameters<StringEditType> Parameters { get; set; }
 
         /// <summary>
         /// The editor used to perform the operation.
         /// </summary>
         protected StringEditor StringEditor { get; set; }
 
-        public void Initialize(OperationOutputParameters<StringEditType> processingParameters)
+        public void Initialize(OutputOperationParameters<StringEditType> processingParameters)
         {
             this.Parameters = processingParameters;
 

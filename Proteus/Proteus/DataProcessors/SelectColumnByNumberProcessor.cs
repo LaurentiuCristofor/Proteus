@@ -17,9 +17,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that selects a subset of columns to output.
     /// </summary>
-    public class SelectColumnByNumberProcessor : BaseOutputProcessor, IDataProcessor<OperationOutputParameters<PositionSelectionType>, ParsedLine>
+    public class SelectColumnByNumberProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<PositionSelectionType>, ParsedLine>
     {
-        protected OperationOutputParameters<PositionSelectionType> Parameters { get; set; }
+        protected OutputOperationParameters<PositionSelectionType> Parameters { get; set; }
 
         /// <summary>
         /// First line number comparison argument, as an integer value.
@@ -31,7 +31,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// </summary>
         protected int SecondArgumentAsInt { get; set; }
 
-        public void Initialize(OperationOutputParameters<PositionSelectionType> processingParameters)
+        public void Initialize(OutputOperationParameters<PositionSelectionType> processingParameters)
         {
             this.Parameters = processingParameters;
 
@@ -134,7 +134,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                             {
                                 line = linePrefix + lineData.ColumnSeparator + lineSuffix;
                             }
-
                         }
                         break;
                     }

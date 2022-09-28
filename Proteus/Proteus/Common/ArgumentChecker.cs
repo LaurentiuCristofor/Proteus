@@ -80,17 +80,17 @@ namespace LaurentiuCristofor.Proteus.Common
             }
         }
 
-        internal static void CheckInterval(IDataHolder intervalStart, IDataHolder intervalEnd)
+        internal static void CheckInterval(ulong intervalStart, ulong intervalEnd)
         {
-            if (intervalStart.CompareTo(intervalEnd) > 0)
+            if (intervalStart > intervalEnd)
             {
                 throw new ProteusException($"An incorrect interval was provided: the start is larger than the end: ({intervalStart}, {intervalEnd})!");
             }
         }
 
-        internal static void CheckInterval(ulong intervalStart, ulong intervalEnd)
+        internal static void CheckInterval(IDataHolder intervalStart, IDataHolder intervalEnd)
         {
-            if (intervalStart > intervalEnd)
+            if (intervalStart.CompareTo(intervalEnd) > 0)
             {
                 throw new ProteusException($"An incorrect interval was provided: the start is larger than the end: ({intervalStart}, {intervalEnd})!");
             }

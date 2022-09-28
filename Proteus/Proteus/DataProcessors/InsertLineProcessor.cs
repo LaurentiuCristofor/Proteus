@@ -15,9 +15,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// A data processor that checks the line number,
     /// to decide whether to insert a line at that position or not.
     /// </summary>
-    public class InsertLineProcessor : BaseOutputProcessor, IDataProcessor<OperationOutputParameters<PositionInsertionType>, string>
+    public class InsertLineProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<PositionInsertionType>, string>
     {
-        protected OperationOutputParameters<PositionInsertionType> Parameters { get; set; }
+        protected OutputOperationParameters<PositionInsertionType> Parameters { get; set; }
 
         /// <summary>
         /// Second argument, as an unsigned integer value.
@@ -29,16 +29,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// </summary>
         protected ulong LastOutputLineNumber { get; set; }
 
-        public void Initialize(OperationOutputParameters<PositionInsertionType> processingParameters)
+        public void Initialize(OutputOperationParameters<PositionInsertionType> processingParameters)
         {
             this.Parameters = processingParameters;
 
             switch (this.Parameters.OperationType)
             {
-                case PositionInsertionType.Last:
-                    ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.FirstArgument);
-                    break;
-
                 case PositionInsertionType.Position:
                 case PositionInsertionType.Each:
                     ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.FirstArgument);
@@ -47,6 +43,10 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     this.SecondArgumentAsULong = ulong.Parse(this.Parameters.SecondArgument);
 
                     ArgumentChecker.CheckNotZero(this.SecondArgumentAsULong);
+                    break;
+
+                case PositionInsertionType.Last:
+                    ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.FirstArgument);
                     break;
 
                 default:

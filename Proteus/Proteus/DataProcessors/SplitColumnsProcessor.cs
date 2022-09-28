@@ -16,16 +16,16 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that splits each column into its own file.
     /// </summary>
-    public class SplitColumnsProcessor : BaseOutputProcessor, IDataProcessor<StringOutputParameters, ParsedLine>
+    public class SplitColumnsProcessor : BaseOutputProcessor, IDataProcessor<OutputStringParameters, ParsedLine>
     {
-        protected StringOutputParameters Parameters { get; set; }
+        protected OutputStringParameters Parameters { get; set; }
 
         /// <summary>
         /// A dictionary to help us manage the file writers that we will use for each column.
         /// </summary>
         protected Dictionary<int, FileWriter> MapColumnNumberToFileWriter { get; set; }
 
-        public void Initialize(StringOutputParameters processingParameters)
+        public void Initialize(OutputStringParameters processingParameters)
         {
             this.Parameters = processingParameters;
 

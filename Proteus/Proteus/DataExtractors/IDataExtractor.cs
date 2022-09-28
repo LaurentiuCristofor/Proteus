@@ -7,7 +7,7 @@
 namespace LaurentiuCristofor.Proteus.DataExtractors
 {
     /// <summary>
-    /// An interface for extracting specific data from an input text line.
+    /// An interface for extracting data from an input text line.
     /// </summary>
     /// <typeparam name="TExtractionParameters">The parameters of the extraction operation.</typeparam>
     /// <typeparam name="TExtractedData">The type of object that will be extracted.</typeparam>
@@ -24,7 +24,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         /// </summary>
         /// <param name="lineNumber">The current line number corresponding to the line.</param>
         /// <param name="inputLine">The line to process.</param>
-        /// <returns>The data that could be extracted from the line or null if the extraction was not possible.</returns>
+        /// <returns>The data extracted from the line or null if the extraction was not possible.</returns>
         TExtractedData ExtractData(ulong lineNumber, string line);
     }
 }

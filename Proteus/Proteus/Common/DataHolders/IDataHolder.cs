@@ -51,7 +51,7 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
         DateTime GetDateTimeValue();
 
         /// <summary>
-        /// Returns string representation of stored value.
+        /// Returns the string representation of stored value.
         /// </summary>
         /// <returns>String representation of the data type.</returns>
         string ToString();

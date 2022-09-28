@@ -25,7 +25,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(AnalyzeParameters processingParameters)
         {
-            ArgumentChecker.CheckPositive(processingParameters.ValuesLimit);
+            ArgumentChecker.CheckPositive(processingParameters.OutputLimit);
 
             this.Parameters = processingParameters;
 
@@ -43,7 +43,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         {
             this.Analyzer.PostProcessAnalyzedData();
 
-            this.Analyzer.OutputReport(this.Parameters.ValuesLimit);
+            this.Analyzer.OutputReport(this.Parameters.OutputLimit);
         }
     }
 }

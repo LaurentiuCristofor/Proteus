@@ -50,7 +50,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 throw new ProteusException("Internal error: An expected data structure has not been initialized!");
             }
 
+            OutputInterface.Log("\nSorting...");
+
             this.ColumnLineTuples.Sort();
+
+            OutputInterface.LogLine("done!");
 
             foreach (Tuple<IDataHolder, string> tuple in this.ColumnLineTuples)
             {

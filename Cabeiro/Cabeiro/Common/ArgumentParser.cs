@@ -487,13 +487,13 @@ namespace LaurentiuCristofor.Cabeiro.Common
             {
                 return new Tuple<StringSelectionType, int>(StringSelectionType.NotEndsWith, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeIsDemarked))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeStartsAndEndsWith))
             {
-                return new Tuple<StringSelectionType, int>(StringSelectionType.IsDemarked, 2);
+                return new Tuple<StringSelectionType, int>(StringSelectionType.StartsAndEndsWith, 2);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeIsNotDemarked))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeNotStartsAndEndsWith))
             {
-                return new Tuple<StringSelectionType, int>(StringSelectionType.IsNotDemarked, 2);
+                return new Tuple<StringSelectionType, int>(StringSelectionType.NotStartsAndEndsWith, 2);
             }
             else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeEquals))
             {

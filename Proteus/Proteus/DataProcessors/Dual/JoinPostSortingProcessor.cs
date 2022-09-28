@@ -18,9 +18,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
     /// <summary>
     /// A data processor that joins lines from two files based on the values of two columns.
     /// </summary>
-    public class JoinPostSortingProcessor: BaseOutputProcessor, IDualDataProcessor<OperationOutputParameters<JoinType>, ParsedLine>
+    public class JoinPostSortingProcessor: BaseOutputProcessor, IDualDataProcessor<OutputOperationParameters<JoinType>, ParsedLine>
     {
-        protected OperationOutputParameters<JoinType> Parameters { get; set; }
+        protected OutputOperationParameters<JoinType> Parameters { get; set; }
 
         /// <summary>
         /// The last key we matched on.
@@ -32,7 +32,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
         /// </summary>
         protected List<string> LinesToJoinOnLastMatchedKey { get; set; }
 
-        public void Initialize(OperationOutputParameters<JoinType> processingParameters)
+        public void Initialize(OutputOperationParameters<JoinType> processingParameters)
         {
             this.Parameters = processingParameters;
 

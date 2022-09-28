@@ -7,7 +7,7 @@
 namespace LaurentiuCristofor.Proteus.Common.Types
 {
     /// <summary>
-    /// Types of criteria for handling duplicate values.
+    /// Types of criteria for handling repeated values.
     /// </summary>
     public enum RepetitionHandlingType
     {

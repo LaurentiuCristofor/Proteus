@@ -121,6 +121,8 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
                 return null;
             }
 
+            // Build a new array of columns, replacing a range of columns with a specific data.
+            //
             string[] newColumns = new string[this.Columns.Length - endColumnNumber + startColumnNumber];
 
             int startColumnIndex = startColumnNumber - 1;
@@ -129,14 +131,21 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             {
                 if (readIndex == startColumnIndex)
                 {
+                    // Found the start of the range.
+                    // Write our replacement data instead of the first range column data.
+                    //
                     newColumns[writeIndex++] = replacementData;
                     continue;
                 }
                 else if (readIndex > startColumnIndex && readIndex <= endColumnIndex)
                 {
+                    // Skip all other columns in the range.
+                    //
                     continue;
                 }
 
+                // Copy data for all other columns outside the range.
+                //
                 newColumns[writeIndex++] = this.Columns[readIndex];
             }
 

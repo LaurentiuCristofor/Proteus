@@ -10,9 +10,6 @@ using LaurentiuCristofor.Proteus.Common.Types;
 
 namespace LaurentiuCristofor.Proteus.Common.DataHolders
 {
-    /// <summary>
-    /// An IDataType implementation that manages integers.
-    /// </summary>
     public class IntegerDataHolder : IDataHolder
     {
         protected long Data { get; set; }

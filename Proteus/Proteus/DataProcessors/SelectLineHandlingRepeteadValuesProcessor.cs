@@ -19,16 +19,16 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// A data processor that checks a value to see if it's a repetition of a previously processed value,
     /// to decide whether to output the line or not.
     /// </summary>
-    public class SelectLineHandlingRepeteadValuesProcessor : BaseOutputProcessor, IDataProcessor<OperationOutputParameters<RepetitionHandlingType>, ParsedLine>
+    public class SelectLineHandlingRepeteadValuesProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<RepetitionHandlingType>, ParsedLine>
     {
-        protected OperationOutputParameters<RepetitionHandlingType> Parameters { get; set; }
+        protected OutputOperationParameters<RepetitionHandlingType> Parameters { get; set; }
 
         /// <summary>
         /// Set of values seen so far.
         /// </summary>
         protected HashSet<IDataHolder> SetValues { get; set; }
 
-        public void Initialize(OperationOutputParameters<RepetitionHandlingType> processingParameters)
+        public void Initialize(OutputOperationParameters<RepetitionHandlingType> processingParameters)
         {
             this.Parameters = processingParameters;
 

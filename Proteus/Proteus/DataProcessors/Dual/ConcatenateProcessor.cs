@@ -12,11 +12,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
     /// <summary>
     /// A data processor that concatenates lines from two files.
     /// </summary>
-    public class ConcatenateProcessor: BaseOutputProcessor, IDualDataProcessor<StringOutputParameters, string>
+    public class ConcatenateProcessor: BaseOutputProcessor, IDualDataProcessor<OutputStringParameters, string>
     {
-        protected StringOutputParameters Parameters { get; set; }
+        protected OutputStringParameters Parameters { get; set; }
 
-        public void Initialize(StringOutputParameters processingParameters)
+        public void Initialize(OutputStringParameters processingParameters)
         {
             this.Parameters = processingParameters;
 

@@ -19,16 +19,16 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
     /// A data processor that looks up a string in a data structure,
     /// to find a line to join with the currently processed line.
     /// </summary>
-    public class JoinProcessor : BaseOutputProcessor, IDataLookupProcessor<OperationOutputParameters<JoinType>, Dictionary<IDataHolder, List<string>>, ParsedLine>
+    public class JoinProcessor : BaseOutputProcessor, IDataLookupProcessor<OutputOperationParameters<JoinType>, Dictionary<IDataHolder, List<string>>, ParsedLine>
     {
-        protected OperationOutputParameters<JoinType> Parameters { get; set; }
+        protected OutputOperationParameters<JoinType> Parameters { get; set; }
 
         /// <summary>
         /// The lookup data structure used to perform the operation.
         /// </summary>
         protected Dictionary<IDataHolder, List<string>> LookupDictionary { get; set; }
 
-        public void Initialize(OperationOutputParameters<JoinType> processingParameters)
+        public void Initialize(OutputOperationParameters<JoinType> processingParameters)
         {
             this.Parameters = processingParameters;
 

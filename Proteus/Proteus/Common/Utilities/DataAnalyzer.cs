@@ -174,7 +174,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
                 return;
             }
 
-            OutputInterface.Log("\nPost-processing analyzed data...");
+            OutputInterface.Log("\n\nPost-processing analyzed data...");
 
             // Initialize a list into which to collect and sort our data.
             //
@@ -202,12 +202,12 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         /// <summary>
         /// Output the results of the analyzer.
         /// </summary>
-        /// <param name="valuesLimit">How many top and bottom values should be printed; if zero, all values will be output.</param>
-        public void OutputReport(int valuesLimit = 0)
+        /// <param name="outputLimit">How many top and bottom values should be printed; if zero, all values will be output.</param>
+        public void OutputReport(int outputLimit = 0)
         {
-            if (valuesLimit < 0)
+            if (outputLimit < 0)
             {
-                throw new ProteusException("An invalid (negative) values limit was passed to DataAnalyzer.OutputReport()!");
+                throw new ProteusException("An invalid (negative) output limit was passed to DataAnalyzer.OutputReport()!");
             }
 
             // If there is no data, we're done.
@@ -220,10 +220,10 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
 
             // Output information on individual values first.
             //
-            // If limitCount is 0 or if the limit is greater or equal than half the total count, we can output all values;
-            // else we output just the first and last limitCount values.
+            // If outputLimit is 0 or if the limit is greater or equal than half the total count, we can output all values;
+            // else we output just the first and last outputLimit values.
             //
-            if (valuesLimit == 0 || 2UL * (ulong)valuesLimit >= this.TotalDataCount)
+            if (outputLimit == 0 || 2UL * (ulong)outputLimit >= this.TotalDataCount)
             {
                 foreach (var tuple in this.ListCountedData)
                 {
@@ -232,17 +232,17 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
             }
             else
             {
-                OutputInterface.OutputLine($"{Constants.Strings.Bottom}{Constants.Strings.NameValueSeparator}{valuesLimit}");
+                OutputInterface.OutputLine($"{Constants.Strings.Bottom}{Constants.Strings.NameValueSeparator}{outputLimit}");
 
-                for (int i = 0; i < valuesLimit; i++)
+                for (int i = 0; i < outputLimit; i++)
                 {
                     var tuple = this.ListCountedData[i];
                     OutputValueInformation(tuple);
                 }
 
-                OutputInterface.OutputLine($"{Constants.Strings.Top}{Constants.Strings.NameValueSeparator}{valuesLimit}");
+                OutputInterface.OutputLine($"{Constants.Strings.Top}{Constants.Strings.NameValueSeparator}{outputLimit}");
 
-                for (int i = this.ListCountedData.Count - valuesLimit; i < this.ListCountedData.Count; i++)
+                for (int i = this.ListCountedData.Count - outputLimit; i < this.ListCountedData.Count; i++)
                 {
                     var tuple = this.ListCountedData[i];
                     OutputValueInformation(tuple);

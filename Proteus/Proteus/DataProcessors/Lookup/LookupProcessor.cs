@@ -16,19 +16,19 @@ using LaurentiuCristofor.Proteus.FileOperations;
 namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
 {
     /// <summary>
-    /// A data processor that looks up an IDataType in a data structure according to a selection criteria,
+    /// A data processor that looks up a value in a data structure according to a selection criteria,
     /// to decide whether to output the line or not.
     /// </summary>
-    public class LookupProcessor : BaseOutputProcessor, IDataLookupProcessor<OperationOutputParameters<LookupType>, HashSet<IDataHolder>, ParsedLine>
+    public class LookupProcessor : BaseOutputProcessor, IDataLookupProcessor<OutputOperationParameters<LookupType>, HashSet<IDataHolder>, ParsedLine>
     {
-        protected OperationOutputParameters<LookupType> Parameters { get; set; }
+        protected OutputOperationParameters<LookupType> Parameters { get; set; }
 
         /// <summary>
         /// The lookup data structure used to perform the operation.
         /// </summary>
         protected HashSet<IDataHolder> LookupSet { get; set; }
 
-        public void Initialize(OperationOutputParameters<LookupType> processingParameters)
+        public void Initialize(OutputOperationParameters<LookupType> processingParameters)
         {
             this.Parameters = processingParameters;
 

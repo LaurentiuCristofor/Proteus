@@ -188,8 +188,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string StringSelectionTypeNotStartsWith = "nstart";
                 public const string StringSelectionTypeEndsWith = "end";
                 public const string StringSelectionTypeNotEndsWith = "nend";
-                public const string StringSelectionTypeIsDemarked = "mark";
-                public const string StringSelectionTypeIsNotDemarked = "nmark";
+                public const string StringSelectionTypeStartsAndEndsWith = "startend";
+                public const string StringSelectionTypeNotStartsAndEndsWith = "nstartend";
                 public const string StringSelectionTypeEquals = "eq";
                 public const string StringSelectionTypeNotEquals = "neq";
 
@@ -378,8 +378,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotStartsWith}' = not starts with; arguments: <string_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeEndsWith}' = ends with; arguments: <string_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotEndsWith}' = not ends with; arguments: <string_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeIsDemarked}' = is demarked; arguments: <prefix_value> <suffix_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeIsNotDemarked}' = is not demarked; arguments: <prefix_value> <suffix_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeStartsAndEndsWith}' = starts and ends with; arguments: <starting_value> <ending_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotStartsAndEndsWith}' = not starts and ends with; arguments: <starting_value> <ending_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeEquals}' = equals; arguments: <string_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotEquals}' = not equals; arguments: <string_value>"
                         + "\n";
