@@ -49,7 +49,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             IDataHolder columnData = DataHolderOperations.BuildDataHolder(this.Parameters.ColumnDataType, columnString);
             if (columnData == null)
             {
-                OutputInterface.LogWarning($"\nFound an invalid value for column {this.Parameters.ColumnNumber} of type {this.Parameters.ColumnDataType} in line {lineNumber}: {columnString}!");
+                OutputInterface.LogWarning($"\nFound an invalid value for column {this.Parameters.ColumnNumber} of type {this.Parameters.ColumnDataType} in line {lineNumber}: '{columnString}'!");
                 return null;
             }
 
@@ -66,7 +66,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
                 secondColumnData = DataHolderOperations.BuildDataHolder(this.Parameters.SecondColumnDataType, secondColumnString);
                 if (secondColumnData == null)
                 {
-                    OutputInterface.LogWarning($"\nFound an invalid value for column {this.Parameters.SecondColumnNumber} of type {this.Parameters.SecondColumnDataType} in line {lineNumber}: {secondColumnString}!");
+                    OutputInterface.LogWarning($"\nFound an invalid value for column {this.Parameters.SecondColumnNumber} of type {this.Parameters.SecondColumnDataType} in line {lineNumber}: '{secondColumnString}'!");
                     return null;
                 }
             }

@@ -109,31 +109,6 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
                     ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstArgument);
                     break;
 
-                case StringEditType.ReplaceContent:
-                    ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstArgument);
-                    ArgumentChecker.CheckNotNull(this.SecondArgument);
-                    break;
-
-                case StringEditType.InsertContentBeforeMarker:
-                case StringEditType.InsertContentAfterMarker:
-                case StringEditType.InsertContentBeforeLastMarker:
-                case StringEditType.InsertContentAfterLastMarker:
-                case StringEditType.DeleteContentBetweenMarkers:
-                case StringEditType.KeepContentBetweenMarkers:
-                case StringEditType.KeepContentOutsideMarkers:
-                case StringEditType.DeleteContentBetweenLastMarkers:
-                case StringEditType.KeepContentBetweenLastMarkers:
-                case StringEditType.KeepContentOutsideLastMarkers:
-                case StringEditType.DeleteContentBetweenInnermostMarkers:
-                case StringEditType.KeepContentBetweenInnermostMarkers:
-                case StringEditType.KeepContentOutsideInnermostMarkers:
-                case StringEditType.DeleteContentBetweenOutermostMarkers:
-                case StringEditType.KeepContentBetweenOutermostMarkers:
-                case StringEditType.KeepContentOutsideOutermostMarkers:
-                    ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstArgument);
-                    ArgumentChecker.CheckNotNullAndNotEmpty(this.SecondArgument);
-                    break;
-
                 case StringEditType.DeleteFirstCharacters:
                 case StringEditType.DeleteLastCharacters:
                 case StringEditType.KeepFirstCharacters:
@@ -164,6 +139,31 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
                     this.SecondArgumentAsInt = int.Parse(this.SecondArgument);
 
                     ArgumentChecker.CheckPositive(this.FirstArgumentAsInt);
+                    break;
+
+                case StringEditType.ReplaceContent:
+                    ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstArgument);
+                    ArgumentChecker.CheckNotNull(this.SecondArgument);
+                    break;
+
+                case StringEditType.InsertContentBeforeMarker:
+                case StringEditType.InsertContentAfterMarker:
+                case StringEditType.InsertContentBeforeLastMarker:
+                case StringEditType.InsertContentAfterLastMarker:
+                case StringEditType.DeleteContentBetweenMarkers:
+                case StringEditType.KeepContentBetweenMarkers:
+                case StringEditType.KeepContentOutsideMarkers:
+                case StringEditType.DeleteContentBetweenLastMarkers:
+                case StringEditType.KeepContentBetweenLastMarkers:
+                case StringEditType.KeepContentOutsideLastMarkers:
+                case StringEditType.DeleteContentBetweenInnermostMarkers:
+                case StringEditType.KeepContentBetweenInnermostMarkers:
+                case StringEditType.KeepContentOutsideInnermostMarkers:
+                case StringEditType.DeleteContentBetweenOutermostMarkers:
+                case StringEditType.KeepContentBetweenOutermostMarkers:
+                case StringEditType.KeepContentOutsideOutermostMarkers:
+                    ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstArgument);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(this.SecondArgument);
                     break;
 
                 case StringEditType.Set:
@@ -728,7 +728,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
                 return false;
             }
 
-            indexSecondMarker = data.LastIndexOf(secondMarker, indexFirstMarker + firstMarker.Length);
+            indexSecondMarker = data.LastIndexOf(secondMarker, data.Length - 1, data.Length - indexFirstMarker - firstMarker.Length);
             if (indexSecondMarker == -1)
             {
                 return false;
@@ -786,7 +786,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
                 return false;
             }
 
-            indexSecondMarker = data.LastIndexOf(secondMarker, indexFirstMarker + firstMarker.Length);
+            indexSecondMarker = data.LastIndexOf(secondMarker, data.Length - 1, data.Length - indexFirstMarker - firstMarker.Length);
             if (indexSecondMarker == -1)
             {
                 return false;

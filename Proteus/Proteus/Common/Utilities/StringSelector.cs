@@ -54,23 +54,6 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
             // Validate arguments for the operation.
             switch (selectionType)
             {
-                case StringSelectionType.Includes:
-                case StringSelectionType.NotIncludes:
-                case StringSelectionType.StartsWith:
-                case StringSelectionType.NotStartsWith:
-                case StringSelectionType.EndsWith:
-                case StringSelectionType.NotEndsWith:
-                case StringSelectionType.Equals:
-                case StringSelectionType.NotEquals:
-                    ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstArgument);
-                    break;
-
-                case StringSelectionType.StartsAndEndsWith:
-                case StringSelectionType.NotStartsAndEndsWith:
-                    ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstArgument);
-                    ArgumentChecker.CheckNotNullAndNotEmpty(this.SecondArgument);
-                    break;
-
                 case StringSelectionType.HasLengthBetween:
                 case StringSelectionType.HasLengthNotBetween:
                     ArgumentChecker.CheckNotNull(this.FirstArgument);
@@ -82,6 +65,26 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
                     ArgumentChecker.CheckPositive(this.FirstArgumentAsInt);
                     ArgumentChecker.CheckPositive(this.SecondArgumentAsInt);
                     ArgumentChecker.CheckInterval(this.FirstArgumentAsInt, this.SecondArgumentAsInt);
+                    break;
+
+                case StringSelectionType.Includes:
+                case StringSelectionType.NotIncludes:
+                case StringSelectionType.StartsWith:
+                case StringSelectionType.NotStartsWith:
+                case StringSelectionType.EndsWith:
+                case StringSelectionType.NotEndsWith:
+                    ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstArgument);
+                    break;
+
+                case StringSelectionType.StartsAndEndsWith:
+                case StringSelectionType.NotStartsAndEndsWith:
+                    ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstArgument);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(this.SecondArgument);
+                    break;
+
+                case StringSelectionType.Equals:
+                case StringSelectionType.NotEquals:
+                    ArgumentChecker.CheckNotNull(this.FirstArgument);
                     break;
 
                 default:

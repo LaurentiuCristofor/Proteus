@@ -234,8 +234,8 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
             this.firstInputReader.Close();
             this.secondInputReader.Close();
 
-            OutputInterface.LogLine($"\n{this.firstLineCounter} lines were read from file { Path.GetFileName(this.FirstInputFilePath)}.");
-            OutputInterface.LogLine($"\n{this.secondLineCounter} lines were read from file { Path.GetFileName(this.SecondInputFilePath)}.");
+            OutputInterface.LogLine($"\n{this.firstLineCounter:N0} lines were read from file '{Path.GetFileName(this.FirstInputFilePath)}'.");
+            OutputInterface.LogLine($"\n{this.secondLineCounter:N0} lines were read from file '{Path.GetFileName(this.SecondInputFilePath)}'.");
 
             return false;
         }

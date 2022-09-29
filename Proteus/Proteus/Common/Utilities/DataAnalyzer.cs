@@ -31,34 +31,34 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         public ulong UniqueDataCount { get; protected set; }
 
         /// <summary>
-        /// Tracks the maximum data value.
-        /// </summary>
-        public IDataHolder MaximumData { get; protected set; }
-
-        /// <summary>
         /// Tracks the minimum data value.
         /// </summary>
-        public IDataHolder MinimumData { get; protected set; }
+        public IDataHolder MinimumValue { get; protected set; }
+
+        /// <summary>
+        /// Tracks the maximum data value.
+        /// </summary>
+        public IDataHolder MaximumValue { get; protected set; }
 
         /// <summary>
         /// For numerical values, tracks the total, for computing the average value.
         /// </summary>
-        public double TotalData { get; protected set; }
-
-        /// <summary>
-        /// Tracks the data with the longest string representation.
-        /// </summary>
-        public string LongestString { get; protected set; }
+        public double TotalValue { get; protected set; }
 
         /// <summary>
         /// Tracks the data with the shortest string representation.
         /// </summary>
-        public string ShortestString { get; protected set; }
+        public string ShortestStringRepresentation { get; protected set; }
+
+        /// <summary>
+        /// Tracks the data with the longest string representation.
+        /// </summary>
+        public string LongestStringRepresentation { get; protected set; }
 
         /// <summary>
         /// Tracks the total string length, for computing the average string length.
         /// </summary>
-        public long TotalStringLength { get; protected set; }
+        public long TotalStringRepresentationLength { get; protected set; }
 
         /// <summary>
         /// The Shannon entropy of the analyzed data.
@@ -106,47 +106,47 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
             //
             this.MapDataToCount[data] += 1;
 
-            // Check if we need to update maximum data.
-            //
-            if (this.MaximumData == null
-                || data.CompareTo(this.MaximumData) > 0)
-            {
-                this.MaximumData = data;
-            }
-
             // Check if we need to update minimum data.
             //
-            if (this.MinimumData == null
-                || data.CompareTo(this.MinimumData) < 0)
+            if (this.MinimumValue == null
+                || data.CompareTo(this.MinimumValue) < 0)
             {
-                this.MinimumData = data;
+                this.MinimumValue = data;
             }
 
-            // Check if we need to update longest data.
+            // Check if we need to update maximum data.
             //
-            if (this.LongestString == null
-                || data.ToString().Length > this.LongestString.Length)
+            if (this.MaximumValue == null
+                || data.CompareTo(this.MaximumValue) > 0)
             {
-                this.LongestString = data.ToString();
+                this.MaximumValue = data;
             }
 
-            // Check if we need to update shortest data.
+            // Check if we need to update shortest string representation data.
             //
-            if (this.ShortestString == null
-                || data.ToString().Length < this.ShortestString.Length)
+            if (this.ShortestStringRepresentation == null
+                || data.ToString().Length < this.ShortestStringRepresentation.Length)
             {
-                this.ShortestString = data.ToString();
+                this.ShortestStringRepresentation = data.ToString();
             }
 
-            // Update total string length.
+            // Check if we need to update longest string representation data.
             //
-            this.TotalStringLength += data.ToString().Length;
+            if (this.LongestStringRepresentation == null
+                || data.ToString().Length > this.LongestStringRepresentation.Length)
+            {
+                this.LongestStringRepresentation = data.ToString();
+            }
+
+            // Update total string representation length.
+            //
+            this.TotalStringRepresentationLength += data.ToString().Length;
 
             // Update total data length.
             //
             if (data.IsNumerical())
             {
-                this.TotalData += data.GetFloatingPointValue();
+                this.TotalValue += data.GetFloatingPointValue();
             }
         }
 
@@ -221,10 +221,10 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
 
             // Output information on individual values first.
             //
-            // If outputLimit is 0 or if the limit is greater or equal than half the total count, we can output all values;
+            // If outputLimit is 0 or if the limit is greater or equal than half the unique count, we can output all values;
             // else we output just the first and last outputLimit values.
             //
-            if (outputLimit == 0 || 2UL * (ulong)outputLimit >= this.TotalDataCount)
+            if (outputLimit == 0 || 2UL * (ulong)outputLimit >= this.UniqueDataCount)
             {
                 foreach (var tuple in this.ListCountedData)
                 {
@@ -235,7 +235,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
             {
                 OutputInterface.OutputLine($"{Constants.Strings.Bottom}{Constants.Strings.NameValueSeparator}{outputLimit}");
 
-                for (int i = 0; i < outputLimit; i++)
+                for (int i = 0; i < outputLimit; ++i)
                 {
                     var tuple = this.ListCountedData[i];
                     OutputValueInformation(tuple);
@@ -243,7 +243,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
 
                 OutputInterface.OutputLine($"{Constants.Strings.Top}{Constants.Strings.NameValueSeparator}{outputLimit}");
 
-                for (int i = this.ListCountedData.Count - outputLimit; i < this.ListCountedData.Count; i++)
+                for (int i = this.ListCountedData.Count - outputLimit; i < this.ListCountedData.Count; ++i)
                 {
                     var tuple = this.ListCountedData[i];
                     OutputValueInformation(tuple);
@@ -252,18 +252,18 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
 
             // Output the main statistics.
             //
-            OutputInterface.OutputLine($"{Constants.Strings.Count}{Constants.Strings.NameValueSeparator}{this.TotalDataCount}");
-            OutputInterface.OutputLine($"{Constants.Strings.UniqueCount}{Constants.Strings.NameValueSeparator}{this.UniqueDataCount}");
-            OutputInterface.OutputLine($"{Constants.Strings.MaximumValue}{Constants.Strings.NameValueSeparator}{this.MaximumData}");
-            OutputInterface.OutputLine($"{Constants.Strings.MinimumValue}{Constants.Strings.NameValueSeparator}{this.MinimumData}");
+            OutputInterface.OutputLine($"{Constants.Strings.Count}{Constants.Strings.NameValueSeparator}{this.TotalDataCount:N0}");
+            OutputInterface.OutputLine($"{Constants.Strings.UniqueCount}{Constants.Strings.NameValueSeparator}{this.UniqueDataCount:N0}");
+            OutputInterface.OutputLine($"{Constants.Strings.MinimumValue}{Constants.Strings.NameValueSeparator}{this.MinimumValue}");
+            OutputInterface.OutputLine($"{Constants.Strings.MaximumValue}{Constants.Strings.NameValueSeparator}{this.MaximumValue}");
             if (DataHolderOperations.IsNumerical(this.DataType))
             {
-                OutputInterface.OutputLine($"{Constants.Strings.AverageValue}{Constants.Strings.NameValueSeparator}{(double)this.TotalData / this.TotalDataCount}");
+                OutputInterface.OutputLine($"{Constants.Strings.AverageValue}{Constants.Strings.NameValueSeparator}{(double)this.TotalValue / this.TotalDataCount:N5}");
             }
-            OutputInterface.OutputLine($"{Constants.Strings.LongestString}{Constants.Strings.NameValueSeparator}{this.LongestString}");
-            OutputInterface.OutputLine($"{Constants.Strings.ShortestString}{Constants.Strings.NameValueSeparator}{this.ShortestString}");
-            OutputInterface.OutputLine($"{Constants.Strings.AverageStringLength}{Constants.Strings.NameValueSeparator}{(double)this.TotalStringLength / this.TotalDataCount}");
-            OutputInterface.OutputLine($"{Constants.Strings.Entropy}{Constants.Strings.NameValueSeparator}{this.Entropy}");
+            OutputInterface.OutputLine($"{Constants.Strings.ShortestStringRepresentation}{Constants.Strings.NameValueSeparator}{this.ShortestStringRepresentation}");
+            OutputInterface.OutputLine($"{Constants.Strings.LongestStringRepresentation}{Constants.Strings.NameValueSeparator}{this.LongestStringRepresentation}");
+            OutputInterface.OutputLine($"{Constants.Strings.AverageStringRepresentationLength}{Constants.Strings.NameValueSeparator}{(double)this.TotalStringRepresentationLength / this.TotalDataCount:N5}");
+            OutputInterface.OutputLine($"{Constants.Strings.Entropy}{Constants.Strings.NameValueSeparator}{this.Entropy:N5}");
         }
 
         /// <summary>
@@ -276,9 +276,9 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
             //
             ulong valueCount = valueInformation.Item1;
             string value = valueInformation.Item2.ToString();
-            double valuePercentage = (double)valueCount / (double)this.TotalDataCount;
+            double valueRatio = (double)valueCount / (double)this.TotalDataCount;
 
-            OutputInterface.OutputLine($"{value}{Constants.Strings.NameValueSeparator}{valueCount}{Constants.Strings.NameValueSeparator}{valuePercentage}");
+            OutputInterface.OutputLine($"{valueCount:N0}{Constants.Strings.NameValueSeparator}{valueRatio:P5}{Constants.Strings.NameValueSeparator}{value}");
         }
     }
 }

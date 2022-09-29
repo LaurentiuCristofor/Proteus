@@ -52,7 +52,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             this.Lines.Sort();
 
-            OutputInterface.LogLine("done!");
+            OutputInterface.Log("done!");
 
             foreach (string line in this.Lines)
             {

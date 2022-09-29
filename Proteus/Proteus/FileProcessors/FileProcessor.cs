@@ -132,7 +132,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
 
             this.InputReader.Close();
 
-            OutputInterface.LogLine($"\n{this.LineCounter} lines were read from file { Path.GetFileName(this.InputFilePath)}.");
+            OutputInterface.LogLine($"\n{this.LineCounter:N0} lines were read from file '{Path.GetFileName(this.InputFilePath)}'.");
 
             return false;
         }

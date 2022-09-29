@@ -58,13 +58,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 editedLine = string.Join(lineData.ColumnSeparator, lineData.Columns);
             }
 
-            // Do not output empty lines.
-            //
-            if (String.IsNullOrEmpty(editedLine))
-            {
-                return true;
-            }
-
             this.OutputWriter.WriteLine(editedLine);
 
             return true;

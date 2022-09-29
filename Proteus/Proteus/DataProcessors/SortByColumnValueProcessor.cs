@@ -55,7 +55,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             this.ColumnLineTuples.Sort();
 
-            OutputInterface.LogLine("done!");
+            OutputInterface.Log("done!");
 
             foreach (Tuple<IDataHolder, string> tuple in this.ColumnLineTuples)
             {
