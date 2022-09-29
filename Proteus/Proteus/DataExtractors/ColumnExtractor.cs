@@ -8,6 +8,7 @@
 using System;
 
 using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.Common.DataHolders;
 
 namespace LaurentiuCristofor.Proteus.DataExtractors
@@ -33,51 +34,66 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             //
             string[] columns = line.Split(this.Parameters.Separators, StringSplitOptions.None);
 
-            if (this.Parameters.ColumnNumber > columns.Length)
+            // Check if we need to extract a column value.
+            //
+            if (this.Parameters.ColumnNumber > 0)
             {
-                OutputInterface.LogWarning($"\nLine {lineNumber} is too short for extracting column number {this.Parameters.ColumnNumber}!");
+                IDataHolder columnData = ExtractColumn(lineNumber, columns, this.Parameters.ColumnNumber, this.Parameters.ColumnDataType);
+                if (columnData == null)
+                {
+                    return null;
+                }
+
+                // Check if we need to extract a second column value.
+                //
+                IDataHolder secondColumnData = null;
+                if (this.Parameters.SecondColumnNumber > 0)
+                {
+                    secondColumnData = ExtractColumn(lineNumber, columns, this.Parameters.SecondColumnNumber, this.Parameters.SecondColumnDataType);
+                    if (secondColumnData == null)
+                    {
+                        return null;
+                    }
+                }
+
+                // Package and return all the information that we extracted from the line.
+                //
+                return new ParsedLine(line, columns, this.Parameters.Separators[0], columnData, this.Parameters.ColumnNumber, secondColumnData);
+            }
+            else
+            {
+                return new ParsedLine(line, columns, this.Parameters.Separators[0]);
+            }
+        }
+
+        /// <summary>
+        /// Extracts a column value from a columns string array according to the data type passed as argument.
+        /// </summary>
+        /// <param name="lineNumber">The number of the line that we are processing.</param>
+        /// <param name="columns">The columns string array.</param>
+        /// <param name="columnNumber">The number of the column to extract.</param>
+        /// <param name="columnDataType">The type of the column to extract.</param>
+        /// <returns>An IDataHolder instance containing the column's value or null if the column didn't exist or if its value didn't match the specified data type.</returns>
+        protected IDataHolder ExtractColumn(ulong lineNumber, string[] columns, int columnNumber, DataType columnDataType)
+        {
+            if (columnNumber > columns.Length)
+            {
+                OutputInterface.LogWarning($"\nLine {lineNumber} is too short for extracting column number {columnNumber}!");
                 return null;
             }
 
-            // Extract the column value.
-            //
-            int columnIndex = this.Parameters.ColumnNumber - 1;
+            int columnIndex = columnNumber - 1;
             string columnString = columns[columnIndex];
 
             // Parse the column value according to the data type parameter.
             //
-            IDataHolder columnData = DataHolderOperations.BuildDataHolder(this.Parameters.ColumnDataType, columnString);
+            IDataHolder columnData = DataHolderOperations.BuildDataHolder(columnDataType, columnString);
             if (columnData == null)
             {
-                OutputInterface.LogWarning($"\nFound an invalid value for column {this.Parameters.ColumnNumber} of type {this.Parameters.ColumnDataType} in line {lineNumber}: '{columnString}'!");
+                OutputInterface.LogWarning($"\nFound an invalid value for column {columnNumber} of type {columnDataType} in line {lineNumber}: '{columnString}'!");
                 return null;
             }
-
-            // Check if we need to extract a second column value.
-            //
-            IDataHolder secondColumnData = null;
-            if (this.Parameters.SecondColumnNumber > 0)
-            {
-                int secondColumnIndex = this.Parameters.SecondColumnNumber - 1;
-                string secondColumnString = columns[secondColumnIndex];
-
-                // Parse the second column value according to the data type parameter.
-                //
-                secondColumnData = DataHolderOperations.BuildDataHolder(this.Parameters.SecondColumnDataType, secondColumnString);
-                if (secondColumnData == null)
-                {
-                    OutputInterface.LogWarning($"\nFound an invalid value for column {this.Parameters.SecondColumnNumber} of type {this.Parameters.SecondColumnDataType} in line {lineNumber}: '{secondColumnString}'!");
-                    return null;
-                }
-            }
-
-            // Package all the information that we extracted from the line.
-            //
-            ParsedLine lineData = new ParsedLine(line, columnData, this.Parameters.ColumnNumber, columns, this.Parameters.Separators[0], secondColumnData);
-            
-            // Return the line data.
-            //
-            return lineData;
+            return columnData;
         }
     }
 }

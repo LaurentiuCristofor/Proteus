@@ -47,12 +47,41 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         /// </summary>
         public IDataHolder SecondExtractedData { get; protected set; }
 
+        /// <summary>
+        /// This constructor is used when the ParsedLine will just contain basic columns information.
+        /// </summary>
+        /// <param name="originalLine">The line that we parsed the data from.</param>
+        /// <param name="columns">An array representing the columns that we extracted from the line.</param>
+        /// <param name="columnSeparator">The column separator.</param>
         public ParsedLine(
             string originalLine,
+            string[] columns,
+            string columnSeparator)
+        {
+            this.OriginalLine = originalLine;
+            this.Columns = columns;
+            this.ColumnSeparator = columnSeparator;
+            this.ExtractedData = null;
+            this.ExtractedColumnNumber = 0;
+            this.SecondExtractedData = null;
+        }
+
+        /// <summary>
+        /// This constructor is used when the ParsedLine will contain some data extracted from the line,
+        /// in addition to all the columns information.
+        /// </summary>
+        /// <param name="originalLine">The line that we parsed the data from.</param>
+        /// <param name="columns">An array representing the columns that we extracted from the line.</param>
+        /// <param name="columnSeparator">The column separator.</param>
+        /// <param name="extractedData">The data that we extracted from the line. Could be the line itself.</param>
+        /// <param name="extractedColumnNumber">If the extracted data was a column, this will tell us which column it was.</param>
+        /// <param name="secondExtractedData">A second piece of data that we extracted from the line.</param>
+        public ParsedLine(
+            string originalLine,
+            string[] columns,
+            string columnSeparator,
             IDataHolder extractedData,
-            int extractedColumnNumber = 0,
-            string[] columns = null,
-            string columnSeparator = null,
+            int extractedColumnNumber,
             IDataHolder secondExtractedData = null)
         {
             this.OriginalLine = originalLine;
@@ -61,6 +90,24 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             this.Columns = columns;
             this.ColumnSeparator = columnSeparator;
             this.SecondExtractedData = secondExtractedData;
+        }
+
+        /// <summary>
+        /// This constructor is used when the ParsedLine will just contain the line itself
+        /// and no actual column extraction has occurred.
+        /// </summary>
+        /// <param name="originalLine">The line that we parsed the data from.</param>
+        /// <param name="extractedData">The data that we extracted from the line..</param>
+        public ParsedLine(
+            string originalLine,
+            IDataHolder extractedData)
+        {
+            this.OriginalLine = originalLine;
+            this.ExtractedData = extractedData;
+            this.ExtractedColumnNumber = 0;
+            this.Columns = null;
+            this.ColumnSeparator = null;
+            this.SecondExtractedData = null;
         }
 
         /// <summary>

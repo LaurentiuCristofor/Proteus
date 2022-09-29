@@ -43,9 +43,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
 
         public bool Execute(ulong lineNumber, ParsedLine lineData)
         {
-            DataProcessorValidation.ValidateExtractedDataIsString(lineData);
-            DataProcessorValidation.ValidateColumnInformation(lineData);
-
             IDataHolder lineKey = lineData.ExtractedData;
 
             // The case where we find a match in the lookup dictionary

@@ -43,8 +43,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
 
         public bool Execute(ulong lineNumber, ParsedLine lineData)
         {
-            DataProcessorValidation.ValidateExtractedDataIsString(lineData);
-
             bool isDataIncluded = this.LookupSet.Contains(lineData.ExtractedData);
 
             bool shouldOutputLine;

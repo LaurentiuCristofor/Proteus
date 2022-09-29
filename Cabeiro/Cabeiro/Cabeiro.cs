@@ -893,13 +893,8 @@ namespace LaurentiuCristofor.Cabeiro
             string newFirstColumnsList,
             string outputFilePath)
         {
-            // We need a successful column extraction to extract all columns,
-            // so we'll just ask to extract the first column value, which must always exist if there is any data in the line.
-            //
             ColumnExtractionParameters extractionParameters = new ColumnExtractionParameters(
-                columnSeparator,
-                columnNumber: 1,
-                DataType.String);
+                columnSeparator);
 
             string outputFileExtension = $".{CabeiroConstants.Commands.OrderColumns}.{newFirstColumnsList}";
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, operationArguments: null, outputFilePath);
@@ -1140,13 +1135,8 @@ namespace LaurentiuCristofor.Cabeiro
             string[] transformationArguments,
             string outputFilePath)
         {
-            // We need a successful column extraction to extract all columns,
-            // so we'll just ask to extract the first column value, which must always exist if there is any data in the line.
-            //
             ColumnExtractionParameters extractionParameters = new ColumnExtractionParameters(
-                columnSeparator,
-                1,
-                DataType.String);
+                columnSeparator);
 
             string outputFileExtension = $".{CabeiroConstants.Commands.TransformColumns}.{transformationTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, transformationArguments, outputFilePath);
@@ -1229,13 +1219,8 @@ namespace LaurentiuCristofor.Cabeiro
             string[] selectionArguments,
             string outputFilePath)
         {
-            // We need a successful column extraction to extract all columns,
-            // so we'll just ask to extract the first column value, which must always exist if there is any data in the line.
-            //
             ColumnExtractionParameters extractionParameters = new ColumnExtractionParameters(
-                columnSeparator,
-                columnNumber: 1,
-                DataType.String);
+                columnSeparator);
 
             string outputFileExtension = $".{CabeiroConstants.Commands.SelectColumnsByNumber}.{selectionTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, selectionArguments, outputFilePath);
@@ -1317,13 +1302,8 @@ namespace LaurentiuCristofor.Cabeiro
             string[] comparisonArguments,
             string outputFilePath)
         {
-            // We need a successful column extraction to extract all columns,
-            // so we'll just ask to extract the first column value, which must always exist if there is any data in the line.
-            //
             ColumnExtractionParameters extractionParameters = new ColumnExtractionParameters(
-                columnSeparator,
-                columnNumber: 1,
-                DataType.String);
+                columnSeparator);
 
             string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesByColumnCount}.{comparisonTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, comparisonArguments, outputFilePath);
@@ -1576,13 +1556,8 @@ namespace LaurentiuCristofor.Cabeiro
             string columnSeparator,
             string outputFilePath)
         {
-            // We need a successful column extraction to extract all columns,
-            // so we'll just ask to extract the first column value, which must always exist if there is any data in the line.
-            //
             ColumnExtractionParameters extractionParameters = new ColumnExtractionParameters(
-                columnSeparator,
-                columnNumber: 1,
-                DataType.String);
+                columnSeparator);
 
             // The file name will be bundled by the processor with the number of each column, so we exclude the text extension from it;
             // it will get appended by the processor internally.

@@ -59,8 +59,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public bool Execute(ulong lineNumber, ParsedLine lineData)
         {
-            DataProcessorValidation.ValidateExtractedDataIsString(lineData);
-
             IDataHolder data = lineData.ExtractedData;
 
             // Determine whether to output the line based on the handling type.

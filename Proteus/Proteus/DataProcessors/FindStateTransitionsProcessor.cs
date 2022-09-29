@@ -33,8 +33,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public bool Execute(ulong lineNumber, ParsedLine lineData)
         {
-            DataProcessorValidation.ValidateSecondExtractedData(lineData);
-
             // Verify that the input file is sorted on the primary column.
             //
             if (this.PreviousLineData != null && lineData.ExtractedData.CompareTo(this.PreviousLineData.ExtractedData) < 0)

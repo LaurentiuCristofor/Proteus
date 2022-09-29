@@ -37,8 +37,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public bool Execute(ulong lineNumber, ParsedLine lineData)
         {
-            DataProcessorValidation.ValidateColumnInformation(lineData);
-
             // Output each column value as a line in its own file.
             //
             for (int columnIndex = 0; columnIndex < lineData.Columns.Length; ++columnIndex)

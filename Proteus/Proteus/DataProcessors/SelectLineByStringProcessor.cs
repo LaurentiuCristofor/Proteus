@@ -38,8 +38,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public bool Execute(ulong lineNumber, ParsedLine lineData)
         {
-            DataProcessorValidation.ValidateExtractedDataIsString(lineData);
-
             string data = lineData.ExtractedData.ToString();
 
             if (this.StringSelector.Select(data))

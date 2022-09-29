@@ -38,8 +38,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public bool Execute(ulong lineNumber, ParsedLine lineData)
         {
-            DataProcessorValidation.ValidateColumnInformation(lineData);
-
             IDataHolder data = lineData.ExtractedData;
 
             // If we don't have a file created for this column already, create one now.

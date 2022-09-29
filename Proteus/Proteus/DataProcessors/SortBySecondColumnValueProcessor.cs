@@ -44,8 +44,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public bool Execute(ulong lineNumber, ParsedLine lineData)
         {
-            DataProcessorValidation.ValidateSecondExtractedData(lineData);
-
             // We will also execute these steps when processing the very first line, but nothing will be output.
             //
             if (!lineData.ExtractedData.Equals(this.CurrentPrimaryColumnData))

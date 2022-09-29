@@ -44,6 +44,28 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         /// </summary>
         public DataType SecondColumnDataType { get; protected set; }
 
+        /// <summary>
+        /// This constructor is used when we just want to extract all columns as string values,
+        /// but we are not interested in any specific column.
+        /// </summary>
+        /// <param name="separator">The column separator.</param>
+        public ColumnExtractionParameters(
+            string separator)
+        {
+            this.Separators = new string[1];
+            this.Separators[0] = separator;
+            this.ColumnNumber = 0;
+            this.ColumnDataType = DataType.NotSet;
+            this.SecondColumnNumber = 0;
+            this.SecondColumnDataType = DataType.NotSet;
+        }
+
+        /// <summary>
+        /// This constructor is used when we want to extract a specific column.
+        /// </summary>
+        /// <param name="separator">The column separator.</param>
+        /// <param name="columnNumber">The number of the column to extract.</param>
+        /// <param name="dataType">The data type of the column to extract.</param>
         public ColumnExtractionParameters(
             string separator,
             int columnNumber,
@@ -60,6 +82,14 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             this.SecondColumnDataType = DataType.NotSet;
         }
 
+        /// <summary>
+        /// This constructor is used when we want to extract two specific columns.
+        /// </summary>
+        /// <param name="separator">The column separator.</param>
+        /// <param name="columnNumber">The number of the first column to extract.</param>
+        /// <param name="dataType">The data type of the first column to extract.</param>
+        /// <param name="secondColumnNumber">The number of the second column to extract.</param>
+        /// <param name="secondDataType">The data type of the second column to extract.</param>
         public ColumnExtractionParameters(
             string separator,
             int columnNumber,

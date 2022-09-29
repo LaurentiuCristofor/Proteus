@@ -8,7 +8,7 @@
 namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
 {
     /// <summary>
-    /// Types of processing actions.
+    /// Types of dual-file processing actions.
     /// </summary>
     public enum ProcessingActionType
     {

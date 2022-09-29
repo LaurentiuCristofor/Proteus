@@ -45,8 +45,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public bool Execute(ulong lineNumber, ParsedLine lineData)
         {
-            DataProcessorValidation.ValidateColumnInformation(lineData);
-
             int columnIndex = lineData.ExtractedColumnNumber - 1;
 
             // Update the column string representation with the string representation of the edited data.

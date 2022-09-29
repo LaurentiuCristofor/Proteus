@@ -34,9 +34,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
         /// <returns>A reference to the lookup data structure that was built so far.</returns>
         public Dictionary<IDataHolder, List<string>> Execute(ParsedLine lineData)
         {
-            DataProcessorValidation.ValidateExtractedDataIsString(lineData);
-            DataProcessorValidation.ValidateColumnInformation(lineData);
-
             // The line that we want to join with should not contain the data that we matched on, to prevent redundancy in the join output.
             // We thus have to construct a new line without the content extracted in lineData.
             //

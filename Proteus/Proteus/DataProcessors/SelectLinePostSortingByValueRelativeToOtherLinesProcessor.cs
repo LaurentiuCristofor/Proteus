@@ -36,8 +36,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public bool Execute(ulong lineNumber, ParsedLine lineData)
         {
-            DataProcessorValidation.ValidateExtractedDataIsString(lineData);
-
             // Verify that the input file is sorted on the extracted data.
             //
             if (this.LastSeenLineData != null
