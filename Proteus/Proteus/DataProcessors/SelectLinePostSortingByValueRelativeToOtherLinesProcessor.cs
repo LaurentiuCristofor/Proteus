@@ -6,7 +6,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using LaurentiuCristofor.Proteus.Common;
-using LaurentiuCristofor.Proteus.Common.ValueHolders;
+using LaurentiuCristofor.Proteus.Common.DataHolders;
 using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.DataProcessors.Parameters;

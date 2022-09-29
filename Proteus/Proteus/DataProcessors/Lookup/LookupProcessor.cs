@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 
 using LaurentiuCristofor.Proteus.Common;
-using LaurentiuCristofor.Proteus.Common.ValueHolders;
+using LaurentiuCristofor.Proteus.Common.DataHolders;
 using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
@@ -20,14 +20,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
     /// A data processor that looks up a value in a data structure according to a selection criteria,
     /// to decide whether to output the line or not.
     /// </summary>
-    public class LookupProcessor : BaseOutputProcessor, IDataLookupProcessor<OutputOperationParameters<LookupType>, HashSet<IValueHolder>, OneExtractedValue>
+    public class LookupProcessor : BaseOutputProcessor, IDataLookupProcessor<OutputOperationParameters<LookupType>, HashSet<IDataHolder>, OneExtractedValue>
     {
         protected OutputOperationParameters<LookupType> Parameters { get; set; }
 
         /// <summary>
         /// The lookup data structure used to perform the operation.
         /// </summary>
-        protected HashSet<IValueHolder> LookupSet { get; set; }
+        protected HashSet<IDataHolder> LookupSet { get; set; }
 
         public void Initialize(OutputOperationParameters<LookupType> processingParameters)
         {
@@ -36,7 +36,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
             this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
         }
 
-        public void AddLookupDataStructure(HashSet<IValueHolder> lookupSet)
+        public void AddLookupDataStructure(HashSet<IDataHolder> lookupSet)
         {
             this.LookupSet = lookupSet;
         }

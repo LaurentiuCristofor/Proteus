@@ -10,8 +10,8 @@ using System.Collections.Generic;
 using System.Reflection;
 
 using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.DataHolders;
 using LaurentiuCristofor.Proteus.Common.Types;
-using LaurentiuCristofor.Proteus.Common.ValueHolders;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.DataProcessors;
 using LaurentiuCristofor.Proteus.DataProcessors.Dual;
@@ -986,12 +986,12 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, editArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            // Construct IValueHolder argument, if one is provided.
+            // Construct IDataHolder argument, if one is provided.
             //
-            IValueHolder argument = null;
+            IDataHolder argument = null;
             if (editArguments.Length > 0)
             {
-                argument = ValueHolderOperations.BuildValueHolder(dataType, editArguments[0]);
+                argument = DataHolderOperations.BuildDataHolder(dataType, editArguments[0]);
             }
 
             OutputValueEditParameters processingParameters = new OutputValueEditParameters(
@@ -1089,7 +1089,7 @@ namespace LaurentiuCristofor.Cabeiro
                     = new LookupFileProcessor<
                         OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue,
                         OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue,
-                        JoinBuilder, Dictionary<IValueHolder, List<string>>,
+                        JoinBuilder, Dictionary<IDataHolder, List<string>>,
                         JoinProcessor, OutputOperationParameters<JoinType>>(
                         firstFilePath,
                         firstExtractionParameters,
@@ -1447,7 +1447,7 @@ namespace LaurentiuCristofor.Cabeiro
                     = new LookupFileProcessor<
                         LineAsOneExtractedValueExtractor, Unused, OneExtractedValue,
                         LineAsOneExtractedValueExtractor, Unused, OneExtractedValue,
-                        LookupBuilder, HashSet<IValueHolder>,
+                        LookupBuilder, HashSet<IDataHolder>,
                         LookupProcessor, OutputOperationParameters<LookupType>>(
                         dataFilePath,
                         dataFileExtractionParameters: null,
@@ -1511,7 +1511,7 @@ namespace LaurentiuCristofor.Cabeiro
                     = new LookupFileProcessor<
                         OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue,
                         OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue,
-                        LookupBuilder, HashSet<IValueHolder>,
+                        LookupBuilder, HashSet<IDataHolder>,
                         LookupProcessor, OutputOperationParameters<LookupType>>(
                         dataFilePath,
                         dataFileExtractionParameters,

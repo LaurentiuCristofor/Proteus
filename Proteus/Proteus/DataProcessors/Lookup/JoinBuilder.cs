@@ -7,7 +7,7 @@
 
 using System.Collections.Generic;
 
-using LaurentiuCristofor.Proteus.Common.ValueHolders;
+using LaurentiuCristofor.Proteus.Common.DataHolders;
 using LaurentiuCristofor.Proteus.DataExtractors;
 
 namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
@@ -15,16 +15,16 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
     /// <summary>
     /// A builder of a Dictionary data structure used for lookup by join operations.
     /// </summary>
-    public class JoinBuilder : ILookupDataStructureBuilder<OneExtractedValue, Dictionary<IValueHolder, List<string>>>
+    public class JoinBuilder : ILookupDataStructureBuilder<OneExtractedValue, Dictionary<IDataHolder, List<string>>>
     {
         /// <summary>
         /// The lookup data structure that we'll construct.
         /// </summary>
-        protected Dictionary<IValueHolder, List<string>> LookupDictionary { get; set; }
+        protected Dictionary<IDataHolder, List<string>> LookupDictionary { get; set; }
 
         public JoinBuilder()
         {
-            this.LookupDictionary = new Dictionary<IValueHolder, List<string>>();
+            this.LookupDictionary = new Dictionary<IDataHolder, List<string>>();
         }
 
         /// <summary>
@@ -32,14 +32,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
         /// </summary>
         /// <param name="lineData">The data to process.</param>
         /// <returns>A reference to the lookup data structure that was built so far.</returns>
-        public Dictionary<IValueHolder, List<string>> Execute(OneExtractedValue lineData)
+        public Dictionary<IDataHolder, List<string>> Execute(OneExtractedValue lineData)
         {
             // The line that we want to join with should not contain the data that we matched on, to prevent redundancy in the join output.
             // We thus have to construct a new line without the content extracted in lineData.
             //
             string lineToJoin = lineData.AssembleWithoutColumn(lineData.ExtractedColumnNumber);
 
-            IValueHolder lineKey = lineData.ExtractedData;
+            IDataHolder lineKey = lineData.ExtractedData;
 
             // If this is the first time we see this key, initalize a List<string>.
             //

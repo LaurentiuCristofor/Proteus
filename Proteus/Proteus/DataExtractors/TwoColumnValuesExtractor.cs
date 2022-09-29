@@ -7,7 +7,7 @@
 
 using System;
 
-using LaurentiuCristofor.Proteus.Common.ValueHolders;
+using LaurentiuCristofor.Proteus.Common.DataHolders;
 
 namespace LaurentiuCristofor.Proteus.DataExtractors
 {
@@ -31,7 +31,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
             // Check if we need to extract a column value.
             //
-            IValueHolder columnData = OneColumnValueExtractor.ExtractColumn(lineNumber, columns, this.Parameters.ColumnNumber, this.Parameters.ColumnDataType);
+            IDataHolder columnData = OneColumnValueExtractor.ExtractColumn(lineNumber, columns, this.Parameters.ColumnNumber, this.Parameters.ColumnDataType);
             if (columnData == null)
             {
                 return null;
@@ -39,7 +39,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
             // Check if we need to extract a second column value.
             //
-            IValueHolder secondColumnData = OneColumnValueExtractor.ExtractColumn(lineNumber, columns, this.Parameters.SecondColumnNumber, this.Parameters.SecondColumnDataType);
+            IDataHolder secondColumnData = OneColumnValueExtractor.ExtractColumn(lineNumber, columns, this.Parameters.SecondColumnNumber, this.Parameters.SecondColumnDataType);
             if (secondColumnData == null)
             {
                 return null;

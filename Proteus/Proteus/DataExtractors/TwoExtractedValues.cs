@@ -7,7 +7,7 @@
 
 using LaurentiuCristofor.Proteus.Common;
 
-using LaurentiuCristofor.Proteus.Common.ValueHolders;
+using LaurentiuCristofor.Proteus.Common.DataHolders;
 
 namespace LaurentiuCristofor.Proteus.DataExtractors
 {
@@ -21,15 +21,15 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         /// 
         /// This is typically a second column value.
         /// </summary>
-        public IValueHolder SecondExtractedData { get; protected set; }
+        public IDataHolder SecondExtractedData { get; protected set; }
 
         public TwoExtractedValues(
             string originalLine,
             string[] columns,
             string columnSeparator,
-            IValueHolder extractedData,
+            IDataHolder extractedData,
             int extractedColumnNumber,
-            IValueHolder secondExtractedData)
+            IDataHolder secondExtractedData)
             : base(originalLine, columns, columnSeparator, extractedData, extractedColumnNumber)
         {
             this.SecondExtractedData = secondExtractedData;

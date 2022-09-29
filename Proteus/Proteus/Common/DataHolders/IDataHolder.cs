@@ -9,12 +9,12 @@ using System;
 
 using LaurentiuCristofor.Proteus.Common.Types;
 
-namespace LaurentiuCristofor.Proteus.Common.ValueHolders
+namespace LaurentiuCristofor.Proteus.Common.DataHolders
 {
     /// <summary>
     /// An interface for data type representations.
     /// </summary>
-    public interface IValueHolder: IComparable
+    public interface IDataHolder: IComparable
     {
         /// <summary>
         /// Return the data type of this instance.
@@ -28,31 +28,31 @@ namespace LaurentiuCristofor.Proteus.Common.ValueHolders
         bool IsNumerical();
 
         /// <summary>
-        /// If the underlying value can be mapped to an integer, return it.
+        /// If the underlying data can be mapped to an integer, return it.
         /// Otherwise, throw an exception.
         /// </summary>
         long GetIntegerValue();
 
         /// <summary>
-        /// If the underlying value can be mapped to an unsigned integer, return it.
+        /// If the underlying data can be mapped to an unsigned integer, return it.
         /// Otherwise, throw an exception.
         /// </summary>
         ulong GetUnsignedIntegerValue();
 
         /// <summary>
-        /// If the underlying value can be mapped to a floating point value, return it.
+        /// If the underlying data can be mapped to a floating point value, return it.
         /// Otherwise, throw an exception.
         /// </summary>
         double GetFloatingPointValue();
 
         /// <summary>
-        /// If the underlying value can be mapped to a DateTime value, return it.
+        /// If the underlying data can be mapped to a DateTime value, return it.
         /// Otherwise, throw an exception.
         /// </summary>
         DateTime GetDateTimeValue();
 
         /// <summary>
-        /// Returns the string representation of stored value.
+        /// Returns the string representation of stored data.
         /// </summary>
         /// <returns>String representation of the data type.</returns>
         string ToString();
@@ -62,35 +62,35 @@ namespace LaurentiuCristofor.Proteus.Common.ValueHolders
         /// </summary>
         /// <param name="otherData">The operation argument.</param>
         /// <returns>Returns the operation result.</returns>
-        IValueHolder Add(IValueHolder otherData);
+        IDataHolder Add(IDataHolder otherData);
 
         /// <summary>
         /// Implements subtraction on types that support it.
         /// </summary>
         /// <param name="otherData">The operation argument.</param>
         /// <returns>Returns the operation result.</returns>
-        IValueHolder Subtract(IValueHolder otherData);
+        IDataHolder Subtract(IDataHolder otherData);
 
         /// <summary>
         /// Implements multiplication on types that support it.
         /// </summary>
         /// <param name="otherData">The operation argument.</param>
         /// <returns>Returns the operation result.</returns>
-        IValueHolder Multiply(IValueHolder otherData);
+        IDataHolder Multiply(IDataHolder otherData);
 
         /// <summary>
         /// Implements division on types that support it.
         /// </summary>
         /// <param name="otherData">The operation argument.</param>
         /// <returns>Returns the operation result.</returns>
-        IValueHolder Divide(IValueHolder otherData);
+        IDataHolder Divide(IDataHolder otherData);
 
         /// <summary>
         /// Performs a type-specific comparison with another data.
         /// </summary>
         /// <param name="otherData">The other IValueHolder value.</param>
         /// <returns>A negative value, zero, or a positive value if this data is less than, equal to, or greater than, respectively, the other value.</returns>
-        int CompareTo(IValueHolder otherData);
+        int CompareTo(IDataHolder otherData);
 
         bool Equals(Object otherObject);
 

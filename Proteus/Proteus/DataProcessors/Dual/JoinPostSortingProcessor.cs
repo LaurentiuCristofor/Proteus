@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 
 using LaurentiuCristofor.Proteus.Common;
-using LaurentiuCristofor.Proteus.Common.ValueHolders;
+using LaurentiuCristofor.Proteus.Common.DataHolders;
 using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
@@ -26,7 +26,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
         /// <summary>
         /// The last key we matched on.
         /// </summary>
-        protected IValueHolder LastMatchedKey { get; set; }
+        protected IDataHolder LastMatchedKey { get; set; }
 
         /// <summary>
         /// The lines from the second file that should be joined on the last matched key value.

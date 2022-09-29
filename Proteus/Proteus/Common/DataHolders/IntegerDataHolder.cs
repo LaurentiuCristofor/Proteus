@@ -9,30 +9,30 @@ using System;
 
 using LaurentiuCristofor.Proteus.Common.Types;
 
-namespace LaurentiuCristofor.Proteus.Common.ValueHolders
+namespace LaurentiuCristofor.Proteus.Common.DataHolders
 {
-    public class DateTimeValueHolder : IValueHolder
+    public class IntegerDataHolder : IDataHolder
     {
-        protected DateTime Data { get; set; }
+        protected long Data { get; set; }
 
-        public DateTimeValueHolder(DateTime data)
+        public IntegerDataHolder(long data)
         {
             this.Data = data;
         }
 
         public DataType GetDataType()
         {
-            return DataType.DateTime;
+            return DataType.Integer;
         }
 
         public bool IsNumerical()
         {
-            return false;
+            return true;
         }
 
         public long GetIntegerValue()
         {
-            throw new NotImplementedException();
+            return this.Data;
         }
 
         public ulong GetUnsignedIntegerValue()
@@ -42,12 +42,12 @@ namespace LaurentiuCristofor.Proteus.Common.ValueHolders
 
         public double GetFloatingPointValue()
         {
-            throw new NotImplementedException();
+            return this.Data;
         }
 
         public DateTime GetDateTimeValue()
         {
-            return this.Data;
+            throw new NotImplementedException();
         }
 
         public override string ToString()
@@ -55,39 +55,43 @@ namespace LaurentiuCristofor.Proteus.Common.ValueHolders
             return this.Data.ToString();
         }
 
-        public IValueHolder Add(IValueHolder otherData)
+        public IDataHolder Add(IDataHolder otherData)
         {
-            throw new NotImplementedException();
+            this.Data += otherData.GetIntegerValue();
+            return this;
         }
 
-        public IValueHolder Subtract(IValueHolder otherData)
+        public IDataHolder Subtract(IDataHolder otherData)
         {
-            throw new NotImplementedException();
+            this.Data -= otherData.GetIntegerValue();
+            return this;
         }
 
-        public IValueHolder Multiply(IValueHolder otherData)
+        public IDataHolder Multiply(IDataHolder otherData)
         {
-            throw new NotImplementedException();
+            this.Data *= otherData.GetIntegerValue();
+            return this;
         }
 
-        public IValueHolder Divide(IValueHolder otherData)
+        public IDataHolder Divide(IDataHolder otherData)
         {
-            throw new NotImplementedException();
+            this.Data /= otherData.GetIntegerValue();
+            return this;
         }
 
-        public int CompareTo(IValueHolder otherData)
+        public int CompareTo(IDataHolder otherData)
         {
             if (otherData == null)
             {
                 throw new ProteusException("Attempting to compare with null!");
             }
 
-            return this.Data.CompareTo(otherData.GetDateTimeValue());
+            return this.Data.CompareTo(otherData.GetIntegerValue());
         }
 
         public int CompareTo(object otherObject)
         {
-            DateTimeValueHolder otherData = (DateTimeValueHolder)otherObject;
+            IntegerDataHolder otherData = (IntegerDataHolder)otherObject;
             return this.CompareTo(otherData);
         }
 

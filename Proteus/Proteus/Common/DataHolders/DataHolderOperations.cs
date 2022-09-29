@@ -9,54 +9,54 @@ using System;
 
 using LaurentiuCristofor.Proteus.Common.Types;
 
-namespace LaurentiuCristofor.Proteus.Common.ValueHolders
+namespace LaurentiuCristofor.Proteus.Common.DataHolders
 {
     /// <summary>
-    /// A class providing static functions that operate on IValueHolder instances.
+    /// A class providing static functions that operate on IDataHolder instances.
     /// </summary>
-    public abstract class ValueHolderOperations
+    public abstract class DataHolderOperations
     {
         /// <summary>
         /// Interprets a string value as the specified data type
-        /// and returns an instance of IValueHolder representing the equivalent value of that type.
+        /// and returns an instance of IDataHolder representing the equivalent value of that type.
         /// </summary>
         /// <param name="dataType">The data type to interpret the string as.</param>
         /// <param name="stringValue">The string to interpret.</param>
-        /// <returns>An instance of IValueHolder, or null if the string did not represent a value of the specified data type.</returns>
-        public static IValueHolder BuildValueHolder(DataType dataType, string stringValue)
+        /// <returns>An instance of IDataHolder, or null if the string did not represent a value of the specified data type.</returns>
+        public static IDataHolder BuildDataHolder(DataType dataType, string stringValue)
         {
             switch (dataType)
             {
                 case DataType.String:
-                    return new StringValueHolder(stringValue);
+                    return new StringDataHolder(stringValue);
 
                 case DataType.Integer:
                     if (!long.TryParse(stringValue, out long longValue))
                     {
                         return null;
                     }
-                    return new IntegerValueHolder(longValue);
+                    return new IntegerDataHolder(longValue);
 
                 case DataType.UnsignedInteger:
                     if (!ulong.TryParse(stringValue, out ulong ulongValue))
                     {
                         return null;
                     }
-                    return new UnsignedIntegerValueHolder(ulongValue);
+                    return new UnsignedIntegerDataHolder(ulongValue);
 
                 case DataType.FloatingPoint:
                     if (!double.TryParse(stringValue, out double doubleValue))
                     {
                         return null;
                     }
-                    return new FloatingPointValueHolder(doubleValue);
+                    return new FloatingPointDataHolder(doubleValue);
 
                 case DataType.DateTime:
                     if (!DateTime.TryParse(stringValue, out DateTime dateTimeValue))
                     {
                         return null;
                     }
-                    return new DateTimeValueHolder(dateTimeValue);
+                    return new DateTimeDataHolder(dateTimeValue);
 
                 default:
                     throw new ProteusException($"Internal error: Proteus is not handling data type: {dataType}!");
@@ -81,7 +81,7 @@ namespace LaurentiuCristofor.Proteus.Common.ValueHolders
         /// <param name="firstArgument">The first argument for the comparison.</param>
         /// <param name="secondArgument">The second argument for the comparison.</param>
         /// <returns>True if the comparison holds; false otherwise.</returns>
-        public static bool Compare(IValueHolder data, ComparisonType comparisonType, string firstArgument, string secondArgument)
+        public static bool Compare(IDataHolder data, ComparisonType comparisonType, string firstArgument, string secondArgument)
         {
             switch (comparisonType)
             {
@@ -127,10 +127,10 @@ namespace LaurentiuCristofor.Proteus.Common.ValueHolders
         /// <param name="comparisonType">The comparison type.</param>
         /// <param name="thresholdArgument">The threshold argument for the comparison.</param>
         /// <returns>True if the comparison holds; false otherwise.</returns>
-        protected static bool ThresholdCompare(IValueHolder data, ComparisonType comparisonType, string thresholdArgument)
+        protected static bool ThresholdCompare(IDataHolder data, ComparisonType comparisonType, string thresholdArgument)
         {
             ArgumentChecker.CheckNotNull(thresholdArgument);
-            IValueHolder thresholdData = BuildValueHolder(data.GetDataType(), thresholdArgument);
+            IDataHolder thresholdData = BuildDataHolder(data.GetDataType(), thresholdArgument);
             int comparisonResult = data.CompareTo(thresholdData);
 
             switch (comparisonType)
@@ -166,13 +166,13 @@ namespace LaurentiuCristofor.Proteus.Common.ValueHolders
         /// <param name="firstThreshold">The first threshold argument for the comparison.</param>
         /// <param name="secondThreshold">The second threshold argument for the comparison.</param>
         /// <returns>True if the comparison holds; false otherwise.</returns>
-        protected static bool ThresholdCompare(IValueHolder data, ComparisonType comparisonType, string firstThreshold, string secondThreshold)
+        protected static bool ThresholdCompare(IDataHolder data, ComparisonType comparisonType, string firstThreshold, string secondThreshold)
         {
             ArgumentChecker.CheckNotNull(firstThreshold);
             ArgumentChecker.CheckNotNull(secondThreshold);
 
-            IValueHolder lowerBound = BuildValueHolder(data.GetDataType(), firstThreshold);
-            IValueHolder upperBound = BuildValueHolder(data.GetDataType(), secondThreshold);
+            IDataHolder lowerBound = BuildDataHolder(data.GetDataType(), firstThreshold);
+            IDataHolder upperBound = BuildDataHolder(data.GetDataType(), secondThreshold);
 
             ArgumentChecker.CheckInterval(lowerBound, upperBound);
 

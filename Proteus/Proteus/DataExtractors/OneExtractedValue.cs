@@ -5,7 +5,7 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using LaurentiuCristofor.Proteus.Common.ValueHolders;
+using LaurentiuCristofor.Proteus.Common.DataHolders;
 using LaurentiuCristofor.Proteus.Common.Types;
 
 namespace LaurentiuCristofor.Proteus.DataExtractors
@@ -20,7 +20,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         /// 
         /// This can be a column or a line.
         /// </summary>
-        public IValueHolder ExtractedData { get; protected set;}
+        public IDataHolder ExtractedData { get; protected set;}
 
         /// <summary>
         /// The number of the extracted column, if ExtractedData contains a column.
@@ -31,7 +31,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             string originalLine,
             string[] columns,
             string columnSeparator,
-            IValueHolder extractedData,
+            IDataHolder extractedData,
             int extractedColumnNumber)
             : base(originalLine, columns, columnSeparator)
         {
@@ -50,7 +50,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             string originalLine)
             : base(originalLine, null, null)
         {
-            this.ExtractedData = new StringValueHolder(originalLine);
+            this.ExtractedData = new StringDataHolder(originalLine);
             this.ExtractedColumnNumber = 0;
         }
     }

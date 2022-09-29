@@ -9,7 +9,7 @@ using System;
 
 using LaurentiuCristofor.Proteus.Common;
 using LaurentiuCristofor.Proteus.Common.Types;
-using LaurentiuCristofor.Proteus.Common.ValueHolders;
+using LaurentiuCristofor.Proteus.Common.DataHolders;
 
 namespace LaurentiuCristofor.Proteus.DataExtractors
 {
@@ -31,7 +31,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             //
             string[] columns = line.Split(this.Parameters.Separators, StringSplitOptions.None);
 
-            IValueHolder columnData = ExtractColumn(lineNumber, columns, this.Parameters.ColumnNumber, this.Parameters.ColumnDataType);
+            IDataHolder columnData = ExtractColumn(lineNumber, columns, this.Parameters.ColumnNumber, this.Parameters.ColumnDataType);
             if (columnData == null)
             {
                 return null;
@@ -50,7 +50,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         /// <param name="columnNumber">The number of the column to extract.</param>
         /// <param name="columnDataType">The type of the column to extract.</param>
         /// <returns>An IDataHolder instance containing the column's value or null if the column didn't exist or if its value didn't match the specified data type.</returns>
-        internal static IValueHolder ExtractColumn(ulong lineNumber, string[] columns, int columnNumber, DataType columnDataType)
+        internal static IDataHolder ExtractColumn(ulong lineNumber, string[] columns, int columnNumber, DataType columnDataType)
         {
             if (columnNumber > columns.Length)
             {
@@ -63,7 +63,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
             // Parse the column value according to the data type parameter.
             //
-            IValueHolder columnData = ValueHolderOperations.BuildValueHolder(columnDataType, columnString);
+            IDataHolder columnData = DataHolderOperations.BuildDataHolder(columnDataType, columnString);
             if (columnData == null)
             {
                 OutputInterface.LogWarning($"\nFound an invalid value for column {columnNumber} of type {columnDataType} in line {lineNumber}: '{columnString}'!");

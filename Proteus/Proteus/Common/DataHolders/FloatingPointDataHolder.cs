@@ -9,20 +9,20 @@ using System;
 
 using LaurentiuCristofor.Proteus.Common.Types;
 
-namespace LaurentiuCristofor.Proteus.Common.ValueHolders
+namespace LaurentiuCristofor.Proteus.Common.DataHolders
 {
-    public class IntegerValueHolder : IValueHolder
+    public class FloatingPointDataHolder : IDataHolder
     {
-        protected long Data { get; set; }
+        protected double Data { get; set; }
 
-        public IntegerValueHolder(long data)
+        public FloatingPointDataHolder(double data)
         {
             this.Data = data;
         }
 
         public DataType GetDataType()
         {
-            return DataType.Integer;
+            return DataType.FloatingPoint;
         }
 
         public bool IsNumerical()
@@ -32,7 +32,7 @@ namespace LaurentiuCristofor.Proteus.Common.ValueHolders
 
         public long GetIntegerValue()
         {
-            return this.Data;
+            throw new NotImplementedException();
         }
 
         public ulong GetUnsignedIntegerValue()
@@ -55,43 +55,43 @@ namespace LaurentiuCristofor.Proteus.Common.ValueHolders
             return this.Data.ToString();
         }
 
-        public IValueHolder Add(IValueHolder otherData)
+        public IDataHolder Add(IDataHolder otherData)
         {
-            this.Data += otherData.GetIntegerValue();
+            this.Data += otherData.GetFloatingPointValue();
             return this;
         }
 
-        public IValueHolder Subtract(IValueHolder otherData)
+        public IDataHolder Subtract(IDataHolder otherData)
         {
-            this.Data -= otherData.GetIntegerValue();
+            this.Data -= otherData.GetFloatingPointValue();
             return this;
         }
 
-        public IValueHolder Multiply(IValueHolder otherData)
+        public IDataHolder Multiply(IDataHolder otherData)
         {
-            this.Data *= otherData.GetIntegerValue();
+            this.Data *= otherData.GetFloatingPointValue();
             return this;
         }
 
-        public IValueHolder Divide(IValueHolder otherData)
+        public IDataHolder Divide(IDataHolder otherData)
         {
-            this.Data /= otherData.GetIntegerValue();
+            this.Data /= otherData.GetFloatingPointValue();
             return this;
         }
 
-        public int CompareTo(IValueHolder otherData)
+        public int CompareTo(IDataHolder otherData)
         {
             if (otherData == null)
             {
                 throw new ProteusException("Attempting to compare with null!");
             }
 
-            return this.Data.CompareTo(otherData.GetIntegerValue());
+            return this.Data.CompareTo(otherData.GetFloatingPointValue());
         }
 
         public int CompareTo(object otherObject)
         {
-            IntegerValueHolder otherData = (IntegerValueHolder)otherObject;
+            FloatingPointDataHolder otherData = (FloatingPointDataHolder)otherObject;
             return this.CompareTo(otherData);
         }
 

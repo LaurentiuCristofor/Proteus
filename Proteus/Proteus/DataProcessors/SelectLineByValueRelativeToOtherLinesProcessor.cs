@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 
 using LaurentiuCristofor.Proteus.Common;
-using LaurentiuCristofor.Proteus.Common.ValueHolders;
+using LaurentiuCristofor.Proteus.Common.DataHolders;
 using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
@@ -27,12 +27,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// <summary>
         /// Set of values seen so far.
         /// </summary>
-        protected HashSet<IValueHolder> SetValues { get; set; }
+        protected HashSet<IDataHolder> SetValues { get; set; }
 
         /// <summary>
         /// Map of values seen so far to the last lines that we saw them in.
         /// </summary>
-        protected Dictionary<IValueHolder, string> ValuesToLastLines { get; set; }
+        protected Dictionary<IDataHolder, string> ValuesToLastLines { get; set; }
 
         public void Initialize(OutputOperationParameters<RelativeValueSelectionType> processingParameters)
         {
@@ -42,12 +42,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             {
                 case RelativeValueSelectionType.First:
                 case RelativeValueSelectionType.NotFirst:
-                    this.SetValues = new HashSet<IValueHolder>();
+                    this.SetValues = new HashSet<IDataHolder>();
                     break;
 
                 case RelativeValueSelectionType.Last:
                 case RelativeValueSelectionType.NotLast:
-                    this.ValuesToLastLines = new Dictionary<IValueHolder, string>();
+                    this.ValuesToLastLines = new Dictionary<IDataHolder, string>();
                     break;
 
                 default:
@@ -59,7 +59,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public bool Execute(ulong lineNumber, OneExtractedValue lineData)
         {
-            IValueHolder data = lineData.ExtractedData;
+            IDataHolder data = lineData.ExtractedData;
 
             // Determine whether to output the line based on the handling type.
             //

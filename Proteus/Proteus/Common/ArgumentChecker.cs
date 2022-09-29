@@ -7,7 +7,7 @@
 
 using System;
 
-using LaurentiuCristofor.Proteus.Common.ValueHolders;
+using LaurentiuCristofor.Proteus.Common.DataHolders;
 using LaurentiuCristofor.Proteus.Common.Types;
 
 namespace LaurentiuCristofor.Proteus.Common
@@ -25,7 +25,7 @@ namespace LaurentiuCristofor.Proteus.Common
             }
         }
 
-        internal static void CheckNotNull(IValueHolder argument)
+        internal static void CheckNotNull(IDataHolder argument)
         {
             if (argument == null)
             {
@@ -97,7 +97,7 @@ namespace LaurentiuCristofor.Proteus.Common
             }
         }
 
-        internal static void CheckInterval(IValueHolder intervalStart, IValueHolder intervalEnd)
+        internal static void CheckInterval(IDataHolder intervalStart, IDataHolder intervalEnd)
         {
             if (intervalStart.CompareTo(intervalEnd) > 0)
             {
