@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 
 using LaurentiuCristofor.Proteus.Common;
-using LaurentiuCristofor.Proteus.Common.DataHolders;
+using LaurentiuCristofor.Proteus.Common.ValueHolders;
 using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
@@ -20,14 +20,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
     /// A data processor that looks up a string in a data structure,
     /// to find a line to join with the currently processed line.
     /// </summary>
-    public class JoinProcessor : BaseOutputProcessor, IDataLookupProcessor<OutputOperationParameters<JoinType>, Dictionary<IDataHolder, List<string>>, ParsedLine>
+    public class JoinProcessor : BaseOutputProcessor, IDataLookupProcessor<OutputOperationParameters<JoinType>, Dictionary<IValueHolder, List<string>>, OneExtractedValue>
     {
         protected OutputOperationParameters<JoinType> Parameters { get; set; }
 
         /// <summary>
         /// The lookup data structure used to perform the operation.
         /// </summary>
-        protected Dictionary<IDataHolder, List<string>> LookupDictionary { get; set; }
+        protected Dictionary<IValueHolder, List<string>> LookupDictionary { get; set; }
 
         public void Initialize(OutputOperationParameters<JoinType> processingParameters)
         {
@@ -36,14 +36,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
             this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
         }
 
-        public void AddLookupDataStructure(Dictionary<IDataHolder, List<string>> lookupDictionary)
+        public void AddLookupDataStructure(Dictionary<IValueHolder, List<string>> lookupDictionary)
         {
             this.LookupDictionary = lookupDictionary;
         }
 
-        public bool Execute(ulong lineNumber, ParsedLine lineData)
+        public bool Execute(ulong lineNumber, OneExtractedValue lineData)
         {
-            IDataHolder lineKey = lineData.ExtractedData;
+            IValueHolder lineKey = lineData.ExtractedData;
 
             // The case where we find a match in the lookup dictionary
             // is handled in the same way for all join types.

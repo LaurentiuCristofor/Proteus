@@ -14,7 +14,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
     /// <summary>
     /// A data processor that merges lines from two sorted files.
     /// </summary>
-    public class MergeProcessor: BaseOutputProcessor, IDualDataProcessor<BaseOutputParameters, ParsedLine>
+    public class MergeProcessor: BaseOutputProcessor, IDualDataProcessor<BaseOutputParameters, OneExtractedValue>
     {
         protected BaseOutputParameters Parameters { get; set; }
 
@@ -26,8 +26,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
         }
 
         public ProcessingActionType Execute(
-            bool hasProcessedFirstFile, ulong firstLineNumber, ParsedLine firstLineData,
-            bool hasProcessedSecondFile, ulong secondLineNumber, ParsedLine secondLineData)
+            bool hasProcessedFirstFile, ulong firstLineNumber, OneExtractedValue firstLineData,
+            bool hasProcessedSecondFile, ulong secondLineNumber, OneExtractedValue secondLineData)
         {
             if (hasProcessedFirstFile)
             {

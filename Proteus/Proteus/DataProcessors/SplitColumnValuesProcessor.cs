@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 
 using LaurentiuCristofor.Proteus.Common;
-using LaurentiuCristofor.Proteus.Common.DataHolders;
+using LaurentiuCristofor.Proteus.Common.ValueHolders;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
 using LaurentiuCristofor.Proteus.FileOperations;
@@ -18,14 +18,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that splits a file into multiple ones based on the value of a specified column.
     /// </summary>
-    public class SplitColumnValuesProcessor : BaseOutputProcessor, IDataProcessor<OutputStringParameters, ParsedLine>
+    public class SplitColumnValuesProcessor : BaseOutputProcessor, IDataProcessor<OutputStringParameters, OneExtractedValue>
     {
         protected OutputStringParameters Parameters { get; set; }
 
         /// <summary>
         /// A dictionary to help us manage the file writers that we will use for each column value.
         /// </summary>
-        protected Dictionary<IDataHolder, FileWriter> MapColumnValueToFileWriter { get; set; }
+        protected Dictionary<IValueHolder, FileWriter> MapColumnValueToFileWriter { get; set; }
 
         public void Initialize(OutputStringParameters processingParameters)
         {
@@ -33,12 +33,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.StringValue);
 
-            this.MapColumnValueToFileWriter = new Dictionary<IDataHolder, FileWriter>();
+            this.MapColumnValueToFileWriter = new Dictionary<IValueHolder, FileWriter>();
         }
 
-        public bool Execute(ulong lineNumber, ParsedLine lineData)
+        public bool Execute(ulong lineNumber, OneExtractedValue lineData)
         {
-            IDataHolder data = lineData.ExtractedData;
+            IValueHolder data = lineData.ExtractedData;
 
             // If we don't have a file created for this column already, create one now.
             // File names must be unique and because column values may contain characters that are forbidden in file names,
@@ -62,7 +62,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public override void CompleteExecution()
         {
-            foreach (IDataHolder columnValue in this.MapColumnValueToFileWriter.Keys)
+            foreach (IValueHolder columnValue in this.MapColumnValueToFileWriter.Keys)
             {
                 this.MapColumnValueToFileWriter[columnValue].CloseAndReport();
             }

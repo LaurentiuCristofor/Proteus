@@ -18,7 +18,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that edits a string.
     /// </summary>
-    public class EditStringProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<StringEditType>, ParsedLine>
+    public class EditStringProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<StringEditType>, OneExtractedValue>
     {
         protected OutputOperationParameters<StringEditType> Parameters { get; set; }
 
@@ -37,7 +37,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
         }
 
-        public bool Execute(ulong lineNumber, ParsedLine lineData)
+        public bool Execute(ulong lineNumber, OneExtractedValue lineData)
         {
             string data = lineData.ExtractedData.ToString();
             string editedData = this.StringEditor.Edit(data, lineNumber);

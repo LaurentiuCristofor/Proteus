@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 
 using LaurentiuCristofor.Proteus.Common;
-using LaurentiuCristofor.Proteus.Common.DataHolders;
+using LaurentiuCristofor.Proteus.Common.ValueHolders;
 using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
@@ -19,14 +19,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
     /// <summary>
     /// A data processor that joins lines from two files based on the values of two columns.
     /// </summary>
-    public class JoinPostSortingProcessor: BaseOutputProcessor, IDualDataProcessor<OutputOperationParameters<JoinType>, ParsedLine>
+    public class JoinPostSortingProcessor: BaseOutputProcessor, IDualDataProcessor<OutputOperationParameters<JoinType>, OneExtractedValue>
     {
         protected OutputOperationParameters<JoinType> Parameters { get; set; }
 
         /// <summary>
         /// The last key we matched on.
         /// </summary>
-        protected IDataHolder LastMatchedKey { get; set; }
+        protected IValueHolder LastMatchedKey { get; set; }
 
         /// <summary>
         /// The lines from the second file that should be joined on the last matched key value.
@@ -43,8 +43,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
         }
 
         public ProcessingActionType Execute(
-            bool hasProcessedFirstFile, ulong firstLineNumber, ParsedLine firstLineData,
-            bool hasProcessedSecondFile, ulong secondLineNumber, ParsedLine secondLineData)
+            bool hasProcessedFirstFile, ulong firstLineNumber, OneExtractedValue firstLineData,
+            bool hasProcessedSecondFile, ulong secondLineNumber, OneExtractedValue secondLineData)
         {
             if (hasProcessedFirstFile)
             {
@@ -134,7 +134,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
             }
         }
 
-        protected void JoinLineAndOutput(ParsedLine firstLineData)
+        protected void JoinLineAndOutput(OneExtractedValue firstLineData)
         {
             foreach (string joinLine in this.LinesToJoinOnLastMatchedKey)
             {

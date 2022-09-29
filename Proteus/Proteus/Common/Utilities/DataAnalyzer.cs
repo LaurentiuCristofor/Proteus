@@ -8,7 +8,7 @@
 using System;
 using System.Collections.Generic;
 
-using LaurentiuCristofor.Proteus.Common.DataHolders;
+using LaurentiuCristofor.Proteus.Common.ValueHolders;
 using LaurentiuCristofor.Proteus.Common.Types;
 
 namespace LaurentiuCristofor.Proteus.Common.Utilities
@@ -33,12 +33,12 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         /// <summary>
         /// Tracks the minimum data value.
         /// </summary>
-        public IDataHolder MinimumValue { get; protected set; }
+        public IValueHolder MinimumValue { get; protected set; }
 
         /// <summary>
         /// Tracks the maximum data value.
         /// </summary>
-        public IDataHolder MaximumValue { get; protected set; }
+        public IValueHolder MaximumValue { get; protected set; }
 
         /// <summary>
         /// For numerical values, tracks the total, for computing the average value.
@@ -68,24 +68,24 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         /// <summary>
         /// Tracks the number of times we have seen each data.
         /// </summary>
-        protected Dictionary<IDataHolder, ulong> MapDataToCount { get; set; }
+        protected Dictionary<IValueHolder, ulong> MapDataToCount { get; set; }
 
         /// <summary>
         /// Offers a view of the data, ordered by count of instances encountered.
         /// </summary>
-        protected List<Tuple<ulong, IDataHolder>> ListCountedData { get; set; }
+        protected List<Tuple<ulong, IValueHolder>> ListCountedData { get; set; }
 
         public DataAnalyzer(DataType dataType)
         {
             this.DataType = dataType;
-            this.MapDataToCount = new Dictionary<IDataHolder, ulong>();
+            this.MapDataToCount = new Dictionary<IValueHolder, ulong>();
         }
 
         /// <summary>
         /// Analyze a piece of data.
         /// </summary>
         /// <param name="data">Data to analyze.</param>
-        public void AnalyzeData(IDataHolder data)
+        public void AnalyzeData(IValueHolder data)
         {
             if (data.GetDataType() != this.DataType)
             {
@@ -179,15 +179,15 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
 
             // Initialize a list into which to collect and sort our data.
             //
-            this.ListCountedData = new List<Tuple<ulong, IDataHolder>>();
+            this.ListCountedData = new List<Tuple<ulong, IValueHolder>>();
 
             // Collect our data into the list and also compute its entropy.
             //
-            foreach (IDataHolder data in this.MapDataToCount.Keys)
+            foreach (IValueHolder data in this.MapDataToCount.Keys)
             {
                 ulong dataCount = this.MapDataToCount[data];
 
-                this.ListCountedData.Add(new Tuple<ulong, IDataHolder>(dataCount, data));
+                this.ListCountedData.Add(new Tuple<ulong, IValueHolder>(dataCount, data));
 
                 double dataProbability = (double)dataCount / this.TotalDataCount;
                 this.Entropy += -dataProbability * Math.Log(dataProbability, 2);
@@ -256,7 +256,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
             OutputInterface.OutputLine($"{Constants.Strings.UniqueCount}{Constants.Strings.NameValueSeparator}{this.UniqueDataCount:N0}");
             OutputInterface.OutputLine($"{Constants.Strings.MinimumValue}{Constants.Strings.NameValueSeparator}{this.MinimumValue}");
             OutputInterface.OutputLine($"{Constants.Strings.MaximumValue}{Constants.Strings.NameValueSeparator}{this.MaximumValue}");
-            if (DataHolderOperations.IsNumerical(this.DataType))
+            if (ValueHolderOperations.IsNumerical(this.DataType))
             {
                 OutputInterface.OutputLine($"{Constants.Strings.AverageValue}{Constants.Strings.NameValueSeparator}{(double)this.TotalValue / this.TotalDataCount:N5}");
             }
@@ -270,7 +270,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         /// Outputs the information collected about a single data value.
         /// </summary>
         /// <param name="valueInformation">The information collected.</param>
-        private void OutputValueInformation(Tuple<ulong, IDataHolder> valueInformation)
+        private void OutputValueInformation(Tuple<ulong, IValueHolder> valueInformation)
         {
             // We'll display the count and corresponding percentile value.
             //

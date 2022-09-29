@@ -5,7 +5,7 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using LaurentiuCristofor.Proteus.Common.DataHolders;
+using LaurentiuCristofor.Proteus.Common.ValueHolders;
 using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
@@ -17,7 +17,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// A data processor that checks the column count against a selection criterion,
     /// to decide whether to output the line or not.
     /// </summary>
-    public class SelectLineByColumnCountProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<ComparisonType>, ParsedLine>
+    public class SelectLineByColumnCountProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<ComparisonType>, ExtractedColumnStrings>
     {
         protected OutputOperationParameters<ComparisonType> Parameters { get; set; }
 
@@ -28,15 +28,15 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
         }
 
-        public bool Execute(ulong lineNumber, ParsedLine lineData)
+        public bool Execute(ulong lineNumber, ExtractedColumnStrings lineData)
         {
             // Package column count in an IDataHolder.
             //
-            IDataHolder columnCountContainer = new IntegerDataHolder(lineData.Columns.Length);
+            IValueHolder columnCountContainer = new IntegerValueHolder(lineData.Columns.Length);
 
             // Perform the comparison to decide whether to output the line.
             //
-            if (DataHolderOperations.Compare(columnCountContainer, this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument))
+            if (ValueHolderOperations.Compare(columnCountContainer, this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument))
             {
                 this.OutputWriter.WriteLine(lineData.OriginalLine);
             }

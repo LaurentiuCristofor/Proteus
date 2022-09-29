@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 
 using LaurentiuCristofor.Proteus.Common;
-using LaurentiuCristofor.Proteus.Common.DataHolders;
+using LaurentiuCristofor.Proteus.Common.ValueHolders;
 using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
@@ -20,19 +20,19 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// A data processor that checks a value's relationship to that of other lines,
     /// to decide whether to output the line or not.
     /// </summary>
-    public class SelectLineByValueRelativeToOtherLinesProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<RelativeValueSelectionType>, ParsedLine>
+    public class SelectLineByValueRelativeToOtherLinesProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<RelativeValueSelectionType>, OneExtractedValue>
     {
         protected OutputOperationParameters<RelativeValueSelectionType> Parameters { get; set; }
 
         /// <summary>
         /// Set of values seen so far.
         /// </summary>
-        protected HashSet<IDataHolder> SetValues { get; set; }
+        protected HashSet<IValueHolder> SetValues { get; set; }
 
         /// <summary>
         /// Map of values seen so far to the last lines that we saw them in.
         /// </summary>
-        protected Dictionary<IDataHolder, string> ValuesToLastLines { get; set; }
+        protected Dictionary<IValueHolder, string> ValuesToLastLines { get; set; }
 
         public void Initialize(OutputOperationParameters<RelativeValueSelectionType> processingParameters)
         {
@@ -42,12 +42,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             {
                 case RelativeValueSelectionType.First:
                 case RelativeValueSelectionType.NotFirst:
-                    this.SetValues = new HashSet<IDataHolder>();
+                    this.SetValues = new HashSet<IValueHolder>();
                     break;
 
                 case RelativeValueSelectionType.Last:
                 case RelativeValueSelectionType.NotLast:
-                    this.ValuesToLastLines = new Dictionary<IDataHolder, string>();
+                    this.ValuesToLastLines = new Dictionary<IValueHolder, string>();
                     break;
 
                 default:
@@ -57,9 +57,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath, trackProgress: (this.Parameters.OperationType == RelativeValueSelectionType.Last));
         }
 
-        public bool Execute(ulong lineNumber, ParsedLine lineData)
+        public bool Execute(ulong lineNumber, OneExtractedValue lineData)
         {
-            IDataHolder data = lineData.ExtractedData;
+            IValueHolder data = lineData.ExtractedData;
 
             // Determine whether to output the line based on the handling type.
             //

@@ -17,7 +17,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that splits each column into its own file.
     /// </summary>
-    public class SplitColumnsProcessor : BaseOutputProcessor, IDataProcessor<OutputStringParameters, ParsedLine>
+    public class SplitColumnsProcessor : BaseOutputProcessor, IDataProcessor<OutputStringParameters, ExtractedColumnStrings>
     {
         protected OutputStringParameters Parameters { get; set; }
 
@@ -35,7 +35,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             this.MapColumnNumberToFileWriter = new Dictionary<int, FileWriter>();
         }
 
-        public bool Execute(ulong lineNumber, ParsedLine lineData)
+        public bool Execute(ulong lineNumber, ExtractedColumnStrings lineData)
         {
             // Output each column value as a line in its own file.
             //

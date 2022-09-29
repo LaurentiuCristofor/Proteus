@@ -16,7 +16,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that edits a column value.
     /// </summary>
-    public class EditColumnValueProcessor : BaseOutputProcessor, IDataProcessor<OutputValueEditParameters, ParsedLine>
+    public class EditColumnValueProcessor : BaseOutputProcessor, IDataProcessor<OutputValueEditParameters, OneExtractedValue>
     {
         protected OutputValueEditParameters Parameters { get; set; }
 
@@ -43,7 +43,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
         }
 
-        public bool Execute(ulong lineNumber, ParsedLine lineData)
+        public bool Execute(ulong lineNumber, OneExtractedValue lineData)
         {
             int columnIndex = lineData.ExtractedColumnNumber - 1;
 

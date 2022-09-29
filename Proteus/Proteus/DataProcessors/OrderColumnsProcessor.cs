@@ -18,7 +18,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that re-orders the columns of the input row.
     /// </summary>
-    public class OrderColumnsProcessor : BaseOutputProcessor, IDataProcessor<OutputStringParameters, ParsedLine>
+    public class OrderColumnsProcessor : BaseOutputProcessor, IDataProcessor<OutputStringParameters, ExtractedColumnStrings>
     {
         protected OutputStringParameters Parameters { get; set; }
 
@@ -94,7 +94,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
         }
 
-        public bool Execute(ulong lineNumber, ParsedLine lineData)
+        public bool Execute(ulong lineNumber, ExtractedColumnStrings lineData)
         {
             int countColumns = lineData.Columns.Length;
 

@@ -16,7 +16,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
     /// <summary>
     /// A data processor that selects lines from a first file based on whether they match a line from a second file.
     /// </summary>
-    public class LookupPostSortingProcessor: BaseOutputProcessor, IDualDataProcessor<OutputOperationParameters<LookupType>, ParsedLine>
+    public class LookupPostSortingProcessor: BaseOutputProcessor, IDualDataProcessor<OutputOperationParameters<LookupType>, OneExtractedValue>
     {
         protected OutputOperationParameters<LookupType> Parameters { get; set; }
 
@@ -28,8 +28,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
         }
 
         public ProcessingActionType Execute(
-            bool hasProcessedFirstFile, ulong firstLineNumber, ParsedLine firstLineData,
-            bool hasProcessedSecondFile, ulong secondLineNumber, ParsedLine secondLineData)
+            bool hasProcessedFirstFile, ulong firstLineNumber, OneExtractedValue firstLineData,
+            bool hasProcessedSecondFile, ulong secondLineNumber, OneExtractedValue secondLineData)
         {
             if (hasProcessedFirstFile)
             {

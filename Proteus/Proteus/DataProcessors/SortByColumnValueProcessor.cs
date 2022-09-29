@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 
 using LaurentiuCristofor.Proteus.Common;
-using LaurentiuCristofor.Proteus.Common.DataHolders;
+using LaurentiuCristofor.Proteus.Common.ValueHolders;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
 using LaurentiuCristofor.Proteus.FileOperations;
@@ -19,27 +19,27 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that sorts the input lines by the value of a specific column.
     /// </summary>
-    public class SortByColumnValueProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, ParsedLine>
+    public class SortByColumnValueProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, OneExtractedValue>
     {
         protected BaseOutputParameters Parameters { get; set; }
 
         /// <summary>
         /// Data structure used for loading the lines before sorting them.
         /// </summary>
-        protected List<Tuple<IDataHolder, string>> ColumnLineTuples { get; set; }
+        protected List<Tuple<IValueHolder, string>> ColumnLineTuples { get; set; }
 
         public void Initialize(BaseOutputParameters processingParameters)
         {
             this.Parameters = processingParameters;
 
-            this.ColumnLineTuples = new List<Tuple<IDataHolder, string>>();
+            this.ColumnLineTuples = new List<Tuple<IValueHolder, string>>();
 
             this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath, trackProgress: true);
         }
 
-        public bool Execute(ulong lineNumber, ParsedLine lineData)
+        public bool Execute(ulong lineNumber, OneExtractedValue lineData)
         {
-            this.ColumnLineTuples.Add(new Tuple<IDataHolder, string>(lineData.ExtractedData, lineData.OriginalLine));
+            this.ColumnLineTuples.Add(new Tuple<IValueHolder, string>(lineData.ExtractedData, lineData.OriginalLine));
 
             return true;
         }
@@ -57,7 +57,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             OutputInterface.Log("done!");
 
-            foreach (Tuple<IDataHolder, string> tuple in this.ColumnLineTuples)
+            foreach (Tuple<IValueHolder, string> tuple in this.ColumnLineTuples)
             {
                 this.OutputWriter.WriteLine(tuple.Item2);
             }

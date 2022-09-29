@@ -9,61 +9,37 @@ using System;
 
 using LaurentiuCristofor.Proteus.Common;
 using LaurentiuCristofor.Proteus.Common.Types;
-using LaurentiuCristofor.Proteus.Common.DataHolders;
+using LaurentiuCristofor.Proteus.Common.ValueHolders;
 
 namespace LaurentiuCristofor.Proteus.DataExtractors
 {
     /// <summary>
-    /// A column extractor that does the following:
-    /// - extracts a specific column from a line.
-    /// - parses the column value into a specific type.
-    /// - returns a ParsedLine instance that packs the original line parts along the parsed column value.
+    /// A column extractor that extracts a column value in addition to the extraction of columns as strings.
     /// </summary>
-    public class ColumnExtractor : IDataExtractor<ColumnExtractionParameters, ParsedLine>
+    public class OneColumnValueExtractor : IDataExtractor<OneColumnValueExtractionParameters, OneExtractedValue>
     {
-        protected ColumnExtractionParameters Parameters { get; set; }
+        protected OneColumnValueExtractionParameters Parameters { get; set; }
 
-        public void Initialize(ColumnExtractionParameters extractionParameters)
+        public void Initialize(OneColumnValueExtractionParameters extractionParameters)
         {
             this.Parameters = extractionParameters;
         }
 
-        public ParsedLine ExtractData(ulong lineNumber, string line)
+        public OneExtractedValue ExtractData(ulong lineNumber, string line)
         {
             // Split the line into columns using the separator parameter.
             //
             string[] columns = line.Split(this.Parameters.Separators, StringSplitOptions.None);
 
-            // Check if we need to extract a column value.
+            IValueHolder columnData = ExtractColumn(lineNumber, columns, this.Parameters.ColumnNumber, this.Parameters.ColumnDataType);
+            if (columnData == null)
+            {
+                return null;
+            }
+
+            // Package and return all the information that we extracted from the line.
             //
-            if (this.Parameters.ColumnNumber > 0)
-            {
-                IDataHolder columnData = ExtractColumn(lineNumber, columns, this.Parameters.ColumnNumber, this.Parameters.ColumnDataType);
-                if (columnData == null)
-                {
-                    return null;
-                }
-
-                // Check if we need to extract a second column value.
-                //
-                IDataHolder secondColumnData = null;
-                if (this.Parameters.SecondColumnNumber > 0)
-                {
-                    secondColumnData = ExtractColumn(lineNumber, columns, this.Parameters.SecondColumnNumber, this.Parameters.SecondColumnDataType);
-                    if (secondColumnData == null)
-                    {
-                        return null;
-                    }
-                }
-
-                // Package and return all the information that we extracted from the line.
-                //
-                return new ParsedLine(line, columns, this.Parameters.Separators[0], columnData, this.Parameters.ColumnNumber, secondColumnData);
-            }
-            else
-            {
-                return new ParsedLine(line, columns, this.Parameters.Separators[0]);
-            }
+            return new OneExtractedValue(line, columns, this.Parameters.Separators[0], columnData, this.Parameters.ColumnNumber);
         }
 
         /// <summary>
@@ -74,7 +50,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         /// <param name="columnNumber">The number of the column to extract.</param>
         /// <param name="columnDataType">The type of the column to extract.</param>
         /// <returns>An IDataHolder instance containing the column's value or null if the column didn't exist or if its value didn't match the specified data type.</returns>
-        protected IDataHolder ExtractColumn(ulong lineNumber, string[] columns, int columnNumber, DataType columnDataType)
+        internal static IValueHolder ExtractColumn(ulong lineNumber, string[] columns, int columnNumber, DataType columnDataType)
         {
             if (columnNumber > columns.Length)
             {
@@ -87,7 +63,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
             // Parse the column value according to the data type parameter.
             //
-            IDataHolder columnData = DataHolderOperations.BuildDataHolder(columnDataType, columnString);
+            IValueHolder columnData = ValueHolderOperations.BuildValueHolder(columnDataType, columnString);
             if (columnData == null)
             {
                 OutputInterface.LogWarning($"\nFound an invalid value for column {columnNumber} of type {columnDataType} in line {lineNumber}: '{columnString}'!");

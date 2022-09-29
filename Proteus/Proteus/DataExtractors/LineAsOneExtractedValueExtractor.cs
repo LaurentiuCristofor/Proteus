@@ -6,24 +6,21 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using LaurentiuCristofor.Proteus.Common;
-using LaurentiuCristofor.Proteus.Common.DataHolders;
 
 namespace LaurentiuCristofor.Proteus.DataExtractors
 {
     /// <summary>
-    /// An extractor that packages each input line in a ParsedLine instance without doing any actual parsing.
+    /// An extractor that packages each input line in a OneExtractedValue instance.
     /// </summary>
-    public class LineAsParsedLineExtractor : IDataExtractor<Unused, ParsedLine>
+    public class LineAsOneExtractedValueExtractor : IDataExtractor<Unused, OneExtractedValue>
     {
         public void Initialize(Unused unusedExtractionParameters)
         {
         }
 
-        public ParsedLine ExtractData(ulong lineNumber, string line)
+        public OneExtractedValue ExtractData(ulong lineNumber, string line)
         {
-            IDataHolder lineContainer = new StringDataHolder(line);
-            ParsedLine lineData = new ParsedLine(line, lineContainer);
-            return lineData;
+            return new OneExtractedValue(line);
         }
     }
 }

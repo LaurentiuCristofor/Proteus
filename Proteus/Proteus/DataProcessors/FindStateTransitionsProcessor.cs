@@ -15,14 +15,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that expects as input a file sorted by a primary column and will output consecutive rows that differ in the value of a specified 'state' column.
     /// </summary>
-    public class FindStateTransitionsProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, ParsedLine>
+    public class FindStateTransitionsProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, TwoExtractedValues>
     {
         protected BaseOutputParameters Parameters { get; set; }
 
         /// <summary>
         /// A copy of the data seen for the previous line.
         /// </summary>
-        protected ParsedLine PreviousLineData { get; set; }
+        protected TwoExtractedValues PreviousLineData { get; set; }
 
         public void Initialize(BaseOutputParameters processingParameters)
         {
@@ -31,7 +31,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
         }
 
-        public bool Execute(ulong lineNumber, ParsedLine lineData)
+        public bool Execute(ulong lineNumber, TwoExtractedValues lineData)
         {
             // Verify that the input file is sorted on the primary column.
             //

@@ -7,30 +7,16 @@
 
 using LaurentiuCristofor.Proteus.Common;
 
-using LaurentiuCristofor.Proteus.Common.DataHolders;
-
 namespace LaurentiuCristofor.Proteus.DataExtractors
 {
     /// <summary>
-    /// A packaging of the data extracted from parsing a line.
+    /// A packaging of a line and its column strings.
     /// </summary>
-    public class ParsedLine
+    public class ExtractedColumnStrings
     {
         // The original line, unchanged.
         //
         public string OriginalLine { get; protected set; }
-
-        /// <summary>
-        /// The extracted data.
-        /// 
-        /// This can be a column or a line.
-        /// </summary>
-        public IDataHolder ExtractedData { get; protected set;}
-
-        /// <summary>
-        /// The number of the extracted column, if ExtractedData contains a column.
-        /// </summary>
-        public int ExtractedColumnNumber { get; protected set; }
 
         // The column strings.
         //
@@ -40,20 +26,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         //
         public string ColumnSeparator { get; protected set; }
 
-        /// <summary>
-        /// A second extracted data.
-        /// 
-        /// This is typically a second column value.
-        /// </summary>
-        public IDataHolder SecondExtractedData { get; protected set; }
-
-        /// <summary>
-        /// This constructor is used when the ParsedLine will just contain basic columns information.
-        /// </summary>
-        /// <param name="originalLine">The line that we parsed the data from.</param>
-        /// <param name="columns">An array representing the columns that we extracted from the line.</param>
-        /// <param name="columnSeparator">The column separator.</param>
-        public ParsedLine(
+        public ExtractedColumnStrings(
             string originalLine,
             string[] columns,
             string columnSeparator)
@@ -61,53 +34,6 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             this.OriginalLine = originalLine;
             this.Columns = columns;
             this.ColumnSeparator = columnSeparator;
-            this.ExtractedData = null;
-            this.ExtractedColumnNumber = 0;
-            this.SecondExtractedData = null;
-        }
-
-        /// <summary>
-        /// This constructor is used when the ParsedLine will contain some data extracted from the line,
-        /// in addition to all the columns information.
-        /// </summary>
-        /// <param name="originalLine">The line that we parsed the data from.</param>
-        /// <param name="columns">An array representing the columns that we extracted from the line.</param>
-        /// <param name="columnSeparator">The column separator.</param>
-        /// <param name="extractedData">The data that we extracted from the line. Could be the line itself.</param>
-        /// <param name="extractedColumnNumber">If the extracted data was a column, this will tell us which column it was.</param>
-        /// <param name="secondExtractedData">A second piece of data that we extracted from the line.</param>
-        public ParsedLine(
-            string originalLine,
-            string[] columns,
-            string columnSeparator,
-            IDataHolder extractedData,
-            int extractedColumnNumber,
-            IDataHolder secondExtractedData = null)
-        {
-            this.OriginalLine = originalLine;
-            this.ExtractedData = extractedData;
-            this.ExtractedColumnNumber = extractedColumnNumber;
-            this.Columns = columns;
-            this.ColumnSeparator = columnSeparator;
-            this.SecondExtractedData = secondExtractedData;
-        }
-
-        /// <summary>
-        /// This constructor is used when the ParsedLine will just contain the line itself
-        /// and no actual column extraction has occurred.
-        /// </summary>
-        /// <param name="originalLine">The line that we parsed the data from.</param>
-        /// <param name="extractedData">The data that we extracted from the line..</param>
-        public ParsedLine(
-            string originalLine,
-            IDataHolder extractedData)
-        {
-            this.OriginalLine = originalLine;
-            this.ExtractedData = extractedData;
-            this.ExtractedColumnNumber = 0;
-            this.Columns = null;
-            this.ColumnSeparator = null;
-            this.SecondExtractedData = null;
         }
 
         /// <summary>

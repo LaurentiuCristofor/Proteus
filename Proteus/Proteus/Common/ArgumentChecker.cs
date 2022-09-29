@@ -7,7 +7,7 @@
 
 using System;
 
-using LaurentiuCristofor.Proteus.Common.DataHolders;
+using LaurentiuCristofor.Proteus.Common.ValueHolders;
 using LaurentiuCristofor.Proteus.Common.Types;
 
 namespace LaurentiuCristofor.Proteus.Common
@@ -25,7 +25,7 @@ namespace LaurentiuCristofor.Proteus.Common
             }
         }
 
-        internal static void CheckNotNull(IDataHolder argument)
+        internal static void CheckNotNull(IValueHolder argument)
         {
             if (argument == null)
             {
@@ -73,6 +73,14 @@ namespace LaurentiuCristofor.Proteus.Common
             }
         }
 
+        internal static void CheckDifferent(int firstArgument, int secondArgument)
+        {
+            if (secondArgument == firstArgument)
+            {
+                throw new ProteusException($"Two different arguments were expected, but both arguments provided have the same value: {firstArgument}!");
+            }
+        }
+
         internal static void CheckInterval(int intervalStart, int intervalEnd)
         {
             if (intervalStart > intervalEnd)
@@ -89,7 +97,7 @@ namespace LaurentiuCristofor.Proteus.Common
             }
         }
 
-        internal static void CheckInterval(IDataHolder intervalStart, IDataHolder intervalEnd)
+        internal static void CheckInterval(IValueHolder intervalStart, IValueHolder intervalEnd)
         {
             if (intervalStart.CompareTo(intervalEnd) > 0)
             {

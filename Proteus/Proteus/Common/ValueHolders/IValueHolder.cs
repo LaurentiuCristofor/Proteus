@@ -9,12 +9,12 @@ using System;
 
 using LaurentiuCristofor.Proteus.Common.Types;
 
-namespace LaurentiuCristofor.Proteus.Common.DataHolders
+namespace LaurentiuCristofor.Proteus.Common.ValueHolders
 {
     /// <summary>
     /// An interface for data type representations.
     /// </summary>
-    public interface IDataHolder: IComparable
+    public interface IValueHolder: IComparable
     {
         /// <summary>
         /// Return the data type of this instance.
@@ -62,35 +62,35 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
         /// </summary>
         /// <param name="otherData">The operation argument.</param>
         /// <returns>Returns the operation result.</returns>
-        IDataHolder Add(IDataHolder otherData);
+        IValueHolder Add(IValueHolder otherData);
 
         /// <summary>
         /// Implements subtraction on types that support it.
         /// </summary>
         /// <param name="otherData">The operation argument.</param>
         /// <returns>Returns the operation result.</returns>
-        IDataHolder Subtract(IDataHolder otherData);
+        IValueHolder Subtract(IValueHolder otherData);
 
         /// <summary>
         /// Implements multiplication on types that support it.
         /// </summary>
         /// <param name="otherData">The operation argument.</param>
         /// <returns>Returns the operation result.</returns>
-        IDataHolder Multiply(IDataHolder otherData);
+        IValueHolder Multiply(IValueHolder otherData);
 
         /// <summary>
         /// Implements division on types that support it.
         /// </summary>
         /// <param name="otherData">The operation argument.</param>
         /// <returns>Returns the operation result.</returns>
-        IDataHolder Divide(IDataHolder otherData);
+        IValueHolder Divide(IValueHolder otherData);
 
         /// <summary>
         /// Performs a type-specific comparison with another data.
         /// </summary>
-        /// <param name="otherData">The other IDataHolder value.</param>
+        /// <param name="otherData">The other IValueHolder value.</param>
         /// <returns>A negative value, zero, or a positive value if this data is less than, equal to, or greater than, respectively, the other value.</returns>
-        int CompareTo(IDataHolder otherData);
+        int CompareTo(IValueHolder otherData);
 
         bool Equals(Object otherObject);
 

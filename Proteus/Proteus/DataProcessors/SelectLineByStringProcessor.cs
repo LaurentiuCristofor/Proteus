@@ -17,7 +17,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// A data processor that checks a string against a selection criterion,
     /// to decide whether to output the line or not.
     /// </summary>
-    public class SelectLineByStringProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<StringSelectionType>, ParsedLine>
+    public class SelectLineByStringProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<StringSelectionType>, OneExtractedValue>
     {
         protected OutputOperationParameters<StringSelectionType> Parameters { get; set; }
 
@@ -36,7 +36,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
         }
 
-        public bool Execute(ulong lineNumber, ParsedLine lineData)
+        public bool Execute(ulong lineNumber, OneExtractedValue lineData)
         {
             string data = lineData.ExtractedData.ToString();
 

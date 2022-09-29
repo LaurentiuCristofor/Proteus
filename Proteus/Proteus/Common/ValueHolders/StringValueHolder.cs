@@ -9,25 +9,25 @@ using System;
 
 using LaurentiuCristofor.Proteus.Common.Types;
 
-namespace LaurentiuCristofor.Proteus.Common.DataHolders
+namespace LaurentiuCristofor.Proteus.Common.ValueHolders
 {
-    public class UnsignedIntegerDataHolder : IDataHolder
+    public class StringValueHolder : IValueHolder
     {
-        protected ulong Data { get; set; }
+        protected string Data { get; set; }
 
-        public UnsignedIntegerDataHolder(ulong data)
+        public StringValueHolder(string data)
         {
             this.Data = data;
         }
 
         public DataType GetDataType()
         {
-            return DataType.UnsignedInteger;
+            return DataType.String;
         }
 
         public bool IsNumerical()
         {
-            return true;
+            return false;
         }
 
         public long GetIntegerValue()
@@ -37,12 +37,12 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
 
         public ulong GetUnsignedIntegerValue()
         {
-            return this.Data;
+            throw new NotImplementedException();
         }
 
         public double GetFloatingPointValue()
         {
-            return this.Data;
+            throw new NotImplementedException();
         }
 
         public DateTime GetDateTimeValue()
@@ -52,46 +52,43 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
 
         public override string ToString()
         {
-            return this.Data.ToString();
+            return this.Data;
         }
 
-        public IDataHolder Add(IDataHolder otherData)
+        public IValueHolder Add(IValueHolder otherData)
         {
-            this.Data += otherData.GetUnsignedIntegerValue();
+            this.Data += otherData.ToString();
             return this;
         }
 
-        public IDataHolder Subtract(IDataHolder otherData)
+        public IValueHolder Subtract(IValueHolder otherData)
         {
-            this.Data -= otherData.GetUnsignedIntegerValue();
-            return this;
+            throw new NotImplementedException();
         }
 
-        public IDataHolder Multiply(IDataHolder otherData)
+        public IValueHolder Multiply(IValueHolder otherData)
         {
-            this.Data *= otherData.GetUnsignedIntegerValue();
-            return this;
+            throw new NotImplementedException();
         }
 
-        public IDataHolder Divide(IDataHolder otherData)
+        public IValueHolder Divide(IValueHolder otherData)
         {
-            this.Data /= otherData.GetUnsignedIntegerValue();
-            return this;
+            throw new NotImplementedException();
         }
 
-        public int CompareTo(IDataHolder otherData)
+        public int CompareTo(IValueHolder otherData)
         {
             if (otherData == null)
             {
                 throw new ProteusException("Attempting to compare with null!");
             }
 
-            return this.Data.CompareTo(otherData.GetUnsignedIntegerValue());
+            return this.Data.CompareTo(otherData.ToString());
         }
 
         public int CompareTo(object otherObject)
         {
-            UnsignedIntegerDataHolder otherData = (UnsignedIntegerDataHolder)otherObject;
+            StringValueHolder otherData = (StringValueHolder)otherObject;
             return this.CompareTo(otherData);
         }
 

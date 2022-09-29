@@ -6,7 +6,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using LaurentiuCristofor.Proteus.Common;
-using LaurentiuCristofor.Proteus.Common.DataHolders;
+using LaurentiuCristofor.Proteus.Common.ValueHolders;
 using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
@@ -18,14 +18,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// A data processor that checks a value's relationship to that of other lines,
     /// to decide whether to output the line or not.
     /// </summary>
-    public class SelectLinePostSortingByValueRelativeToOtherLinesProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<RelativeValueSelectionType>, ParsedLine>
+    public class SelectLinePostSortingByValueRelativeToOtherLinesProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<RelativeValueSelectionType>, OneExtractedValue>
     {
         protected OutputOperationParameters<RelativeValueSelectionType> Parameters { get; set; }
 
         /// <summary>
         /// Last seen line data.
         /// </summary>
-        protected ParsedLine LastSeenLineData { get; set; }
+        protected OneExtractedValue LastSeenLineData { get; set; }
 
         public void Initialize(OutputOperationParameters<RelativeValueSelectionType> processingParameters)
         {
@@ -34,7 +34,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
         }
 
-        public bool Execute(ulong lineNumber, ParsedLine lineData)
+        public bool Execute(ulong lineNumber, OneExtractedValue lineData)
         {
             // Verify that the input file is sorted on the extracted data.
             //

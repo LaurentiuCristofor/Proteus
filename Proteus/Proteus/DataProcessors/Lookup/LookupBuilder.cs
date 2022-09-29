@@ -7,7 +7,7 @@
 
 using System.Collections.Generic;
 
-using LaurentiuCristofor.Proteus.Common.DataHolders;
+using LaurentiuCristofor.Proteus.Common.ValueHolders;
 using LaurentiuCristofor.Proteus.DataExtractors;
 
 namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
@@ -15,16 +15,16 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
     /// <summary>
     /// A builder of a HashSet data structure, used for plain lookup operations.
     /// </summary>
-    public class LookupBuilder : ILookupDataStructureBuilder<ParsedLine, HashSet<IDataHolder>>
+    public class LookupBuilder : ILookupDataStructureBuilder<OneExtractedValue, HashSet<IValueHolder>>
     {
         /// <summary>
         /// The lookup data structure that we'll construct.
         /// </summary>
-        protected HashSet<IDataHolder> LookupSet { get; set; }
+        protected HashSet<IValueHolder> LookupSet { get; set; }
 
         public LookupBuilder()
         {
-            this.LookupSet = new HashSet<IDataHolder>();
+            this.LookupSet = new HashSet<IValueHolder>();
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
         /// </summary>
         /// <param name="lineData">The data to process.</param>
         /// <returns>A reference to the lookup data structure that was built so far.</returns>
-        public HashSet<IDataHolder> Execute(ParsedLine lineData)
+        public HashSet<IValueHolder> Execute(OneExtractedValue lineData)
         {
             this.LookupSet.Add(lineData.ExtractedData);
 

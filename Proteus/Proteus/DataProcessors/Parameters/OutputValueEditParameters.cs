@@ -5,7 +5,7 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using LaurentiuCristofor.Proteus.Common.DataHolders;
+using LaurentiuCristofor.Proteus.Common.ValueHolders;
 using LaurentiuCristofor.Proteus.Common.Types;
 
 namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
@@ -23,12 +23,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
         /// <summary>
         /// The argument of the operation.
         /// </summary>
-        public IDataHolder Argument { get; protected set; }
+        public IValueHolder Argument { get; protected set; }
 
         public OutputValueEditParameters(
             string outputFilePath,
             ValueEditType editType,
-            IDataHolder argument = null)
+            IValueHolder argument = null)
             : base(outputFilePath)
         {
             this.EditType = editType;

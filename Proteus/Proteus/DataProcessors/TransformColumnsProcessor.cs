@@ -18,7 +18,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that selects a subset of columns to output.
     /// </summary>
-    public class TransformColumnsProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<ColumnTransformationType>, ParsedLine>
+    public class TransformColumnsProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<ColumnTransformationType>, ExtractedColumnStrings>
     {
         protected OutputOperationParameters<ColumnTransformationType> Parameters { get; set; }
 
@@ -73,7 +73,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
         }
 
-        public bool Execute(ulong lineNumber, ParsedLine lineData)
+        public bool Execute(ulong lineNumber, ExtractedColumnStrings lineData)
         {
             string outputLine;
 
