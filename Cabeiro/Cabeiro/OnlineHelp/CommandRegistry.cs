@@ -352,7 +352,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.SelectionType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
-                $"{CabeiroConstants.Commands.Arguments.Descriptions.RelativeValueSelectionTypeText}"
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.RelativeLineSelectionTypeText}"
                 + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearUnique}");
             RegisterCommandDescription(commandDescription);
 
@@ -493,7 +493,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.SelectionType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
-                $"{CabeiroConstants.Commands.Arguments.Descriptions.RelativeValueSelectionTypeText}"
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.RelativeLineSelectionTypeText}"
                 + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
 
@@ -532,10 +532,11 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 "(S)elect (L)ines (P)ost (S)orting (B)y (C)olumn (V)alue (L)ookup (I)n (F)ile",
                 CabeiroConstants.Commands.Descriptions.SelectLinesPostSortingByColumnValueLookupInFile,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataFilePath}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataFileColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataType}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.LookupFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.LookupFileColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.LookupType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"

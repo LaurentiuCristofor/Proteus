@@ -281,8 +281,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
                     public const string ColumnNumber = "<column_number>";
                     public const string FirstFileColumnNumber = "<first_file_column_number>";
                     public const string SecondFileColumnNumber = "<second_file_column_number>";
-                    public const string DataFileColumnNumber = "<first_file_column_number>";
-                    public const string LookupFileColumnNumber = "<second_file_column_number>";
+                    public const string DataFileColumnNumber = "<data_file_column_number>";
+                    public const string LookupFileColumnNumber = "<lookup_file_column_number>";
                     public const string ColumnSeparator = "<column_separator>";
                     public const string FirstArgument = "<first_argument>";
                     public const string SecondArgument = "<second_argument>";
@@ -342,6 +342,11 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionTypePosition}' = position; arguments: <line_number>"
                         + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionTypeEach}' = each; arguments: <each_count>"
                         + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionTypeLast}' = last"
+                        + "\n";
+
+                    public static readonly string RelativeLineSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.RelativeValueSelectionFirst}' = first occurrence"
+                        + $"\n\t- '{Constants.Commands.Arguments.RelativeValueSelectionNotFirst}' = not first occurrence"
                         + "\n";
 
                     public static readonly string RelativeValueSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"

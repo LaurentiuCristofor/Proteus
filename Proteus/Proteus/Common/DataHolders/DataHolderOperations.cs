@@ -125,12 +125,16 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
         /// </summary>
         /// <param name="data">The data to compare.</param>
         /// <param name="comparisonType">The comparison type.</param>
-        /// <param name="thresholdArgument">The threshold argument for the comparison.</param>
+        /// <param name="threshold">The threshold argument for the comparison.</param>
         /// <returns>True if the comparison holds; false otherwise.</returns>
-        protected static bool ThresholdCompare(IDataHolder data, ComparisonType comparisonType, string thresholdArgument)
+        protected static bool ThresholdCompare(IDataHolder data, ComparisonType comparisonType, string threshold)
         {
-            ArgumentChecker.CheckNotNull(thresholdArgument);
-            IDataHolder thresholdData = BuildDataHolder(data.GetDataType(), thresholdArgument);
+            ArgumentChecker.CheckNotNull(threshold);
+            IDataHolder thresholdData = BuildDataHolder(data.GetDataType(), threshold);
+            if (thresholdData == null)
+            {
+                throw new ProteusException($"Comparison argument '{threshold}' is not a valid {data.GetDataType()} value!");
+            }
             int comparisonResult = data.CompareTo(thresholdData);
 
             switch (comparisonType)
@@ -173,6 +177,15 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
 
             IDataHolder lowerBound = BuildDataHolder(data.GetDataType(), firstThreshold);
             IDataHolder upperBound = BuildDataHolder(data.GetDataType(), secondThreshold);
+
+            if (lowerBound == null)
+            {
+                throw new ProteusException($"Comparison argument '{firstThreshold}' is not a valid {data.GetDataType()} value!");
+            }
+            if (upperBound == null)
+            {
+                throw new ProteusException($"Comparison argument '{secondThreshold}' is not a valid {data.GetDataType()} value!");
+            }
 
             ArgumentChecker.CheckInterval(lowerBound, upperBound);
 

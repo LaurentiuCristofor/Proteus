@@ -356,6 +356,32 @@ namespace LaurentiuCristofor.Cabeiro.Common
         }
 
         /// <summary>
+        /// Parses argument value as a RelativeValueSelectionType indicator for line selection.
+        /// 
+        /// Some RelativeValueSelectionType values are redundant in the case of line selection
+        /// so they are not exposed.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the RelativeValueSelectionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<RelativeValueSelectionType, int> ParseRelativeLineSelectionType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.RelativeValueSelectionFirst))
+            {
+                return new Tuple<RelativeValueSelectionType, int>(RelativeValueSelectionType.First, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.RelativeValueSelectionNotFirst))
+            {
+                return new Tuple<RelativeValueSelectionType, int>(RelativeValueSelectionType.NotFirst, 0);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid relative value selection type argument: {argument}!");
+            }
+        }
+
+        /// <summary>
         /// Parses argument value as a RelativeValueSelectionType indicator.
         /// </summary>
         /// <param name="argument">The argument value to parse.</param>

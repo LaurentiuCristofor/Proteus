@@ -524,7 +524,7 @@ namespace LaurentiuCristofor.Cabeiro
                 if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
                 {
                     string inputFilePath = arguments[1];
-                    Tuple<RelativeValueSelectionType, int> operationInfo = ArgumentParser.ParseRelativeValueSelectionType(arguments[2]);
+                    Tuple<RelativeValueSelectionType, int> operationInfo = ArgumentParser.ParseRelativeLineSelectionType(arguments[2]);
                     ArgumentParser.ExtractLastArguments(0, 3, arguments, out _, out string outputFilePath);
 
                     bool isSorted = ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByLineStringRelativeToOtherLines);
@@ -559,7 +559,7 @@ namespace LaurentiuCristofor.Cabeiro
                         columnNumber,
                         columnSeparator,
                         dataType, arguments[4],
-                        operationInfo.Item1, arguments[4],
+                        operationInfo.Item1, arguments[5],
                         outputFilePath);
                     return;
                 }
@@ -613,7 +613,7 @@ namespace LaurentiuCristofor.Cabeiro
                         dataType, arguments[4],
                         lookupFilePath,
                         lookupFileColumnNumber,
-                        operationInfo.Item1, arguments[5],
+                        operationInfo.Item1, arguments[7],
                         outputFilePath);
                     return;
                 }
@@ -1024,7 +1024,7 @@ namespace LaurentiuCristofor.Cabeiro
             OutputOperationParameters<PositionInsertionType> processingParameters = new OutputOperationParameters<PositionInsertionType>(
                 outputFilePath,
                 insertionType,
-                new string[] { lineValue, insertionArguments[0] });
+                (insertionArguments.Length > 0) ? new string[] { lineValue, insertionArguments[0] } : new string[] { lineValue });
 
             var fileProcessor
                 = new FileProcessor<LineExtractor, Unused, string, InsertLineProcessor, OutputOperationParameters<PositionInsertionType>>(
@@ -1326,19 +1326,19 @@ namespace LaurentiuCristofor.Cabeiro
         private static void SelectLinesByLineStringRelativeToOtherLines(
             bool isSorted,
             string inputFilePath,
-            RelativeValueSelectionType handlingType, string handlingTypeString,
+            RelativeValueSelectionType selectionType, string selectionTypeString,
             string outputFilePath)
         {
             string outputFileExtension
                 = isSorted 
-                ? $".{CabeiroConstants.Commands.SelectLinesPostSortingByLineStringRelativeToOtherLines}.{handlingTypeString}"
-                : $".{CabeiroConstants.Commands.SelectLinesByLineStringRelativeToOtherLines}.{handlingTypeString}";
+                ? $".{CabeiroConstants.Commands.SelectLinesPostSortingByLineStringRelativeToOtherLines}.{selectionTypeString}"
+                : $".{CabeiroConstants.Commands.SelectLinesByLineStringRelativeToOtherLines}.{selectionTypeString}";
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, operationArguments: null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
             OutputOperationParameters<RelativeValueSelectionType> processingParameters = new OutputOperationParameters<RelativeValueSelectionType>(
                 outputFilePath,
-                handlingType);
+                selectionType);
 
             if (isSorted)
             {
@@ -1368,7 +1368,7 @@ namespace LaurentiuCristofor.Cabeiro
             int columnNumber,
             string columnSeparator,
             DataType dataType, string dataTypeString,
-            RelativeValueSelectionType handlingType, string handlingTypeString,
+            RelativeValueSelectionType selectionType, string selectionTypeString,
             string outputFilePath)
         {
             OneColumnValueExtractionParameters extractionParameters = new OneColumnValueExtractionParameters(
@@ -1378,14 +1378,14 @@ namespace LaurentiuCristofor.Cabeiro
 
             string outputFileExtension
                 = isSorted
-                ? $".{CabeiroConstants.Commands.SelectLinesPostSortingByColumnValueRelativeToOtherLines}.{columnNumber}.{dataTypeString.ToLower()}.{handlingTypeString.ToLower()}"
-                : $".{CabeiroConstants.Commands.SelectLinesByColumnValueRelativeToOtherLines}.{columnNumber}.{dataTypeString.ToLower()}.{handlingTypeString.ToLower()}";
+                ? $".{CabeiroConstants.Commands.SelectLinesPostSortingByColumnValueRelativeToOtherLines}.{columnNumber}.{dataTypeString.ToLower()}.{selectionTypeString.ToLower()}"
+                : $".{CabeiroConstants.Commands.SelectLinesByColumnValueRelativeToOtherLines}.{columnNumber}.{dataTypeString.ToLower()}.{selectionTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, operationArguments: null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
             OutputOperationParameters<RelativeValueSelectionType> processingParameters = new OutputOperationParameters<RelativeValueSelectionType>(
                 outputFilePath,
-                handlingType);
+                selectionType);
 
             if (isSorted)
             {

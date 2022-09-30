@@ -240,7 +240,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         {
             this.InputReader.Close();
 
-            OutputInterface.LogLine($"\n{this.LineCounter:N0} lines were read from file '{Path.GetFileName(this.DataFilePath)}'.");
+            OutputInterface.LogLine($"\n{this.LineCounter:N0} lines were read from lookup file '{Path.GetFileName(this.LookupFilePath)}'.");
 
             return false;
         }
@@ -255,7 +255,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
 
             this.InputReader.Close();
 
-            OutputInterface.LogLine($"\n{this.LineCounter:N0} lines were read from file '{Path.GetFileName(this.LookupFilePath)}'.");
+            OutputInterface.LogLine($"\n{this.LineCounter:N0} lines were read from data file '{Path.GetFileName(this.DataFilePath)}'.");
 
             return false;
         }
