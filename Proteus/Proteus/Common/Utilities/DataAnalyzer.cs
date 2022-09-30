@@ -175,7 +175,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
                 return;
             }
 
-            OutputInterface.Log("\n\nPost-processing analyzed data...");
+            Timer timer = new Timer($"\n\n{Constants.Messages.AnalysisPostProcessingStart}", Constants.Messages.AnalysisPostProcessingEnd, "\n");
 
             // Initialize a list into which to collect and sort our data.
             //
@@ -197,7 +197,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
             //
             this.ListCountedData.Sort();
 
-            OutputInterface.LogLine("done!\n");
+            timer.StopAndReport();
         }
 
         /// <summary>
@@ -215,7 +215,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
             //
             if (this.TotalDataCount == 0)
             {
-                OutputInterface.LogLine("\nNo data was found to analyze!");
+                OutputInterface.LogLine($"\n{Constants.Messages.NoDataFoundForAnalysis}");
                 return;
             }
 

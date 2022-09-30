@@ -80,7 +80,7 @@ namespace LaurentiuCristofor.Proteus.FileOperations
         {
             this.OutputWriter.Close();
 
-            OutputInterface.LogLine($"\n{this.CountLinesWritten:N0} lines were written to file '{Path.GetFileName(this.OutputFilePath)}'.");
+            OutputInterface.LogLine($"\n{this.CountLinesWritten:N0} {Constants.Messages.LinesWrittenToFile} '{Path.GetFileName(this.OutputFilePath)}'.");
         }
     }
 }

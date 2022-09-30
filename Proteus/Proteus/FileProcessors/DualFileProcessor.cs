@@ -132,7 +132,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         /// </summary>
         public void ProcessFiles()
         {
-            Timer timer = new Timer($"\n{Constants.Strings.TotalProcessingTime}");
+            Timer timer = new Timer($"\n{Constants.Messages.TotalProcessingTime}");
 
             while (PerformNextAction())
             {
@@ -238,8 +238,8 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
             this.firstInputReader.Close();
             this.secondInputReader.Close();
 
-            OutputInterface.LogLine($"\n{this.firstLineCounter:N0} lines were read from first file '{Path.GetFileName(this.FirstInputFilePath)}'.");
-            OutputInterface.LogLine($"\n{this.secondLineCounter:N0} lines were read from second file '{Path.GetFileName(this.SecondInputFilePath)}'.");
+            OutputInterface.LogLine($"\n{this.firstLineCounter:N0} {Constants.Messages.LinesReadFromFirstFile} '{Path.GetFileName(this.FirstInputFilePath)}'.");
+            OutputInterface.LogLine($"\n{this.secondLineCounter:N0} {Constants.Messages.LinesReadFromSecondFile} '{Path.GetFileName(this.SecondInputFilePath)}'.");
 
             return false;
         }

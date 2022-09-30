@@ -80,8 +80,8 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.LimitValues}",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.LimitValuesText}"
-                + $"\n{CabeiroConstants.Commands.Notes.ConsoleOutput}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearUnique}");
+                + $"\n\n{CabeiroConstants.Commands.Notes.ConsoleOutput}"
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearUnique}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -95,9 +95,9 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataType}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.LimitValues}",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
-                + $"\n{CabeiroConstants.Commands.Arguments.Descriptions.LimitValuesText}"
-                + $"\n{CabeiroConstants.Commands.Notes.ConsoleOutput}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearUnique}");
+                + $"\n\n{CabeiroConstants.Commands.Arguments.Descriptions.LimitValuesText}"
+                + $"\n\n{CabeiroConstants.Commands.Notes.ConsoleOutput}"
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearUnique}");
             RegisterCommandDescription(commandDescription);
 
             // Ordering commands.
@@ -133,7 +133,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearTotal}");
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearTotal}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -146,7 +146,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.NewFirstColumnsList}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.NewFirstColumnsListText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
 
             // Editing commands.
@@ -161,7 +161,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} [{CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument}]]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.StringEditTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -176,7 +176,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} [{CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument}]]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.StringEditTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -192,8 +192,8 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument}]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
-                + $"\n{CabeiroConstants.Commands.Arguments.Descriptions.ValueEditTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
+                + $"\n\n{CabeiroConstants.Commands.Arguments.Descriptions.ValueEditTypeText}"
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -207,7 +207,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument}]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.PositionInsertionTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -225,8 +225,8 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument}]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
-                + $"\n{CabeiroConstants.Commands.Arguments.Descriptions.JoinTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearTotalSecond}");
+                + $"\n\n{CabeiroConstants.Commands.Arguments.Descriptions.JoinTypeText}"
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearTotalSecond}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -252,7 +252,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} {CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument} [{CabeiroConstants.Commands.Arguments.Descriptions.ThirdArgument}]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.ColumnTransformationTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
 
             // Line selection commands.
@@ -270,8 +270,8 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} [{CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument}]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
-                + $"\n{CabeiroConstants.Commands.Arguments.Descriptions.ComparisonTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
+                + $"\n\n{CabeiroConstants.Commands.Arguments.Descriptions.ComparisonTypeText}"
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -284,7 +284,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} [{CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument}]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.PositionSelectionTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}"
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}"
                 + $" {CabeiroConstants.Commands.Notes.MemoryRequirementExceptionLast}");
             RegisterCommandDescription(commandDescription);
 
@@ -299,7 +299,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} [{CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument}]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.PositionSelectionTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -312,7 +312,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} [{CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument}]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.StringSelectionTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -327,7 +327,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} [{CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument}]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.StringSelectionTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -341,7 +341,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} [{CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument}]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.ComparisonTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -353,7 +353,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.SelectionType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.RelativeLineSelectionTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearUnique}");
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearUnique}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -368,8 +368,8 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.SelectionType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
-                + $"\n{CabeiroConstants.Commands.Arguments.Descriptions.RelativeValueSelectionTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearUnique}");
+                + $"\n\n{CabeiroConstants.Commands.Arguments.Descriptions.RelativeValueSelectionTypeText}"
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearUnique}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -382,7 +382,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.LookupType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.LookupTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearUniqueLookup}");
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearUniqueLookup}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -399,7 +399,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.LookupType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.LookupTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearUniqueLookup}");
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearUniqueLookup}");
             RegisterCommandDescription(commandDescription);
 
             // Splitting commands.
@@ -437,7 +437,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearUnique}");
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearUnique}");
             RegisterCommandDescription(commandDescription);
 
             // PostSorting commands.
@@ -455,7 +455,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.PrimaryColumnDataType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearPrimaryColumnRepetitions}");
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearPrimaryColumnRepetitions}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -481,7 +481,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondInputFilePath}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -493,7 +493,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.SelectionType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.RelativeLineSelectionTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -508,8 +508,8 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.SelectionType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
-                + $"\n{CabeiroConstants.Commands.Arguments.Descriptions.RelativeValueSelectionTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
+                + $"\n\n{CabeiroConstants.Commands.Arguments.Descriptions.RelativeValueSelectionTypeText}"
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -522,7 +522,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.LookupType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.LookupTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -539,8 +539,8 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.LookupType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
-                + $"\n{CabeiroConstants.Commands.Arguments.Descriptions.LookupTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
+                + $"\n\n{CabeiroConstants.Commands.Arguments.Descriptions.LookupTypeText}"
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -558,8 +558,8 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument}]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
-                + $"\n{CabeiroConstants.Commands.Arguments.Descriptions.JoinTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearJoinKeyRepetitions}");
+                + $"\n\n{CabeiroConstants.Commands.Arguments.Descriptions.JoinTypeText}"
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearJoinKeyRepetitions}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -575,7 +575,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.PrimaryColumnDataType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
-                + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
         }
 
@@ -629,8 +629,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             //
             if (!mapCategoryToDescriptionList.TryGetValue(commandCategory, out commandDescriptions))
             {
-                Console.WriteLine($"{CabeiroConstants.Program.Name} does not have any commands in category '{commandCategory}'");
-                return;
+                throw new CabeiroException($"Internal error: The category '{commandCategory.ToString().ToUpper()}' has been defined without any commands!");
             }
 
             Console.WriteLine($"{commandCategory.ToString().ToUpper()} commands:\n");
@@ -648,8 +647,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
         {
             if (categories.Count == 0)
             {
-                Console.WriteLine($"Sorry, {CabeiroConstants.Program.Name} does not have any command categories yet!");
-                return;
+                throw new CabeiroException($"Internal error: No command categories have been registered!");
             }
 
             Console.WriteLine($"{CabeiroConstants.Program.Name} command categories are:\n");
@@ -667,20 +665,17 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
         {
             DisplayProgramDescription(displayGetStartedTip: false);
 
-            Console.WriteLine();
-
             if (categories.Count == 0)
             {
-                Console.WriteLine($"Sorry, {CabeiroConstants.Program.Name} does not have any commands yet!");
-                return;
+                throw new CabeiroException($"Internal error: No command categories have been registered!");
             }
 
-            Console.WriteLine($"Full list of {CabeiroConstants.Program.Name} commands:\n");
+            Console.WriteLine($"Full list of {CabeiroConstants.Program.Name} commands:");
 
             foreach (CommandCategory commandCategory in categories)
             {
+                Console.WriteLine();
                 DisplayCategoryCommands(commandCategory);
-                Console.WriteLine("\n");
             }
         }
 

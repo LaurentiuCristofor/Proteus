@@ -16,15 +16,22 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
 
         protected string StopMessage { get; set; }
 
-        public Timer(string startMessage, string stopMessage)
+        protected string EndMessage { get; set; }
+
+        public Timer(string startMessage, string stopMessage, string endMessage)
         {
             this.StopMessage = stopMessage;
+            this.EndMessage = endMessage;
             if (startMessage != null)
             {
                 OutputInterface.Log(startMessage);
             }
             this.Stopwatch = new Stopwatch();
             this.Stopwatch.Start();
+        }
+
+        public Timer(string startMessage, string stopMessage) : this(startMessage, stopMessage, null)
+        {
         }
 
         public Timer(string stopMessage) : this(null, stopMessage)
@@ -38,6 +45,10 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
             if (this.StopMessage != null)
             {
                 OutputInterface.Log($"{this.StopMessage}{Timer.FormatTimeSpan(timeSpan)}");
+            }
+            if (this.EndMessage != null)
+            {
+                OutputInterface.Log(this.EndMessage);
             }
         }
 

@@ -56,7 +56,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         {
             if (columnNumber > columns.Length)
             {
-                OutputInterface.LogWarning($"\nLine {lineNumber} is too short for extracting column number {columnNumber}!");
+                OutputInterface.LogWarning(string.Format(Constants.Messages.LineTooShortForColumnExtraction, lineNumber, columnNumber));
                 return null;
             }
 
@@ -68,7 +68,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             IDataHolder columnData = DataHolderOperations.BuildDataHolder(columnDataType, columnString);
             if (columnData == null)
             {
-                OutputInterface.LogWarning($"\nFound an invalid value for column {columnNumber} of type {columnDataType} in line {lineNumber}: '{columnString}'!");
+                OutputInterface.LogWarning(string.Format(Constants.Messages.InvalidValueForColumnExtraction, columnNumber, columnDataType, lineNumber, columnString));
                 return null;
             }
             return columnData;

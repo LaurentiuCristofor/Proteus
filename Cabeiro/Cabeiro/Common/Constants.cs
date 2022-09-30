@@ -34,7 +34,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 + $"\t(5) The string 'tab' can be used on the command line if you need to indicate a tab character as column separator.\n"
                 + $"\t(6) Row and column numbers start from 1.\n";
 
-            public static readonly string GetStartedTip = $"\n\nTo get started, execute '{Constants.Program.Name} help help'.";
+            public static readonly string GetStartedTip = $"\nTo get started, execute '{Constants.Program.Name} help help'.";
         }
 
         // Formatting strings.
@@ -298,7 +298,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\n'{Commands.Arguments.All}' will list all available commands."
                         + $"\n\n'{Commands.Arguments.Categories}' will list all command categories."
                         + $"\n\n'{Commands.Arguments.Category}' will list all commands in the {Commands.Arguments.Descriptions.CategoryName} category."
-                        + "\n";
+                        ;
 
                     public const string DataType = "<data_type>";
 
@@ -308,7 +308,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.DataTypeUnsignedInteger}' = unsigned integer"
                         + $"\n\t- '{Constants.Commands.Arguments.DataTypeFloatingPoint}' = floating point"
                         + $"\n\t- '{Constants.Commands.Arguments.DataTypeDateTime}' = datetime"
-                        + "\n";
+                        ;
 
                     public const string ComparisonType = "<comparison_type>";
 
@@ -323,7 +323,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeStrictlyBetween}' = strictly between; arguments: <start_value> <end_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeNotBetween}' = not between; arguments: <start_value> <end_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeNotStrictlyBetween}' = not strictly between; arguments: <start_value> <end_value>"
-                        + "\n";
+                        ;
 
                     public const string SelectionType = "<selection_type>";
 
@@ -334,7 +334,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionTypeNotLast}' = not last; arguments: <last_count>"
                         + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionTypeEach}' = each; arguments: <each_count>"
                         + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionTypeNotEach}' = not each; arguments: <each_count>"
-                        + "\n";
+                        ;
 
                     public const string InsertionType = "<insertion_type>";
 
@@ -342,40 +342,40 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionTypePosition}' = position; arguments: <line_number>"
                         + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionTypeEach}' = each; arguments: <each_count>"
                         + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionTypeLast}' = last"
-                        + "\n";
+                        ;
 
                     public static readonly string RelativeLineSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.RelativeValueSelectionFirst}' = first occurrence"
                         + $"\n\t- '{Constants.Commands.Arguments.RelativeValueSelectionNotFirst}' = not first occurrence"
-                        + "\n";
+                        ;
 
                     public static readonly string RelativeValueSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.RelativeValueSelectionFirst}' = first occurrence"
                         + $"\n\t- '{Constants.Commands.Arguments.RelativeValueSelectionNotFirst}' = not first occurrence"
                         + $"\n\t- '{Constants.Commands.Arguments.RelativeValueSelectionLast}' = last occurrence"
                         + $"\n\t- '{Constants.Commands.Arguments.RelativeValueSelectionNotLast}' = not last occurrence"
-                        + "\n";
+                        ;
 
                     public const string JoinType = "<join_type>";
 
                     public static readonly string JoinTypeText = $"{Constants.Commands.Arguments.Descriptions.JoinType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.JoinTypeInner}' = inner - omit lines not matching second file"
                         + $"\n\t- '{Constants.Commands.Arguments.JoinTypeLeftOuter}' = left outer - include lines not matching second file"
-                        + "\n";
+                        ;
 
                     public const string LookupType = "<lookup_type>";
 
                     public static readonly string LookupTypeText = $"{Constants.Commands.Arguments.Descriptions.LookupType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.LookupTypeIncluded}' = included - include lines matching lookup file content"
                         + $"\n\t- '{Constants.Commands.Arguments.LookupTypeNotIncluded}' = not included - include lines not matching lookup file content"
-                        + "\n";
+                        ;
 
                     public const string TransformationType = "<transformation_type>";
 
                     public static readonly string ColumnTransformationTypeText = $"{Constants.Commands.Arguments.Descriptions.TransformationType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.ColumnTransformationTypePack}' = pack column range; arguments: <start_column_number> <end_column_number> <packing_separator>"
                         + $"\n\t- '{Constants.Commands.Arguments.ColumnTransformationTypeUnpack}' = unpack column; arguments: <column_number> <packing_separator>"
-                        + "\n";
+                        ;
 
                     public static readonly string StringSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeHasLengthBetween}' = has length between; arguments: <start_value> <end_value>"
@@ -390,7 +390,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotStartsAndEndsWith}' = not starts and ends with; arguments: <starting_value> <ending_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeEquals}' = equals; arguments: <string_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotEquals}' = not equals; arguments: <string_value>"
-                        + "\n";
+                        ;
 
                     public const string EditType = "<edit_type>";
 
@@ -446,7 +446,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentOutsideOutermostMarkers}' = keep content outside outermost occurrences of markers; arguments: <first_marker> <second_marker>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeSet}' = set; arguments: <replacement>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeSetIfEquals}' = set if equals value; arguments: <value_to_match> <replacement>"
-                        + "\n";
+                        ;
 
                     public static readonly string ValueEditTypeText = $"{Constants.Commands.Arguments.Descriptions.EditType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.ValueEditTypeRewrite}' = rewrite"
@@ -454,15 +454,15 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.ValueEditTypeSubtract}' = subtract; arguments: <value>"
                         + $"\n\t- '{Constants.Commands.Arguments.ValueEditTypeMultiply}' = multiply; arguments: <value>"
                         + $"\n\t- '{Constants.Commands.Arguments.ValueEditTypeDivide}' = divide; arguments: <value>"
-                        + "\nSome edit types are not supported by some data types.\n";
+                        + "\nSome edit types are not supported by some data types.";
 
                     public const string LimitValues = "<limit_values>";
 
-                    public static readonly string LimitValuesText = $"{Constants.Commands.Arguments.Descriptions.LimitValues} specifies how many values should be presented from the most frequent and least frequent sets of values; set this value to 0 if you want the command to produce a dump of all unique values encountered.\n";
+                    public static readonly string LimitValuesText = $"{Constants.Commands.Arguments.Descriptions.LimitValues} specifies how many values should be presented from the most frequent and least frequent sets of values; set this value to 0 if you want the command to produce a dump of all unique values encountered.";
 
                     public const string NewFirstColumnsList = "<new_first_columns_list>";
 
-                    public static readonly string NewFirstColumnsListText = $"{Constants.Commands.Arguments.Descriptions.NewFirstColumnsList} is a comma-separated list of column numbers representing the new order of columns requested. Unspecified columns will appear after the specified ones, in their initial order.\n";
+                    public static readonly string NewFirstColumnsListText = $"{Constants.Commands.Arguments.Descriptions.NewFirstColumnsList} is a comma-separated list of column numbers representing the new order of columns requested. Unspecified columns will appear after the specified ones, in their initial order.";
                 }
             }
         }

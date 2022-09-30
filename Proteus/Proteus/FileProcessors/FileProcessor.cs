@@ -72,7 +72,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         /// </summary>
         public void ProcessFile()
         {
-            Timer timer = new Timer($"\n{Constants.Strings.TotalProcessingTime}");
+            Timer timer = new Timer($"\n{Constants.Messages.TotalProcessingTime}");
 
             while (ProcessNextRow())
             {
@@ -136,7 +136,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
 
             this.InputReader.Close();
 
-            OutputInterface.LogLine($"\n{this.LineCounter:N0} lines were read from file '{Path.GetFileName(this.InputFilePath)}'.");
+            OutputInterface.LogLine($"\n{this.LineCounter:N0} {Constants.Messages.LinesReadFromFile} '{Path.GetFileName(this.InputFilePath)}'.");
 
             return false;
         }
