@@ -132,10 +132,14 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         /// </summary>
         public void ProcessFiles()
         {
+            Timer timer = new Timer($"\n{Constants.Strings.TotalProcessingTime}");
+
             while (PerformNextAction())
             {
                 // Nothing else needs to be done.
             }
+
+            timer.StopAndReport();
         }
 
         /// <summary>

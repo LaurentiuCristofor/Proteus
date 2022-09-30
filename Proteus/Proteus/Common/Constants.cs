@@ -26,6 +26,11 @@ namespace LaurentiuCristofor.Proteus.Common
 
             public const string Bottom = "Bottom";
             public const string Top = "Top";
+
+            public const string SortingStart = "Sorting...";
+            public const string SortingEnd = "done! Sorting time: ";
+
+            public const string TotalProcessingTime = "Total processing time: ";
         }
     }
 }

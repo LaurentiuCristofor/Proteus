@@ -8,6 +8,7 @@
 using System.Collections.Generic;
 
 using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.Utilities;
 using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
 using LaurentiuCristofor.Proteus.FileOperations;
 
@@ -48,11 +49,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 throw new ProteusException("Internal error: An expected data structure has not been initialized!");
             }
 
-            OutputInterface.Log("\nSorting...");
-
+            Timer timer = new Timer($"\n{Constants.Strings.SortingStart}", Constants.Strings.SortingEnd);
             this.Lines.Sort();
-
-            OutputInterface.Log("done!");
+            timer.StopAndReport();
 
             foreach (string line in this.Lines)
             {

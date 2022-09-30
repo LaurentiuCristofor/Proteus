@@ -123,6 +123,8 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         /// </summary>
         public void ProcessFiles()
         {
+            Timer timer = new Timer($"\n{Constants.Strings.TotalProcessingTime}");
+
             while (ProcessNextRowOfLookupFile())
             {
                 // Nothing else needs to be done, but to process each row.
@@ -146,6 +148,8 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
             {
                 // Nothing else needs to be done, but to process each row.
             }
+
+            timer.StopAndReport();
         }
 
         /// <summary>

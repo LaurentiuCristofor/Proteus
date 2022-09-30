@@ -72,10 +72,14 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         /// </summary>
         public void ProcessFile()
         {
+            Timer timer = new Timer($"\n{Constants.Strings.TotalProcessingTime}");
+
             while (ProcessNextRow())
             {
                 // Nothing else needs to be done, but to process each row.
             }
+
+            timer.StopAndReport();
         }
 
         /// <summary>
