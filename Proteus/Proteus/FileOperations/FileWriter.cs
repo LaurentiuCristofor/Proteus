@@ -50,6 +50,10 @@ namespace LaurentiuCristofor.Proteus.FileOperations
             this.CountLinesWritten = 0;
         }
 
+        /// <summary>
+        /// Write a line and track progress.
+        /// </summary>
+        /// <param name="line">The line to write.</param>
         public void WriteLine(string line)
         {
             // If we need to track progress, reset the progress tracker output before our first write.
@@ -69,6 +73,9 @@ namespace LaurentiuCristofor.Proteus.FileOperations
             }
         }
 
+        /// <summary>
+        /// Closes the writer stream and reports how many lines were written.
+        /// </summary>
         public void CloseAndReport()
         {
             this.OutputWriter.Close();

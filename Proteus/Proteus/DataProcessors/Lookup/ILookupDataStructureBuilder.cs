@@ -15,7 +15,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
     public interface ILookupDataStructureBuilder<TInputData, TLookupDataStructure>
     {
         /// <summary>
-        /// Execute the builder on a unit of data.
+        /// Executes the builder on a unit of data.
         /// </summary>
         /// <param name="inputData">The data to process.</param>
         /// <returns>A reference to the lookup data structure that was built so far.</returns>

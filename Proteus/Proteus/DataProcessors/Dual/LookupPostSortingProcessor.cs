@@ -81,6 +81,13 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
             }
         }
 
+        /// <summary>
+        /// Processes a line after looking it up.
+        /// </summary>
+        /// <param name="line">The line to process.</param>
+        /// <param name="lookupType">The lookup criteria that we're using.</param>
+        /// <param name="isIncluded">True if the lookup was successful; false otherwise.</param>
+        /// <returns></returns>
         private bool ProcessLine(string line, LookupType lookupType, bool isIncluded)
         {
             bool shouldOutputLine;

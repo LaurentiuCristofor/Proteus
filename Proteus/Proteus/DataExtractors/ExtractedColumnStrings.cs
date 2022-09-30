@@ -72,7 +72,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         }
 
         /// <summary>
-        /// Build a line, using the specified data instead of a range of columns.
+        /// Builds a line, using the specified data instead of a range of columns.
         /// </summary>
         /// <param name="replacementData">The data to use instead of a range of columns.</param>
         /// <param name="startColumnNumber">The starting column number of the range to replace.</param>

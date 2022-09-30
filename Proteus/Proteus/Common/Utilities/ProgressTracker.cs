@@ -8,7 +8,7 @@
 namespace LaurentiuCristofor.Proteus.Common.Utilities
 {
     /// <summary>
-    /// A character based execution progress tracker.
+    /// A character-based execution progress tracker.
     /// </summary>
     public abstract class ProgressTracker
     {

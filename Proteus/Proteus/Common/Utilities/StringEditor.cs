@@ -61,7 +61,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
             this.FirstArgument = firstArgument;
             this.SecondArgument = secondArgument;
 
-            // Validate arguments for the operation type.
+            // Validate the arguments for each operation type.
             //
             switch (editType)
             {
@@ -181,7 +181,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         }
 
         /// <summary>
-        /// Perform an edit operation of a string using the initializationg parameters.
+        /// Performs an edit operation of a string using the initializationg parameters.
         /// </summary>
         /// <param name="data">The data to edit.</param>
         /// <param name="lineNumber">The line number of the data. It is produced internally.</param>
@@ -559,7 +559,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         }
 
         /// <summary>
-        /// Invert the character sequence of a string value.
+        /// Inverts the character sequence of a string value.
         /// </summary>
         /// <param name="data">The string value to invert.</param>
         /// <returns>The inverted string value.</returns>
@@ -579,7 +579,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         }
 
         /// <summary>
-        /// Remove the specified number of characters from the start or end of string.
+        /// Removes the specified number of characters from the start or end of string.
         /// </summary>
         /// <param name="data">The string value from which to remove the characters.</param>
         /// <param name="countCharacters">The count of characters to remove.</param>
@@ -603,7 +603,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         }
 
         /// <summary>
-        /// Remove all except the specified number of characters from the start or end of string.
+        /// Removes all except the specified number of characters from the start or end of string.
         /// </summary>
         /// <param name="data">The string value from which to remove characters.</param>
         /// <param name="countCharacters">The count of characters to keep.</param>
@@ -631,7 +631,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         }
 
         /// <summary>
-        /// Remove a substring identified by index and length.
+        /// Removes a substring identified by index and length.
         /// </summary>
         /// <param name="data">The string value from which to remove the substring.</param>
         /// <param name="contentStartIndex">The index at which the substring begins.</param>
@@ -658,7 +658,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         }
 
         /// <summary>
-        /// Keep a substring identified by index and length.
+        /// Keeps a substring identified by index and length.
         /// </summary>
         /// <param name="data">The string value from which to keep the substring.</param>
         /// <param name="contentStartIndex">The index at which the substring begins.</param>

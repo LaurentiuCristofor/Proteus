@@ -134,6 +134,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
             }
         }
 
+        /// <summary>
+        /// Joins the line from the first file with all the join lines we collected from the second file,
+        /// and outputs each one of them.
+        /// </summary>
+        /// <param name="firstLineData">The data from the first file.</param>
         protected void JoinLineAndOutput(OneExtractedValue firstLineData)
         {
             foreach (string joinLine in this.LinesToJoinOnLastMatchedKey)

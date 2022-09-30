@@ -21,7 +21,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         void Initialize(TProcessingParameters processingParameters);
 
         /// <summary>
-        /// Execute the processor on a unit of data.
+        /// Executes the processor on a unit of data.
         /// </summary>
         /// <param name="lineNumber">The current line number corresponding to the input data.</param>
         /// <param name="inputData">The data to process.</param>

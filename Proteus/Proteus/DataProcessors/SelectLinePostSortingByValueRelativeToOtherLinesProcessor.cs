@@ -81,7 +81,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     if (this.LastSeenLineData != null
                         && lineData.ExtractedData.Equals(this.LastSeenLineData.ExtractedData))
                     {
-                        // We're seeing the value again, so the earlier line is not the last and can be printed now.
+                        // We're seeing the value again, so the earlier line is not the last one and can be printed now.
                         //
                         lineToOutput = this.LastSeenLineData.OriginalLine;
                         shouldOutputLine = true;

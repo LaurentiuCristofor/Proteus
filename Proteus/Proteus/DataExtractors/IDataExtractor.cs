@@ -21,7 +21,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         void Initialize(TExtractionParameters extractionParameters);
 
         /// <summary>
-        /// Extract data from a line.
+        /// Extracts data from a line.
         /// </summary>
         /// <param name="lineNumber">The current line number corresponding to the line.</param>
         /// <param name="inputLine">The line to process.</param>

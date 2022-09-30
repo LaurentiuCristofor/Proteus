@@ -82,7 +82,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         }
 
         /// <summary>
-        /// Analyze a piece of data.
+        /// Analyzes a piece of data.
         /// </summary>
         /// <param name="data">Data to analyze.</param>
         public void AnalyzeData(IDataHolder data)
@@ -151,8 +151,8 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         }
 
         /// <summary>
-        /// Generate the list of counted data and order it by count.
-        /// Compute Shannon entropy for data.
+        /// Generates the list of counted data and orders it by count.
+        /// Computes Shannon entropy for data.
         /// </summary>
         public void PostProcessAnalyzedData()
         {
@@ -201,7 +201,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         }
 
         /// <summary>
-        /// Output the results of the analyzer.
+        /// Outputs the results of the analyzer.
         /// </summary>
         /// <param name="outputLimit">How many top and bottom values should be printed; if zero, all values will be output.</param>
         public void OutputReport(int outputLimit = 0)

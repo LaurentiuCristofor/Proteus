@@ -11,7 +11,7 @@ using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// A plain text writer.
+    /// A plain processor that just outputs line data without any changes.
     /// </summary>
     public class OutputProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, string>
     {

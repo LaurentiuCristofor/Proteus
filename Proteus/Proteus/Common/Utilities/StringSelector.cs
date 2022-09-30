@@ -93,7 +93,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         }
 
         /// <summary>
-        /// Perform an edit operation of a string using the initializationg parameters.
+        /// Performs an edit operation of a string using the initializationg parameters.
         /// </summary>
         /// <param name="data">The data to edit.</param>
         /// <param name="lineNumber">The line number of the data. It is produced internally.</param>

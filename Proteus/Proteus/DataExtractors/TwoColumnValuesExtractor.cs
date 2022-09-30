@@ -29,7 +29,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             //
             string[] columns = line.Split(this.Parameters.Separators, StringSplitOptions.None);
 
-            // Check if we need to extract a column value.
+            // Try to extract the first column value.
             //
             IDataHolder columnData = OneColumnValueExtractor.ExtractColumn(lineNumber, columns, this.Parameters.ColumnNumber, this.Parameters.ColumnDataType);
             if (columnData == null)
@@ -37,7 +37,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
                 return null;
             }
 
-            // Check if we need to extract a second column value.
+            // Try to extract the second column value.
             //
             IDataHolder secondColumnData = OneColumnValueExtractor.ExtractColumn(lineNumber, columns, this.Parameters.SecondColumnNumber, this.Parameters.SecondColumnDataType);
             if (secondColumnData == null)

@@ -581,7 +581,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
         }
 
         /// <summary>
-        /// Display the description of a command.
+        /// Displays the description of a command.
         /// </summary>
         /// <param name="commandName">The command whose description we want displayed.</param>
         public static void DisplayCommandDescription(string commandName)
@@ -600,7 +600,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
         }
 
         /// <summary>
-        /// Display a list of commands in a category.
+        /// Displays a list of commands in a category.
         /// </summary>
         /// <param name="category">The category name whose commands we want displayed.</param>
         public static void DisplayCategoryCommands(string category)
@@ -619,7 +619,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
         }
 
         /// <summary>
-        /// Display a list of commands in a category.
+        /// Displays a list of commands in a category.
         /// </summary>
         /// <param name="commandCategory">The category enum value whose commands we want displayed.</param>
         private static void DisplayCategoryCommands(CommandCategory commandCategory)
@@ -643,7 +643,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
         }
 
         /// <summary>
-        /// Display a list of all available command categories.
+        /// Displays a list of all available command categories.
         /// </summary>
         public static void DisplayAllCommandCategories()
         {
@@ -662,7 +662,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
         }
 
         /// <summary>
-        /// Display all commands in all categories.
+        /// Displays all commands in all categories.
         /// </summary>
         public static void DisplayAllCommands()
         {
@@ -686,7 +686,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
         }
 
         /// <summary>
-        /// Display the version of both Cabeiro and Proteus.
+        /// Displays the version of both Cabeiro and Proteus.
         /// </summary>
         public static void DisplayProgramVersion()
         {
@@ -698,7 +698,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
         }
 
         /// <summary>
-        /// Display a description of Cabeiro functionality.
+        /// Displays a description of Cabeiro functionality.
         /// </summary>
         /// <param name="displayGetStartedTip">Whether to display the GetStarted tip or not.</param>
         public static void DisplayProgramDescription(bool displayGetStartedTip = true)
@@ -714,7 +714,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
         }
 
         /// <summary>
-        /// Register a command description and update all our command registry data structures.
+        /// Registers a command description and update all our command registry data structures.
         /// </summary>
         /// <param name="commandDescription">The command description instance to register.</param>
         private static void RegisterCommandDescription(CommandDescription commandDescription)

@@ -115,7 +115,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
         }
 
         /// <summary>
-        /// Look for the presence of an expected argument.
+        /// Looks for the presence of an expected argument.
         /// </summary>
         /// <param name="arguments">The list of arguments.</param>
         /// <param name="optionalArgumentIndex">The index of the expected argument.</param>
@@ -131,7 +131,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
         }
 
         /// <summary>
-        /// Look for the presence of an optional argument.
+        /// Looks for the presence of an optional argument.
         /// </summary>
         /// <param name="arguments">The list of arguments.</param>
         /// <param name="optionalArgumentIndex">The index of the optional argument.</param>
@@ -147,7 +147,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
         }
 
         /// <summary>
-        /// Extract the last arguments of a command.
+        /// Extracts the last arguments of a command.
         /// </summary>
         /// <param name="expectedOperationArguments">The number or arguments required for the current operation.</param>
         /// <param name="nextArgumentIndex">The index from where to extract the next argument.</param>

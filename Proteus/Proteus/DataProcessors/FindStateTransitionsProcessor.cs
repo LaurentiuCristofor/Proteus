@@ -13,7 +13,9 @@ using LaurentiuCristofor.Proteus.FileOperations;
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// A data processor that expects as input a file sorted by a primary column and will output consecutive rows that differ in the value of a specified 'state' column.
+    /// A data processor that expects as input a file sorted by a primary column
+    /// and will output consecutive rows having the same primary column value
+    /// but differing in the value of another 'state' column.
     /// </summary>
     public class FindStateTransitionsProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, TwoExtractedValues>
     {

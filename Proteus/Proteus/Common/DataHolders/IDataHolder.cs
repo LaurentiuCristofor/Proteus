@@ -17,7 +17,7 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
     public interface IDataHolder: IComparable
     {
         /// <summary>
-        /// Return the data type of this instance.
+        /// Returns the data type of this instance.
         /// </summary>
         DataType GetDataType();
 

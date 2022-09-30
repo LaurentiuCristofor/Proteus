@@ -42,12 +42,12 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         protected string SecondInputFilePath { get; set; }
 
         /// <summary>
-        /// The object that we'll use to read the first input file.
+        /// The reader that we'll use with the first input file.
         /// </summary>
         protected StreamReader firstInputReader;
 
         /// <summary>
-        /// The object that we'll use to read the second input file.
+        /// The reader that we'll use with the second input file.
         /// </summary>
         protected StreamReader secondInputReader;
 
@@ -187,7 +187,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         }
 
         /// <summary>
-        /// Perform next action and then determine the next one.
+        /// Performs next action and then determines the next one.
         /// </summary>
         /// <returns>True if processing should continue; false otherwise.</returns>
         protected bool PerformNextAction()

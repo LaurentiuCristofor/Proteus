@@ -13,7 +13,7 @@ using LaurentiuCristofor.Proteus.FileOperations;
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// A data processor that checks the line number,
+    /// A data processor that checks the current line number,
     /// to decide whether to insert a line at that position or not.
     /// </summary>
     public class InsertLineProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<PositionInsertionType>, string>

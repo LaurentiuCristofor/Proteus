@@ -35,7 +35,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         protected string InputFilePath { get; set; }
 
         /// <summary>
-        /// The object that we'll use to read the input file.
+        /// The reader that we'll use with the input file.
         /// </summary>
         protected StreamReader InputReader { get; set; }
 

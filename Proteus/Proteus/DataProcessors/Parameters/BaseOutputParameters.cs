@@ -13,7 +13,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
     public class BaseOutputParameters
     {
         /// <summary>
-        /// The path where we should store the output of the operation.
+        /// The file path for storing the output of the operation.
         /// </summary>
         public string OutputFilePath { get; protected set; }
 

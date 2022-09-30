@@ -27,11 +27,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
             this.LookupSet = new HashSet<IDataHolder>();
         }
 
-        /// <summary>
-        /// Execute the builder on a unit of data.
-        /// </summary>
-        /// <param name="lineData">The data to process.</param>
-        /// <returns>A reference to the lookup data structure that was built so far.</returns>
         public HashSet<IDataHolder> Execute(OneExtractedValue lineData)
         {
             this.LookupSet.Add(lineData.ExtractedData);

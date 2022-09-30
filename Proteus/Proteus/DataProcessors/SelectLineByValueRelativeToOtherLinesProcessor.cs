@@ -104,12 +104,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 case RelativeValueSelectionType.NotLast:
                     if (this.ValuesToLastLines.ContainsKey(data))
                     {
-                        // Last line is not last, so we can output it.
+                        // The line we saw before with this data value is not the last, so we can output it.
                         //
                         lineToOutput = this.ValuesToLastLines[data];
                         shouldOutputLine = true;
 
-                        // Update last line see for this data value.
+                        // Update last line seen for this data value.
                         //
                         this.ValuesToLastLines[data] = lineData.OriginalLine;
                     }

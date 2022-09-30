@@ -10,12 +10,12 @@ using LaurentiuCristofor.Proteus.FileOperations;
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// Base class for processors that produce an output file.
+    /// Base class for processors that write to an output file.
     /// </summary>
     public abstract class BaseOutputProcessor
     {
         /// <summary>
-        /// A writer for producing the output file.
+        /// A writer for the output file.
         /// </summary>
         protected FileWriter OutputWriter { get; set; }
 

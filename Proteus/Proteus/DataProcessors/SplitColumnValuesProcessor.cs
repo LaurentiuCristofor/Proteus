@@ -41,12 +41,13 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             IDataHolder data = lineData.ExtractedData;
 
             // If we don't have a file created for this column already, create one now.
+            //
             // File names must be unique and because column values may contain characters that are forbidden in file names,
             // we will instead generate an identifier value for each unique column value.
             //
             if (!this.MapColumnValueToFileWriter.ContainsKey(data))
             {
-                // Assign as identifier, the number of the unique values seen so far, including this one.
+                // Assign as identifier the number of the unique values seen so far, including this one.
                 //
                 int columnValueIdentifier = this.MapColumnValueToFileWriter.Count + 1;
 

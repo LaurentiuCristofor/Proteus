@@ -27,11 +27,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
             this.LookupDictionary = new Dictionary<IDataHolder, List<string>>();
         }
 
-        /// <summary>
-        /// Execute the builder on a unit of data.
-        /// </summary>
-        /// <param name="lineData">The data to process.</param>
-        /// <returns>A reference to the lookup data structure that was built so far.</returns>
         public Dictionary<IDataHolder, List<string>> Execute(OneExtractedValue lineData)
         {
             // The line that we want to join with should not contain the data that we matched on, to prevent redundancy in the join output.

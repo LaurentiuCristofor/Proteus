@@ -130,13 +130,14 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
         protected static bool ThresholdCompare(IDataHolder data, ComparisonType comparisonType, string threshold)
         {
             ArgumentChecker.CheckNotNull(threshold);
+
             IDataHolder thresholdData = BuildDataHolder(data.GetDataType(), threshold);
             if (thresholdData == null)
             {
                 throw new ProteusException($"Comparison argument '{threshold}' is not a valid {data.GetDataType()} value!");
             }
-            int comparisonResult = data.CompareTo(thresholdData);
 
+            int comparisonResult = data.CompareTo(thresholdData);
             switch (comparisonType)
             {
                 case ComparisonType.LessThan:

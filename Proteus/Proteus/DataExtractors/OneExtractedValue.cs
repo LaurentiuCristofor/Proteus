@@ -23,7 +23,8 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         public IDataHolder ExtractedData { get; protected set;}
 
         /// <summary>
-        /// The number of the extracted column, if ExtractedData contains a column.
+        /// The number of the extracted column, if ExtractedData contains a column;
+        /// if ExtractedData contains a line, this will be set to 0.
         /// </summary>
         public int ExtractedColumnNumber { get; protected set; }
 

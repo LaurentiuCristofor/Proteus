@@ -21,7 +21,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
         void Initialize(TProcessingParameters processingParameters);
 
         /// <summary>
-        /// Execute the processor on two units of data.
+        /// Executes the processor on two units of data.
         /// </summary>
         /// <param name="hasProcessedFirstFile">Indicates that we have processed the first file.</param>
         /// <param name="firstLineNumber">The current line number corresponding to the first input data.</param>

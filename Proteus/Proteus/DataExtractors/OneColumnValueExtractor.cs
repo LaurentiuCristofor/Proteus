@@ -31,6 +31,8 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             //
             string[] columns = line.Split(this.Parameters.Separators, StringSplitOptions.None);
 
+            // Try to extract the column value.
+            //
             IDataHolder columnData = ExtractColumn(lineNumber, columns, this.Parameters.ColumnNumber, this.Parameters.ColumnDataType);
             if (columnData == null)
             {

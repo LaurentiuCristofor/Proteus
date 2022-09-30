@@ -10,7 +10,7 @@ using LaurentiuCristofor.Proteus.Common;
 namespace LaurentiuCristofor.Proteus.DataExtractors
 {
     /// <summary>
-    /// An extractor that packages each input line in a OneExtractedValue instance.
+    /// An extractor that packages each input line into a OneExtractedValue instance.
     /// </summary>
     public class LineAsOneExtractedValueExtractor : IDataExtractor<Unused, OneExtractedValue>
     {
