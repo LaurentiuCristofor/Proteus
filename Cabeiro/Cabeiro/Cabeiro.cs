@@ -125,645 +125,612 @@ namespace LaurentiuCristofor.Cabeiro
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.CountLines))
             {
                 const int expectedArgumentNumber = 2;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, expectedArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, expectedArgumentNumber);
 
-                    CountLines(inputFilePath);
-                    return;
-                }
+                string inputFilePath = arguments[1];
+
+                CountLines(inputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.AnalyzeLines))
             {
                 const int minimumArgumentNumber = 3;
                 const int maximumArgumentNumber = 3;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    int valuesLimit = ArgumentParser.GetPositiveInteger(arguments[2]);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    AnalyzeLines(
-                        inputFilePath,
-                        valuesLimit);
-                    return;
-                }
+                string inputFilePath = arguments[1];
+                int valuesLimit = ArgumentParser.GetPositiveInteger(arguments[2]);
+
+                AnalyzeLines(
+                    inputFilePath,
+                    valuesLimit);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.AnalyzeColumnValues))
             {
                 const int minimumArgumentNumber = 6;
                 const int maximumArgumentNumber = 6;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
-                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
-                    DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
-                    int valuesLimit = ArgumentParser.GetPositiveInteger(arguments[5]);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    AnalyzeColumnValues(
-                        inputFilePath,
-                        columnNumber,
-                        columnSeparator,
-                        dataType,
-                        valuesLimit);
-                    return;
-                }
+                string inputFilePath = arguments[1];
+                int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
+                string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
+                DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
+                int valuesLimit = ArgumentParser.GetPositiveInteger(arguments[5]);
+
+                AnalyzeColumnValues(
+                    inputFilePath,
+                    columnNumber,
+                    columnSeparator,
+                    dataType,
+                    valuesLimit);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.Invert))
             {
                 const int minimumArgumentNumber = 2;
                 const int maximumArgumentNumber = 3;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    ArgumentParser.ExtractLastArguments(0, 2, arguments, out _, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    InvertFile(
-                        inputFilePath,
-                        outputFilePath);
-                    return;
-                }
+                string inputFilePath = arguments[1];
+                ArgumentParser.ExtractLastArguments(0, 2, arguments, out _, out string outputFilePath);
+
+                InvertFile(
+                    inputFilePath,
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.Sort))
             {
                 const int minimumArgumentNumber = 2;
                 const int maximumArgumentNumber = 3;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    ArgumentParser.ExtractLastArguments(0, 2, arguments, out _, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    SortFile(
-                        inputFilePath,
-                        outputFilePath);
-                    return;
-                }
+                string inputFilePath = arguments[1];
+                ArgumentParser.ExtractLastArguments(0, 2, arguments, out _, out string outputFilePath);
+
+                SortFile(
+                    inputFilePath,
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SortByColumnValue))
             {
                 const int minimumArgumentNumber = 5;
                 const int maximumArgumentNumber = 8;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
-                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
-                    DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
-                    ArgumentParser.ExtractLastArguments(0, 5, arguments, out _, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    SortFileByColumnValue(
-                        inputFilePath,
-                        columnNumber,
-                        columnSeparator,
-                        dataType, arguments[4],
-                        outputFilePath);
-                    return;
-                }
+                string inputFilePath = arguments[1];
+                int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
+                string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
+                DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
+                ArgumentParser.ExtractLastArguments(0, 5, arguments, out _, out string outputFilePath);
+
+                SortFileByColumnValue(
+                    inputFilePath,
+                    columnNumber,
+                    columnSeparator,
+                    dataType, arguments[4],
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.OrderColumns))
             {
                 const int minimumArgumentNumber = 4;
                 const int maximumArgumentNumber = 5;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[2]);
-                    string newFirstColumnsList = arguments[3];
-                    ArgumentParser.ExtractLastArguments(0, 4, arguments, out _, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    OrderColumns(
-                        inputFilePath,
-                        columnSeparator,
-                        newFirstColumnsList,
-                        outputFilePath);
-                    return;
-                }
+                string inputFilePath = arguments[1];
+                string columnSeparator = ArgumentParser.ParseSeparator(arguments[2]);
+                string newFirstColumnsList = arguments[3];
+                ArgumentParser.ExtractLastArguments(0, 4, arguments, out _, out string outputFilePath);
+
+                OrderColumns(
+                    inputFilePath,
+                    columnSeparator,
+                    newFirstColumnsList,
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.EditLines))
             {
                 const int minimumArgumentNumber = 3;
                 const int maximumArgumentNumber = 6;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    Tuple<StringEditType, int> operationInfo = ArgumentParser.ParseStringEditType(arguments[2]);
-                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 3, arguments, out string[] operationArguments, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    EditLines(
-                        inputFilePath,
-                        operationInfo.Item1, arguments[2],
-                        operationArguments,
-                        outputFilePath);
-                    return;
-                }
+                string inputFilePath = arguments[1];
+                Tuple<StringEditType, int> operationInfo = ArgumentParser.ParseStringEditType(arguments[2]);
+                ArgumentParser.ExtractLastArguments(operationInfo.Item2, 3, arguments, out string[] operationArguments, out string outputFilePath);
+
+                EditLines(
+                    inputFilePath,
+                    operationInfo.Item1, arguments[2],
+                    operationArguments,
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.EditColumnStrings))
             {
                 const int minimumArgumentNumber = 5;
                 const int maximumArgumentNumber = 8;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
-                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
-                    Tuple<StringEditType, int> operationInfo = ArgumentParser.ParseStringEditType(arguments[4]);
-                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 5, arguments, out string[] operationArguments, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    EditColumnStrings(
-                        inputFilePath,
-                        columnNumber,
-                        columnSeparator,
-                        operationInfo.Item1, arguments[4],
-                        operationArguments,
-                        outputFilePath);
-                    return;
-                }
+                string inputFilePath = arguments[1];
+                int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
+                string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
+                Tuple<StringEditType, int> operationInfo = ArgumentParser.ParseStringEditType(arguments[4]);
+                ArgumentParser.ExtractLastArguments(operationInfo.Item2, 5, arguments, out string[] operationArguments, out string outputFilePath);
+
+                EditColumnStrings(
+                    inputFilePath,
+                    columnNumber,
+                    columnSeparator,
+                    operationInfo.Item1, arguments[4],
+                    operationArguments,
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.EditColumnValues))
             {
                 const int minimumArgumentNumber = 5;
                 const int maximumArgumentNumber = 8;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
-                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
-                    DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
-                    Tuple<ValueEditType, int> operationInfo = ArgumentParser.ParseValueEditType(arguments[5]);
-                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 6, arguments, out string[] operationArguments, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    EditColumnValues(
-                        inputFilePath,
-                        columnNumber,
-                        columnSeparator,
-                        dataType, arguments[4],
-                        operationInfo.Item1, arguments[5],
-                        operationArguments,
-                        outputFilePath);
-                    return;
-                }
+                string inputFilePath = arguments[1];
+                int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
+                string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
+                DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
+                Tuple<ValueEditType, int> operationInfo = ArgumentParser.ParseValueEditType(arguments[5]);
+                ArgumentParser.ExtractLastArguments(operationInfo.Item2, 6, arguments, out string[] operationArguments, out string outputFilePath);
+
+                EditColumnValues(
+                    inputFilePath,
+                    columnNumber,
+                    columnSeparator,
+                    dataType, arguments[4],
+                    operationInfo.Item1, arguments[5],
+                    operationArguments,
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.InsertLine))
             {
                 const int minimumArgumentNumber = 4;
                 const int maximumArgumentNumber = 6;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    string lineValue = arguments[2];
-                    Tuple<PositionInsertionType, int> operationInfo = ArgumentParser.ParsePositionInsertionType(arguments[3]);
-                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 4, arguments, out string[] operationArguments, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    InsertLine(
-                        inputFilePath,
-                        lineValue,
-                        operationInfo.Item1, arguments[3],
-                        operationArguments,
-                        outputFilePath);
-                    return;
-                }
+                string inputFilePath = arguments[1];
+                string lineValue = arguments[2];
+                Tuple<PositionInsertionType, int> operationInfo = ArgumentParser.ParsePositionInsertionType(arguments[3]);
+                ArgumentParser.ExtractLastArguments(operationInfo.Item2, 4, arguments, out string[] operationArguments, out string outputFilePath);
+
+                InsertLine(
+                    inputFilePath,
+                    lineValue,
+                    operationInfo.Item1, arguments[3],
+                    operationArguments,
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.JoinLines)
                 || ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.JoinLinesPostSorting))
             {
                 const int minimumArgumentNumber = 8;
                 const int maximumArgumentNumber = 10;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string firstFilePath = arguments[1];
-                    int firstFileColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
-                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
-                    DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
-                    string secondFilePath = arguments[5];
-                    int secondFileColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[6]);
-                    Tuple<JoinType, int> operationInfo = ArgumentParser.ParseJoinType(arguments[7]);
-                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 8, arguments, out string[] operationArguments, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    bool isSorted = ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.JoinLinesPostSorting);
+                string firstFilePath = arguments[1];
+                int firstFileColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
+                string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
+                DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
+                string secondFilePath = arguments[5];
+                int secondFileColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[6]);
+                Tuple<JoinType, int> operationInfo = ArgumentParser.ParseJoinType(arguments[7]);
+                ArgumentParser.ExtractLastArguments(operationInfo.Item2, 8, arguments, out string[] operationArguments, out string outputFilePath);
 
-                    JoinLines(
-                        isSorted,
-                        firstFilePath,
-                        firstFileColumnNumber,
-                        columnSeparator,
-                        dataType, arguments[4],
-                        secondFilePath,
-                        secondFileColumnNumber,
-                        operationInfo.Item1, arguments[6],
-                        operationArguments,
-                        outputFilePath);
-                    return;
-                }
+                bool isSorted = ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.JoinLinesPostSorting);
+
+                JoinLines(
+                    isSorted,
+                    firstFilePath,
+                    firstFileColumnNumber,
+                    columnSeparator,
+                    dataType, arguments[4],
+                    secondFilePath,
+                    secondFileColumnNumber,
+                    operationInfo.Item1, arguments[6],
+                    operationArguments,
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.ConcatenateLines))
             {
                 const int minimumArgumentNumber = 4;
                 const int maximumArgumentNumber = 5;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string firstFilePath = arguments[1];
-                    string secondFilePath = arguments[2];
-                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
-                    ArgumentParser.ExtractLastArguments(0, 4, arguments, out _, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    ConcatenateLines(
-                        firstFilePath,
-                        secondFilePath,
-                        columnSeparator,
-                        outputFilePath);
-                    return;
-                }
+                string firstFilePath = arguments[1];
+                string secondFilePath = arguments[2];
+                string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
+                ArgumentParser.ExtractLastArguments(0, 4, arguments, out _, out string outputFilePath);
+
+                ConcatenateLines(
+                    firstFilePath,
+                    secondFilePath,
+                    columnSeparator,
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.TransformColumns))
             {
                 const int minimumArgumentNumber = 6;
                 const int maximumArgumentNumber = 8;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[2]);
-                    Tuple<ColumnTransformationType, int> operationInfo = ArgumentParser.ParseColumnTransformationType(arguments[3]);
-                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 4, arguments, out string[] operationArguments, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    TransformColumns(
-                        inputFilePath,
-                        columnSeparator,
-                        operationInfo.Item1, arguments[3],
-                        operationArguments,
-                        outputFilePath);
-                    return;
-                }
+                string inputFilePath = arguments[1];
+                string columnSeparator = ArgumentParser.ParseSeparator(arguments[2]);
+                Tuple<ColumnTransformationType, int> operationInfo = ArgumentParser.ParseColumnTransformationType(arguments[3]);
+                ArgumentParser.ExtractLastArguments(operationInfo.Item2, 4, arguments, out string[] operationArguments, out string outputFilePath);
+
+                TransformColumns(
+                    inputFilePath,
+                    columnSeparator,
+                    operationInfo.Item1, arguments[3],
+                    operationArguments,
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByColumnValue))
             {
                 const int minimumArgumentNumber = 7;
                 const int maximumArgumentNumber = 9;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
-                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
-                    DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
-                    Tuple<ComparisonType, int> operationInfo = ArgumentParser.ParseComparisonType(arguments[5]);
-                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 6, arguments, out string[] operationArguments, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    SelectLinesByColumnValue(
-                        inputFilePath,
-                        columnNumber,
-                        columnSeparator,
-                        dataType, arguments[4],
-                        operationInfo.Item1, arguments[5],
-                        operationArguments,
-                        outputFilePath);
-                    return;
-                }
+                string inputFilePath = arguments[1];
+                int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
+                string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
+                DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
+                Tuple<ComparisonType, int> operationInfo = ArgumentParser.ParseComparisonType(arguments[5]);
+                ArgumentParser.ExtractLastArguments(operationInfo.Item2, 6, arguments, out string[] operationArguments, out string outputFilePath);
+
+                SelectLinesByColumnValue(
+                    inputFilePath,
+                    columnNumber,
+                    columnSeparator,
+                    dataType, arguments[4],
+                    operationInfo.Item1, arguments[5],
+                    operationArguments,
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByNumber))
             {
                 const int minimumArgumentNumber = 4;
                 const int maximumArgumentNumber = 6;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    Tuple<PositionSelectionType, int> operationInfo = ArgumentParser.ParsePositionSelectionType(arguments[2]);
-                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 3, arguments, out string[] operationArguments, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    SelectLinesByNumber(
-                        inputFilePath,
-                        operationInfo.Item1, arguments[2],
-                        operationArguments,
-                        outputFilePath);
-                    return;
-                }
+                string inputFilePath = arguments[1];
+                Tuple<PositionSelectionType, int> operationInfo = ArgumentParser.ParsePositionSelectionType(arguments[2]);
+                ArgumentParser.ExtractLastArguments(operationInfo.Item2, 3, arguments, out string[] operationArguments, out string outputFilePath);
+
+                SelectLinesByNumber(
+                    inputFilePath,
+                    operationInfo.Item1, arguments[2],
+                    operationArguments,
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectColumnsByNumber))
             {
                 const int minimumArgumentNumber = 5;
                 const int maximumArgumentNumber = 7;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[2]);
-                    Tuple<PositionSelectionType, int> operationInfo = ArgumentParser.ParsePositionSelectionType(arguments[3]);
-                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 4, arguments, out string[] operationArguments, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    SelectColumnsByNumber(
-                        inputFilePath,
-                        columnSeparator,
-                        operationInfo.Item1, arguments[3],
-                        operationArguments,
-                        outputFilePath);
-                    return;
-                }
+                string inputFilePath = arguments[1];
+                string columnSeparator = ArgumentParser.ParseSeparator(arguments[2]);
+                Tuple<PositionSelectionType, int> operationInfo = ArgumentParser.ParsePositionSelectionType(arguments[3]);
+                ArgumentParser.ExtractLastArguments(operationInfo.Item2, 4, arguments, out string[] operationArguments, out string outputFilePath);
+
+                SelectColumnsByNumber(
+                    inputFilePath,
+                    columnSeparator,
+                    operationInfo.Item1, arguments[3],
+                    operationArguments,
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByLineString))
             {
                 const int minimumArgumentNumber = 4;
                 const int maximumArgumentNumber = 6;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    Tuple<StringSelectionType, int> operationInfo = ArgumentParser.ParseStringSelectionType(arguments[2]);
-                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 3, arguments, out string[] operationArguments, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    SelectLinesByLineString(
-                        inputFilePath,
-                        operationInfo.Item1, arguments[2],
-                        operationArguments,
-                        outputFilePath);
-                    return;
-                }
+                string inputFilePath = arguments[1];
+                Tuple<StringSelectionType, int> operationInfo = ArgumentParser.ParseStringSelectionType(arguments[2]);
+                ArgumentParser.ExtractLastArguments(operationInfo.Item2, 3, arguments, out string[] operationArguments, out string outputFilePath);
+
+                SelectLinesByLineString(
+                    inputFilePath,
+                    operationInfo.Item1, arguments[2],
+                    operationArguments,
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByColumnString))
             {
                 const int minimumArgumentNumber = 6;
                 const int maximumArgumentNumber = 8;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
-                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
-                    Tuple<StringSelectionType, int> operationInfo = ArgumentParser.ParseStringSelectionType(arguments[4]);
-                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 5, arguments, out string[] operationArguments, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    SelectLinesByColumnString(
-                        inputFilePath,
-                        columnNumber,
-                        columnSeparator,
-                        operationInfo.Item1, arguments[4],
-                        operationArguments,
-                        outputFilePath);
-                    return;
-                }
+                string inputFilePath = arguments[1];
+                int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
+                string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
+                Tuple<StringSelectionType, int> operationInfo = ArgumentParser.ParseStringSelectionType(arguments[4]);
+                ArgumentParser.ExtractLastArguments(operationInfo.Item2, 5, arguments, out string[] operationArguments, out string outputFilePath);
+
+                SelectLinesByColumnString(
+                    inputFilePath,
+                    columnNumber,
+                    columnSeparator,
+                    operationInfo.Item1, arguments[4],
+                    operationArguments,
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByColumnCount))
             {
                 const int minimumArgumentNumber = 5;
                 const int maximumArgumentNumber = 7;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[2]);
-                    Tuple<ComparisonType, int> operationInfo = ArgumentParser.ParseComparisonType(arguments[3]);
-                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 4, arguments, out string[] operationArguments, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    SelectLinesByColumnCount(
-                        inputFilePath,
-                        columnSeparator,
-                        operationInfo.Item1, arguments[3],
-                        operationArguments,
-                        outputFilePath);
-                    return;
-                }
+                string inputFilePath = arguments[1];
+                string columnSeparator = ArgumentParser.ParseSeparator(arguments[2]);
+                Tuple<ComparisonType, int> operationInfo = ArgumentParser.ParseComparisonType(arguments[3]);
+                ArgumentParser.ExtractLastArguments(operationInfo.Item2, 4, arguments, out string[] operationArguments, out string outputFilePath);
+
+                SelectLinesByColumnCount(
+                    inputFilePath,
+                    columnSeparator,
+                    operationInfo.Item1, arguments[3],
+                    operationArguments,
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByLineStringRelativeToOtherLines)
                 || ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByLineStringRelativeToOtherLines))
             {
                 const int minimumArgumentNumber = 2;
                 const int maximumArgumentNumber = 3;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    Tuple<RelativeValueSelectionType, int> operationInfo = ArgumentParser.ParseRelativeLineSelectionType(arguments[2]);
-                    ArgumentParser.ExtractLastArguments(0, 3, arguments, out _, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    bool isSorted = ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByLineStringRelativeToOtherLines);
+                string inputFilePath = arguments[1];
+                Tuple<RelativeValueSelectionType, int> operationInfo = ArgumentParser.ParseRelativeLineSelectionType(arguments[2]);
+                ArgumentParser.ExtractLastArguments(0, 3, arguments, out _, out string outputFilePath);
 
-                    SelectLinesByLineStringRelativeToOtherLines(
-                        isSorted,
-                        inputFilePath,
-                        operationInfo.Item1, arguments[2],
-                        outputFilePath);
-                    return;
-                }
+                bool isSorted = ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByLineStringRelativeToOtherLines);
+
+                SelectLinesByLineStringRelativeToOtherLines(
+                    isSorted,
+                    inputFilePath,
+                    operationInfo.Item1, arguments[2],
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByColumnValueRelativeToOtherLines)
                 || ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByColumnValueRelativeToOtherLines))
             {
                 const int minimumArgumentNumber = 5;
                 const int maximumArgumentNumber = 6;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
-                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
-                    DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
-                    Tuple<RelativeValueSelectionType, int> operationInfo = ArgumentParser.ParseRelativeValueSelectionType(arguments[5]);
-                    ArgumentParser.ExtractLastArguments(0, 6, arguments, out _, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    bool isSorted = ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByColumnValueRelativeToOtherLines);
+                string inputFilePath = arguments[1];
+                int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
+                string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
+                DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
+                Tuple<RelativeValueSelectionType, int> operationInfo = ArgumentParser.ParseRelativeValueSelectionType(arguments[5]);
+                ArgumentParser.ExtractLastArguments(0, 6, arguments, out _, out string outputFilePath);
 
-                    SelectLinesByColumnValueRelativeToOtherLines(
-                        isSorted,
-                        inputFilePath,
-                        columnNumber,
-                        columnSeparator,
-                        dataType, arguments[4],
-                        operationInfo.Item1, arguments[5],
-                        outputFilePath);
-                    return;
-                }
+                bool isSorted = ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByColumnValueRelativeToOtherLines);
+
+                SelectLinesByColumnValueRelativeToOtherLines(
+                    isSorted,
+                    inputFilePath,
+                    columnNumber,
+                    columnSeparator,
+                    dataType, arguments[4],
+                    operationInfo.Item1, arguments[5],
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByLookupInFile)
                 || ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByLookupInFile))
             {
                 const int minimumArgumentNumber = 4;
                 const int maximumArgumentNumber = 5;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string dataFilePath = arguments[1];
-                    string lookupFilePath = arguments[2];
-                    Tuple<LookupType, int> operationInfo = ArgumentParser.ParseLookupType(arguments[3]);
-                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 4, arguments, out _, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    bool isSorted = ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByLookupInFile);
+                string dataFilePath = arguments[1];
+                string lookupFilePath = arguments[2];
+                Tuple<LookupType, int> operationInfo = ArgumentParser.ParseLookupType(arguments[3]);
+                ArgumentParser.ExtractLastArguments(operationInfo.Item2, 4, arguments, out _, out string outputFilePath);
 
-                    SelectLinesByLookupInFile(
-                        isSorted,
-                        dataFilePath,
-                        lookupFilePath,
-                        operationInfo.Item1, arguments[3],
-                        outputFilePath);
-                    return;
-                }
+                bool isSorted = ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByLookupInFile);
+
+                SelectLinesByLookupInFile(
+                    isSorted,
+                    dataFilePath,
+                    lookupFilePath,
+                    operationInfo.Item1, arguments[3],
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByColumnValueLookupInFile)
                 || ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByColumnValueLookupInFile))
             {
                 const int minimumArgumentNumber = 8;
                 const int maximumArgumentNumber = 9;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string dataFilePath = arguments[1];
-                    int dataFileColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
-                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
-                    DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
-                    string lookupFilePath = arguments[5];
-                    int lookupFileColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[6]);
-                    Tuple<LookupType, int> operationInfo = ArgumentParser.ParseLookupType(arguments[7]);
-                    ArgumentParser.ExtractLastArguments(operationInfo.Item2, 8, arguments, out _, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    bool isSorted = ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByColumnValueLookupInFile);
+                string dataFilePath = arguments[1];
+                int dataFileColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
+                string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
+                DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
+                string lookupFilePath = arguments[5];
+                int lookupFileColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[6]);
+                Tuple<LookupType, int> operationInfo = ArgumentParser.ParseLookupType(arguments[7]);
+                ArgumentParser.ExtractLastArguments(operationInfo.Item2, 8, arguments, out _, out string outputFilePath);
 
-                    SelectLinesByColumnValueLookupInFile(
-                        isSorted,
-                        dataFilePath,
-                        dataFileColumnNumber,
-                        columnSeparator,
-                        dataType, arguments[4],
-                        lookupFilePath,
-                        lookupFileColumnNumber,
-                        operationInfo.Item1, arguments[7],
-                        outputFilePath);
-                    return;
-                }
+                bool isSorted = ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByColumnValueLookupInFile);
+
+                SelectLinesByColumnValueLookupInFile(
+                    isSorted,
+                    dataFilePath,
+                    dataFileColumnNumber,
+                    columnSeparator,
+                    dataType, arguments[4],
+                    lookupFilePath,
+                    lookupFileColumnNumber,
+                    operationInfo.Item1, arguments[7],
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SplitLineRanges))
             {
                 const int minimumArgumentNumber = 3;
                 const int maximumArgumentNumber = 4;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    ulong rangeSize = ArgumentParser.GetUnsignedLongInteger(arguments[2]);
-                    ArgumentParser.ExtractLastArguments(0, 3, arguments, out _, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    SplitLineRanges(
-                        inputFilePath,
-                        rangeSize,
-                        outputFilePath);
-                    return;
-                }
+                string inputFilePath = arguments[1];
+                ulong rangeSize = ArgumentParser.GetUnsignedLongInteger(arguments[2]);
+                ArgumentParser.ExtractLastArguments(0, 3, arguments, out _, out string outputFilePath);
+
+                SplitLineRanges(
+                    inputFilePath,
+                    rangeSize,
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SplitColumns))
             {
                 const int minimumArgumentNumber = 3;
                 const int maximumArgumentNumber = 4;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[2]);
-                    ArgumentParser.ExtractLastArguments(0, 3, arguments, out _, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    SplitColumns(
-                        inputFilePath,
-                        columnSeparator,
-                        outputFilePath);
-                    return;
-                }
+                string inputFilePath = arguments[1];
+                string columnSeparator = ArgumentParser.ParseSeparator(arguments[2]);
+                ArgumentParser.ExtractLastArguments(0, 3, arguments, out _, out string outputFilePath);
+
+                SplitColumns(
+                    inputFilePath,
+                    columnSeparator,
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SplitColumnValues))
             {
                 const int minimumArgumentNumber = 5;
                 const int maximumArgumentNumber = 6;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
-                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
-                    DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
-                    ArgumentParser.ExtractLastArguments(0, 5, arguments, out _, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    SplitColumnValues(
-                        inputFilePath,
-                        columnNumber,
-                        columnSeparator,
-                        dataType, arguments[4],
-                        outputFilePath);
-                    return;
-                }
+                string inputFilePath = arguments[1];
+                int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
+                string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
+                DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
+                ArgumentParser.ExtractLastArguments(0, 5, arguments, out _, out string outputFilePath);
+
+                SplitColumnValues(
+                    inputFilePath,
+                    columnNumber,
+                    columnSeparator,
+                    dataType, arguments[4],
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SortBySecondColumnValue))
             {
                 const int minimumArgumentNumber = 7;
                 const int maximumArgumentNumber = 10;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    int secondColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
-                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
-                    DataType secondDataType = ArgumentParser.ParseDataType(arguments[4]);
-                    int firstColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[5]);
-                    DataType firstDataType = ArgumentParser.ParseDataType(arguments[6]);
-                    ArgumentParser.ExtractLastArguments(0, 7, arguments, out _, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    SortFileBySecondColumnValue(
-                        inputFilePath,
-                        secondColumnNumber,
-                        columnSeparator,
-                        secondDataType, arguments[4],
-                        firstColumnNumber,
-                        firstDataType,
-                        outputFilePath);
-                    return;
-                }
+                string inputFilePath = arguments[1];
+                int secondColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
+                string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
+                DataType secondDataType = ArgumentParser.ParseDataType(arguments[4]);
+                int firstColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[5]);
+                DataType firstDataType = ArgumentParser.ParseDataType(arguments[6]);
+                ArgumentParser.ExtractLastArguments(0, 7, arguments, out _, out string outputFilePath);
+
+                SortFileBySecondColumnValue(
+                    inputFilePath,
+                    secondColumnNumber,
+                    columnSeparator,
+                    secondDataType, arguments[4],
+                    firstColumnNumber,
+                    firstDataType,
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.MergeLines))
             {
                 const int minimumArgumentNumber = 3;
                 const int maximumArgumentNumber = 4;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string firstFilePath = arguments[1];
-                    string secondFilePath = arguments[2];
-                    ArgumentParser.ExtractLastArguments(0, 3, arguments, out _, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    MergeLines(
-                        firstFilePath,
-                        secondFilePath,
-                        outputFilePath);
-                    return;
-                }
+                string firstFilePath = arguments[1];
+                string secondFilePath = arguments[2];
+                ArgumentParser.ExtractLastArguments(0, 3, arguments, out _, out string outputFilePath);
+
+                MergeLines(
+                    firstFilePath,
+                    secondFilePath,
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.MergeLinesByColumnValue))
             {
-                const int minimumArgumentNumber = 7;
-                const int maximumArgumentNumber = 8;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string firstFilePath = arguments[1];
-                    int firstFileColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
-                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
-                    DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
-                    string secondFilePath = arguments[5];
-                    int secondFileColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[6]);
-                    ArgumentParser.ExtractLastArguments(0, 7, arguments, out _, out string outputFilePath);
+                const int minimumArgumentNumber = 6;
+                const int maximumArgumentNumber = 7;
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    MergeLinesByColumnValue(
-                        firstFilePath,
-                        firstFileColumnNumber,
-                        columnSeparator,
-                        dataType, arguments[4],
-                        secondFilePath,
-                        secondFileColumnNumber,
-                        outputFilePath);
-                    return;
-                }
+                string firstFilePath = arguments[1];
+                int firstFileColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
+                string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
+                DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
+                string secondFilePath = arguments[5];
+                ArgumentParser.ExtractLastArguments(0, 6, arguments, out _, out string outputFilePath);
+
+                MergeLinesByColumnValue(
+                    firstFilePath,
+                    firstFileColumnNumber,
+                    columnSeparator,
+                    dataType, arguments[4],
+                    secondFilePath,
+                    outputFilePath);
+                return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.FindStateTransitions))
             {
                 const int minimumArgumentNumber = 7;
                 const int maximumArgumentNumber = 10;
-                if (ArgumentParser.HasExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber))
-                {
-                    string inputFilePath = arguments[1];
-                    int secondColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
-                    string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
-                    DataType secondDataType = ArgumentParser.ParseDataType(arguments[4]);
-                    int firstColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[5]);
-                    DataType firstDataType = ArgumentParser.ParseDataType(arguments[6]);
-                    ArgumentParser.ExtractLastArguments(0, 7, arguments, out _, out string outputFilePath);
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                    FindStateTransitions(
-                        inputFilePath,
-                        secondColumnNumber,
-                        columnSeparator,
-                        secondDataType, arguments[4],
-                        firstColumnNumber,
-                        firstDataType,
-                        outputFilePath);
-                    return;
-                }
+                string inputFilePath = arguments[1];
+                int secondColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
+                string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
+                DataType secondDataType = ArgumentParser.ParseDataType(arguments[4]);
+                int firstColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[5]);
+                DataType firstDataType = ArgumentParser.ParseDataType(arguments[6]);
+                ArgumentParser.ExtractLastArguments(0, 7, arguments, out _, out string outputFilePath);
+
+                FindStateTransitions(
+                    inputFilePath,
+                    secondColumnNumber,
+                    columnSeparator,
+                    secondDataType, arguments[4],
+                    firstColumnNumber,
+                    firstDataType,
+                    outputFilePath);
+                return;
             }
 
             // If we reached this point, the user command did not match any existing command.
@@ -1677,24 +1644,18 @@ namespace LaurentiuCristofor.Cabeiro
 
         private static void MergeLinesByColumnValue(
             string firstFilePath,
-            int firstFileColumnNumber,
+            int columnNumber,
             string columnSeparator,
             DataType dataType, string dataTypeString,
             string secondFilePath,
-            int secondFileColumnNumber,
             string outputFilePath)
         {
-            OneColumnValueExtractionParameters firstExtractionParameters = new OneColumnValueExtractionParameters(
+            OneColumnValueExtractionParameters extractionParameters = new OneColumnValueExtractionParameters(
                 columnSeparator,
-                firstFileColumnNumber,
+                columnNumber,
                 dataType);
 
-            OneColumnValueExtractionParameters secondExtractionParameters = new OneColumnValueExtractionParameters(
-                columnSeparator,
-                secondFileColumnNumber,
-                dataType);
-
-            string outputFileExtension = $".{CabeiroConstants.Commands.MergeLinesByColumnValue}.{firstFileColumnNumber}.{dataTypeString.ToLower()}";
+            string outputFileExtension = $".{CabeiroConstants.Commands.MergeLinesByColumnValue}.{columnNumber}.{dataTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(firstFilePath, outputFileExtension, operationArguments: null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
@@ -1706,9 +1667,9 @@ namespace LaurentiuCristofor.Cabeiro
                     OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue,
                     MergeProcessor, BaseOutputParameters>(
                     firstFilePath,
-                    firstExtractionParameters,
+                    extractionParameters,
                     secondFilePath,
-                    secondExtractionParameters,
+                    extractionParameters,
                     processingParameters);
 
             dualFileProcessor.ProcessFiles();

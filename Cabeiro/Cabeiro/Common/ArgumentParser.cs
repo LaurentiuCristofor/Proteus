@@ -28,13 +28,13 @@ namespace LaurentiuCristofor.Cabeiro.Common
         }
 
         /// <summary>
-        /// Checks if the argument number matches the expected argument numbers.
+        /// Checks if the argument number matches the expected argument numbers
+        /// and throws an exception if it does not.
         /// </summary>
         /// <param name="argumentNumber">The argument number to check.</param>
         /// <param name="minimumArgumentNumber">The minimum number of expected arguments.</param>
         /// <param name="maximumArgumentNumber">The maximum number of expected arguments.</param>
-        /// <returns>True if the argumentNumber is as expected; false otherwise.</returns>
-        public static bool HasExpectedArgumentNumber(int argumentNumber, int minimumArgumentNumber, int maximumArgumentNumber)
+        public static void CheckExpectedArgumentNumber(int argumentNumber, int minimumArgumentNumber, int maximumArgumentNumber)
         {
             if (maximumArgumentNumber < minimumArgumentNumber
                 || minimumArgumentNumber < 0)
@@ -42,24 +42,33 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 throw new CabeiroException($"Internal error: invalid argument number range: {minimumArgumentNumber}-{maximumArgumentNumber}!");
             }
 
-            return argumentNumber >= minimumArgumentNumber
-                && argumentNumber <= maximumArgumentNumber;
+            if (argumentNumber < minimumArgumentNumber)
+            {
+                throw new CabeiroException($"Command expects at least {minimumArgumentNumber} arguments, but has received only {argumentNumber} arguments!");
+            }
+            else if (argumentNumber > maximumArgumentNumber)
+            {
+                throw new CabeiroException($"Command expects no more than {maximumArgumentNumber} arguments, but has received {argumentNumber} arguments!");
+            }
         }
 
         /// <summary>
-        /// Checks if the argument number matches the expected argument number.
+        /// Checks if the argument number matches the expected argument number
+        /// and throws an exception if it does not.
         /// </summary>
         /// <param name="argumentNumber">The argument number to check.</param>
         /// <param name="expectedArgumentNumber">The number of expected arguments.</param>
-        /// <returns>True if the argumentNumber is as expected; false otherwise.</returns>
-        public static bool HasExpectedArgumentNumber(int argumentNumber, int expectedArgumentNumber)
+        public static void CheckExpectedArgumentNumber(int argumentNumber, int expectedArgumentNumber)
         {
             if (expectedArgumentNumber < 0)
             {
                 throw new CabeiroException($"Internal error: invalid expected argument number: {expectedArgumentNumber}!");
             }
 
-            return argumentNumber == expectedArgumentNumber;
+            if (argumentNumber != expectedArgumentNumber)
+            {
+                throw new CabeiroException($"Command expected {expectedArgumentNumber} arguments, but has received {argumentNumber} arguments!");
+            }
         }
 
         /// <summary>

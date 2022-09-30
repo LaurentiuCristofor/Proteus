@@ -475,11 +475,10 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 "(M)erge (L)ines (B)y (C)olumn (V)alue",
                 CabeiroConstants.Commands.Descriptions.MergeLinesByColumnValue,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.FirstInputFilePath}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstFileColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataType}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondInputFilePath}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondFileColumnNumber}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
                 + $"\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");

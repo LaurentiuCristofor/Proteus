@@ -117,7 +117,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string SplitColumnValues = "Splits a file into multiple files, one for each different value present in a specified column. Lines that do not have the specified column present are ignored.";
 
                 public const string MergeLines = "Merges lines from two sorted files. Does not verify the correct sorting of the input files.";
-                public const string MergeLinesByColumnValue = "Merges lines from two files sorted on specific columns. Does not verify the correct sorting of the input files.";
+                public const string MergeLinesByColumnValue = "Merges lines from two files sorted on a specific column. Does not verify the correct sorting of the input files.";
                 public const string SelectLinesPostSortingByLineStringRelativeToOtherLines = "Selects lines from a sorted file, based on their relationship to other lines.";
                 public const string SelectLinesPostSortingByColumnValueRelativeToOtherLines = "Selects lines from a column-sorted file, based on that column value's relationship to those of other lines.";
                 public const string SelectLinesPostSortingByLookupInFile = "Selects lines from a sorted file based on whether they appear in another sorted file or not. Does not verify the correct sorting of the input files.";
