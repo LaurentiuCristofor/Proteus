@@ -8,6 +8,8 @@
 using System;
 using System.Diagnostics;
 
+using LaurentiuCristofor.Proteus.Common.Logging;
+
 namespace LaurentiuCristofor.Proteus.Common.Utilities
 {
     public class Timer
@@ -24,7 +26,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
             this.EndMessage = endMessage;
             if (startMessage != null)
             {
-                OutputInterface.Log(startMessage);
+                LoggingManager.GetLogger().Log(startMessage);
             }
             this.Stopwatch = new Stopwatch();
             this.Stopwatch.Start();
@@ -44,11 +46,11 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
             TimeSpan timeSpan = this.Stopwatch.Elapsed;
             if (this.StopMessage != null)
             {
-                OutputInterface.Log($"{this.StopMessage}{Timer.FormatTimeSpan(timeSpan)}");
+                LoggingManager.GetLogger().Log($"{this.StopMessage}{Timer.FormatTimeSpan(timeSpan)}");
             }
             if (this.EndMessage != null)
             {
-                OutputInterface.Log(this.EndMessage);
+                LoggingManager.GetLogger().Log(this.EndMessage);
             }
         }
 

@@ -10,6 +10,7 @@ using System;
 using LaurentiuCristofor.Proteus.Common;
 using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.Common.DataHolders;
+using LaurentiuCristofor.Proteus.Common.Logging;
 
 namespace LaurentiuCristofor.Proteus.DataExtractors
 {
@@ -56,7 +57,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         {
             if (columnNumber > columns.Length)
             {
-                OutputInterface.LogWarning(string.Format(Constants.Messages.LineTooShortForColumnExtraction, lineNumber, columnNumber));
+                LoggingManager.GetLogger().LogWarning(string.Format(Constants.Messages.LineTooShortForColumnExtraction, lineNumber, columnNumber));
                 return null;
             }
 
@@ -68,7 +69,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             IDataHolder columnData = DataHolderOperations.BuildDataHolder(columnDataType, columnString);
             if (columnData == null)
             {
-                OutputInterface.LogWarning(string.Format(Constants.Messages.InvalidValueForColumnExtraction, columnNumber, columnDataType, lineNumber, columnString));
+                LoggingManager.GetLogger().LogWarning(string.Format(Constants.Messages.InvalidValueForColumnExtraction, columnNumber, columnDataType, lineNumber, columnString));
                 return null;
             }
             return columnData;

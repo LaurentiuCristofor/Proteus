@@ -5,6 +5,8 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+using LaurentiuCristofor.Proteus.Common.Logging;
+
 namespace LaurentiuCristofor.Proteus.Common.Utilities
 {
     /// <summary>
@@ -26,19 +28,21 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         /// <param name="countExecutionUnits"></param>
         public static void Track(ulong countExecutionUnits)
         {
+            ILogger logger = LoggingManager.GetLogger();
+
             if (countExecutionUnits % OneMillion == 0)
             {
                 ulong countMillions = countExecutionUnits / OneMillion;
 
-                OutputInterface.Log($"{OneMillionMarker}({countMillions})");
+                logger.Log($"{OneMillionMarker}({countMillions})");
             }
             else if (countExecutionUnits % OneHundredThousand == 0)
             {
-                OutputInterface.Log(OneHundredThousandMarker);
+                logger.Log(OneHundredThousandMarker);
             }
             else if (countExecutionUnits % TenThousand == 0)
             {
-                OutputInterface.Log(TenThousandMarker);
+                logger.Log(TenThousandMarker);
             }
         }
 
@@ -47,7 +51,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         /// </summary>
         public static void Reset()
         {
-            OutputInterface.LogLine(string.Empty);
+            LoggingManager.GetLogger().LogLine(string.Empty);
         }
     }
 }

@@ -11,6 +11,7 @@ using System.Reflection;
 
 using LaurentiuCristofor.Proteus.Common;
 using LaurentiuCristofor.Proteus.Common.DataHolders;
+using LaurentiuCristofor.Proteus.Common.Logging;
 using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.DataProcessors;
@@ -46,6 +47,10 @@ namespace LaurentiuCristofor.Cabeiro
                 // Initialize the command registry that handles the online help.
                 //
                 CommandRegistry.Initialize();
+
+                // Initialize Proteus library's logging interface.
+                //
+                LoggingManager.Initialize();
 
                 // Interpret arguments
                 //

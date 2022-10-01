@@ -8,6 +8,7 @@
 using System.IO;
 
 using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.Logging;
 using LaurentiuCristofor.Proteus.Common.Utilities;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.DataProcessors.Lookup;
@@ -244,7 +245,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         {
             this.InputReader.Close();
 
-            OutputInterface.LogLine($"\n{this.LineCounter:N0} {Constants.Messages.LinesReadFromLookupFile} '{Path.GetFileName(this.LookupFilePath)}'.");
+            LoggingManager.GetLogger().LogLine($"\n{this.LineCounter:N0} {Constants.Messages.LinesReadFromLookupFile} '{Path.GetFileName(this.LookupFilePath)}'.");
 
             return false;
         }
@@ -259,7 +260,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
 
             this.InputReader.Close();
 
-            OutputInterface.LogLine($"\n{this.LineCounter:N0} {Constants.Messages.LinesReadFromDataFile} '{Path.GetFileName(this.DataFilePath)}'.");
+            LoggingManager.GetLogger().LogLine($"\n{this.LineCounter:N0} {Constants.Messages.LinesReadFromDataFile} '{Path.GetFileName(this.DataFilePath)}'.");
 
             return false;
         }

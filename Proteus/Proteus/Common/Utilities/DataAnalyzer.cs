@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 
 using LaurentiuCristofor.Proteus.Common.DataHolders;
+using LaurentiuCristofor.Proteus.Common.Logging;
 using LaurentiuCristofor.Proteus.Common.Types;
 
 namespace LaurentiuCristofor.Proteus.Common.Utilities
@@ -206,6 +207,8 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         /// <param name="outputLimit">How many top and bottom values should be printed; if zero, all values will be output.</param>
         public void OutputReport(int outputLimit = 0)
         {
+            ILogger logger = LoggingManager.GetLogger();
+
             if (outputLimit < 0)
             {
                 throw new ProteusException("An invalid (negative) output limit was passed to DataAnalyzer.OutputReport()!");
@@ -215,7 +218,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
             //
             if (this.TotalDataCount == 0)
             {
-                OutputInterface.LogLine($"\n{Constants.Messages.NoDataFoundForAnalysis}");
+                logger.LogWarning($"\n{Constants.Messages.NoDataFoundForAnalysis}");
                 return;
             }
 
@@ -233,7 +236,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
             }
             else
             {
-                OutputInterface.OutputLine($"{Constants.Strings.Bottom}{Constants.Strings.NameValueSeparator}{outputLimit}");
+                logger.OutputLine($"{Constants.Strings.Bottom}{Constants.Strings.NameValueSeparator}{outputLimit}");
 
                 for (int i = 0; i < outputLimit; ++i)
                 {
@@ -241,7 +244,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
                     OutputValueInformation(tuple);
                 }
 
-                OutputInterface.OutputLine($"{Constants.Strings.Top}{Constants.Strings.NameValueSeparator}{outputLimit}");
+                logger.OutputLine($"{Constants.Strings.Top}{Constants.Strings.NameValueSeparator}{outputLimit}");
 
                 for (int i = this.ListCountedData.Count - outputLimit; i < this.ListCountedData.Count; ++i)
                 {
@@ -252,18 +255,18 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
 
             // Output the main statistics.
             //
-            OutputInterface.OutputLine($"{Constants.Strings.Count}{Constants.Strings.NameValueSeparator}{this.TotalDataCount:N0}");
-            OutputInterface.OutputLine($"{Constants.Strings.UniqueCount}{Constants.Strings.NameValueSeparator}{this.UniqueDataCount:N0}");
-            OutputInterface.OutputLine($"{Constants.Strings.MinimumValue}{Constants.Strings.NameValueSeparator}{this.MinimumValue}");
-            OutputInterface.OutputLine($"{Constants.Strings.MaximumValue}{Constants.Strings.NameValueSeparator}{this.MaximumValue}");
+            logger.OutputLine($"{Constants.Strings.Count}{Constants.Strings.NameValueSeparator}{this.TotalDataCount:N0}");
+            logger.OutputLine($"{Constants.Strings.UniqueCount}{Constants.Strings.NameValueSeparator}{this.UniqueDataCount:N0}");
+            logger.OutputLine($"{Constants.Strings.MinimumValue}{Constants.Strings.NameValueSeparator}{this.MinimumValue}");
+            logger.OutputLine($"{Constants.Strings.MaximumValue}{Constants.Strings.NameValueSeparator}{this.MaximumValue}");
             if (DataHolderOperations.IsNumerical(this.DataType))
             {
-                OutputInterface.OutputLine($"{Constants.Strings.AverageValue}{Constants.Strings.NameValueSeparator}{(double)this.TotalValue / this.TotalDataCount:N5}");
+                logger.OutputLine($"{Constants.Strings.AverageValue}{Constants.Strings.NameValueSeparator}{(double)this.TotalValue / this.TotalDataCount:N5}");
             }
-            OutputInterface.OutputLine($"{Constants.Strings.ShortestStringRepresentation}{Constants.Strings.NameValueSeparator}{this.ShortestStringRepresentation}");
-            OutputInterface.OutputLine($"{Constants.Strings.LongestStringRepresentation}{Constants.Strings.NameValueSeparator}{this.LongestStringRepresentation}");
-            OutputInterface.OutputLine($"{Constants.Strings.AverageStringRepresentationLength}{Constants.Strings.NameValueSeparator}{(double)this.TotalStringRepresentationLength / this.TotalDataCount:N5}");
-            OutputInterface.OutputLine($"{Constants.Strings.Entropy}{Constants.Strings.NameValueSeparator}{this.Entropy:N5}");
+            logger.OutputLine($"{Constants.Strings.ShortestStringRepresentation}{Constants.Strings.NameValueSeparator}{this.ShortestStringRepresentation}");
+            logger.OutputLine($"{Constants.Strings.LongestStringRepresentation}{Constants.Strings.NameValueSeparator}{this.LongestStringRepresentation}");
+            logger.OutputLine($"{Constants.Strings.AverageStringRepresentationLength}{Constants.Strings.NameValueSeparator}{(double)this.TotalStringRepresentationLength / this.TotalDataCount:N5}");
+            logger.OutputLine($"{Constants.Strings.Entropy}{Constants.Strings.NameValueSeparator}{this.Entropy:N5}");
         }
 
         /// <summary>
@@ -278,7 +281,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
             string value = valueInformation.Item2.ToString();
             double valueRatio = (double)valueCount / (double)this.TotalDataCount;
 
-            OutputInterface.OutputLine($"{valueCount:N0}{Constants.Strings.NameValueSeparator}{valueRatio:P5}{Constants.Strings.NameValueSeparator}{value}");
+            LoggingManager.GetLogger().OutputLine($"{valueCount:N0}{Constants.Strings.NameValueSeparator}{valueRatio:P5}{Constants.Strings.NameValueSeparator}{value}");
         }
     }
 }

@@ -8,6 +8,7 @@
 using System.IO;
 
 using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.Logging;
 using LaurentiuCristofor.Proteus.Common.Utilities;
 
 namespace LaurentiuCristofor.Proteus.FileOperations
@@ -80,7 +81,7 @@ namespace LaurentiuCristofor.Proteus.FileOperations
         {
             this.OutputWriter.Close();
 
-            OutputInterface.LogLine($"\n{this.CountLinesWritten:N0} {Constants.Messages.LinesWrittenToFile} '{Path.GetFileName(this.OutputFilePath)}'.");
+            LoggingManager.GetLogger().LogLine($"\n{this.CountLinesWritten:N0} {Constants.Messages.LinesWrittenToFile} '{Path.GetFileName(this.OutputFilePath)}'.");
         }
     }
 }

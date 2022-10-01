@@ -8,6 +8,7 @@
 using System.IO;
 
 using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.Logging;
 using LaurentiuCristofor.Proteus.Common.Utilities;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.DataProcessors;
@@ -136,7 +137,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
 
             this.InputReader.Close();
 
-            OutputInterface.LogLine($"\n{this.LineCounter:N0} {Constants.Messages.LinesReadFromFile} '{Path.GetFileName(this.InputFilePath)}'.");
+            LoggingManager.GetLogger().LogLine($"\n{this.LineCounter:N0} {Constants.Messages.LinesReadFromFile} '{Path.GetFileName(this.InputFilePath)}'.");
 
             return false;
         }
