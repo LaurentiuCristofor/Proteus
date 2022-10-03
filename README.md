@@ -28,13 +28,13 @@ Some memory-expensive operations also have less-expensive alternatives that work
 
 ### Design notes
 
-Cabeiro will never support very complex data processing operations .
-Its philosophy is to provide only simple and generic data processing operations.
-If I decide to implement support for more complex data processing operations, that will happen as part of new command line tool distinct from Cabeiro.
-
-The Proteus library, however, is meant to grow and eventually provide support for more complex data analysis scenarios. 
+Cabeiro is meant to support only simple and generic data processing operations.
+The Proteus library could grow to support more complex data analysis scenarios, which would then be exposed by different tools than Cabeiro. 
 
 ## Getting started with Cabeiro
+
+Most of the information in this section is also available through Cabeiro''s help function.
+The command names are a compromise between being suggestive and being short enough to insert in the automatically-generated names of the output files, thus offering a way to document the content of an output file through its name.
 
 ### General command syntax
 
@@ -73,7 +73,7 @@ These commands report information about the content of a file.
 
 #### ORDERING commands
 
-These commands change the order of the lines of a file.
+These commands change the order of the lines or columns of a file.
 
 * I - (I)nvert file
 * S - (S)ort file
@@ -83,6 +83,7 @@ These commands change the order of the lines of a file.
 #### EDITING commands
 
 These commands modify the content of a file.
+You can edit data, insert new data, or combine data from two files.
 
 * EL - (E)dit (L)ines
 * ECS - (E)dit (C)olumn (S)trings
@@ -95,6 +96,8 @@ These commands modify the content of a file.
 #### SELECTION commands
 
 These commands extract a subset of a file, according to various criteria.
+To eliminate some lines, just select the ones you want to keep.
+To handle duplicate values, use the "(R)elative to other lines" selection commands.
 
 * SLBCV - (S)elect (L)ines (B)y (C)olumn (V)alue
 * SLBN - (S)elect (L)ines (B)y (N)umber
@@ -117,7 +120,8 @@ These commands split the content of a file across multiple files, based on vario
 
 #### POST_SORTING commands
 
-These commands expect that their input files had been previously sorted; column value operations expect files to be sorted on that column.
+These commands expect that their input files had been previously sorted; column value variants expect files to be sorted on the respective column.
+Some of these commands provide memory-efficient alternatives to commands from other categories.
 
 * SB2CV - (S)ort file (B)y (2)nd (C)olumn (V)alue
 * ML - (M)erge (L)ines
