@@ -1,24 +1,22 @@
 ﻿////////////////////////////////////////////////////////////////////////////////////////////////////
 /// (c) Laurentiu Cristofor
+/// 
 /// This file is part of the Proteus Library and is made available under the MIT license.
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-
 using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.Utilities;
 using LaurentiuCristofor.Proteus.DataExtractors;
+using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
 
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
     /// A data processor that performs data analysis to extract some basic stats.
     /// </summary>
-    public class AnalyzeProcessor : IDataProcessor<AnalyzeParameters, StringParts>
+    public class AnalyzeProcessor : IDataProcessor<AnalyzeParameters, OneExtractedValue>
     {
-        /// <summary>
-        /// Parameters of this operation.
-        /// </summary>
         protected AnalyzeParameters Parameters { get; set; }
 
         /// <summary>
@@ -28,31 +26,25 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(AnalyzeParameters processingParameters)
         {
+            ArgumentChecker.CheckPositive(processingParameters.OutputLimit);
+
             this.Parameters = processingParameters;
 
-            this.Analyzer = new DataAnalyzer();
+            this.Analyzer = new DataAnalyzer(this.Parameters.DataType);
         }
 
-        public bool Execute(ulong lineNumber, StringParts inputData)
+        public bool Execute(ulong lineNumber, OneExtractedValue lineData)
         {
-            // We may not always be able to extract data.
-            // Ignore these cases; the extractor will already have printed a warning message.
-            //
-            if (inputData == null)
-            {
-                return true;
-            }
-
-            this.Analyzer.AnalyzeData(inputData.ExtractedData);
+            this.Analyzer.AnalyzeData(lineData.ExtractedData);
 
             return true;
         }
 
         public void CompleteExecution()
         {
-            this.Analyzer.OrderAnalyzedData();
+            this.Analyzer.PostProcessAnalyzedData();
 
-            this.Analyzer.OutputReport(this.Parameters.ValuesLimit);
+            this.Analyzer.OutputReport(this.Parameters.OutputLimit);
         }
     }
 }

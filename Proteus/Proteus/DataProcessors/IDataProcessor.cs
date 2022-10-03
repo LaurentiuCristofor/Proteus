@@ -1,5 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////////////////////////////
 /// (c) Laurentiu Cristofor
+/// 
 /// This file is part of the Proteus Library and is made available under the MIT license.
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -16,11 +17,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// <summary>
         /// Initializes the processor with specific processing parameters.
         /// </summary>
-        /// <param name="processingParameters"></param>
+        /// <param name="processingParameters">The parameters for the processing.</param>
         void Initialize(TProcessingParameters processingParameters);
 
         /// <summary>
-        /// Execute the processor on a unit of data.
+        /// Executes the processor on a unit of data.
         /// </summary>
         /// <param name="lineNumber">The current line number corresponding to the input data.</param>
         /// <param name="inputData">The data to process.</param>
