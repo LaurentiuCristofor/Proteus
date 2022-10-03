@@ -964,6 +964,11 @@ namespace LaurentiuCristofor.Cabeiro
             if (editArguments.Length > 0)
             {
                 argument = DataHolderOperations.BuildDataHolder(dataType, editArguments[0]);
+
+                if (argument == null)
+                {
+                    throw new CabeiroException($"'{editArguments[0]}' is not a valid value for the {dataType} data type !");
+                }
             }
 
             OutputValueEditParameters processingParameters = new OutputValueEditParameters(
