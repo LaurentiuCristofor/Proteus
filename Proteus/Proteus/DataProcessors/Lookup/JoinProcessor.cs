@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////////////////////////////
 /// (c) Laurentiu Cristofor
-/// 
+///
 /// This file is part of the Proteus Library and is made available under the MIT license.
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -56,7 +56,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
                 {
                     // Special case: if there is no join line (the line in the join file only contained the join key and no other columns),
                     // then we will still output the current line as is.
-                    // 
+                    //
                     string outputLine = lineData.OriginalLine;
 
                     // Join the line with our line.

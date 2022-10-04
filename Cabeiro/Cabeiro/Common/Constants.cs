@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////////////////////////////
 /// (c) Laurentiu Cristofor
-/// 
+///
 /// This file is part of the Cabeiro Software and is made available under the MIT license.
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -52,7 +52,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
         public abstract class Commands
         {
             public const string Help = "help";
-            
+
             public const string CountLines = "c";
             public const string AnalyzeLines = "al";
             public const string AnalyzeColumnValues = "acv";

@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////////////////////////////
 /// (c) Laurentiu Cristofor
-/// 
+///
 /// This file is part of the Cabeiro Software and is made available under the MIT license.
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -117,7 +117,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
         /// <summary>
         /// Builds a new file path from an existing file path by appending a specified extension.
-        /// 
+        ///
         /// Additionally:
         ///  - if the original file path had a txt extension, that will be removed before appending the new extension.
         ///  - the new extension is cleared of any characters that cannot be part of a filename.
@@ -137,7 +137,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
         /// <summary>
         /// Removes special extensions from a path.
-        /// 
+        ///
         /// The special extensions are hardcoded here.
         /// </summary>
         /// <param name="filePath">The path to process.</param>

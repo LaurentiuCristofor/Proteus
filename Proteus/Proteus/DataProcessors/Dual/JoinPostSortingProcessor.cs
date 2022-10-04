@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////////////////////////////
 /// (c) Laurentiu Cristofor
-/// 
+///
 /// This file is part of the Proteus Library and is made available under the MIT license.
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -65,7 +65,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
 
                 // None of the remaining lines in the first file will be able to match anything in the second file.
                 // Proceed according to the type of join.
-                // 
+                //
                 switch (this.Parameters.OperationType)
                 {
                     case JoinType.Inner:
@@ -97,7 +97,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
             if (comparison == 0)
             {
                 // If the key has changed, reset the information about it.
-                // 
+                //
                 if (!secondLineData.ExtractedData.Equals(this.LastMatchedKey))
                 {
                     this.LastMatchedKey = secondLineData.ExtractedData;
@@ -124,7 +124,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
                 }
 
                 return ProcessingActionType.AdvanceFirst;
-            } 
+            }
             else // if (comparison > 0)
             {
                 // The line did not match the line from the second file, but it may still match a subsequent line,
@@ -145,7 +145,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
             {
                 // Special case: if there is no join line (the line in the join file only contained the join key and no other columns),
                 // then we will still output the current line as is.
-                // 
+                //
                 string outputLine = firstLineData.OriginalLine;
 
                 // Join the line with our line.

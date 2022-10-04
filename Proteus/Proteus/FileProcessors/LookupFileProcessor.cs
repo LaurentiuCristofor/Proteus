@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////////////////////////////
 /// (c) Laurentiu Cristofor
-/// 
+///
 /// This file is part of the Proteus Library and is made available under the MIT license.
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -104,7 +104,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
             this.LookupFileExtractor = new TLookupDataExtractor();
             this.LookupFileExtractor.Initialize(lookupFileExtractionParameters);
 
-            this.LookupDataStructureBuilder = new TLookupDataStructureBuilder(); 
+            this.LookupDataStructureBuilder = new TLookupDataStructureBuilder();
 
             this.DataProcessor = new TDataProcessor();
             this.DataProcessor.Initialize(processingParameters);

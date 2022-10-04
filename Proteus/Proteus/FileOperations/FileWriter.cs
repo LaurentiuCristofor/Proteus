@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////////////////////////////
 /// (c) Laurentiu Cristofor
-/// 
+///
 /// This file is part of the Proteus Library and is made available under the MIT license.
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -25,7 +25,7 @@ namespace LaurentiuCristofor.Proteus.FileOperations
 
         /// <summary>
         /// Indicates whether writing should track progress.
-        /// 
+        ///
         /// This is used when writing is performed separately from reading.
         /// </summary>
         protected bool TrackProgress { get; set; }

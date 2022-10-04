@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////////////////////////////
 /// (c) Laurentiu Cristofor
-/// 
+///
 /// This file is part of the Cabeiro Software and is made available under the MIT license.
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -366,7 +366,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
         /// <summary>
         /// Parses argument value as a RelativeValueSelectionType indicator for line selection.
-        /// 
+        ///
         /// Some RelativeValueSelectionType values are redundant in the case of line selection
         /// so they are not exposed.
         /// </summary>

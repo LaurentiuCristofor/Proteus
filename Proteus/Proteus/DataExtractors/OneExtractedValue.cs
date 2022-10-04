@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////////////////////////////
 /// (c) Laurentiu Cristofor
-/// 
+///
 /// This file is part of the Proteus Library and is made available under the MIT license.
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -17,7 +17,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
     {
         /// <summary>
         /// The extracted data.
-        /// 
+        ///
         /// This can be a column or a line.
         /// </summary>
         public IDataHolder ExtractedData { get; protected set;}
@@ -42,7 +42,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
         /// <summary>
         /// This constructor is used in the special case when the extracted data is the line itself.
-        /// 
+        ///
         /// This enables the writing of data processors that can operate on both column strings and lines,
         /// by consuming them both as instances of OneExtractedValue.
         /// </summary>

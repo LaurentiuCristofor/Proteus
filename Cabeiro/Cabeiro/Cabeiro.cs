@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////////////////////////////
 /// (c) Laurentiu Cristofor
-/// 
+///
 /// This file is part of the Cabeiro Software and is made available under the MIT license.
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1307,7 +1307,7 @@ namespace LaurentiuCristofor.Cabeiro
             string outputFilePath)
         {
             string outputFileExtension
-                = isSorted 
+                = isSorted
                 ? $".{CabeiroConstants.Commands.SelectLinesPostSortingByLineStringRelativeToOtherLines}.{selectionTypeString}"
                 : $".{CabeiroConstants.Commands.SelectLinesByLineStringRelativeToOtherLines}.{selectionTypeString}";
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
@@ -1341,7 +1341,7 @@ namespace LaurentiuCristofor.Cabeiro
 
         private static void SelectLinesByColumnValueRelativeToOtherLines(
             bool isSorted,
-            string inputFilePath, 
+            string inputFilePath,
             int columnNumber,
             string columnSeparator,
             DataType dataType, string dataTypeString,

@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////////////////////////////
 /// (c) Laurentiu Cristofor
-/// 
+///
 /// This file is part of the Proteus Library and is made available under the MIT license.
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -9,7 +9,7 @@ namespace LaurentiuCristofor.Proteus.Common.Logging
 {
     /// <summary>
     /// A logging interface for enabling Proteus to output information.
-    /// 
+    ///
     /// Output methods are used for processing results.
     /// Log methods are used for informational and warning messages.
     /// </summary>
