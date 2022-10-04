@@ -31,6 +31,13 @@ Some memory-expensive operations also have less-expensive alternatives that work
 Cabeiro is meant to support only simple and generic data processing operations.
 The Proteus library could grow to support more complex data analysis scenarios, which would then be exposed by different tools than Cabeiro. 
 
+## Build instructions
+
+On Windows systems, use Visual Studio with `Proteus\Proteus.sln` and `Cabeiro\Cabeiro.sln`.
+
+On Linux systems, use Mono and the `Mono/build.sh` script.
+Once `Cabeiro.exe` is built under `Mono/build`, it can be executed with `mono Cabeiro.exe`.
+
 ## Getting started with Cabeiro
 
 Most of the information in this section is also available through Cabeiro''s help function.
