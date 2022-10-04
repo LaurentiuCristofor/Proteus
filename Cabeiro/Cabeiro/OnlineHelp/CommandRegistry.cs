@@ -53,7 +53,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 CabeiroConstants.Commands.Help,
                 CommandCategory.Help,
                 $"Obtain help on {CabeiroConstants.Program.Name} functionality.",
-                longDescription: null,
+                /*longDescription:*/ null,
                 $"[{CabeiroConstants.Commands.Arguments.Descriptions.CommandName}"
                 + $" | {CabeiroConstants.Commands.Arguments.All}"
                 + $" | {CabeiroConstants.Commands.Arguments.Categories}"
@@ -67,7 +67,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 CabeiroConstants.Commands.CountLines,
                 CommandCategory.Information,
                 "(C)ount lines",
-                longDescription: null,
+                /*longDescription:*/ null,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}",
                 $"{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
@@ -116,7 +116,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 CabeiroConstants.Commands.Sort,
                 CommandCategory.Ordering,
                 "(S)ort file",
-                longDescription: null,
+                /*longDescription:*/ null,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Notes.MemoryRequirementLinearTotal}");
@@ -126,7 +126,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 CabeiroConstants.Commands.SortByColumnValue,
                 CommandCategory.Ordering,
                 "(S)ort file (B)y (C)olumn (V)alue",
-                longDescription: null,
+                /*longDescription:*/ null,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
@@ -140,7 +140,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 CabeiroConstants.Commands.OrderColumns,
                 CommandCategory.Ordering,
                 "(O)rder (C)olumns",
-                longDescription: null,
+                /*longDescription:*/ null,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.NewFirstColumnsList}"
@@ -155,7 +155,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 CabeiroConstants.Commands.EditLines,
                 CommandCategory.Editing,
                 "(E)dit (L)ines",
-                longDescription: null,
+                /*longDescription:*/ null,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.EditType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} [{CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument}]]"
@@ -168,7 +168,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 CabeiroConstants.Commands.EditColumnStrings,
                 CommandCategory.Editing,
                 "(E)dit (C)olumn (S)trings",
-                longDescription: null,
+                /*longDescription:*/ null,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
@@ -183,7 +183,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 CabeiroConstants.Commands.EditColumnValues,
                 CommandCategory.Editing,
                 "(E)dit (C)olumn (V)alues",
-                longDescription: null,
+                /*longDescription:*/ null,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
@@ -200,7 +200,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 CabeiroConstants.Commands.InsertLine,
                 CommandCategory.Editing,
                 "(I)nsert (L)ine",
-                longDescription: null,
+                /*longDescription:*/ null,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.LineValue}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.InsertionType}"
@@ -214,7 +214,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 CabeiroConstants.Commands.JoinLines,
                 CommandCategory.Editing,
                 "(J)oin (L)ines",
-                longDescription: null,
+                /*longDescription:*/ null,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.FirstInputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstFileColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
@@ -233,7 +233,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 CabeiroConstants.Commands.ConcatenateLines,
                 CommandCategory.Editing,
                 "(C)oncatenate (L)ines",
-                longDescription: null,
+                /*longDescription:*/ null,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.FirstInputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondInputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
@@ -245,7 +245,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 CabeiroConstants.Commands.TransformColumns,
                 CommandCategory.Editing,
                 "(T)ransform (C)olumns",
-                longDescription: null,
+                /*longDescription:*/ null,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.TransformationType}"
@@ -278,7 +278,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 CabeiroConstants.Commands.SelectLinesByNumber,
                 CommandCategory.Selection,
                 "(S)elect (L)ines (B)y (N)umber",
-                longDescription: null,
+                /*longDescription:*/ null,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.SelectionType}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} [{CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument}]"
@@ -292,7 +292,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 CabeiroConstants.Commands.SelectColumnsByNumber,
                 CommandCategory.Selection,
                 "(S)elect (C)olumns (B)y (N)umber",
-                longDescription: null,
+                /*longDescription:*/ null,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.SelectionType}"
@@ -334,7 +334,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 CabeiroConstants.Commands.SelectLinesByColumnCount,
                 CommandCategory.Selection,
                 "(S)elect (L)ines (B)y (C)olumn (C)ount",
-                longDescription: null,
+                /*longDescription:*/ null,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ComparisonType}"
@@ -446,7 +446,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 CabeiroConstants.Commands.SortBySecondColumnValue,
                 CommandCategory.Post_Sorting,
                 "(S)ort file (B)y (2)nd (C)olumn (V)alue",
-                longDescription: null,
+                /*longDescription:*/ null,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondaryColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
@@ -547,7 +547,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 CabeiroConstants.Commands.JoinLinesPostSorting,
                 CommandCategory.Post_Sorting,
                 "(J)oin (L)ines (P)ost (S)orting",
-                longDescription: null,
+                /*longDescription:*/ null,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.FirstInputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstFileColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"

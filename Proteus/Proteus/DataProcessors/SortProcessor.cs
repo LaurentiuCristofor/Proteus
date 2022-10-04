@@ -49,7 +49,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 throw new ProteusException("Internal error: An expected data structure has not been initialized!");
             }
 
-            Timer timer = new Timer($"\n{Constants.Messages.SortingStart}", Constants.Messages.SortingEnd);
+            Timer timer = new Timer($"\n{Constants.Messages.SortingStart}", Constants.Messages.SortingEnd, countFinalLineEndings: 0);
             this.Lines.Sort();
             timer.StopAndReport();
 

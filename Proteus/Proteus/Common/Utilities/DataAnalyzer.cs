@@ -176,7 +176,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
                 return;
             }
 
-            Timer timer = new Timer($"\n\n{Constants.Messages.AnalysisPostProcessingStart}", Constants.Messages.AnalysisPostProcessingEnd, "\n");
+            Timer timer = new Timer($"\n\n{Constants.Messages.AnalysisPostProcessingStart}", Constants.Messages.AnalysisPostProcessingEnd, countFinalLineEndings: 2);
 
             // Initialize a list into which to collect and sort our data.
             //
