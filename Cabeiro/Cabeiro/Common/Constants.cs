@@ -69,6 +69,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string InsertLine = "il";
             public const string JoinLines = "jl";
             public const string ConcatenateLines = "cl";
+            public const string TransformLines = "tl";
             public const string TransformColumns = "tc";
 
             public const string SelectLinesByColumnValue = "slbcv";
@@ -214,6 +215,9 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
                 public const string LookupTypeIncluded = "incl";
                 public const string LookupTypeNotIncluded = "nincl";
+
+                public const string LineTransformationTypeBreak = "break";
+                public const string LineTransformationTypeUnite = "unite";
 
                 public const string ColumnTransformationTypePack = "pack";
                 public const string ColumnTransformationTypeUnpack = "unpack";
@@ -391,6 +395,11 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         ;
 
                     public const string TransformationType = "<transformation_type>";
+
+                    public static readonly string LineTransformationTypeText = $"{Constants.Commands.Arguments.Descriptions.TransformationType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.LineTransformationTypeBreak}' = break a line into a line for each column"
+                        + $"\n\t- '{Constants.Commands.Arguments.LineTransformationTypeUnite}' = unite a sequence of lines into a single line; arguments <sequence_size>"
+                        ;
 
                     public static readonly string ColumnTransformationTypeText = $"{Constants.Commands.Arguments.Descriptions.TransformationType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.ColumnTransformationTypePack}' = pack column range; arguments: <start_column_number> <end_column_number> <packing_separator>"

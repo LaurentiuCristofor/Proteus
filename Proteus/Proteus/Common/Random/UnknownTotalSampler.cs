@@ -14,12 +14,12 @@ namespace LaurentiuCristofor.Proteus.Common.Random
     ///
     /// The algorithm used here is based on Algorithm R described in Knuth, TAOCP, volume 2, section 3.4.2,
     /// page 144 of the third edition.
-    /// 
+    ///
     /// The caller is expected to maintain an array of SampleCount values, initialized with the numbers of the first SampleCount elements.
     /// The caller can then call EvaluateAnotherElement for each other element to determine which sample element should be replaced
     /// by the currently evaluated element.
     /// At the end of the processing, the caller will have the sample element numbers in its array.
-    /// 
+    ///
     /// IMPORTANT: The sampler operates in terms of numbers, not index values;
     /// the caller needs to adjust them appropriately, before operating on its sample array.
     /// </summary>

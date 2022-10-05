@@ -14,7 +14,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
     ///
     /// The algorithm used here is Algorithm P described in Knuth, TAOCP, volume 2, section 3.4.1,
     /// page 122 of the third edition.
-    /// 
+    ///
     /// This algorithm implements the polar method of G.E.P. Box, M.E. Muller, and G. Marsaglia.
     /// </summary>
     public sealed class NormalGenerator

@@ -16,7 +16,7 @@ using LaurentiuCristofor.Proteus.FileOperations;
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// A data processor that selects a subset of columns to output.
+    /// A data processor that transforms columns.
     /// </summary>
     public class TransformColumnsProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<ColumnTransformationType>, ExtractedColumnStrings>
     {

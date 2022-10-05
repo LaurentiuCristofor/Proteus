@@ -203,7 +203,7 @@ namespace LaurentiuCristofor.Cabeiro
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SortByColumnValue))
             {
                 const int minimumArgumentNumber = 5;
-                const int maximumArgumentNumber = 8;
+                const int maximumArgumentNumber = 6;
                 ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
                 string inputFilePath = arguments[1];
@@ -292,7 +292,7 @@ namespace LaurentiuCristofor.Cabeiro
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.EditColumnValues))
             {
-                const int minimumArgumentNumber = 5;
+                const int minimumArgumentNumber = 6;
                 const int maximumArgumentNumber = 8;
                 ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
@@ -378,6 +378,25 @@ namespace LaurentiuCristofor.Cabeiro
                     firstFilePath,
                     secondFilePath,
                     columnSeparator,
+                    outputFilePath);
+                return;
+            }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.TransformLines))
+            {
+                const int minimumArgumentNumber = 4;
+                const int maximumArgumentNumber = 6;
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
+
+                string inputFilePath = arguments[1];
+                string columnSeparator = ArgumentParser.ParseSeparator(arguments[2]);
+                Tuple<LineTransformationType, int> operationInfo = ArgumentParser.ParseLineTransformationType(arguments[3]);
+                ArgumentParser.ExtractLastArguments(operationInfo.Item2, 4, arguments, out string[] operationArguments, out string outputFilePath);
+
+                TransformLines(
+                    inputFilePath,
+                    columnSeparator,
+                    operationInfo.Item1, arguments[3],
+                    operationArguments,
                     outputFilePath);
                 return;
             }
@@ -519,8 +538,8 @@ namespace LaurentiuCristofor.Cabeiro
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByLineStringRelativeToOtherLines)
                 || ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByLineStringRelativeToOtherLines))
             {
-                const int minimumArgumentNumber = 2;
-                const int maximumArgumentNumber = 3;
+                const int minimumArgumentNumber = 3;
+                const int maximumArgumentNumber = 4;
                 ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
                 string inputFilePath = arguments[1];
@@ -539,8 +558,8 @@ namespace LaurentiuCristofor.Cabeiro
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByColumnValueRelativeToOtherLines)
                 || ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByColumnValueRelativeToOtherLines))
             {
-                const int minimumArgumentNumber = 5;
-                const int maximumArgumentNumber = 6;
+                const int minimumArgumentNumber = 6;
+                const int maximumArgumentNumber = 7;
                 ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
                 string inputFilePath = arguments[1];
@@ -685,7 +704,7 @@ namespace LaurentiuCristofor.Cabeiro
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SortBySecondColumnValue))
             {
                 const int minimumArgumentNumber = 7;
-                const int maximumArgumentNumber = 10;
+                const int maximumArgumentNumber = 8;
                 ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
                 string inputFilePath = arguments[1];
@@ -747,7 +766,7 @@ namespace LaurentiuCristofor.Cabeiro
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.FindStateTransitions))
             {
                 const int minimumArgumentNumber = 7;
-                const int maximumArgumentNumber = 10;
+                const int maximumArgumentNumber = 8;
                 ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
                 string inputFilePath = arguments[1];
@@ -1191,6 +1210,34 @@ namespace LaurentiuCristofor.Cabeiro
                     processingParameters);
 
             dualFileProcessor.ProcessFiles();
+        }
+
+        private static void TransformLines(
+            string inputFilePath,
+            string columnSeparator,
+            LineTransformationType transformationType, string transformationTypeString,
+            string[] transformationArguments,
+            string outputFilePath)
+        {
+            ColumnStringsExtractionParameters extractionParameters = new ColumnStringsExtractionParameters(
+                columnSeparator);
+
+            string outputFileExtension = $".{CabeiroConstants.Commands.TransformLines}.{transformationTypeString.ToLower()}";
+            var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, transformationArguments, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            OutputOperationParameters<LineTransformationType> processingParameters = new OutputOperationParameters<LineTransformationType>(
+                outputFilePath,
+                transformationType,
+                transformationArguments);
+
+            var fileProcessor
+                = new FileProcessor<ColumnStringsExtractor, ColumnStringsExtractionParameters, ExtractedColumnStrings, TransformLinesProcessor, OutputOperationParameters<LineTransformationType>>(
+                    inputFilePath,
+                    extractionParameters,
+                    processingParameters);
+
+            fileProcessor.ProcessFile();
         }
 
         private static void TransformColumns(

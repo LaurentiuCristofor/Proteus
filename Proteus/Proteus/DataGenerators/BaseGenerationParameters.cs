@@ -14,7 +14,7 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
     {
         /// <summary>
         /// A seed value to use when initializing the random number generator.
-        /// 
+        ///
         /// If set to a negative value, no seed will be used.
         /// </summary>
         public int Seed { get; set; }

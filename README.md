@@ -99,6 +99,7 @@ You can edit data, insert new data, or combine data from two files.
 * IL - (I)nsert (L)ine
 * JL - (J)oin (L)ines
 * CL - (C)oncatenate (L)ines
+* TL - (T)ransform (L)ines
 * TC - (T)ransform (C)olumns
 
 #### SELECTION commands

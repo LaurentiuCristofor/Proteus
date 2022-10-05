@@ -252,6 +252,20 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.TransformLines,
+                CommandCategory.Editing,
+                "(T)ransform (L)ines",
+                /*longDescription:*/ null,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.TransformationType}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument}]"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.LineTransformationTypeText}"
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
+            RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
                 CabeiroConstants.Commands.TransformColumns,
                 CommandCategory.Editing,
                 "(T)ransform (C)olumns",

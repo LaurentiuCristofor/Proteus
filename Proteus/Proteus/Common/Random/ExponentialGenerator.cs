@@ -11,7 +11,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
 {
     /// <summary>
     /// A generator of floating point values with exponential distribution.
-    /// 
+    ///
     /// The method used here is the logarithm method described in Knuth, TAOCP, volume 2, section 3.4.1,
     /// page 133 of the third edition.
     /// </summary>

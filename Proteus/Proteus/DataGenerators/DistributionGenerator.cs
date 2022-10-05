@@ -18,14 +18,29 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
     {
         protected DistributionGenerationParameters Parameters { get; set; }
 
+        /// <summary>
+        /// The uniform generator to use with all random generations.
+        /// </summary>
         protected System.Random UniformGenerator { get; set; }
 
+        /// <summary>
+        /// The generator used for normal distributions.
+        /// </summary>
         protected NormalGenerator NormalGenerator { get; set; }
 
+        /// <summary>
+        /// The generator used for exponential distributions.
+        /// </summary>
         protected ExponentialGenerator ExponentialGenerator { get; set; }
 
+        /// <summary>
+        /// The generator used for Poisson distributions.
+        /// </summary>
         protected PoissonGenerator PoissonGenerator { get; set; }
 
+        /// <summary>
+        /// The count of data generated so far.
+        /// </summary>
         protected ulong GeneratedCount { get; set; }
 
         public void Initialize(DistributionGenerationParameters generationParameters)

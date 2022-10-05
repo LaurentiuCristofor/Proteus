@@ -14,7 +14,7 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
     {
         /// <summary>
         /// The total count out of which the sample data should be produced.
-        /// 
+        ///
         /// The sample data will contain GeneratedCount distinct values from the interval [1, TotalCount].
         /// </summary>
         public ulong TotalCount { get; set; }

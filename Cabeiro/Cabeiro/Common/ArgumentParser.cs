@@ -468,6 +468,29 @@ namespace LaurentiuCristofor.Cabeiro.Common
         }
 
         /// <summary>
+        /// Parses argument value as a LineTransformationType indicator.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the LineTransformationType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<LineTransformationType, int> ParseLineTransformationType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.LineTransformationTypeBreak))
+            {
+                return new Tuple<LineTransformationType, int>(LineTransformationType.Break, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.LineTransformationTypeUnite))
+            {
+                return new Tuple<LineTransformationType, int>(LineTransformationType.Unite, 1);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid line transformation type argument: {argument}!");
+            }
+        }
+
+        /// <summary>
         /// Parses argument value as a ColumnTransformationType indicator.
         /// </summary>
         /// <param name="argument">The argument value to parse.</param>

@@ -16,6 +16,9 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
     {
         protected SampleGenerationParameters Parameters { get; set; }
 
+        /// <summary>
+        /// The sampler to use for sampling the lines.
+        /// </summary>
         protected KnownTotalSampler Sampler { get; set; }
 
         public void Initialize(SampleGenerationParameters generationParameters)
