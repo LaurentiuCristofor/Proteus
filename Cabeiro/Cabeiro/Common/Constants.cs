@@ -60,6 +60,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string Invert = "i";
             public const string Sort = "s";
             public const string SortByColumnValue = "sbcv";
+            public const string Shuffle = "sh";
             public const string OrderColumns = "oc";
 
             public const string EditLines = "el";
@@ -80,6 +81,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string SelectLinesByColumnValueRelativeToOtherLines = "slbcvr";
             public const string SelectLinesByLookupInFile = "slblif";
             public const string SelectLinesByColumnValueLookupInFile = "slbcvlif";
+            public const string SelectLinesSample = "sls";
 
             public const string SplitLineRanges = "splr";
             public const string SplitColumns = "spc";
@@ -143,6 +145,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string MemoryRequirementConstantColumns = "Memory requirement: For regular data files: O(1); more specifically: O(N), where N is the maximum count of columns in a line.";
                 public const string MemoryRequirementLinearUnique = "Memory requirement: O(N), where N is the total size of unique data values found.";
                 public const string MemoryRequirementLinearTotal = "Memory requirement: O(N), where N is the total size of the input data file.";
+                public const string MemoryRequirementLinearSample = "Memory requirement: O(N), where N is the size of the requested sample.";
                 public const string MemoryRequirementLinearTotalSecond = "Memory requirement: O(N), where N is the total size of the second input data file.";
                 public const string MemoryRequirementLinearUniqueLookup = "Memory requirement: O(N), where N is the total size of unique data found in the lookup file.";
                 public const string MemoryRequirementLinearPrimaryColumnRepetitions = "Memory requirement: O(N), where N is the largest number of lines having the same primary column value.";
@@ -305,6 +308,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                     public const string SecondaryColumnDataType = "<secondary_column_data_type>";
                     public const string LineValue = "<line_value>";
                     public const string RangeSize = "<range_size>";
+                    public const string SampleSize = "<sample_size>";
                     public const string SeedValue = "<seed_value>";
                     public const string GenerationCount = "<generation_count>";
                     public const string TotalCount = "<total_count>";

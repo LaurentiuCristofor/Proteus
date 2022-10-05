@@ -20,7 +20,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// <summary>
         /// The remaining shuffling steps.
         /// </summary>
-        private ulong RemainingShufflingSteps { get; set; }
+        private int RemainingShufflingSteps { get; set; }
 
         /// <summary>
         /// The random generator source.
@@ -32,9 +32,9 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// </summary>
         /// <param name="totalCount">The count of values to shuffle.</param>
         /// <param name="randomGenerator">The System.Random instance to use, or null to generate a new instance.</param>
-        public Shuffler(ulong totalCount, System.Random randomGenerator = null)
+        public Shuffler(int totalCount, System.Random randomGenerator = null)
         {
-            ArgumentChecker.CheckNotZero(totalCount);
+            ArgumentChecker.CheckPositive(totalCount);
 
             this.RandomGenerator = randomGenerator ?? new System.Random();
 
@@ -47,7 +47,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// Returns the next pair of values to exchange.
         /// </summary>
         /// <returns>A tuple indicating the numbers of the values to exchange, or null if the shuffling has ended.</returns>
-        public Tuple<ulong, ulong> NextSampleValue()
+        public Tuple<int, int> NextShuffle()
         {
             if (this.RemainingShufflingSteps == 0)
             {
@@ -59,15 +59,16 @@ namespace LaurentiuCristofor.Proteus.Common.Random
             double U = this.RandomGenerator.NextDouble();
 
             // P3. [Exchange]
+            // valueNumber will get a value between 1 and this.RemainingShufflingSteps.
             //
-            ulong valueNumber = (ulong)Math.Floor(this.RemainingShufflingSteps * U) + 1;
-            ulong otherValueNumber = this.RemainingShufflingSteps;
+            int valueNumber = (int)Math.Floor(this.RemainingShufflingSteps * U) + 1;
+            int otherValueNumber = this.RemainingShufflingSteps;
 
             // P4. [Decrease step]
             //
             --this.RemainingShufflingSteps;
 
-            return new Tuple<ulong, ulong>(valueNumber, otherValueNumber);
+            return new Tuple<int, int>(valueNumber, otherValueNumber);
         }
     }
 }

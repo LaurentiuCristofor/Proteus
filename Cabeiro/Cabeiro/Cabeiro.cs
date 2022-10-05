@@ -220,6 +220,20 @@ namespace LaurentiuCristofor.Cabeiro
                     outputFilePath);
                 return;
             }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.Shuffle))
+            {
+                const int minimumArgumentNumber = 2;
+                const int maximumArgumentNumber = 3;
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
+
+                string inputFilePath = arguments[1];
+                ArgumentParser.ExtractLastArguments(0, 2, arguments, out _, out string outputFilePath);
+
+                ShuffleFile(
+                    inputFilePath,
+                    outputFilePath);
+                return;
+            }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.OrderColumns))
             {
                 const int minimumArgumentNumber = 4;
@@ -600,6 +614,22 @@ namespace LaurentiuCristofor.Cabeiro
                     outputFilePath);
                 return;
             }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesSample))
+            {
+                const int minimumArgumentNumber = 3;
+                const int maximumArgumentNumber = 4;
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
+
+                string inputFilePath = arguments[1];
+                int sampleSize = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
+                ArgumentParser.ExtractLastArguments(0, 3, arguments, out _, out string outputFilePath);
+
+                SelectLinesSample(
+                    inputFilePath,
+                    sampleSize,
+                    outputFilePath);
+                return;
+            }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SplitLineRanges))
             {
                 const int minimumArgumentNumber = 3;
@@ -892,6 +922,26 @@ namespace LaurentiuCristofor.Cabeiro
                 = new FileProcessor<OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue, SortByColumnValueProcessor, BaseOutputParameters>(
                     inputFilePath,
                     extractionParameters,
+                    processingParameters);
+
+            fileProcessor.ProcessFile();
+        }
+
+        private static void ShuffleFile(
+            string inputFilePath,
+            string outputFilePath)
+        {
+            string outputFileExtension = $".{CabeiroConstants.Commands.Shuffle}";
+            var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            BaseOutputParameters processingParameters = new BaseOutputParameters(
+                outputFilePath);
+
+            var fileProcessor
+                = new FileProcessor<LineExtractor, Unused, string, ShuffleProcessor, BaseOutputParameters>(
+                    inputFilePath,
+                    /*extractionParameters:*/ null,
                     processingParameters);
 
             fileProcessor.ProcessFile();
@@ -1536,6 +1586,28 @@ namespace LaurentiuCristofor.Cabeiro
 
                 lookupFileProcessor.ProcessFiles();
             }
+        }
+
+        private static void SelectLinesSample(
+            string inputFilePath,
+            int sampleSize,
+            string outputFilePath)
+        {
+            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesSample}.{sampleSize}";
+            var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            OutputIntegerParameters processingParameters = new OutputIntegerParameters(
+                outputFilePath,
+                sampleSize);
+
+            var fileProcessor
+                = new FileProcessor<LineExtractor, Unused, string, SampleProcessor, OutputIntegerParameters>(
+                    inputFilePath,
+                    /*extractionParameters:*/ null,
+                    processingParameters);
+
+            fileProcessor.ProcessFile();
         }
 
         private static void SplitLineRanges(

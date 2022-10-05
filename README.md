@@ -85,6 +85,7 @@ These commands change the order of the lines or columns of a file.
 * I - (I)nvert file
 * S - (S)ort file
 * SBCV - (S)ort file (B)y (C)olumn (V)alue
+* SH - (SH)uffle file
 * OC - (O)rder (C)olumns
 
 #### EDITING commands
@@ -116,6 +117,7 @@ To handle duplicate values, use the "(R)elative to other lines" selection comman
 * SLBCVR - (S)elect (L)ines (B)y (C)olumn (V)alue (R)elative to other lines
 * SLBLIF - (S)elect (L)ines (B)y (L)ookup (I)n (F)ile
 * SLBCVLIF - (S)elect (L)ines (B)y (C)olumn (V)alue (L)ookup (I)n (F)ile
+* SLS - (S)elect (L)ines (S)ample
 
 #### SPLITTING commands
 

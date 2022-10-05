@@ -137,6 +137,16 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.Shuffle,
+                CommandCategory.Ordering,
+                "(SH)uffle file",
+                /*longDescription:*/ null,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Notes.MemoryRequirementLinearTotal}");
+            RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
                 CabeiroConstants.Commands.OrderColumns,
                 CommandCategory.Ordering,
                 "(O)rder (C)olumns",
@@ -400,6 +410,17 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.LookupTypeText}"
                 + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearUniqueLookup}");
+            RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.SelectLinesSample,
+                CommandCategory.Selection,
+                "(S)elect (L)ines (S)ample",
+                /*longDescription:*/ null,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SampleSize}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Notes.MemoryRequirementLinearSample}");
             RegisterCommandDescription(commandDescription);
 
             // Splitting commands.
