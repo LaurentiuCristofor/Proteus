@@ -577,6 +577,34 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
                 + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.GenerateDistribution,
+                CommandCategory.Generation,
+                "(GEN)erate (D)istribution",
+                CabeiroConstants.Commands.Descriptions.GenerateDistribution,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.SeedValue}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.GenerationCount}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataDistributionType}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.DistributionMean}]"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.SeedValueText}"
+                + $"\n\n{CabeiroConstants.Commands.Arguments.Descriptions.DataDistributionTypeText}"
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstant}");
+            RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.GenerateSample,
+                CommandCategory.Generation,
+                "(GEN)erate (S)ample",
+                CabeiroConstants.Commands.Descriptions.GenerateSample,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.SeedValue}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.GenerationCount}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.TotalCount}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.SeedValueText}"
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstant}");
+            RegisterCommandDescription(commandDescription);
         }
 
         /// <summary>

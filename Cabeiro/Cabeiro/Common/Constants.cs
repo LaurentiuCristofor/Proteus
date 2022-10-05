@@ -95,6 +95,9 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string JoinLinesPostSorting = "jlps";
             public const string FindStateTransitions = "fst";
 
+            public const string GenerateDistribution = "gend";
+            public const string GenerateSample = "gens";
+
             // Command descriptions.
             //
             public abstract class Descriptions
@@ -124,6 +127,9 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string SelectLinesPostSortingByColumnValueLookupInFile = "Selects lines from a column-sorted file based on whether their sorted column's value appears in the first column of another sorted file or not. Does not verify the correct sorting of the input files.";
                 public const string JoinLinesPostSorting = "Joins the lines of two column-sorted files. Does not verify the correct sorting of the input files.";
                 public const string FindStateTransitions = "Selects pairs of lines from a column-sorted file, which match on the sorted column's values, but differ on a second column's 'state' values. Two consecutive transitions will result in duplicate lines being output; for example, ABA will output AB and BA.";
+
+                public const string GenerateDistribution = "Generates a number of values with the specified distribution.";
+                public const string GenerateSample = "Generates a sample of values out of values ranging from 1 to a specified total count.";
             }
 
             // Command notes.
@@ -132,6 +138,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             {
                 public const string ConsoleOutput = "This command outputs to the console instead of writing to a file.\n";
 
+                public const string MemoryRequirementConstant = "Memory requirement: O(1).";
                 public const string MemoryRequirementConstantLine = "Memory requirement: For regular data files: O(1); more specifically: O(N), where N is the size of a line.";
                 public const string MemoryRequirementConstantColumns = "Memory requirement: For regular data files: O(1); more specifically: O(N), where N is the maximum count of columns in a line.";
                 public const string MemoryRequirementLinearUnique = "Memory requirement: O(N), where N is the total size of unique data values found.";
@@ -266,6 +273,11 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string ValueEditTypeMultiply = "mul";
                 public const string ValueEditTypeDivide = "div";
 
+                public const string DataDistributionTypeUniform = "u";
+                public const string DataDistributionTypeNormal = "n";
+                public const string DataDistributionTypeExponential = "e";
+                public const string DataDistributionTypePoisson = "p";
+
                 // Command argument description strings.
                 //
                 public abstract class Descriptions
@@ -293,6 +305,10 @@ namespace LaurentiuCristofor.Cabeiro.Common
                     public const string SecondaryColumnDataType = "<secondary_column_data_type>";
                     public const string LineValue = "<line_value>";
                     public const string RangeSize = "<range_size>";
+                    public const string SeedValue = "<seed_value>";
+                    public const string GenerationCount = "<generation_count>";
+                    public const string TotalCount = "<total_count>";
+                    public const string DistributionMean = "<distribution_mean>";
 
                     public static readonly string HelpCategoriesText = $"{CommandName} will produce detailed information on the specified command."
                         + $"\n\n'{Commands.Arguments.All}' will list all available commands."
@@ -455,6 +471,17 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.ValueEditTypeMultiply}' = multiply; arguments: <value>"
                         + $"\n\t- '{Constants.Commands.Arguments.ValueEditTypeDivide}' = divide; arguments: <value>"
                         + "\nSome edit types are not supported by some data types.";
+
+                    public static readonly string SeedValueText = $"{Constants.Commands.Arguments.Descriptions.SeedValue} is an integer value that can be used to initialize the RNG for repeatable results. To not use a seed, just set this parameter to any negative value.";
+
+                    public const string DataDistributionType = "<data_distribution_type>";
+
+                    public static readonly string DataDistributionTypeText = $"{Constants.Commands.Arguments.Descriptions.DataDistributionType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.DataDistributionTypeUniform}' = uniform"
+                        + $"\n\t- '{Constants.Commands.Arguments.DataDistributionTypeNormal}' = normal"
+                        + $"\n\t- '{Constants.Commands.Arguments.DataDistributionTypeExponential}' = exponential; arguments: <distribution_mean> (double)"
+                        + $"\n\t- '{Constants.Commands.Arguments.DataDistributionTypePoisson}' = Poisson; arguments: <distribution_mean> (ulong)"
+                        ;
 
                     public const string LimitValues = "<limit_values>";
 

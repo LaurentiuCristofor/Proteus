@@ -14,6 +14,7 @@ using LaurentiuCristofor.Proteus.Common.DataHolders;
 using LaurentiuCristofor.Proteus.Common.Logging;
 using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.DataExtractors;
+using LaurentiuCristofor.Proteus.DataGenerators;
 using LaurentiuCristofor.Proteus.DataProcessors;
 using LaurentiuCristofor.Proteus.DataProcessors.Dual;
 using LaurentiuCristofor.Proteus.DataProcessors.Lookup;
@@ -69,7 +70,7 @@ namespace LaurentiuCristofor.Cabeiro
         private static void ValidateProteusVersion()
         {
             const int expectedProteusMajorVersion = 1;
-            const int expectedProteusMinorVersion = 0;
+            const int expectedProteusMinorVersion = 1;
 
             AssemblyName proteusInfo = ProteusInfo.GetAssemblyInfo();
             AssemblyName cabeiroInfo = CabeiroInfo.GetAssemblyInfo();
@@ -734,6 +735,43 @@ namespace LaurentiuCristofor.Cabeiro
                     secondDataType, arguments[4],
                     firstColumnNumber,
                     firstDataType,
+                    outputFilePath);
+                return;
+            }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.GenerateDistribution))
+            {
+                const int minimumArgumentNumber = 4;
+                const int maximumArgumentNumber = 6;
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
+
+                int seedValue = int.Parse(arguments[1]);
+                ulong generationCount = ArgumentParser.GetUnsignedLongInteger(arguments[2]);
+                Tuple<DataDistributionType, int> distributionInfo = ArgumentParser.ParseDataDistributionType(arguments[3]);
+                ArgumentParser.ExtractLastArguments(distributionInfo.Item2, 4, arguments, out string[] generationArguments, out string outputFilePath);
+
+                GenerateDistribution(
+                    seedValue,
+                    generationCount,
+                    distributionInfo.Item1, arguments[3],
+                    generationArguments,
+                    outputFilePath);
+                return;
+            }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.GenerateSample))
+            {
+                const int minimumArgumentNumber = 4;
+                const int maximumArgumentNumber = 5;
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
+
+                int seedValue = int.Parse(arguments[1]);
+                ulong generationCount = ArgumentParser.GetUnsignedLongInteger(arguments[2]);
+                ulong totalCount = ArgumentParser.GetUnsignedLongInteger(arguments[3]);
+                ArgumentParser.ExtractLastArguments(0, 4, arguments, out _, out string outputFilePath);
+
+                GenerateSample(
+                    seedValue,
+                    generationCount,
+                    totalCount,
                     outputFilePath);
                 return;
             }
@@ -1715,6 +1753,66 @@ namespace LaurentiuCristofor.Cabeiro
                     processingParameters);
 
             fileProcessor.ProcessFile();
+        }
+
+        private static void GenerateDistribution(
+            int seedValue,
+            ulong generationCount,
+            DataDistributionType dataDistributionType, string dataDistributionTypeString,
+            string[] generationArguments,
+            string outputFilePath)
+        {
+            DistributionGenerationParameters generationParameters = new DistributionGenerationParameters(
+                seedValue,
+                generationCount,
+                dataDistributionType,
+                (generationArguments.Length == 0) ? null : generationArguments[0]);
+
+            string outputFileExtension
+                = (seedValue >= 0)
+                ? $".{CabeiroConstants.Commands.GenerateDistribution}.{seedValue}.{dataDistributionTypeString.ToLower()}.{generationCount}"
+                : $".{CabeiroConstants.Commands.GenerateDistribution}.{dataDistributionTypeString.ToLower()}.{generationCount}";
+            var filePathBuilder = new FilePathBuilder(CabeiroConstants.Program.Name, outputFileExtension, generationArguments, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            BaseOutputParameters processingParameters = new BaseOutputParameters(
+                outputFilePath);
+
+            var fileGenerationProcessor
+                = new FileGenerationProcessor<DistributionGenerator, DistributionGenerationParameters>(
+                    generationParameters,
+                    processingParameters);
+
+            fileGenerationProcessor.GenerateFile();
+        }
+
+        private static void GenerateSample(
+            int seedValue,
+            ulong generationCount,
+            ulong totalCount,
+            string outputFilePath)
+        {
+            SampleGenerationParameters generationParameters = new SampleGenerationParameters(
+                seedValue,
+                generationCount,
+                totalCount);
+
+            string outputFileExtension
+                = (seedValue >= 0)
+                ? $".{CabeiroConstants.Commands.GenerateSample}.{seedValue}.{totalCount}.{generationCount}"
+                : $".{CabeiroConstants.Commands.GenerateSample}.{totalCount}.{generationCount}";
+            var filePathBuilder = new FilePathBuilder(CabeiroConstants.Program.Name, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            BaseOutputParameters processingParameters = new BaseOutputParameters(
+                outputFilePath);
+
+            var fileGenerationProcessor
+                = new FileGenerationProcessor<SampleGenerator, SampleGenerationParameters>(
+                    generationParameters,
+                    processingParameters);
+
+            fileGenerationProcessor.GenerateFile();
         }
     }
 }

@@ -806,5 +806,36 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 throw new CabeiroException($"Invalid value edit type argument: {argument}!");
             }
         }
+
+        /// <summary>
+        /// Parses argument value as a DataDistributionType indicator.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the DataDistributionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<DataDistributionType, int> ParseDataDistributionType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.DataDistributionTypeNormal))
+            {
+                return new Tuple<DataDistributionType, int>(DataDistributionType.Normal, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.DataDistributionTypeUniform))
+            {
+                return new Tuple<DataDistributionType, int>(DataDistributionType.Uniform, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.DataDistributionTypeExponential))
+            {
+                return new Tuple<DataDistributionType, int>(DataDistributionType.Exponential, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.DataDistributionTypePoisson))
+            {
+                return new Tuple<DataDistributionType, int>(DataDistributionType.Poisson, 1);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid data distribution type argument: {argument}!");
+            }
+        }
     }
 }

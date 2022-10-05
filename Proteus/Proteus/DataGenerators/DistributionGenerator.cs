@@ -1,0 +1,117 @@
+﻿////////////////////////////////////////////////////////////////////////////////////////////////////
+/// (c) Laurentiu Cristofor
+///
+/// This file is part of the Proteus Library and is made available under the MIT license.
+/// Do not use it if you have not received an associated LICENSE file.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.Types;
+using LaurentiuCristofor.Proteus.Common.Random;
+
+namespace LaurentiuCristofor.Proteus.DataGenerators
+{
+    /// <summary>
+    /// A data generator that emits data with a specific distribution.
+    /// </summary>
+    public class DistributionGenerator : IDataGenerator<DistributionGenerationParameters>
+    {
+        protected DistributionGenerationParameters Parameters { get; set; }
+
+        protected System.Random UniformGenerator { get; set; }
+
+        protected NormalGenerator NormalGenerator { get; set; }
+
+        protected ExponentialGenerator ExponentialGenerator { get; set; }
+
+        protected PoissonGenerator PoissonGenerator { get; set; }
+
+        protected ulong GeneratedCount { get; set; }
+
+        public void Initialize(DistributionGenerationParameters generationParameters)
+        {
+            this.Parameters = generationParameters;
+            this.GeneratedCount = 0;
+
+            // We always initialize the uniform distribution generator,
+            // so that it can be used by any other generator.
+            // If we have a positive seed value, use it for the initialization.
+            //
+            if (generationParameters.Seed >= 0)
+            {
+                this.UniformGenerator = new System.Random(generationParameters.Seed);
+            }
+            else
+            {
+                this.UniformGenerator = new System.Random();
+            }
+
+            switch (this.Parameters.DistributionType)
+            {
+                case DataDistributionType.Uniform:
+                    // Nothing to do - we already initialized the generator.
+                    //
+                    break;
+
+                case DataDistributionType.Normal:
+                    this.NormalGenerator = new NormalGenerator(this.UniformGenerator);
+                    break;
+
+                case DataDistributionType.Exponential:
+                    {
+                        ArgumentChecker.CheckNotNull(this.Parameters.DistributionMean);
+
+                        double mean = double.Parse(this.Parameters.DistributionMean);
+
+                        this.ExponentialGenerator = new ExponentialGenerator(mean, this.UniformGenerator);
+                        break;
+                    }
+
+                case DataDistributionType.Poisson:
+                    {
+                        ArgumentChecker.CheckNotNull(this.Parameters.DistributionMean);
+
+                        ulong mean = ulong.Parse(this.Parameters.DistributionMean);
+
+                        this.PoissonGenerator = new PoissonGenerator(mean, this.UniformGenerator);
+                        break;
+                    }
+
+                default:
+                    throw new ProteusException($"Internal error: Proteus is not handling data distribution type '{this.Parameters.DistributionType}'!");
+            }
+        }
+
+        public string Generate()
+        {
+            // Indicate end of generation if we achieved the requested output.
+            //
+            if (this.GeneratedCount == this.Parameters.GenerationCount)
+            {
+                return null;
+            }
+
+            // Count this data generation.
+            //
+            ++this.GeneratedCount;
+
+            switch (this.Parameters.DistributionType)
+            {
+                case DataDistributionType.Uniform:
+                    return this.UniformGenerator.NextDouble().ToString();
+
+                case DataDistributionType.Normal:
+                    return this.NormalGenerator.NextGaussian().ToString();
+
+                case DataDistributionType.Exponential:
+                    return this.ExponentialGenerator.NextDouble().ToString();
+
+                case DataDistributionType.Poisson:
+                    return this.PoissonGenerator.NextULong().ToString();
+
+                default:
+                    throw new ProteusException($"Internal error: Proteus is not handling data distribution type '{this.Parameters.DistributionType}'!");
+            }
+        }
+    }
+}

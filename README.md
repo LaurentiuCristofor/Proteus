@@ -140,6 +140,13 @@ Some of these commands provide memory-efficient alternatives to commands from ot
 * JLPS - (J)oin (L)ines (P)ost (S)orting
 * FST - (F)ind (S)tate (T)ransitions
 
+#### GENERATION commands
+
+These commands generate data.
+
+* GEND - (GEN)erate (D)istribution
+* GENS - (GEN)erate (S)ample
+
 ## History
 
 Around 2007, I was working on a project that involved analyzing log files and I found that I often needed to perform various simple filtering and editing operations on these files.
