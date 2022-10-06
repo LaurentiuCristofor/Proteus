@@ -324,6 +324,10 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\n'{Commands.Arguments.Category}' will list all commands in the {Commands.Arguments.Descriptions.CategoryName} category."
                         ;
 
+                    public const string LimitValues = "<limit_values>";
+
+                    public static readonly string LimitValuesText = $"{Constants.Commands.Arguments.Descriptions.LimitValues} specifies how many values should be presented from the most frequent and least frequent sets of values; set this value to 0 if you want the command to produce a dump of all unique values encountered.";
+
                     public const string DataType = "<data_type>";
 
                     public static readonly string DataTypeText = $"{Constants.Commands.Arguments.Descriptions.DataType} can take the values:"
@@ -334,92 +338,9 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.DataTypeDateTime}' = datetime"
                         ;
 
-                    public const string ComparisonType = "<comparison_type>";
+                    public const string NewFirstColumnsList = "<new_first_columns_list>";
 
-                    public static readonly string ComparisonTypeText = $"{Constants.Commands.Arguments.Descriptions.ComparisonType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeLessThan}' = less than; arguments: <value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeLessThanOrEqual}' = less than or equal; arguments: <value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeEqual}' = equal; arguments: <value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeGreaterThanOrEqual}' = greater than or equal; arguments: <value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeGreaterThan}' = greater than; arguments: <value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeNotEqual}' = not equal; arguments: <value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeBetween}' = between; arguments: <start_value> <end_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeStrictlyBetween}' = strictly between; arguments: <start_value> <end_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeNotBetween}' = not between; arguments: <start_value> <end_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeNotStrictlyBetween}' = not strictly between; arguments: <start_value> <end_value>"
-                        ;
-
-                    public const string SelectionType = "<selection_type>";
-
-                    public static readonly string PositionSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionTypeBetween}' = between; arguments: <start_value> <end_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionTypeNotBetween}' = not between; arguments: <start_value> <end_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionTypeLast}' = last; arguments: <last_count>"
-                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionTypeNotLast}' = not last; arguments: <last_count>"
-                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionTypeEach}' = each; arguments: <each_count>"
-                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionTypeNotEach}' = not each; arguments: <each_count>"
-                        ;
-
-                    public const string InsertionType = "<insertion_type>";
-
-                    public static readonly string PositionInsertionTypeText = $"{Constants.Commands.Arguments.Descriptions.InsertionType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionTypePosition}' = position; arguments: <line_number>"
-                        + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionTypeEach}' = each; arguments: <each_count>"
-                        + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionTypeLast}' = last"
-                        ;
-
-                    public static readonly string RelativeLineSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.RelativeValueSelectionFirst}' = first occurrence"
-                        + $"\n\t- '{Constants.Commands.Arguments.RelativeValueSelectionNotFirst}' = not first occurrence"
-                        ;
-
-                    public static readonly string RelativeValueSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.RelativeValueSelectionFirst}' = first occurrence"
-                        + $"\n\t- '{Constants.Commands.Arguments.RelativeValueSelectionNotFirst}' = not first occurrence"
-                        + $"\n\t- '{Constants.Commands.Arguments.RelativeValueSelectionLast}' = last occurrence"
-                        + $"\n\t- '{Constants.Commands.Arguments.RelativeValueSelectionNotLast}' = not last occurrence"
-                        ;
-
-                    public const string JoinType = "<join_type>";
-
-                    public static readonly string JoinTypeText = $"{Constants.Commands.Arguments.Descriptions.JoinType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.JoinTypeInner}' = inner - omit lines not matching second file"
-                        + $"\n\t- '{Constants.Commands.Arguments.JoinTypeLeftOuter}' = left outer - include lines not matching second file"
-                        ;
-
-                    public const string LookupType = "<lookup_type>";
-
-                    public static readonly string LookupTypeText = $"{Constants.Commands.Arguments.Descriptions.LookupType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.LookupTypeIncluded}' = included - include lines matching lookup file content"
-                        + $"\n\t- '{Constants.Commands.Arguments.LookupTypeNotIncluded}' = not included - include lines not matching lookup file content"
-                        ;
-
-                    public const string TransformationType = "<transformation_type>";
-
-                    public static readonly string LineTransformationTypeText = $"{Constants.Commands.Arguments.Descriptions.TransformationType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.LineTransformationTypeBreak}' = break a line into a line for each column"
-                        + $"\n\t- '{Constants.Commands.Arguments.LineTransformationTypeUnite}' = unite a sequence of lines into a single line; arguments <sequence_size>"
-                        ;
-
-                    public static readonly string ColumnTransformationTypeText = $"{Constants.Commands.Arguments.Descriptions.TransformationType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.ColumnTransformationTypePack}' = pack column range; arguments: <start_column_number> <end_column_number> <packing_separator>"
-                        + $"\n\t- '{Constants.Commands.Arguments.ColumnTransformationTypeUnpack}' = unpack column; arguments: <column_number> <packing_separator>"
-                        ;
-
-                    public static readonly string StringSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeHasLengthBetween}' = has length between; arguments: <start_value> <end_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeHasLengthNotBetween}' = has length not between; arguments: <start_value> <end_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeIncludes }' = includes; arguments: <string_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotIncludes}' = not includes; arguments: <string_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeStartsWith}' = starts with; arguments: <string_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotStartsWith}' = not starts with; arguments: <string_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeEndsWith}' = ends with; arguments: <string_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotEndsWith}' = not ends with; arguments: <string_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeStartsAndEndsWith}' = starts and ends with; arguments: <starting_value> <ending_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotStartsAndEndsWith}' = not starts and ends with; arguments: <starting_value> <ending_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeEquals}' = equals; arguments: <string_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotEquals}' = not equals; arguments: <string_value>"
-                        ;
+                    public static readonly string NewFirstColumnsListText = $"{Constants.Commands.Arguments.Descriptions.NewFirstColumnsList} is a comma-separated list of column numbers representing the new order of columns requested. Unspecified columns will appear after the specified ones, in their initial order.";
 
                     public const string EditType = "<edit_type>";
 
@@ -485,6 +406,95 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.ValueEditTypeDivide}' = divide; arguments: <value>"
                         + "\nSome edit types are not supported by some data types.";
 
+                    public const string InsertionType = "<insertion_type>";
+
+                    public static readonly string PositionInsertionTypeText = $"{Constants.Commands.Arguments.Descriptions.InsertionType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionTypePosition}' = position; arguments: <line_number>"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionTypeEach}' = each; arguments: <each_count>"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionInsertionTypeLast}' = last"
+                        ;
+
+                    public const string JoinType = "<join_type>";
+
+                    public static readonly string JoinTypeText = $"{Constants.Commands.Arguments.Descriptions.JoinType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.JoinTypeInner}' = inner - omit lines not matching second file"
+                        + $"\n\t- '{Constants.Commands.Arguments.JoinTypeLeftOuter}' = left outer - include lines not matching second file"
+                        ;
+
+                    public const string TransformationType = "<transformation_type>";
+
+                    public static readonly string LineTransformationTypeText = $"{Constants.Commands.Arguments.Descriptions.TransformationType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.LineTransformationTypeBreak}' = break a line into a line for each column"
+                        + $"\n\t- '{Constants.Commands.Arguments.LineTransformationTypeUnite}' = unite a sequence of lines into a single line; arguments <sequence_size>"
+                        ;
+
+                    public static readonly string LineTransformationTypeUniteText = $"'{Constants.Commands.Arguments.LineTransformationTypeUnite}' will skip the last <input_file_size> % <sequence_size> lines.";
+
+                    public static readonly string ColumnTransformationTypeText = $"{Constants.Commands.Arguments.Descriptions.TransformationType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.ColumnTransformationTypePack}' = pack column range; arguments: <start_column_number> <end_column_number> <packing_separator>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ColumnTransformationTypeUnpack}' = unpack column; arguments: <column_number> <packing_separator>"
+                        ;
+
+                    public const string ComparisonType = "<comparison_type>";
+
+                    public static readonly string ComparisonTypeText = $"{Constants.Commands.Arguments.Descriptions.ComparisonType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeLessThan}' = less than; arguments: <value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeLessThanOrEqual}' = less than or equal; arguments: <value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeEqual}' = equal; arguments: <value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeGreaterThanOrEqual}' = greater than or equal; arguments: <value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeGreaterThan}' = greater than; arguments: <value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeNotEqual}' = not equal; arguments: <value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeBetween}' = between; arguments: <start_value> <end_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeStrictlyBetween}' = strictly between; arguments: <start_value> <end_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeNotBetween}' = not between; arguments: <start_value> <end_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeNotStrictlyBetween}' = not strictly between; arguments: <start_value> <end_value>"
+                        ;
+
+                    public const string SelectionType = "<selection_type>";
+
+                    public static readonly string PositionSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionTypeBetween}' = between; arguments: <start_value> <end_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionTypeNotBetween}' = not between; arguments: <start_value> <end_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionTypeLast}' = last; arguments: <last_count>"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionTypeNotLast}' = not last; arguments: <last_count>"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionTypeEach}' = each; arguments: <each_count>"
+                        + $"\n\t- '{Constants.Commands.Arguments.PositionSelectionTypeNotEach}' = not each; arguments: <each_count>"
+                        ;
+
+                    public static readonly string StringSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeHasLengthBetween}' = has length between; arguments: <start_value> <end_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeHasLengthNotBetween}' = has length not between; arguments: <start_value> <end_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeIncludes }' = includes; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotIncludes}' = not includes; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeStartsWith}' = starts with; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotStartsWith}' = not starts with; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeEndsWith}' = ends with; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotEndsWith}' = not ends with; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeStartsAndEndsWith}' = starts and ends with; arguments: <starting_value> <ending_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotStartsAndEndsWith}' = not starts and ends with; arguments: <starting_value> <ending_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeEquals}' = equals; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotEquals}' = not equals; arguments: <string_value>"
+                        ;
+
+                    public static readonly string RelativeLineSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.RelativeValueSelectionFirst}' = first occurrence"
+                        + $"\n\t- '{Constants.Commands.Arguments.RelativeValueSelectionNotFirst}' = not first occurrence"
+                        ;
+
+                    public static readonly string RelativeValueSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.RelativeValueSelectionFirst}' = first occurrence"
+                        + $"\n\t- '{Constants.Commands.Arguments.RelativeValueSelectionNotFirst}' = not first occurrence"
+                        + $"\n\t- '{Constants.Commands.Arguments.RelativeValueSelectionLast}' = last occurrence"
+                        + $"\n\t- '{Constants.Commands.Arguments.RelativeValueSelectionNotLast}' = not last occurrence"
+                        ;
+
+                    public const string LookupType = "<lookup_type>";
+
+                    public static readonly string LookupTypeText = $"{Constants.Commands.Arguments.Descriptions.LookupType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.LookupTypeIncluded}' = included - include lines matching lookup file content"
+                        + $"\n\t- '{Constants.Commands.Arguments.LookupTypeNotIncluded}' = not included - include lines not matching lookup file content"
+                        ;
+
                     public static readonly string SeedValueText = $"{Constants.Commands.Arguments.Descriptions.SeedValue} is an integer value that can be used to initialize the RNG for repeatable results. To not use a seed, just set this parameter to any negative value.";
 
                     public const string DataDistributionType = "<data_distribution_type>";
@@ -495,14 +505,6 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.DataDistributionTypeExponential}' = exponential; arguments: <distribution_mean> (double)"
                         + $"\n\t- '{Constants.Commands.Arguments.DataDistributionTypePoisson}' = Poisson; arguments: <distribution_mean> (ulong)"
                         ;
-
-                    public const string LimitValues = "<limit_values>";
-
-                    public static readonly string LimitValuesText = $"{Constants.Commands.Arguments.Descriptions.LimitValues} specifies how many values should be presented from the most frequent and least frequent sets of values; set this value to 0 if you want the command to produce a dump of all unique values encountered.";
-
-                    public const string NewFirstColumnsList = "<new_first_columns_list>";
-
-                    public static readonly string NewFirstColumnsListText = $"{Constants.Commands.Arguments.Descriptions.NewFirstColumnsList} is a comma-separated list of column numbers representing the new order of columns requested. Unspecified columns will appear after the specified ones, in their initial order.";
                 }
             }
         }

@@ -262,6 +262,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument}]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.LineTransformationTypeText}"
+                + $"\n\n{CabeiroConstants.Commands.Arguments.Descriptions.LineTransformationTypeUniteText}"
                 + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
 
