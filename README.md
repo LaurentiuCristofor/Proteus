@@ -85,6 +85,7 @@ These commands change the order of the lines or columns of a file.
 * I - (I)nvert file
 * S - (S)ort file
 * SBCV - (S)ort file (B)y (C)olumn (V)alue
+* SH - (SH)uffle file
 * OC - (O)rder (C)olumns
 
 #### EDITING commands
@@ -98,6 +99,7 @@ You can edit data, insert new data, or combine data from two files.
 * IL - (I)nsert (L)ine
 * JL - (J)oin (L)ines
 * CL - (C)oncatenate (L)ines
+* TL - (T)ransform (L)ines
 * TC - (T)ransform (C)olumns
 
 #### SELECTION commands
@@ -116,6 +118,7 @@ To handle duplicate values, use the "(R)elative to other lines" selection comman
 * SLBCVR - (S)elect (L)ines (B)y (C)olumn (V)alue (R)elative to other lines
 * SLBLIF - (S)elect (L)ines (B)y (L)ookup (I)n (F)ile
 * SLBCVLIF - (S)elect (L)ines (B)y (C)olumn (V)alue (L)ookup (I)n (F)ile
+* SLS - (S)elect (L)ines (S)ample
 
 #### SPLITTING commands
 
@@ -139,6 +142,13 @@ Some of these commands provide memory-efficient alternatives to commands from ot
 * SLPSBCVLIF - (S)elect (L)ines (P)ost (S)orting (B)y (C)olumn (V)alue (L)ookup (I)n (F)ile
 * JLPS - (J)oin (L)ines (P)ost (S)orting
 * FST - (F)ind (S)tate (T)ransitions
+
+#### GENERATION commands
+
+These commands generate data.
+
+* GEND - (GEN)erate (D)istribution
+* GENS - (GEN)erate (S)ample
 
 ## History
 

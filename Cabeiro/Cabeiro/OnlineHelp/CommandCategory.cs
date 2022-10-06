@@ -21,5 +21,6 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
         Selection = 5,
         Splitting = 6,
         Post_Sorting = 7,
+        Generation = 8,
     }
 }

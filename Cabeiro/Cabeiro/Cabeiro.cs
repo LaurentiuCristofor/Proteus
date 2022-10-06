@@ -14,6 +14,7 @@ using LaurentiuCristofor.Proteus.Common.DataHolders;
 using LaurentiuCristofor.Proteus.Common.Logging;
 using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.DataExtractors;
+using LaurentiuCristofor.Proteus.DataGenerators;
 using LaurentiuCristofor.Proteus.DataProcessors;
 using LaurentiuCristofor.Proteus.DataProcessors.Dual;
 using LaurentiuCristofor.Proteus.DataProcessors.Lookup;
@@ -69,7 +70,7 @@ namespace LaurentiuCristofor.Cabeiro
         private static void ValidateProteusVersion()
         {
             const int expectedProteusMajorVersion = 1;
-            const int expectedProteusMinorVersion = 0;
+            const int expectedProteusMinorVersion = 2;
 
             AssemblyName proteusInfo = ProteusInfo.GetAssemblyInfo();
             AssemblyName cabeiroInfo = CabeiroInfo.GetAssemblyInfo();
@@ -202,7 +203,7 @@ namespace LaurentiuCristofor.Cabeiro
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SortByColumnValue))
             {
                 const int minimumArgumentNumber = 5;
-                const int maximumArgumentNumber = 8;
+                const int maximumArgumentNumber = 6;
                 ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
                 string inputFilePath = arguments[1];
@@ -216,6 +217,20 @@ namespace LaurentiuCristofor.Cabeiro
                     columnNumber,
                     columnSeparator,
                     dataType, arguments[4],
+                    outputFilePath);
+                return;
+            }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.Shuffle))
+            {
+                const int minimumArgumentNumber = 2;
+                const int maximumArgumentNumber = 3;
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
+
+                string inputFilePath = arguments[1];
+                ArgumentParser.ExtractLastArguments(0, 2, arguments, out _, out string outputFilePath);
+
+                ShuffleFile(
+                    inputFilePath,
                     outputFilePath);
                 return;
             }
@@ -277,7 +292,7 @@ namespace LaurentiuCristofor.Cabeiro
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.EditColumnValues))
             {
-                const int minimumArgumentNumber = 5;
+                const int minimumArgumentNumber = 6;
                 const int maximumArgumentNumber = 8;
                 ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
@@ -363,6 +378,25 @@ namespace LaurentiuCristofor.Cabeiro
                     firstFilePath,
                     secondFilePath,
                     columnSeparator,
+                    outputFilePath);
+                return;
+            }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.TransformLines))
+            {
+                const int minimumArgumentNumber = 4;
+                const int maximumArgumentNumber = 6;
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
+
+                string inputFilePath = arguments[1];
+                string columnSeparator = ArgumentParser.ParseSeparator(arguments[2]);
+                Tuple<LineTransformationType, int> operationInfo = ArgumentParser.ParseLineTransformationType(arguments[3]);
+                ArgumentParser.ExtractLastArguments(operationInfo.Item2, 4, arguments, out string[] operationArguments, out string outputFilePath);
+
+                TransformLines(
+                    inputFilePath,
+                    columnSeparator,
+                    operationInfo.Item1, arguments[3],
+                    operationArguments,
                     outputFilePath);
                 return;
             }
@@ -504,8 +538,8 @@ namespace LaurentiuCristofor.Cabeiro
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByLineStringRelativeToOtherLines)
                 || ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByLineStringRelativeToOtherLines))
             {
-                const int minimumArgumentNumber = 2;
-                const int maximumArgumentNumber = 3;
+                const int minimumArgumentNumber = 3;
+                const int maximumArgumentNumber = 4;
                 ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
                 string inputFilePath = arguments[1];
@@ -524,8 +558,8 @@ namespace LaurentiuCristofor.Cabeiro
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByColumnValueRelativeToOtherLines)
                 || ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesPostSortingByColumnValueRelativeToOtherLines))
             {
-                const int minimumArgumentNumber = 5;
-                const int maximumArgumentNumber = 6;
+                const int minimumArgumentNumber = 6;
+                const int maximumArgumentNumber = 7;
                 ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
                 string inputFilePath = arguments[1];
@@ -599,6 +633,22 @@ namespace LaurentiuCristofor.Cabeiro
                     outputFilePath);
                 return;
             }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesSample))
+            {
+                const int minimumArgumentNumber = 3;
+                const int maximumArgumentNumber = 4;
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
+
+                string inputFilePath = arguments[1];
+                int sampleSize = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
+                ArgumentParser.ExtractLastArguments(0, 3, arguments, out _, out string outputFilePath);
+
+                SelectLinesSample(
+                    inputFilePath,
+                    sampleSize,
+                    outputFilePath);
+                return;
+            }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SplitLineRanges))
             {
                 const int minimumArgumentNumber = 3;
@@ -654,7 +704,7 @@ namespace LaurentiuCristofor.Cabeiro
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SortBySecondColumnValue))
             {
                 const int minimumArgumentNumber = 7;
-                const int maximumArgumentNumber = 10;
+                const int maximumArgumentNumber = 8;
                 ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
                 string inputFilePath = arguments[1];
@@ -716,7 +766,7 @@ namespace LaurentiuCristofor.Cabeiro
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.FindStateTransitions))
             {
                 const int minimumArgumentNumber = 7;
-                const int maximumArgumentNumber = 10;
+                const int maximumArgumentNumber = 8;
                 ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
                 string inputFilePath = arguments[1];
@@ -734,6 +784,43 @@ namespace LaurentiuCristofor.Cabeiro
                     secondDataType, arguments[4],
                     firstColumnNumber,
                     firstDataType,
+                    outputFilePath);
+                return;
+            }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.GenerateDistribution))
+            {
+                const int minimumArgumentNumber = 4;
+                const int maximumArgumentNumber = 6;
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
+
+                int seedValue = int.Parse(arguments[1]);
+                ulong generationCount = ArgumentParser.GetUnsignedLongInteger(arguments[2]);
+                Tuple<DataDistributionType, int> distributionInfo = ArgumentParser.ParseDataDistributionType(arguments[3]);
+                ArgumentParser.ExtractLastArguments(distributionInfo.Item2, 4, arguments, out string[] generationArguments, out string outputFilePath);
+
+                GenerateDistribution(
+                    seedValue,
+                    generationCount,
+                    distributionInfo.Item1, arguments[3],
+                    generationArguments,
+                    outputFilePath);
+                return;
+            }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.GenerateSample))
+            {
+                const int minimumArgumentNumber = 4;
+                const int maximumArgumentNumber = 5;
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
+
+                int seedValue = int.Parse(arguments[1]);
+                ulong generationCount = ArgumentParser.GetUnsignedLongInteger(arguments[2]);
+                ulong totalCount = ArgumentParser.GetUnsignedLongInteger(arguments[3]);
+                ArgumentParser.ExtractLastArguments(0, 4, arguments, out _, out string outputFilePath);
+
+                GenerateSample(
+                    seedValue,
+                    generationCount,
+                    totalCount,
                     outputFilePath);
                 return;
             }
@@ -854,6 +941,26 @@ namespace LaurentiuCristofor.Cabeiro
                 = new FileProcessor<OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue, SortByColumnValueProcessor, BaseOutputParameters>(
                     inputFilePath,
                     extractionParameters,
+                    processingParameters);
+
+            fileProcessor.ProcessFile();
+        }
+
+        private static void ShuffleFile(
+            string inputFilePath,
+            string outputFilePath)
+        {
+            string outputFileExtension = $".{CabeiroConstants.Commands.Shuffle}";
+            var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            BaseOutputParameters processingParameters = new BaseOutputParameters(
+                outputFilePath);
+
+            var fileProcessor
+                = new FileProcessor<LineExtractor, Unused, string, ShuffleProcessor, BaseOutputParameters>(
+                    inputFilePath,
+                    /*extractionParameters:*/ null,
                     processingParameters);
 
             fileProcessor.ProcessFile();
@@ -1103,6 +1210,34 @@ namespace LaurentiuCristofor.Cabeiro
                     processingParameters);
 
             dualFileProcessor.ProcessFiles();
+        }
+
+        private static void TransformLines(
+            string inputFilePath,
+            string columnSeparator,
+            LineTransformationType transformationType, string transformationTypeString,
+            string[] transformationArguments,
+            string outputFilePath)
+        {
+            ColumnStringsExtractionParameters extractionParameters = new ColumnStringsExtractionParameters(
+                columnSeparator);
+
+            string outputFileExtension = $".{CabeiroConstants.Commands.TransformLines}.{transformationTypeString.ToLower()}";
+            var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, transformationArguments, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            OutputOperationParameters<LineTransformationType> processingParameters = new OutputOperationParameters<LineTransformationType>(
+                outputFilePath,
+                transformationType,
+                transformationArguments);
+
+            var fileProcessor
+                = new FileProcessor<ColumnStringsExtractor, ColumnStringsExtractionParameters, ExtractedColumnStrings, TransformLinesProcessor, OutputOperationParameters<LineTransformationType>>(
+                    inputFilePath,
+                    extractionParameters,
+                    processingParameters);
+
+            fileProcessor.ProcessFile();
         }
 
         private static void TransformColumns(
@@ -1500,6 +1635,28 @@ namespace LaurentiuCristofor.Cabeiro
             }
         }
 
+        private static void SelectLinesSample(
+            string inputFilePath,
+            int sampleSize,
+            string outputFilePath)
+        {
+            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesSample}.{sampleSize}";
+            var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            OutputIntParameters processingParameters = new OutputIntParameters(
+                outputFilePath,
+                sampleSize);
+
+            var fileProcessor
+                = new FileProcessor<LineExtractor, Unused, string, SampleProcessor, OutputIntParameters>(
+                    inputFilePath,
+                    /*extractionParameters:*/ null,
+                    processingParameters);
+
+            fileProcessor.ProcessFile();
+        }
+
         private static void SplitLineRanges(
             string inputFilePath,
             ulong rangeSize,
@@ -1715,6 +1872,66 @@ namespace LaurentiuCristofor.Cabeiro
                     processingParameters);
 
             fileProcessor.ProcessFile();
+        }
+
+        private static void GenerateDistribution(
+            int seedValue,
+            ulong generationCount,
+            DataDistributionType dataDistributionType, string dataDistributionTypeString,
+            string[] generationArguments,
+            string outputFilePath)
+        {
+            DistributionGenerationParameters generationParameters = new DistributionGenerationParameters(
+                seedValue,
+                generationCount,
+                dataDistributionType,
+                (generationArguments.Length == 0) ? null : generationArguments[0]);
+
+            string outputFileExtension
+                = (seedValue >= 0)
+                ? $".{CabeiroConstants.Commands.GenerateDistribution}.{seedValue}.{dataDistributionTypeString.ToLower()}.{generationCount}"
+                : $".{CabeiroConstants.Commands.GenerateDistribution}.{dataDistributionTypeString.ToLower()}.{generationCount}";
+            var filePathBuilder = new FilePathBuilder(CabeiroConstants.Program.Name, outputFileExtension, generationArguments, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            BaseOutputParameters processingParameters = new BaseOutputParameters(
+                outputFilePath);
+
+            var fileGenerationProcessor
+                = new FileGenerationProcessor<DistributionGenerator, DistributionGenerationParameters>(
+                    generationParameters,
+                    processingParameters);
+
+            fileGenerationProcessor.GenerateFile();
+        }
+
+        private static void GenerateSample(
+            int seedValue,
+            ulong generationCount,
+            ulong totalCount,
+            string outputFilePath)
+        {
+            SampleGenerationParameters generationParameters = new SampleGenerationParameters(
+                seedValue,
+                generationCount,
+                totalCount);
+
+            string outputFileExtension
+                = (seedValue >= 0)
+                ? $".{CabeiroConstants.Commands.GenerateSample}.{seedValue}.{totalCount}.{generationCount}"
+                : $".{CabeiroConstants.Commands.GenerateSample}.{totalCount}.{generationCount}";
+            var filePathBuilder = new FilePathBuilder(CabeiroConstants.Program.Name, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            BaseOutputParameters processingParameters = new BaseOutputParameters(
+                outputFilePath);
+
+            var fileGenerationProcessor
+                = new FileGenerationProcessor<SampleGenerator, SampleGenerationParameters>(
+                    generationParameters,
+                    processingParameters);
+
+            fileGenerationProcessor.GenerateFile();
         }
     }
 }

@@ -244,316 +244,6 @@ namespace LaurentiuCristofor.Cabeiro.Common
         }
 
         /// <summary>
-        /// Parses argument value as a ComparisonType indicator.
-        /// </summary>
-        /// <param name="argument">The argument value to parse.</param>
-        /// <returns>A tuple containing the ComparisonType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
-        public static Tuple<ComparisonType, int> ParseComparisonType(string argument)
-        {
-            string lowercaseValue = argument.ToLower();
-
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeLessThan))
-            {
-                return new Tuple<ComparisonType, int>(ComparisonType.LessThan, 1);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeLessThanOrEqual))
-            {
-                return new Tuple<ComparisonType, int>(ComparisonType.LessThanOrEqual, 1);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeEqual))
-            {
-                return new Tuple<ComparisonType, int>(ComparisonType.Equal, 1);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeGreaterThanOrEqual))
-            {
-                return new Tuple<ComparisonType, int>(ComparisonType.GreaterThanOrEqual, 1);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeGreaterThan))
-            {
-                return new Tuple<ComparisonType, int>(ComparisonType.GreaterThan, 1);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeNotEqual))
-            {
-                return new Tuple<ComparisonType, int>(ComparisonType.NotEqual, 1);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeBetween))
-            {
-                return new Tuple<ComparisonType, int>(ComparisonType.Between, 2);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeStrictlyBetween))
-            {
-                return new Tuple<ComparisonType, int>(ComparisonType.StrictlyBetween, 2);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeNotBetween))
-            {
-                return new Tuple<ComparisonType, int>(ComparisonType.NotBetween, 2);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeNotStrictlyBetween))
-            {
-                return new Tuple<ComparisonType, int>(ComparisonType.NotStrictlyBetween, 2);
-            }
-            else
-            {
-                throw new CabeiroException($"Invalid comparison type argument: {argument}!");
-            }
-        }
-
-        /// <summary>
-        /// Parses argument value as a PositionSelectionType indicator.
-        /// </summary>
-        /// <param name="argument">The argument value to parse.</param>
-        /// <returns>A tuple containing the PositionSelectionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
-        public static Tuple<PositionSelectionType, int> ParsePositionSelectionType(string argument)
-        {
-            string lowercaseValue = argument.ToLower();
-
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionTypeBetween))
-            {
-                return new Tuple<PositionSelectionType, int>(PositionSelectionType.Between, 2);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionTypeNotBetween))
-            {
-                return new Tuple<PositionSelectionType, int>(PositionSelectionType.NotBetween, 2);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionTypeLast))
-            {
-                return new Tuple<PositionSelectionType, int>(PositionSelectionType.Last, 1);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionTypeNotLast))
-            {
-                return new Tuple<PositionSelectionType, int>(PositionSelectionType.NotLast, 1);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionTypeEach))
-            {
-                return new Tuple<PositionSelectionType, int>(PositionSelectionType.Each, 1);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionTypeNotEach))
-            {
-                return new Tuple<PositionSelectionType, int>(PositionSelectionType.NotEach, 1);
-            }
-            else
-            {
-                throw new CabeiroException($"Invalid position selection type argument: {argument}!");
-            }
-        }
-
-        /// <summary>
-        /// Parses argument value as a PositionInsertionType indicator.
-        /// </summary>
-        /// <param name="argument">The argument value to parse.</param>
-        /// <returns>A tuple containing the PositionInsertionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
-        public static Tuple<PositionInsertionType, int> ParsePositionInsertionType(string argument)
-        {
-            string lowercaseValue = argument.ToLower();
-
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionInsertionTypePosition))
-            {
-                return new Tuple<PositionInsertionType, int>(PositionInsertionType.Position, 1);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionInsertionTypeEach))
-            {
-                return new Tuple<PositionInsertionType, int>(PositionInsertionType.Each, 1);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionInsertionTypeLast))
-            {
-                return new Tuple<PositionInsertionType, int>(PositionInsertionType.Last, 0);
-            }
-            else
-            {
-                throw new CabeiroException($"Invalid position insertion type argument: {argument}!");
-            }
-        }
-
-        /// <summary>
-        /// Parses argument value as a RelativeValueSelectionType indicator for line selection.
-        ///
-        /// Some RelativeValueSelectionType values are redundant in the case of line selection
-        /// so they are not exposed.
-        /// </summary>
-        /// <param name="argument">The argument value to parse.</param>
-        /// <returns>A tuple containing the RelativeValueSelectionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
-        public static Tuple<RelativeValueSelectionType, int> ParseRelativeLineSelectionType(string argument)
-        {
-            string lowercaseValue = argument.ToLower();
-
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.RelativeValueSelectionFirst))
-            {
-                return new Tuple<RelativeValueSelectionType, int>(RelativeValueSelectionType.First, 0);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.RelativeValueSelectionNotFirst))
-            {
-                return new Tuple<RelativeValueSelectionType, int>(RelativeValueSelectionType.NotFirst, 0);
-            }
-            else
-            {
-                throw new CabeiroException($"Invalid relative value selection type argument: {argument}!");
-            }
-        }
-
-        /// <summary>
-        /// Parses argument value as a RelativeValueSelectionType indicator.
-        /// </summary>
-        /// <param name="argument">The argument value to parse.</param>
-        /// <returns>A tuple containing the RelativeValueSelectionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
-        public static Tuple<RelativeValueSelectionType, int> ParseRelativeValueSelectionType(string argument)
-        {
-            string lowercaseValue = argument.ToLower();
-
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.RelativeValueSelectionFirst))
-            {
-                return new Tuple<RelativeValueSelectionType, int>(RelativeValueSelectionType.First, 0);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.RelativeValueSelectionNotFirst))
-            {
-                return new Tuple<RelativeValueSelectionType, int>(RelativeValueSelectionType.NotFirst, 0);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.RelativeValueSelectionLast))
-            {
-                return new Tuple<RelativeValueSelectionType, int>(RelativeValueSelectionType.Last, 0);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.RelativeValueSelectionNotLast))
-            {
-                return new Tuple<RelativeValueSelectionType, int>(RelativeValueSelectionType.NotLast, 0);
-            }
-            else
-            {
-                throw new CabeiroException($"Invalid relative value selection type argument: {argument}!");
-            }
-        }
-
-        /// <summary>
-        /// Parses argument value as a JoinType indicator.
-        /// </summary>
-        /// <param name="argument">The argument value to parse.</param>
-        /// <returns>A tuple containing the JoinType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
-        public static Tuple<JoinType, int> ParseJoinType(string argument)
-        {
-            string lowercaseValue = argument.ToLower();
-
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.JoinTypeInner))
-            {
-                return new Tuple<JoinType, int>(JoinType.Inner, 0);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.JoinTypeLeftOuter))
-            {
-                return new Tuple<JoinType, int>(JoinType.LeftOuter, 1);
-            }
-            else
-            {
-                throw new CabeiroException($"Invalid join type argument: {argument}!");
-            }
-        }
-
-        /// <summary>
-        /// Parses argument value as a LookupType indicator.
-        /// </summary>
-        /// <param name="argument">The argument value to parse.</param>
-        /// <returns>A tuple containing the LookupType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
-        public static Tuple<LookupType, int> ParseLookupType(string argument)
-        {
-            string lowercaseValue = argument.ToLower();
-
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.LookupTypeIncluded))
-            {
-                return new Tuple<LookupType, int>(LookupType.Included, 0);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.LookupTypeNotIncluded))
-            {
-                return new Tuple<LookupType, int>(LookupType.NotIncluded, 0);
-            }
-            else
-            {
-                throw new CabeiroException($"Invalid lookup type argument: {argument}!");
-            }
-        }
-
-        /// <summary>
-        /// Parses argument value as a ColumnTransformationType indicator.
-        /// </summary>
-        /// <param name="argument">The argument value to parse.</param>
-        /// <returns>A tuple containing the ColumnTransformationType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
-        public static Tuple<ColumnTransformationType, int> ParseColumnTransformationType(string argument)
-        {
-            string lowercaseValue = argument.ToLower();
-
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.ColumnTransformationTypePack))
-            {
-                return new Tuple<ColumnTransformationType, int>(ColumnTransformationType.Pack, 3);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ColumnTransformationTypeUnpack))
-            {
-                return new Tuple<ColumnTransformationType, int>(ColumnTransformationType.Unpack, 2);
-            }
-            else
-            {
-                throw new CabeiroException($"Invalid column transformation type argument: {argument}!");
-            }
-        }
-
-        /// <summary>
-        /// Parses argument value as a StringSelectionType indicator.
-        /// </summary>
-        /// <param name="argument">The argument value to parse.</param>
-        /// <returns>A tuple containing the StringSelectionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
-        public static Tuple<StringSelectionType, int> ParseStringSelectionType(string argument)
-        {
-            string lowercaseValue = argument.ToLower();
-
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeHasLengthBetween))
-            {
-                return new Tuple<StringSelectionType, int>(StringSelectionType.HasLengthBetween, 2);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeHasLengthNotBetween))
-            {
-                return new Tuple<StringSelectionType, int>(StringSelectionType.HasLengthNotBetween, 2);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeIncludes ))
-            {
-                return new Tuple<StringSelectionType, int>(StringSelectionType.Includes, 1);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeNotIncludes))
-            {
-                return new Tuple<StringSelectionType, int>(StringSelectionType.NotIncludes, 1);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeStartsWith))
-            {
-                return new Tuple<StringSelectionType, int>(StringSelectionType.StartsWith, 1);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeNotStartsWith))
-            {
-                return new Tuple<StringSelectionType, int>(StringSelectionType.NotStartsWith, 1);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeEndsWith))
-            {
-                return new Tuple<StringSelectionType, int>(StringSelectionType.EndsWith, 1);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeNotEndsWith))
-            {
-                return new Tuple<StringSelectionType, int>(StringSelectionType.NotEndsWith, 1);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeStartsAndEndsWith))
-            {
-                return new Tuple<StringSelectionType, int>(StringSelectionType.StartsAndEndsWith, 2);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeNotStartsAndEndsWith))
-            {
-                return new Tuple<StringSelectionType, int>(StringSelectionType.NotStartsAndEndsWith, 2);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeEquals))
-            {
-                return new Tuple<StringSelectionType, int>(StringSelectionType.Equals, 1);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeNotEquals))
-            {
-                return new Tuple<StringSelectionType, int>(StringSelectionType.NotEquals, 1);
-            }
-            else
-            {
-                throw new CabeiroException($"Invalid string selection type argument: {argument}!");
-            }
-        }
-
-        /// <summary>
         /// Parses argument value as a StringEditType indicator.
         /// </summary>
         /// <param name="argument">The argument value to parse.</param>
@@ -804,6 +494,370 @@ namespace LaurentiuCristofor.Cabeiro.Common
             else
             {
                 throw new CabeiroException($"Invalid value edit type argument: {argument}!");
+            }
+        }
+
+        /// <summary>
+        /// Parses argument value as a PositionInsertionType indicator.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the PositionInsertionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<PositionInsertionType, int> ParsePositionInsertionType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionInsertionTypePosition))
+            {
+                return new Tuple<PositionInsertionType, int>(PositionInsertionType.Position, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionInsertionTypeEach))
+            {
+                return new Tuple<PositionInsertionType, int>(PositionInsertionType.Each, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionInsertionTypeLast))
+            {
+                return new Tuple<PositionInsertionType, int>(PositionInsertionType.Last, 0);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid position insertion type argument: {argument}!");
+            }
+        }
+
+        /// <summary>
+        /// Parses argument value as a JoinType indicator.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the JoinType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<JoinType, int> ParseJoinType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.JoinTypeInner))
+            {
+                return new Tuple<JoinType, int>(JoinType.Inner, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.JoinTypeLeftOuter))
+            {
+                return new Tuple<JoinType, int>(JoinType.LeftOuter, 1);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid join type argument: {argument}!");
+            }
+        }
+
+        /// <summary>
+        /// Parses argument value as a LineTransformationType indicator.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the LineTransformationType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<LineTransformationType, int> ParseLineTransformationType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.LineTransformationTypeBreak))
+            {
+                return new Tuple<LineTransformationType, int>(LineTransformationType.Break, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.LineTransformationTypeUnite))
+            {
+                return new Tuple<LineTransformationType, int>(LineTransformationType.Unite, 1);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid line transformation type argument: {argument}!");
+            }
+        }
+
+        /// <summary>
+        /// Parses argument value as a ColumnTransformationType indicator.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the ColumnTransformationType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<ColumnTransformationType, int> ParseColumnTransformationType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.ColumnTransformationTypePack))
+            {
+                return new Tuple<ColumnTransformationType, int>(ColumnTransformationType.Pack, 3);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ColumnTransformationTypeUnpack))
+            {
+                return new Tuple<ColumnTransformationType, int>(ColumnTransformationType.Unpack, 2);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid column transformation type argument: {argument}!");
+            }
+        }
+
+        /// <summary>
+        /// Parses argument value as a ComparisonType indicator.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the ComparisonType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<ComparisonType, int> ParseComparisonType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeLessThan))
+            {
+                return new Tuple<ComparisonType, int>(ComparisonType.LessThan, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeLessThanOrEqual))
+            {
+                return new Tuple<ComparisonType, int>(ComparisonType.LessThanOrEqual, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeEqual))
+            {
+                return new Tuple<ComparisonType, int>(ComparisonType.Equal, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeGreaterThanOrEqual))
+            {
+                return new Tuple<ComparisonType, int>(ComparisonType.GreaterThanOrEqual, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeGreaterThan))
+            {
+                return new Tuple<ComparisonType, int>(ComparisonType.GreaterThan, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeNotEqual))
+            {
+                return new Tuple<ComparisonType, int>(ComparisonType.NotEqual, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeBetween))
+            {
+                return new Tuple<ComparisonType, int>(ComparisonType.Between, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeStrictlyBetween))
+            {
+                return new Tuple<ComparisonType, int>(ComparisonType.StrictlyBetween, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeNotBetween))
+            {
+                return new Tuple<ComparisonType, int>(ComparisonType.NotBetween, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeNotStrictlyBetween))
+            {
+                return new Tuple<ComparisonType, int>(ComparisonType.NotStrictlyBetween, 2);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid comparison type argument: {argument}!");
+            }
+        }
+
+        /// <summary>
+        /// Parses argument value as a PositionSelectionType indicator.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the PositionSelectionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<PositionSelectionType, int> ParsePositionSelectionType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionTypeBetween))
+            {
+                return new Tuple<PositionSelectionType, int>(PositionSelectionType.Between, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionTypeNotBetween))
+            {
+                return new Tuple<PositionSelectionType, int>(PositionSelectionType.NotBetween, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionTypeLast))
+            {
+                return new Tuple<PositionSelectionType, int>(PositionSelectionType.Last, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionTypeNotLast))
+            {
+                return new Tuple<PositionSelectionType, int>(PositionSelectionType.NotLast, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionTypeEach))
+            {
+                return new Tuple<PositionSelectionType, int>(PositionSelectionType.Each, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.PositionSelectionTypeNotEach))
+            {
+                return new Tuple<PositionSelectionType, int>(PositionSelectionType.NotEach, 1);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid position selection type argument: {argument}!");
+            }
+        }
+
+        /// <summary>
+        /// Parses argument value as a StringSelectionType indicator.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the StringSelectionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<StringSelectionType, int> ParseStringSelectionType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeHasLengthBetween))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.HasLengthBetween, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeHasLengthNotBetween))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.HasLengthNotBetween, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeIncludes))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.Includes, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeNotIncludes))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.NotIncludes, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeStartsWith))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.StartsWith, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeNotStartsWith))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.NotStartsWith, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeEndsWith))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.EndsWith, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeNotEndsWith))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.NotEndsWith, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeStartsAndEndsWith))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.StartsAndEndsWith, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeNotStartsAndEndsWith))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.NotStartsAndEndsWith, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeEquals))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.Equals, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeNotEquals))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.NotEquals, 1);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid string selection type argument: {argument}!");
+            }
+        }
+
+        /// <summary>
+        /// Parses argument value as a RelativeValueSelectionType indicator for line selection.
+        ///
+        /// Some RelativeValueSelectionType values are redundant in the case of line selection
+        /// so they are not exposed.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the RelativeValueSelectionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<RelativeValueSelectionType, int> ParseRelativeLineSelectionType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.RelativeValueSelectionFirst))
+            {
+                return new Tuple<RelativeValueSelectionType, int>(RelativeValueSelectionType.First, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.RelativeValueSelectionNotFirst))
+            {
+                return new Tuple<RelativeValueSelectionType, int>(RelativeValueSelectionType.NotFirst, 0);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid relative value selection type argument: {argument}!");
+            }
+        }
+
+        /// <summary>
+        /// Parses argument value as a RelativeValueSelectionType indicator.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the RelativeValueSelectionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<RelativeValueSelectionType, int> ParseRelativeValueSelectionType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.RelativeValueSelectionFirst))
+            {
+                return new Tuple<RelativeValueSelectionType, int>(RelativeValueSelectionType.First, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.RelativeValueSelectionNotFirst))
+            {
+                return new Tuple<RelativeValueSelectionType, int>(RelativeValueSelectionType.NotFirst, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.RelativeValueSelectionLast))
+            {
+                return new Tuple<RelativeValueSelectionType, int>(RelativeValueSelectionType.Last, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.RelativeValueSelectionNotLast))
+            {
+                return new Tuple<RelativeValueSelectionType, int>(RelativeValueSelectionType.NotLast, 0);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid relative value selection type argument: {argument}!");
+            }
+        }
+
+        /// <summary>
+        /// Parses argument value as a LookupType indicator.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the LookupType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<LookupType, int> ParseLookupType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.LookupTypeIncluded))
+            {
+                return new Tuple<LookupType, int>(LookupType.Included, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.LookupTypeNotIncluded))
+            {
+                return new Tuple<LookupType, int>(LookupType.NotIncluded, 0);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid lookup type argument: {argument}!");
+            }
+        }
+
+        /// <summary>
+        /// Parses argument value as a DataDistributionType indicator.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the DataDistributionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<DataDistributionType, int> ParseDataDistributionType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.DataDistributionTypeNormal))
+            {
+                return new Tuple<DataDistributionType, int>(DataDistributionType.Normal, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.DataDistributionTypeUniform))
+            {
+                return new Tuple<DataDistributionType, int>(DataDistributionType.Uniform, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.DataDistributionTypeExponential))
+            {
+                return new Tuple<DataDistributionType, int>(DataDistributionType.Exponential, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.DataDistributionTypePoisson))
+            {
+                return new Tuple<DataDistributionType, int>(DataDistributionType.Poisson, 1);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid data distribution type argument: {argument}!");
             }
         }
     }

@@ -137,6 +137,16 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.Shuffle,
+                CommandCategory.Ordering,
+                "(SH)uffle file",
+                /*longDescription:*/ null,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Notes.MemoryRequirementLinearTotal}");
+            RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
                 CabeiroConstants.Commands.OrderColumns,
                 CommandCategory.Ordering,
                 "(O)rder (C)olumns",
@@ -239,6 +249,21 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
+            RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.TransformLines,
+                CommandCategory.Editing,
+                "(T)ransform (L)ines",
+                /*longDescription:*/ null,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.TransformationType}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument}]"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.LineTransformationTypeText}"
+                + $"\n\n{CabeiroConstants.Commands.Arguments.Descriptions.LineTransformationTypeUniteText}"
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
@@ -402,6 +427,17 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearUniqueLookup}");
             RegisterCommandDescription(commandDescription);
 
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.SelectLinesSample,
+                CommandCategory.Selection,
+                "(S)elect (L)ines (S)ample",
+                /*longDescription:*/ null,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SampleSize}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Notes.MemoryRequirementLinearSample}");
+            RegisterCommandDescription(commandDescription);
+
             // Splitting commands.
             //
             commandDescription = new CommandDescription(
@@ -448,11 +484,11 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 "(S)ort file (B)y (2)nd (C)olumn (V)alue",
                 /*longDescription:*/ null,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondaryColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondaryColumnDataType}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.PrimaryColumnNumber}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.PrimaryColumnDataType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SortedColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SortedColumnDataType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
                 + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearPrimaryColumnRepetitions}");
@@ -568,14 +604,42 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 "(F)ind (S)tate (T)ransitions",
                 CabeiroConstants.Commands.Descriptions.FindStateTransitions,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondaryColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondaryColumnDataType}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.PrimaryColumnNumber}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.PrimaryColumnDataType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SortedColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SortedColumnDataType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
                 + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
+            RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.GenerateDistribution,
+                CommandCategory.Generation,
+                "(GEN)erate (D)istribution",
+                CabeiroConstants.Commands.Descriptions.GenerateDistribution,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.SeedValue}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.GenerationCount}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataDistributionType}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.DistributionMean}]"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.SeedValueText}"
+                + $"\n\n{CabeiroConstants.Commands.Arguments.Descriptions.DataDistributionTypeText}"
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstant}");
+            RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.GenerateSample,
+                CommandCategory.Generation,
+                "(GEN)erate (S)ample",
+                CabeiroConstants.Commands.Descriptions.GenerateSample,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.SeedValue}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.GenerationCount}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.TotalCount}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.SeedValueText}"
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstant}");
             RegisterCommandDescription(commandDescription);
         }
 

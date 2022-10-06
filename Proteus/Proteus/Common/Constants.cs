@@ -41,6 +41,9 @@ namespace LaurentiuCristofor.Proteus.Common
             public const string SortingStart = "Sorting...";
             public const string SortingEnd = "done! Sorting time: ";
 
+            public const string ShufflingStart = "Shuffling...";
+            public const string ShufflingEnd = "done! Shuffling time: ";
+
             public const string LinesReadFromFile = "lines were read from file";
             public const string LinesWrittenToFile = "lines were written to file";
             public const string LinesReadFromFirstFile = "lines were read from first file";
