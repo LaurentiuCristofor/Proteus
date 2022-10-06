@@ -95,7 +95,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     throw new ProteusException($"Internal error: Proteus is not handling line transformation type '{this.Parameters.OperationType}'!");
             }
 
-
             return true;
         }
     }

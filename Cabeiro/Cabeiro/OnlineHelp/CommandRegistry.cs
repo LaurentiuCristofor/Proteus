@@ -484,11 +484,11 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 "(S)ort file (B)y (2)nd (C)olumn (V)alue",
                 /*longDescription:*/ null,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondaryColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondaryColumnDataType}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.PrimaryColumnNumber}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.PrimaryColumnDataType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SortedColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SortedColumnDataType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
                 + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearPrimaryColumnRepetitions}");
@@ -604,11 +604,11 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 "(F)ind (S)tate (T)ransitions",
                 CabeiroConstants.Commands.Descriptions.FindStateTransitions,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondaryColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondaryColumnDataType}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.PrimaryColumnNumber}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.PrimaryColumnDataType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SortedColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SortedColumnDataType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
                 + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");

@@ -291,25 +291,28 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 {
                     public const string CommandName = "<command_name>";
                     public const string CategoryName = "<category_name>";
+
                     public const string InputFilePath = "<input_file_path>";
                     public const string FirstInputFilePath = "<first_input_file_path>";
                     public const string SecondInputFilePath = "<second_input_file_path>";
                     public const string DataFilePath = "<data_file_path>";
                     public const string LookupFilePath = "<lookup_file_path>";
                     public const string OutputFilePath = "<output_file_path>";
+
                     public const string ColumnNumber = "<column_number>";
                     public const string FirstFileColumnNumber = "<first_file_column_number>";
                     public const string SecondFileColumnNumber = "<second_file_column_number>";
                     public const string DataFileColumnNumber = "<data_file_column_number>";
                     public const string LookupFileColumnNumber = "<lookup_file_column_number>";
+                    public const string SortedColumnNumber = "<sorted_column_number>";
+                    public const string SortedColumnDataType = "<sorted_column_data_type>";
+
                     public const string ColumnSeparator = "<column_separator>";
+
                     public const string FirstArgument = "<first_argument>";
                     public const string SecondArgument = "<second_argument>";
                     public const string ThirdArgument = "<third_argument>";
-                    public const string PrimaryColumnNumber = "<primary_column_number>";
-                    public const string PrimaryColumnDataType = "<primary_column_data_type>";
-                    public const string SecondaryColumnNumber = "<secondary_column_number>";
-                    public const string SecondaryColumnDataType = "<secondary_column_data_type>";
+
                     public const string LineValue = "<line_value>";
                     public const string RangeSize = "<range_size>";
                     public const string SampleSize = "<sample_size>";
