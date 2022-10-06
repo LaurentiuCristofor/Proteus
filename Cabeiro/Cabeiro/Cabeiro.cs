@@ -70,7 +70,7 @@ namespace LaurentiuCristofor.Cabeiro
         private static void ValidateProteusVersion()
         {
             const int expectedProteusMajorVersion = 1;
-            const int expectedProteusMinorVersion = 1;
+            const int expectedProteusMinorVersion = 2;
 
             AssemblyName proteusInfo = ProteusInfo.GetAssemblyInfo();
             AssemblyName cabeiroInfo = CabeiroInfo.GetAssemblyInfo();
@@ -1644,12 +1644,12 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputIntegerParameters processingParameters = new OutputIntegerParameters(
+            OutputIntParameters processingParameters = new OutputIntParameters(
                 outputFilePath,
                 sampleSize);
 
             var fileProcessor
-                = new FileProcessor<LineExtractor, Unused, string, SampleProcessor, OutputIntegerParameters>(
+                = new FileProcessor<LineExtractor, Unused, string, SampleProcessor, OutputIntParameters>(
                     inputFilePath,
                     /*extractionParameters:*/ null,
                     processingParameters);
