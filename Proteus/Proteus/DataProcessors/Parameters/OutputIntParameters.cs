@@ -8,21 +8,21 @@
 namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
 {
     /// <summary>
-    /// Includes an integer parameter along output parameters.
+    /// Includes an int parameter along output parameters.
     /// </summary>
-    public class OutputIntegerParameters : BaseOutputParameters
+    public class OutputIntParameters : BaseOutputParameters
     {
         /// <summary>
-        /// The integer value.
+        /// The int value.
         /// </summary>
-        public int IntegerValue { get; protected set; }
+        public int IntValue { get; protected set; }
 
-        public OutputIntegerParameters(
+        public OutputIntParameters(
             string outputFilePath,
-            int integerValue)
+            int intValue)
             : base(outputFilePath)
         {
-            this.IntegerValue = integerValue;
+            this.IntValue = intValue;
         }
     }
 }

@@ -19,9 +19,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that samples the input lines.
     /// </summary>
-    public class SampleProcessor : BaseOutputProcessor, IDataProcessor<OutputIntegerParameters, string>
+    public class SampleProcessor : BaseOutputProcessor, IDataProcessor<OutputIntParameters, string>
     {
-        protected OutputIntegerParameters Parameters { get; set; }
+        protected OutputIntParameters Parameters { get; set; }
 
         /// <summary>
         /// The sampler used to sample the lines.
@@ -33,11 +33,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// </summary>
         protected List<Tuple<ulong, string>> SampleLinesWithNumbers { get; set; }
 
-        public void Initialize(OutputIntegerParameters processingParameters)
+        public void Initialize(OutputIntParameters processingParameters)
         {
             this.Parameters = processingParameters;
 
-            this.Sampler = new UnknownTotalSampler(this.Parameters.IntegerValue);
+            this.Sampler = new UnknownTotalSampler(this.Parameters.IntValue);
 
             this.SampleLinesWithNumbers = new List<Tuple<ulong, string>>();
 
@@ -46,7 +46,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public bool Execute(ulong lineNumber, string line)
         {
-            if (lineNumber <= (ulong)this.Parameters.IntegerValue)
+            if (lineNumber <= (ulong)this.Parameters.IntValue)
             {
                 this.SampleLinesWithNumbers.Add(new Tuple<ulong, string>(lineNumber, line));
             }
@@ -67,9 +67,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public override void CompleteExecution()
         {
-            if (this.SampleLinesWithNumbers.Count < this.Parameters.IntegerValue)
+            if (this.SampleLinesWithNumbers.Count < this.Parameters.IntValue)
             {
-                throw new ProteusException($"The input file is smaller than the requested sample size! The requested sample size was {this.Parameters.IntegerValue} but only {this.SampleLinesWithNumbers.Count} lines were found.");
+                throw new ProteusException($"The input file is smaller than the requested sample size! The requested sample size was {this.Parameters.IntValue} but only {this.SampleLinesWithNumbers.Count} lines were found.");
             }
 
             Timer timer = new Timer($"\n{Constants.Messages.SortingStart}", Constants.Messages.SortingEnd, countFinalLineEndings: 0);
