@@ -17,21 +17,31 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
     /// A data processor that splits a file into multiple ones based on the value of a specified column.
+    /// 
+    /// OutputParameters is expected to contain:
+    /// StringParameters[0] - output file extension
     /// </summary>
-    public class SplitColumnValuesProcessor : BaseOutputProcessor, IDataProcessor<OutputStringParameters, OneExtractedValue>
+    public class SplitColumnValuesProcessor : BaseOutputProcessor, IDataProcessor<OutputParameters, OneExtractedValue>
     {
-        protected OutputStringParameters Parameters { get; set; }
+        protected OutputParameters Parameters { get; set; }
+
+        /// <summary>
+        /// The file extension that should be used for the output files.
+        /// </summary>
+        protected string OutputFileExtension { get; set; }
 
         /// <summary>
         /// A dictionary to help us manage the file writers that we will use for each column value.
         /// </summary>
         protected Dictionary<IDataHolder, FileWriter> MapColumnValueToFileWriter { get; set; }
 
-        public void Initialize(OutputStringParameters processingParameters)
+        public void Initialize(OutputParameters processingParameters)
         {
             this.Parameters = processingParameters;
 
-            ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.StringValue);
+            ArgumentChecker.CheckPresence<string>(this.Parameters.StringParameters, 0);
+            ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.StringParameters[0]);
+            this.OutputFileExtension = this.Parameters.StringParameters[0];
 
             this.MapColumnValueToFileWriter = new Dictionary<IDataHolder, FileWriter>();
         }
@@ -53,7 +63,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 this.MapColumnValueToFileWriter.Add(
                     data,
-                    new FileWriter(this.Parameters.OutputFilePath + $".{columnValueIdentifier}{this.Parameters.StringValue}"));
+                    new FileWriter(this.Parameters.OutputFilePath + $".{columnValueIdentifier}{this.OutputFileExtension}"));
             }
 
             this.MapColumnValueToFileWriter[data].WriteLine(lineData.OriginalLine);

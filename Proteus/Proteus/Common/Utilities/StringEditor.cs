@@ -84,7 +84,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
 
                 case StringEditType.PadLeft:
                 case StringEditType.PadRight:
-                    ArgumentChecker.CheckNotNull(this.FirstArgument);
+                    ArgumentChecker.CheckNotNull<string>(this.FirstArgument);
                     ArgumentChecker.CheckIsOneCharacter(this.SecondArgument);
 
                     this.FirstArgumentAsInt = int.Parse(this.FirstArgument);
@@ -113,7 +113,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
                 case StringEditType.DeleteLastCharacters:
                 case StringEditType.KeepFirstCharacters:
                 case StringEditType.KeepLastCharacters:
-                    ArgumentChecker.CheckNotNull(this.FirstArgument);
+                    ArgumentChecker.CheckNotNull<string>(this.FirstArgument);
 
                     this.FirstArgumentAsInt = int.Parse(this.FirstArgument);
 
@@ -122,8 +122,8 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
 
                 case StringEditType.DeleteContentAtIndex:
                 case StringEditType.KeepContentAtIndex:
-                    ArgumentChecker.CheckNotNull(this.FirstArgument);
-                    ArgumentChecker.CheckNotNull(this.SecondArgument);
+                    ArgumentChecker.CheckNotNull<string>(this.FirstArgument);
+                    ArgumentChecker.CheckNotNull<string>(this.SecondArgument);
 
                     this.FirstArgumentAsInt = int.Parse(this.FirstArgument);
                     this.SecondArgumentAsInt = int.Parse(this.SecondArgument);
@@ -134,7 +134,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
 
                 case StringEditType.InsertContentAtIndex:
                     ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstArgument);
-                    ArgumentChecker.CheckNotNull(this.SecondArgument);
+                    ArgumentChecker.CheckNotNull<string>(this.SecondArgument);
 
                     this.SecondArgumentAsInt = int.Parse(this.SecondArgument);
 
@@ -143,7 +143,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
 
                 case StringEditType.ReplaceContent:
                     ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstArgument);
-                    ArgumentChecker.CheckNotNull(this.SecondArgument);
+                    ArgumentChecker.CheckNotNull<string>(this.SecondArgument);
                     break;
 
                 case StringEditType.InsertContentBeforeMarker:
@@ -167,12 +167,12 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
                     break;
 
                 case StringEditType.Set:
-                    ArgumentChecker.CheckNotNull(this.FirstArgument);
+                    ArgumentChecker.CheckNotNull<string>(this.FirstArgument);
                     break;
 
                 case StringEditType.SetIfEquals:
-                    ArgumentChecker.CheckNotNull(this.FirstArgument);
-                    ArgumentChecker.CheckNotNull(this.SecondArgument);
+                    ArgumentChecker.CheckNotNull<string>(this.FirstArgument);
+                    ArgumentChecker.CheckNotNull<string>(this.SecondArgument);
                     break;
 
                 default:

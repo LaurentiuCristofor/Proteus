@@ -129,7 +129,7 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
         /// <returns>True if the comparison holds; false otherwise.</returns>
         protected static bool ThresholdCompare(IDataHolder data, ComparisonType comparisonType, string threshold)
         {
-            ArgumentChecker.CheckNotNull(threshold);
+            ArgumentChecker.CheckNotNull<string>(threshold);
 
             IDataHolder thresholdData = BuildDataHolder(data.GetDataType(), threshold);
             if (thresholdData == null)
@@ -173,8 +173,8 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
         /// <returns>True if the comparison holds; false otherwise.</returns>
         protected static bool ThresholdCompare(IDataHolder data, ComparisonType comparisonType, string firstThreshold, string secondThreshold)
         {
-            ArgumentChecker.CheckNotNull(firstThreshold);
-            ArgumentChecker.CheckNotNull(secondThreshold);
+            ArgumentChecker.CheckNotNull<string>(firstThreshold);
+            ArgumentChecker.CheckNotNull<string>(secondThreshold);
 
             IDataHolder lowerBound = BuildDataHolder(data.GetDataType(), firstThreshold);
             IDataHolder upperBound = BuildDataHolder(data.GetDataType(), secondThreshold);
@@ -188,7 +188,7 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
                 throw new ProteusException($"Comparison argument '{secondThreshold}' is not a valid {data.GetDataType()} value!");
             }
 
-            ArgumentChecker.CheckInterval(lowerBound, upperBound);
+            ArgumentChecker.CheckInterval<IDataHolder>(lowerBound, upperBound);
 
             int lowerBoundComparisonResult = data.CompareTo(lowerBound);
             int upperBoundComparisonResult = data.CompareTo(upperBound);

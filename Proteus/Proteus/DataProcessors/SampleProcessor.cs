@@ -18,10 +18,18 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
     /// A data processor that samples the input lines.
+    /// 
+    /// OutputParameters is expected to contain:
+    /// IntParameters[0] - sample size
     /// </summary>
-    public class SampleProcessor : BaseOutputProcessor, IDataProcessor<OutputIntParameters, string>
+    public class SampleProcessor : BaseOutputProcessor, IDataProcessor<OutputParameters, string>
     {
-        protected OutputIntParameters Parameters { get; set; }
+        protected OutputParameters Parameters { get; set; }
+
+        /// <summary>
+        /// The sample size parameter.
+        /// </summary>
+        protected int SampleSize { get; set; }
 
         /// <summary>
         /// The sampler used to sample the lines.
@@ -33,11 +41,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// </summary>
         protected List<Tuple<ulong, string>> SampleLinesWithNumbers { get; set; }
 
-        public void Initialize(OutputIntParameters processingParameters)
+        public void Initialize(OutputParameters processingParameters)
         {
             this.Parameters = processingParameters;
 
-            this.Sampler = new UnknownTotalSampler(this.Parameters.IntValue);
+            ArgumentChecker.CheckPresence<int>(this.Parameters.IntParameters, 0);
+            this.SampleSize = this.Parameters.IntParameters[0];
+
+            this.Sampler = new UnknownTotalSampler(this.SampleSize);
 
             this.SampleLinesWithNumbers = new List<Tuple<ulong, string>>();
 
@@ -46,7 +57,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public bool Execute(ulong lineNumber, string line)
         {
-            if (lineNumber <= (ulong)this.Parameters.IntValue)
+            if (lineNumber <= (ulong)this.SampleSize)
             {
                 this.SampleLinesWithNumbers.Add(new Tuple<ulong, string>(lineNumber, line));
             }
@@ -67,9 +78,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public override void CompleteExecution()
         {
-            if (this.SampleLinesWithNumbers.Count < this.Parameters.IntValue)
+            if (this.SampleLinesWithNumbers.Count < this.SampleSize)
             {
-                throw new ProteusException($"The input file is smaller than the requested sample size! The requested sample size was {this.Parameters.IntValue} but only {this.SampleLinesWithNumbers.Count} lines were found.");
+                throw new ProteusException($"The input file is smaller than the requested sample size! The requested sample size was {this.SampleSize} but only {this.SampleLinesWithNumbers.Count} lines were found.");
             }
 
             Timer timer = new Timer($"\n{Constants.Messages.SortingStart}", Constants.Messages.SortingEnd, countFinalLineEndings: 0);

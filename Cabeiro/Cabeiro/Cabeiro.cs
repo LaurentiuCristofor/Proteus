@@ -70,7 +70,7 @@ namespace LaurentiuCristofor.Cabeiro
         private static void ValidateProteusVersion()
         {
             const int expectedProteusMajorVersion = 1;
-            const int expectedProteusMinorVersion = 2;
+            const int expectedProteusMinorVersion = 3;
 
             AssemblyName proteusInfo = ProteusInfo.GetAssemblyInfo();
             AssemblyName cabeiroInfo = CabeiroInfo.GetAssemblyInfo();
@@ -979,12 +979,12 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputStringParameters processingParameters = new OutputStringParameters(
+            OutputParameters processingParameters = new OutputParameters(
                 outputFilePath,
-                newFirstColumnsList);
+                new string[] { newFirstColumnsList });
 
             var fileProcessor
-                = new FileProcessor<ColumnStringsExtractor, ColumnStringsExtractionParameters, ExtractedColumnStrings, OrderColumnsProcessor, OutputStringParameters>(
+                = new FileProcessor<ColumnStringsExtractor, ColumnStringsExtractionParameters, ExtractedColumnStrings, OrderColumnsProcessor, OutputParameters>(
                     inputFilePath,
                     extractionParameters,
                     processingParameters);
@@ -1195,14 +1195,14 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(firstFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputStringParameters processingParameters = new OutputStringParameters(
+            OutputParameters processingParameters = new OutputParameters(
                 outputFilePath,
-                columnSeparator);
+                new string[] { columnSeparator });
 
             var dualFileProcessor
                 = new DualFileProcessor<
                     LineExtractor, Unused, string,
-                    ConcatenateProcessor, OutputStringParameters>(
+                    ConcatenateProcessor, OutputParameters>(
                     firstFilePath,
                     /*firstExtractionParameters:*/ null,
                     secondFilePath,
@@ -1644,12 +1644,13 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputIntParameters processingParameters = new OutputIntParameters(
+            OutputParameters processingParameters = new OutputParameters(
                 outputFilePath,
-                sampleSize);
+                null,
+                new int[] { sampleSize });
 
             var fileProcessor
-                = new FileProcessor<LineExtractor, Unused, string, SampleProcessor, OutputIntParameters>(
+                = new FileProcessor<LineExtractor, Unused, string, SampleProcessor, OutputParameters>(
                     inputFilePath,
                     /*extractionParameters:*/ null,
                     processingParameters);
@@ -1671,13 +1672,14 @@ namespace LaurentiuCristofor.Cabeiro
 
             // The file extension is needed because the processor will need to append it for each file it creates.
             //
-            OutputStringAndULongParameters processingParameters = new OutputStringAndULongParameters(
+            OutputParameters processingParameters = new OutputParameters(
                 outputFilePath,
-                CabeiroConstants.Files.Extensions.Txt,
-                rangeSize);
+                new string[] { CabeiroConstants.Files.Extensions.Txt },
+                null,
+                new ulong[] { rangeSize });
 
             var fileProcessor
-                = new FileProcessor<LineExtractor, Unused, string, SplitLineRangesProcessor, OutputStringAndULongParameters>(
+                = new FileProcessor<LineExtractor, Unused, string, SplitLineRangesProcessor, OutputParameters>(
                     inputFilePath,
                     /*extractionParameters:*/ null,
                     processingParameters);
@@ -1702,12 +1704,12 @@ namespace LaurentiuCristofor.Cabeiro
 
             // The file extension is needed because the processor will need to append it for each file it creates.
             //
-            OutputStringParameters processingParameters = new OutputStringParameters(
+            OutputParameters processingParameters = new OutputParameters(
                 outputFilePath,
-                CabeiroConstants.Files.Extensions.Txt);
+                new string[] { CabeiroConstants.Files.Extensions.Txt });
 
             var fileProcessor
-                = new FileProcessor<ColumnStringsExtractor, ColumnStringsExtractionParameters, ExtractedColumnStrings, SplitColumnsProcessor, OutputStringParameters>(
+                = new FileProcessor<ColumnStringsExtractor, ColumnStringsExtractionParameters, ExtractedColumnStrings, SplitColumnsProcessor, OutputParameters>(
                     inputFilePath,
                     extractionParameters,
                     processingParameters);
@@ -1739,12 +1741,12 @@ namespace LaurentiuCristofor.Cabeiro
 
             // The file extension is needed because the processor will need to append it for each file it creates.
             //
-            OutputStringParameters processingParameters = new OutputStringParameters(
+            OutputParameters processingParameters = new OutputParameters(
                 outputFilePath,
-                CabeiroConstants.Files.Extensions.Txt);
+                new string[] { CabeiroConstants.Files.Extensions.Txt });
 
             var fileProcessor
-                = new FileProcessor<OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue, SplitColumnValuesProcessor, OutputStringParameters>(
+                = new FileProcessor<OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue, SplitColumnValuesProcessor, OutputParameters>(
                     inputFilePath,
                     extractionParameters,
                     processingParameters);

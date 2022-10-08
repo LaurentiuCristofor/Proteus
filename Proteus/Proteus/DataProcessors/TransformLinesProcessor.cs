@@ -42,7 +42,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     break;
 
                 case LineTransformationType.Unite:
-                    ArgumentChecker.CheckNotNull(this.Parameters.FirstArgument);
+                    ArgumentChecker.CheckNotNull<string>(this.Parameters.FirstArgument);
 
                     this.FirstArgumentAsInt = int.Parse(this.Parameters.FirstArgument);
 

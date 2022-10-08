@@ -44,8 +44,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             switch (this.Parameters.OperationType)
             {
                 case ColumnTransformationType.Pack:
-                    ArgumentChecker.CheckNotNull(this.Parameters.FirstArgument);
-                    ArgumentChecker.CheckNotNull(this.Parameters.SecondArgument);
+                    ArgumentChecker.CheckNotNull<string>(this.Parameters.FirstArgument);
+                    ArgumentChecker.CheckNotNull<string>(this.Parameters.SecondArgument);
                     ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.ThirdArgument);
 
                     this.FirstArgumentAsInt = int.Parse(this.Parameters.FirstArgument);
@@ -53,11 +53,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                     ArgumentChecker.CheckStrictlyPositive(this.FirstArgumentAsInt);
                     ArgumentChecker.CheckStrictlyPositive(this.SecondArgumentAsInt);
-                    ArgumentChecker.CheckInterval(this.FirstArgumentAsInt, this.SecondArgumentAsInt);
+                    ArgumentChecker.CheckInterval<int>(this.FirstArgumentAsInt, this.SecondArgumentAsInt);
                     break;
 
                 case ColumnTransformationType.Unpack:
-                    ArgumentChecker.CheckNotNull(this.Parameters.FirstArgument);
+                    ArgumentChecker.CheckNotNull<string>(this.Parameters.FirstArgument);
                     ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.SecondArgument);
 
                     this.FirstArgumentAsInt = int.Parse(this.Parameters.FirstArgument);

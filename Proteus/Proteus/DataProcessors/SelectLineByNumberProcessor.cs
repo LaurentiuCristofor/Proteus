@@ -53,7 +53,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 case PositionSelectionType.NotLast:
                 case PositionSelectionType.Each:
                 case PositionSelectionType.NotEach:
-                    ArgumentChecker.CheckNotNull(this.Parameters.FirstArgument);
+                    ArgumentChecker.CheckNotNull<string>(this.Parameters.FirstArgument);
 
                     this.FirstArgumentAsULong = ulong.Parse(this.Parameters.FirstArgument);
 
@@ -62,15 +62,15 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case PositionSelectionType.Between:
                 case PositionSelectionType.NotBetween:
-                    ArgumentChecker.CheckNotNull(this.Parameters.FirstArgument);
-                    ArgumentChecker.CheckNotNull(this.Parameters.SecondArgument);
+                    ArgumentChecker.CheckNotNull<string>(this.Parameters.FirstArgument);
+                    ArgumentChecker.CheckNotNull<string>(this.Parameters.SecondArgument);
 
                     this.FirstArgumentAsULong = ulong.Parse(this.Parameters.FirstArgument);
                     this.SecondArgumentAsULong = ulong.Parse(this.Parameters.SecondArgument);
 
                     ArgumentChecker.CheckNotZero(this.FirstArgumentAsULong);
                     ArgumentChecker.CheckNotZero(this.SecondArgumentAsULong);
-                    ArgumentChecker.CheckInterval(this.FirstArgumentAsULong, this.SecondArgumentAsULong);
+                    ArgumentChecker.CheckInterval<ulong>(this.FirstArgumentAsULong, this.SecondArgumentAsULong);
                     break;
 
                 default:

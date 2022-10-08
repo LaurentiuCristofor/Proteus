@@ -13,17 +13,36 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
     /// A data processor that splits ranges of lines into their own files.
+    /// 
+    /// OutputParameters is expected to contain:
+    /// StringParameters[0] - output file extension
+    /// UlongParameters[0] - range size
     /// </summary>
-    public class SplitLineRangesProcessor : BaseOutputProcessor, IDataProcessor<OutputStringAndULongParameters, string>
+    public class SplitLineRangesProcessor : BaseOutputProcessor, IDataProcessor<OutputParameters, string>
     {
-        protected OutputStringAndULongParameters Parameters { get; set; }
+        protected OutputParameters Parameters { get; set; }
 
-        public void Initialize(OutputStringAndULongParameters processingParameters)
+        /// <summary>
+        /// The file extension that should be used for the output files.
+        /// </summary>
+        protected string OutputFileExtension { get; set; }
+
+        /// <summary>
+        /// The size of the ranges in which we should split the file.
+        /// </summary>
+        protected ulong RangeSize { get; set; }
+
+        public void Initialize(OutputParameters processingParameters)
         {
             this.Parameters = processingParameters;
 
-            ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.StringValue);
-            ArgumentChecker.CheckNotZero(this.Parameters.ULongValue);
+            ArgumentChecker.CheckPresence<string>(this.Parameters.StringParameters, 0);
+            ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.StringParameters[0]);
+            this.OutputFileExtension = this.Parameters.StringParameters[0];
+
+            ArgumentChecker.CheckPresence<ulong>(this.Parameters.UlongParameters, 0);
+            ArgumentChecker.CheckNotZero(this.Parameters.UlongParameters[0]);
+            this.RangeSize = this.Parameters.UlongParameters[0];
         }
 
         public bool Execute(ulong lineNumber, string line)
@@ -32,14 +51,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             //
             if (this.OutputWriter == null)
             {
-                this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath + $".{lineNumber}{this.Parameters.StringValue}");
+                this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath + $".{lineNumber}{this.OutputFileExtension}");
             }
 
             this.OutputWriter.WriteLine(line);
 
             // If we just finished outputting a range, close current file.
             //
-            if (lineNumber % this.Parameters.ULongValue == 0)
+            if (lineNumber % this.RangeSize == 0)
             {
                 this.OutputWriter.CloseAndReport();
                 this.OutputWriter = null;

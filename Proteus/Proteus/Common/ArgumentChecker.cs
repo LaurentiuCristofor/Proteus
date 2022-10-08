@@ -17,15 +17,15 @@ namespace LaurentiuCristofor.Proteus.Common
     /// </summary>
     internal abstract class ArgumentChecker
     {
-        internal static void CheckNotNull(string argument)
+        internal static void CheckPresence<T>(T[] parameters, int parameterIndex)
         {
-            if (argument == null)
+            if (parameters == null || parameterIndex + 1 > parameters.Length)
             {
-                throw new ProteusException($"An expected argument is null!");
+                throw new ProteusException($"An expected integer argument is missing!");
             }
         }
 
-        internal static void CheckNotNull(IDataHolder argument)
+        internal static void CheckNotNull<T>(T argument)
         {
             if (argument == null)
             {
@@ -81,23 +81,8 @@ namespace LaurentiuCristofor.Proteus.Common
             }
         }
 
-        internal static void CheckInterval(int intervalStart, int intervalEnd)
-        {
-            if (intervalStart > intervalEnd)
-            {
-                throw new ProteusException($"An incorrect interval was provided: the start is larger than the end: ({intervalStart}, {intervalEnd})!");
-            }
-        }
-
-        internal static void CheckInterval(ulong intervalStart, ulong intervalEnd)
-        {
-            if (intervalStart > intervalEnd)
-            {
-                throw new ProteusException($"An incorrect interval was provided: the start is larger than the end: ({intervalStart}, {intervalEnd})!");
-            }
-        }
-
-        internal static void CheckInterval(IDataHolder intervalStart, IDataHolder intervalEnd)
+        internal static void CheckInterval<T>(T intervalStart, T intervalEnd)
+            where T:IComparable
         {
             if (intervalStart.CompareTo(intervalEnd) > 0)
             {

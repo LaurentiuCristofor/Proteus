@@ -17,10 +17,18 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
     /// A data processor that re-orders the columns of the input row.
+    /// 
+    /// OutputParameters is expected to contain:
+    /// StringParameters[0] - new first columns list
     /// </summary>
-    public class OrderColumnsProcessor : BaseOutputProcessor, IDataProcessor<OutputStringParameters, ExtractedColumnStrings>
+    public class OrderColumnsProcessor : BaseOutputProcessor, IDataProcessor<OutputParameters, ExtractedColumnStrings>
     {
-        protected OutputStringParameters Parameters { get; set; }
+        protected OutputParameters Parameters { get; set; }
+
+        /// <summary>
+        /// The new first columns list.
+        /// </summary>
+        protected string NewFirstColumnsList { get; set; }
 
         /// <summary>
         /// An array of column numbers that should be ordered first.
@@ -42,22 +50,25 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// </summary>
         protected int MinUnorderedColumnNumber { get; set; }
 
-        public void Initialize(OutputStringParameters processingParameters)
+        public void Initialize(OutputParameters processingParameters)
         {
             this.Parameters = processingParameters;
 
+            ArgumentChecker.CheckPresence<string>(this.Parameters.StringParameters, 0);
+            this.NewFirstColumnsList = this.Parameters.StringParameters[0];
+
             // Parse the column numbers that we need to place first.
             //
-            string[] orderedColumnNumbersAsString = this.Parameters.StringValue.Split(Constants.Strings.ListSeparator.ToCharArray(), StringSplitOptions.None);
-            if (orderedColumnNumbersAsString.Length == 0)
+            string[] orderedColumnNumbersAsStrings = this.NewFirstColumnsList.Split(Constants.Strings.ListSeparator.ToCharArray(), StringSplitOptions.None);
+            if (orderedColumnNumbersAsStrings.Length == 0)
             {
                 throw new ProteusException("The expected list of column numbers is empty!");
             }
-            this.OrderedColumnNumbers = new int[orderedColumnNumbersAsString.Length];
+            this.OrderedColumnNumbers = new int[orderedColumnNumbersAsStrings.Length];
             this.OrderedColumnNumbersSet = new HashSet<int>();
-            for (int i = 0; i < orderedColumnNumbersAsString.Length; ++i)
+            for (int i = 0; i < orderedColumnNumbersAsStrings.Length; ++i)
             {
-                this.OrderedColumnNumbers[i] = int.Parse(orderedColumnNumbersAsString[i]);
+                this.OrderedColumnNumbers[i] = int.Parse(orderedColumnNumbersAsStrings[i]);
 
                 if (this.OrderedColumnNumbersSet.Contains(this.OrderedColumnNumbers[i]))
                 {

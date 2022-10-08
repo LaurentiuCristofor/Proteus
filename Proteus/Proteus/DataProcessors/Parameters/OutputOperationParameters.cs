@@ -9,8 +9,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
 {
     /// <summary>
     /// Includes parameters for performing an output operation specified by a type.
+    /// 
+    /// For most operations, the type of the parameters varies depending on the type of the operation,
+    /// so we collect them as strings and parse them as a specific type when we actually perform the operation.
     /// </summary>
-    public class OutputOperationParameters<TOperationType> : BaseOutputParameters
+    public class OutputOperationParameters<TOperationType> : OutputParameters
     {
         /// <summary>
         /// The type of the operation that should be performed.
@@ -32,35 +35,29 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
         /// </summary>
         public string ThirdArgument { get; protected set; }
 
-        /// <summary>
-        /// The arguments of the operation.
-        /// </summary>
-        protected string[] Arguments { get; set; }
-
         public OutputOperationParameters(
             string outputFilePath,
             TOperationType operationType,
             string[] arguments = null)
-            : base(outputFilePath)
+            : base(outputFilePath, arguments)
         {
             this.OperationType = operationType;
-            this.Arguments = arguments;
 
             // Make arguments accessible directly without dereferencing the arguments array.
             //
-            if (this.Arguments != null)
+            if (this.StringParameters != null)
             {
-                if (this.Arguments.Length > 0)
+                if (this.StringParameters.Length > 0)
                 {
-                    this.FirstArgument = this.Arguments[0];
+                    this.FirstArgument = this.StringParameters[0];
                 }
-                if (this.Arguments.Length > 1)
+                if (this.StringParameters.Length > 1)
                 {
-                    this.SecondArgument = this.Arguments[1];
+                    this.SecondArgument = this.StringParameters[1];
                 }
-                if (this.Arguments.Length > 2)
+                if (this.StringParameters.Length > 2)
                 {
-                    this.ThirdArgument = this.Arguments[2];
+                    this.ThirdArgument = this.StringParameters[2];
                 }
             }
         }
