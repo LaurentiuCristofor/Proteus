@@ -930,7 +930,7 @@ namespace LaurentiuCristofor.Cabeiro
                 columnNumber,
                 dataType);
 
-            string outputFileExtension = $".{CabeiroConstants.Commands.Sort}.{columnNumber}.{dataTypeString.ToLower()}";
+            string outputFileExtension = $".{CabeiroConstants.Commands.SortByColumnValue}.{columnNumber}.{dataTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
