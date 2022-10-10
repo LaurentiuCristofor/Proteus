@@ -60,6 +60,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string Invert = "i";
             public const string Sort = "s";
             public const string SortByColumnValue = "sbcv";
+            public const string CustomSort = "cs";
+            public const string CustomSortByColumnValue = "csbcv";
             public const string Shuffle = "sh";
             public const string OrderColumns = "oc";
 
@@ -170,57 +172,11 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string DataTypeFloatingPoint = "f";
                 public const string DataTypeDateTime = "dt";
 
-                public const string ComparisonTypeLessThan = "lt";
-                public const string ComparisonTypeLessThanOrEqual = "lte";
-                public const string ComparisonTypeEqual = "eq";
-                public const string ComparisonTypeGreaterThanOrEqual = "gte";
-                public const string ComparisonTypeGreaterThan = "gt";
-                public const string ComparisonTypeNotEqual = "neq";
-                public const string ComparisonTypeBetween = "btwn";
-                public const string ComparisonTypeStrictlyBetween = "sbtwn";
-                public const string ComparisonTypeNotBetween = "nbtwn";
-                public const string ComparisonTypeNotStrictlyBetween = "nsbtwn";
-
-                public const string PositionSelectionTypeLast = "last";
-                public const string PositionSelectionTypeNotLast = "nlast";
-                public const string PositionSelectionTypeBetween = "btwn";
-                public const string PositionSelectionTypeNotBetween = "nbtwn";
-                public const string PositionSelectionTypeEach = "each";
-                public const string PositionSelectionTypeNotEach = "neach";
-
-                public const string PositionInsertionTypePosition = "pos";
-                public const string PositionInsertionTypeEach = "each";
-                public const string PositionInsertionTypeLast = "last";
-
-                public const string StringSelectionTypeHasLengthBetween = "btwn";
-                public const string StringSelectionTypeHasLengthNotBetween = "nbtwn";
-                public const string StringSelectionTypeIncludes = "incl";
-                public const string StringSelectionTypeNotIncludes = "nincl";
-                public const string StringSelectionTypeStartsWith = "start";
-                public const string StringSelectionTypeNotStartsWith = "nstart";
-                public const string StringSelectionTypeEndsWith = "end";
-                public const string StringSelectionTypeNotEndsWith = "nend";
-                public const string StringSelectionTypeStartsAndEndsWith = "startend";
-                public const string StringSelectionTypeNotStartsAndEndsWith = "nstartend";
-                public const string StringSelectionTypeEquals = "eq";
-                public const string StringSelectionTypeNotEquals = "neq";
-
-                public const string RelativeValueSelectionFirst = "first";
-                public const string RelativeValueSelectionNotFirst = "nfirst";
-                public const string RelativeValueSelectionLast = "last";
-                public const string RelativeValueSelectionNotLast = "nlast";
-
-                public const string JoinTypeInner = "in";
-                public const string JoinTypeLeftOuter = "lo";
-
-                public const string LookupTypeIncluded = "incl";
-                public const string LookupTypeNotIncluded = "nincl";
-
-                public const string LineTransformationTypeBreak = "break";
-                public const string LineTransformationTypeUnite = "unite";
-
-                public const string ColumnTransformationTypePack = "pack";
-                public const string ColumnTransformationTypeUnpack = "unpack";
+                public const string SortingAlgorithmTypeInsertion = "insertion";
+                public const string SortingAlgorithmTypeShell = "shell";
+                public const string SortingAlgorithmTypeMerge = "merge";
+                public const string SortingAlgorithmTypeQuicksort = "quicksort";
+                public const string SortingAlgorithmTypeHeap = "heap";
 
                 public const string StringEditTypeRewrite = "rw";
                 public const string StringEditTypeInvert = "i";
@@ -261,7 +217,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string StringEditTypeInsertContentAfterLastMarker = "icalm";
                 public const string StringEditTypeDeleteContentBetweenMarkers = "dcb2m";
                 public const string StringEditTypeKeepContentBetweenMarkers = "kcb2m";
-                public const string StringEditTypeKeepContentOutsideMarkers= "kco2m";
+                public const string StringEditTypeKeepContentOutsideMarkers = "kco2m";
                 public const string StringEditTypeDeleteContentBetweenLastMarkers = "dcb2lm";
                 public const string StringEditTypeKeepContentBetweenLastMarkers = "kcb2lm";
                 public const string StringEditTypeKeepContentOutsideLastMarkers = "kco2lm";
@@ -279,6 +235,58 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string ValueEditTypeSubtract = "sub";
                 public const string ValueEditTypeMultiply = "mul";
                 public const string ValueEditTypeDivide = "div";
+
+                public const string PositionInsertionTypePosition = "pos";
+                public const string PositionInsertionTypeEach = "each";
+                public const string PositionInsertionTypeLast = "last";
+
+                public const string JoinTypeInner = "in";
+                public const string JoinTypeLeftOuter = "lo";
+
+                public const string LineTransformationTypeBreak = "break";
+                public const string LineTransformationTypeUnite = "unite";
+
+                public const string ColumnTransformationTypePack = "pack";
+                public const string ColumnTransformationTypeUnpack = "unpack";
+
+                public const string ComparisonTypeLessThan = "lt";
+                public const string ComparisonTypeLessThanOrEqual = "lte";
+                public const string ComparisonTypeEqual = "eq";
+                public const string ComparisonTypeGreaterThanOrEqual = "gte";
+                public const string ComparisonTypeGreaterThan = "gt";
+                public const string ComparisonTypeNotEqual = "neq";
+                public const string ComparisonTypeBetween = "btwn";
+                public const string ComparisonTypeStrictlyBetween = "sbtwn";
+                public const string ComparisonTypeNotBetween = "nbtwn";
+                public const string ComparisonTypeNotStrictlyBetween = "nsbtwn";
+
+                public const string PositionSelectionTypeLast = "last";
+                public const string PositionSelectionTypeNotLast = "nlast";
+                public const string PositionSelectionTypeBetween = "btwn";
+                public const string PositionSelectionTypeNotBetween = "nbtwn";
+                public const string PositionSelectionTypeEach = "each";
+                public const string PositionSelectionTypeNotEach = "neach";
+
+                public const string StringSelectionTypeHasLengthBetween = "btwn";
+                public const string StringSelectionTypeHasLengthNotBetween = "nbtwn";
+                public const string StringSelectionTypeIncludes = "incl";
+                public const string StringSelectionTypeNotIncludes = "nincl";
+                public const string StringSelectionTypeStartsWith = "start";
+                public const string StringSelectionTypeNotStartsWith = "nstart";
+                public const string StringSelectionTypeEndsWith = "end";
+                public const string StringSelectionTypeNotEndsWith = "nend";
+                public const string StringSelectionTypeStartsAndEndsWith = "startend";
+                public const string StringSelectionTypeNotStartsAndEndsWith = "nstartend";
+                public const string StringSelectionTypeEquals = "eq";
+                public const string StringSelectionTypeNotEquals = "neq";
+
+                public const string RelativeValueSelectionFirst = "first";
+                public const string RelativeValueSelectionNotFirst = "nfirst";
+                public const string RelativeValueSelectionLast = "last";
+                public const string RelativeValueSelectionNotLast = "nlast";
+
+                public const string LookupTypeIncluded = "incl";
+                public const string LookupTypeNotIncluded = "nincl";
 
                 public const string DataDistributionTypeUniform = "u";
                 public const string DataDistributionTypeNormal = "n";
@@ -339,6 +347,18 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.DataTypeUnsignedInteger}' = unsigned integer"
                         + $"\n\t- '{Constants.Commands.Arguments.DataTypeFloatingPoint}' = floating point"
                         + $"\n\t- '{Constants.Commands.Arguments.DataTypeDateTime}' = datetime"
+                        ;
+
+                    public const string AlgorithmType = "<algorithm_type>";
+
+                    // List less performant algorithms last.
+                    //
+                    public static readonly string SortingAlgorithmTypeText = $"{Constants.Commands.Arguments.Descriptions.AlgorithmType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.SortingAlgorithmTypeMerge}' = merge sorting (stable)"
+                        + $"\n\t- '{Constants.Commands.Arguments.SortingAlgorithmTypeQuicksort}' = quicksort (in-place)"
+                        + $"\n\t- '{Constants.Commands.Arguments.SortingAlgorithmTypeHeap}' = heap sorting (in-place)"
+                        + $"\n\t- '{Constants.Commands.Arguments.SortingAlgorithmTypeShell}' = Shell sorting (in-place)"
+                        + $"\n\t- '{Constants.Commands.Arguments.SortingAlgorithmTypeInsertion}' = insertion sorting (quadratic!, in-place)"
                         ;
 
                     public const string NewFirstColumnsList = "<new_first_columns_list>";

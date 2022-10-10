@@ -137,6 +137,34 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.CustomSort,
+                CommandCategory.Ordering,
+                "(C)ustom (S)ort file",
+                /*longDescription:*/ null,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.AlgorithmType}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.SortingAlgorithmTypeText}"
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearTotal}");
+            RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.CustomSortByColumnValue,
+                CommandCategory.Ordering,
+                "(C)ustom (S)ort file (B)y (C)olumn (V)alue",
+                /*longDescription:*/ null,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.AlgorithmType}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
+                + $"\n\n{CabeiroConstants.Commands.Arguments.Descriptions.SortingAlgorithmTypeText}"
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearTotal}");
+            RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
                 CabeiroConstants.Commands.Shuffle,
                 CommandCategory.Ordering,
                 "(SH)uffle file",

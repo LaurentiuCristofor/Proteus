@@ -239,7 +239,42 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid data type argument: {argument}!");
+                throw new CabeiroException($"Invalid data type argument: '{argument}'!");
+            }
+        }
+
+        /// <summary>
+        /// Parses argument value as a SortingAlgorithmType indicator.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the SortingAlgorithmType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<SortingAlgorithmType, int> ParseSortingAlgorithmType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.SortingAlgorithmTypeInsertion))
+            {
+                return new Tuple<SortingAlgorithmType, int>(SortingAlgorithmType.Insertion, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.SortingAlgorithmTypeShell))
+            {
+                return new Tuple<SortingAlgorithmType, int>(SortingAlgorithmType.Shell, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.SortingAlgorithmTypeMerge))
+            {
+                return new Tuple<SortingAlgorithmType, int>(SortingAlgorithmType.Merge, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.SortingAlgorithmTypeQuicksort))
+            {
+                return new Tuple<SortingAlgorithmType, int>(SortingAlgorithmType.Quicksort, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.SortingAlgorithmTypeHeap))
+            {
+                return new Tuple<SortingAlgorithmType, int>(SortingAlgorithmType.Heap, 0);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid sorting algorithm type argument: '{argument}'!");
             }
         }
 
@@ -458,7 +493,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid string edit type argument: {argument}!");
+                throw new CabeiroException($"Invalid string edit type argument: '{argument}'!");
             }
         }
 
@@ -493,7 +528,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid value edit type argument: {argument}!");
+                throw new CabeiroException($"Invalid value edit type argument: '{argument}'!");
             }
         }
 
@@ -520,7 +555,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid position insertion type argument: {argument}!");
+                throw new CabeiroException($"Invalid position insertion type argument: '{argument}'!");
             }
         }
 
@@ -543,7 +578,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid join type argument: {argument}!");
+                throw new CabeiroException($"Invalid join type argument: '{argument}'!");
             }
         }
 
@@ -566,7 +601,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid line transformation type argument: {argument}!");
+                throw new CabeiroException($"Invalid line transformation type argument: '{argument}'!");
             }
         }
 
@@ -589,7 +624,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid column transformation type argument: {argument}!");
+                throw new CabeiroException($"Invalid column transformation type argument: '{argument}'!");
             }
         }
 
@@ -644,7 +679,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid comparison type argument: {argument}!");
+                throw new CabeiroException($"Invalid comparison type argument: '{argument}'!");
             }
         }
 
@@ -683,7 +718,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid position selection type argument: {argument}!");
+                throw new CabeiroException($"Invalid position selection type argument: '{argument}'!");
             }
         }
 
@@ -746,7 +781,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid string selection type argument: {argument}!");
+                throw new CabeiroException($"Invalid string selection type argument: '{argument}'!");
             }
         }
 
@@ -772,7 +807,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid relative value selection type argument: {argument}!");
+                throw new CabeiroException($"Invalid relative value selection type argument: '{argument}'!");
             }
         }
 
@@ -803,7 +838,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid relative value selection type argument: {argument}!");
+                throw new CabeiroException($"Invalid relative value selection type argument: '{argument}'!");
             }
         }
 
@@ -826,7 +861,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid lookup type argument: {argument}!");
+                throw new CabeiroException($"Invalid lookup type argument: '{argument}'!");
             }
         }
 
@@ -857,7 +892,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid data distribution type argument: {argument}!");
+                throw new CabeiroException($"Invalid data distribution type argument: '{argument}'!");
             }
         }
     }

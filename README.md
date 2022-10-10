@@ -85,6 +85,8 @@ These commands change the order of the lines or columns of a file.
 * I - (I)nvert file
 * S - (S)ort file
 * SBCV - (S)ort file (B)y (C)olumn (V)alue
+* CS - (C)ustom (S)ort file
+* CSBCV - (C)ustom (S)ort file (B)y (C)olumn (V)alue
 * SH - (SH)uffle file
 * OC - (O)rder (C)olumns
 

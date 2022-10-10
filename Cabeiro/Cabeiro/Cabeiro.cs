@@ -220,6 +220,44 @@ namespace LaurentiuCristofor.Cabeiro
                     outputFilePath);
                 return;
             }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.CustomSort))
+            {
+                const int minimumArgumentNumber = 3;
+                const int maximumArgumentNumber = 4;
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
+
+                string inputFilePath = arguments[1];
+                Tuple<SortingAlgorithmType, int> operationInfo = ArgumentParser.ParseSortingAlgorithmType(arguments[2]);
+                ArgumentParser.ExtractLastArguments(operationInfo.Item2, 3, arguments, out _, out string outputFilePath);
+
+                CustomSortFile(
+                    inputFilePath,
+                    operationInfo.Item1, arguments[2],
+                    outputFilePath);
+                return;
+            }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.CustomSortByColumnValue))
+            {
+                const int minimumArgumentNumber = 6;
+                const int maximumArgumentNumber = 7;
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
+
+                string inputFilePath = arguments[1];
+                int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
+                string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
+                DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
+                Tuple<SortingAlgorithmType, int> operationInfo = ArgumentParser.ParseSortingAlgorithmType(arguments[5]);
+                ArgumentParser.ExtractLastArguments(operationInfo.Item2, 6, arguments, out _, out string outputFilePath);
+
+                CustomSortFileByColumnValue(
+                    inputFilePath,
+                    columnNumber,
+                    columnSeparator,
+                    dataType, arguments[4],
+                    operationInfo.Item1, arguments[5],
+                    outputFilePath);
+                return;
+            }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.Shuffle))
             {
                 const int minimumArgumentNumber = 2;
@@ -939,6 +977,58 @@ namespace LaurentiuCristofor.Cabeiro
 
             var fileProcessor
                 = new FileProcessor<OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue, SortByColumnValueProcessor, BaseOutputParameters>(
+                    inputFilePath,
+                    extractionParameters,
+                    processingParameters);
+
+            fileProcessor.ProcessFile();
+        }
+
+        private static void CustomSortFile(
+            string inputFilePath,
+            SortingAlgorithmType algorithmType, string algorithmTypeString,
+            string outputFilePath)
+        {
+            string outputFileExtension = $".{CabeiroConstants.Commands.CustomSort}.{algorithmTypeString.ToLower()}";
+            var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            OutputOperationParameters<SortingAlgorithmType> processingParameters = new OutputOperationParameters<SortingAlgorithmType>(
+                outputFilePath,
+                algorithmType);
+
+            var fileProcessor
+                = new FileProcessor<LineExtractor, Unused, string, CustomSortProcessor, OutputOperationParameters<SortingAlgorithmType>>(
+                    inputFilePath,
+                    /*extractionParameters:*/ null,
+                    processingParameters);
+
+            fileProcessor.ProcessFile();
+        }
+
+        private static void CustomSortFileByColumnValue(
+            string inputFilePath,
+            int columnNumber,
+            string columnSeparator,
+            DataType dataType, string dataTypeString,
+            SortingAlgorithmType algorithmType, string algorithmTypeString,
+            string outputFilePath)
+        {
+            OneColumnValueExtractionParameters extractionParameters = new OneColumnValueExtractionParameters(
+                columnSeparator,
+                columnNumber,
+                dataType);
+
+            string outputFileExtension = $".{CabeiroConstants.Commands.CustomSortByColumnValue}.{columnNumber}.{dataTypeString.ToLower()}.{algorithmTypeString.ToLower()}";
+            var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            OutputOperationParameters<SortingAlgorithmType> processingParameters = new OutputOperationParameters<SortingAlgorithmType>(
+                outputFilePath,
+                algorithmType);
+
+            var fileProcessor
+                = new FileProcessor<OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue, CustomSortByColumnValueProcessor, OutputOperationParameters<SortingAlgorithmType>>(
                     inputFilePath,
                     extractionParameters,
                     processingParameters);
