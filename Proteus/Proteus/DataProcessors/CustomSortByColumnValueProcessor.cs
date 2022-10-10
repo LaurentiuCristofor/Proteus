@@ -29,38 +29,38 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// <summary>
         /// Data structure used for loading the lines before sorting them.
         /// </summary>
-        protected List<Tuple<IDataHolder, string>> ColumnLineTuples { get; set; }
+        protected List<DataPair<IDataHolder, string>> ColumnLinePairs { get; set; }
 
         public void Initialize(OutputOperationParameters<SortingAlgorithmType> processingParameters)
         {
             this.Parameters = processingParameters;
 
-            this.ColumnLineTuples = new List<Tuple<IDataHolder, string>>();
+            this.ColumnLinePairs = new List<DataPair<IDataHolder, string>>();
 
             this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath, trackProgress: true);
         }
 
         public bool Execute(ulong lineNumber, OneExtractedValue lineData)
         {
-            this.ColumnLineTuples.Add(new Tuple<IDataHolder, string>(lineData.ExtractedData, lineData.OriginalLine));
+            this.ColumnLinePairs.Add(new DataPair<IDataHolder, string>(lineData.ExtractedData, lineData.OriginalLine));
 
             return true;
         }
 
         public override void CompleteExecution()
         {
-            if (this.ColumnLineTuples == null)
+            if (this.ColumnLinePairs == null)
             {
                 throw new ProteusException("Internal error: An expected data structure has not been initialized!");
             }
 
             Timer timer = new Timer($"\n{Constants.Messages.SortingStart}", Constants.Messages.SortingEnd, countFinalLineEndings: 0);
-            CustomSorting.Sort<Tuple<IDataHolder, string>>(this.ColumnLineTuples, this.Parameters.OperationType);
+            CustomSorting.Sort<DataPair<IDataHolder, string>>(this.ColumnLinePairs, this.Parameters.OperationType);
             timer.StopAndReport();
 
-            foreach (Tuple<IDataHolder, string> tuple in this.ColumnLineTuples)
+            foreach (DataPair<IDataHolder, string> dataPair in this.ColumnLinePairs)
             {
-                this.OutputWriter.WriteLine(tuple.Item2);
+                this.OutputWriter.WriteLine(dataPair.SecondData);
             }
 
             base.CompleteExecution();

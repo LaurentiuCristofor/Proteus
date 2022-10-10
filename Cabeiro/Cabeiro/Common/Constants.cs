@@ -172,11 +172,11 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string DataTypeFloatingPoint = "f";
                 public const string DataTypeDateTime = "dt";
 
-                public const string SortingAlgorithmTypeInsertion = "insertion";
-                public const string SortingAlgorithmTypeShell = "shell";
-                public const string SortingAlgorithmTypeMerge = "merge";
-                public const string SortingAlgorithmTypeQuicksort = "quicksort";
-                public const string SortingAlgorithmTypeHeap = "heap";
+                public const string SortingAlgorithmTypeInsertion = "i";
+                public const string SortingAlgorithmTypeShell = "sh";
+                public const string SortingAlgorithmTypeMerge = "m";
+                public const string SortingAlgorithmTypeQuicksort = "qs";
+                public const string SortingAlgorithmTypeHeap = "h";
 
                 public const string StringEditTypeRewrite = "rw";
                 public const string StringEditTypeInvert = "i";
@@ -358,7 +358,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.SortingAlgorithmTypeQuicksort}' = quicksort (in-place)"
                         + $"\n\t- '{Constants.Commands.Arguments.SortingAlgorithmTypeHeap}' = heap sorting (in-place)"
                         + $"\n\t- '{Constants.Commands.Arguments.SortingAlgorithmTypeShell}' = Shell sorting (in-place)"
-                        + $"\n\t- '{Constants.Commands.Arguments.SortingAlgorithmTypeInsertion}' = insertion sorting (quadratic!, in-place)"
+                        + $"\n\t- '{Constants.Commands.Arguments.SortingAlgorithmTypeInsertion}' = insertion sorting (quadratic!, stable, in-place)"
                         ;
 
                     public const string NewFirstColumnsList = "<new_first_columns_list>";

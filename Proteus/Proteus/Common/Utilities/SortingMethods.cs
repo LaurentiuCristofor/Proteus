@@ -232,7 +232,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         {
             if (right > left)
             {
-                int i, j, k;
+                int i, j;
 
                 int middle = (left + right) / 2;
 
@@ -258,9 +258,9 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
 
                 // Merge the two sublists into the original list.
                 //
-                for (k = left; k <= right; ++k)
+                for (int k = left; k <= right; ++k)
                 {
-                    // <= to make it stable
+                    // <= makes it stable.
                     //
                     if (copyList[i].CompareTo(copyList[j]) <= 0)
                     {

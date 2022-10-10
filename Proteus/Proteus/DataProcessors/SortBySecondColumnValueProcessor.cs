@@ -26,7 +26,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// <summary>
         /// Data structure used for loading the lines before sorting them.
         /// </summary>
-        protected List<Tuple<IDataHolder, string>> ColumnLineTuples { get; set; }
+        protected List<DataPair<IDataHolder, string>> ColumnLinePairs { get; set; }
 
         /// <summary>
         /// The value being currently processed for the primary sort column.
@@ -37,7 +37,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         {
             this.Parameters = processingParameters;
 
-            this.ColumnLineTuples = new List<Tuple<IDataHolder, string>>();
+            this.ColumnLinePairs = new List<DataPair<IDataHolder, string>>();
 
             this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
         }
@@ -50,16 +50,16 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             {
                 // Sort and output the lines we have collected so far for the CurrentPrimaryColumnData value.
                 //
-                this.ColumnLineTuples.Sort();
+                this.ColumnLinePairs.Sort();
 
-                foreach (Tuple<IDataHolder, string> tuple in this.ColumnLineTuples)
+                foreach (DataPair<IDataHolder, string> dataPair in this.ColumnLinePairs)
                 {
-                    this.OutputWriter.WriteLine(tuple.Item2);
+                    this.OutputWriter.WriteLine(dataPair.SecondData);
                 }
 
                 // Clear our tuples array - we'll start collecting a new set of rows.
                 //
-                this.ColumnLineTuples.Clear();
+                this.ColumnLinePairs.Clear();
 
                 // Verify that the input file is sorted on the primary column.
                 //
@@ -73,25 +73,25 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 this.CurrentPrimaryColumnData = lineData.ExtractedData;
             }
 
-            this.ColumnLineTuples.Add(new Tuple<IDataHolder, string>(lineData.SecondExtractedData, lineData.OriginalLine));
+            this.ColumnLinePairs.Add(new DataPair<IDataHolder, string>(lineData.SecondExtractedData, lineData.OriginalLine));
 
             return true;
         }
 
         public override void CompleteExecution()
         {
-            if (this.ColumnLineTuples == null)
+            if (this.ColumnLinePairs == null)
             {
                 throw new ProteusException("Internal error: An expected data structure has not been initialized!");
             }
 
             // Output the last remaining batch of lines.
             //
-            this.ColumnLineTuples.Sort();
+            this.ColumnLinePairs.Sort();
 
-            foreach (Tuple<IDataHolder, string> tuple in this.ColumnLineTuples)
+            foreach (DataPair<IDataHolder, string> dataPair in this.ColumnLinePairs)
             {
-                this.OutputWriter.WriteLine(tuple.Item2);
+                this.OutputWriter.WriteLine(dataPair.SecondData);
             }
 
             base.CompleteExecution();
