@@ -232,8 +232,6 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         {
             if (right > left)
             {
-                int i, j;
-
                 int middle = (left + right) / 2;
 
                 MergeSort(list, copyList, left, middle);
@@ -241,34 +239,52 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
 
                 // Copy the elements of list into copyList.
                 //
-                // At the end of this loop i will equal left.
-                //
-                for (i = middle + 1; i > left; --i)
+                int k;
+                for (k = left; k <= right; ++k)
                 {
-                    copyList[i - 1] = list[i - 1];
-                }
-
-                // The second sublist is copied in reverse order.
-                // At the end of this loop j will equal right.
-                //
-                for (j = middle; j < right; ++j)
-                {
-                    copyList[right + middle - j] = list[j + 1];
+                    copyList[k] = list[k];
                 }
 
                 // Merge the two sublists into the original list.
                 //
-                for (int k = left; k <= right; ++k)
+                int i = left;
+                int j = middle + 1;
+                for (k = left; k <= right; ++k)
                 {
-                    // <= makes it stable.
-                    //
-                    if (copyList[i].CompareTo(copyList[j]) <= 0)
+                    if (i <= middle && j <= right)
                     {
-                        list[k] = copyList[i++];
+                        if (copyList[i].CompareTo(copyList[j]) <= 0)
+                        {
+                            list[k] = copyList[i++];
+                        }
+                        else
+                        {
+                            list[k] = copyList[j++];
+                        }
                     }
                     else
                     {
-                        list[k] = copyList[j--];
+                        // We reach this point after we complete copying one sublist.
+                        // We need to complete copying the other one.
+                        //
+                        break;
+                    }
+                }
+
+                // Check which sublist we need to finish copying and finish copying it.
+                //
+                if (i <= middle)
+                {
+                    for (; k <= right; ++k)
+                    {
+                        list[k] = copyList[i++];
+                    }
+                }
+                else
+                {
+                    for (; k <= right; ++k)
+                    {
+                        list[k] = copyList[j++];
                     }
                 }
             }
