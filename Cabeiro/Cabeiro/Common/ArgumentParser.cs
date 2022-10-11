@@ -866,33 +866,33 @@ namespace LaurentiuCristofor.Cabeiro.Common
         }
 
         /// <summary>
-        /// Parses argument value as a DataDistributionType indicator.
+        /// Parses argument value as a DistributionType indicator.
         /// </summary>
         /// <param name="argument">The argument value to parse.</param>
-        /// <returns>A tuple containing the DataDistributionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
-        public static Tuple<DataDistributionType, int> ParseDataDistributionType(string argument)
+        /// <returns>A tuple containing the DistributionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<DistributionType, int> ParseDistributionType(string argument)
         {
             string lowercaseValue = argument.ToLower();
 
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.DataDistributionTypeNormal))
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.DistributionTypeNormal))
             {
-                return new Tuple<DataDistributionType, int>(DataDistributionType.Normal, 0);
+                return new Tuple<DistributionType, int>(DistributionType.Normal, 0);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.DataDistributionTypeUniform))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.DistributionTypeUniform))
             {
-                return new Tuple<DataDistributionType, int>(DataDistributionType.Uniform, 0);
+                return new Tuple<DistributionType, int>(DistributionType.Uniform, 0);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.DataDistributionTypeExponential))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.DistributionTypeExponential))
             {
-                return new Tuple<DataDistributionType, int>(DataDistributionType.Exponential, 1);
+                return new Tuple<DistributionType, int>(DistributionType.Exponential, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.DataDistributionTypePoisson))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.DistributionTypePoisson))
             {
-                return new Tuple<DataDistributionType, int>(DataDistributionType.Poisson, 1);
+                return new Tuple<DistributionType, int>(DistributionType.Poisson, 1);
             }
             else
             {
-                throw new CabeiroException($"Invalid data distribution type argument: '{argument}'!");
+                throw new CabeiroException($"Invalid distribution type argument: '{argument}'!");
             }
         }
     }

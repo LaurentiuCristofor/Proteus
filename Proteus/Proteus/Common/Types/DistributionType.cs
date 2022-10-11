@@ -10,7 +10,7 @@ namespace LaurentiuCristofor.Proteus.Common.Types
     /// <summary>
     /// Types of data distributions.
     /// </summary>
-    public enum DataDistributionType
+    public enum DistributionType
     {
         NotSet = 0,
 

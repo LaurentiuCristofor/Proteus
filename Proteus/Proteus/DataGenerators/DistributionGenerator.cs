@@ -63,16 +63,16 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
 
             switch (this.Parameters.DistributionType)
             {
-                case DataDistributionType.Uniform:
+                case DistributionType.Uniform:
                     // Nothing to do - we already initialized the generator.
                     //
                     break;
 
-                case DataDistributionType.Normal:
+                case DistributionType.Normal:
                     this.NormalGenerator = new NormalGenerator(this.UniformGenerator);
                     break;
 
-                case DataDistributionType.Exponential:
+                case DistributionType.Exponential:
                     {
                         ArgumentChecker.CheckNotNull<string>(this.Parameters.DistributionMean);
 
@@ -82,7 +82,7 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
                         break;
                     }
 
-                case DataDistributionType.Poisson:
+                case DistributionType.Poisson:
                     {
                         ArgumentChecker.CheckNotNull<string>(this.Parameters.DistributionMean);
 
@@ -112,16 +112,16 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
 
             switch (this.Parameters.DistributionType)
             {
-                case DataDistributionType.Uniform:
+                case DistributionType.Uniform:
                     return this.UniformGenerator.NextDouble().ToString();
 
-                case DataDistributionType.Normal:
+                case DistributionType.Normal:
                     return this.NormalGenerator.NextGaussian().ToString();
 
-                case DataDistributionType.Exponential:
+                case DistributionType.Exponential:
                     return this.ExponentialGenerator.NextDouble().ToString();
 
-                case DataDistributionType.Poisson:
+                case DistributionType.Poisson:
                     return this.PoissonGenerator.NextULong().ToString();
 
                 default:

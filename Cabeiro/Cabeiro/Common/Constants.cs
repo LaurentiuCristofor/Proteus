@@ -291,10 +291,10 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string LookupTypeIncluded = "incl";
                 public const string LookupTypeNotIncluded = "nincl";
 
-                public const string DataDistributionTypeUniform = "u";
-                public const string DataDistributionTypeNormal = "n";
-                public const string DataDistributionTypeExponential = "e";
-                public const string DataDistributionTypePoisson = "p";
+                public const string DistributionTypeUniform = "u";
+                public const string DistributionTypeNormal = "n";
+                public const string DistributionTypeExponential = "e";
+                public const string DistributionTypePoisson = "p";
 
                 // Command argument description strings.
                 //
@@ -524,13 +524,13 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
                     public static readonly string SeedValueText = $"{Constants.Commands.Arguments.Descriptions.SeedValue} is an integer value that can be used to initialize the RNG for repeatable results. To not use a seed, just set this parameter to any negative value.";
 
-                    public const string DataDistributionType = "<data_distribution_type>";
+                    public const string DistributionType = "<distribution_type>";
 
-                    public static readonly string DataDistributionTypeText = $"{Constants.Commands.Arguments.Descriptions.DataDistributionType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.DataDistributionTypeUniform}' = uniform"
-                        + $"\n\t- '{Constants.Commands.Arguments.DataDistributionTypeNormal}' = normal"
-                        + $"\n\t- '{Constants.Commands.Arguments.DataDistributionTypeExponential}' = exponential; arguments: <distribution_mean> (double)"
-                        + $"\n\t- '{Constants.Commands.Arguments.DataDistributionTypePoisson}' = Poisson; arguments: <distribution_mean> (ulong)"
+                    public static readonly string DistributionTypeText = $"{Constants.Commands.Arguments.Descriptions.DistributionType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.DistributionTypeUniform}' = uniform"
+                        + $"\n\t- '{Constants.Commands.Arguments.DistributionTypeNormal}' = normal"
+                        + $"\n\t- '{Constants.Commands.Arguments.DistributionTypeExponential}' = exponential; arguments: <distribution_mean> (double)"
+                        + $"\n\t- '{Constants.Commands.Arguments.DistributionTypePoisson}' = Poisson; arguments: <distribution_mean> (ulong)"
                         ;
                 }
             }

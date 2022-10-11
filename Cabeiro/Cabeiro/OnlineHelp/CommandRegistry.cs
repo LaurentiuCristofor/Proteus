@@ -662,11 +662,11 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 CabeiroConstants.Commands.Descriptions.GenerateDistribution,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.SeedValue}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.GenerationCount}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataDistributionType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.DistributionType}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.DistributionMean}]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.SeedValueText}"
-                + $"\n\n{CabeiroConstants.Commands.Arguments.Descriptions.DataDistributionTypeText}"
+                + $"\n\n{CabeiroConstants.Commands.Arguments.Descriptions.DistributionTypeText}"
                 + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstant}");
             RegisterCommandDescription(commandDescription);
 

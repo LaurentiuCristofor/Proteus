@@ -851,7 +851,7 @@ namespace LaurentiuCristofor.Cabeiro
 
                 int seedValue = int.Parse(arguments[1]);
                 ulong generationCount = ArgumentParser.GetUnsignedLongInteger(arguments[2]);
-                Tuple<DataDistributionType, int> distributionInfo = ArgumentParser.ParseDataDistributionType(arguments[3]);
+                Tuple<DistributionType, int> distributionInfo = ArgumentParser.ParseDistributionType(arguments[3]);
                 ArgumentParser.ExtractLastArguments(distributionInfo.Item2, 4, arguments, out string[] generationArguments, out string outputFilePath);
 
                 GenerateDistribution(
@@ -2016,20 +2016,20 @@ namespace LaurentiuCristofor.Cabeiro
         private static void GenerateDistribution(
             int seedValue,
             ulong generationCount,
-            DataDistributionType dataDistributionType, string dataDistributionTypeString,
+            DistributionType distributionType, string distributionTypeString,
             string[] generationArguments,
             string outputFilePath)
         {
             DistributionGenerationParameters generationParameters = new DistributionGenerationParameters(
                 seedValue,
                 generationCount,
-                dataDistributionType,
+                distributionType,
                 (generationArguments.Length == 0) ? null : generationArguments[0]);
 
             string outputFileExtension
                 = (seedValue >= 0)
-                ? $".{CabeiroConstants.Commands.GenerateDistribution}.{seedValue}.{dataDistributionTypeString.ToLower()}.{generationCount}"
-                : $".{CabeiroConstants.Commands.GenerateDistribution}.{dataDistributionTypeString.ToLower()}.{generationCount}";
+                ? $".{CabeiroConstants.Commands.GenerateDistribution}.{seedValue}.{distributionTypeString.ToLower()}.{generationCount}"
+                : $".{CabeiroConstants.Commands.GenerateDistribution}.{distributionTypeString.ToLower()}.{generationCount}";
             var filePathBuilder = new FilePathBuilder(CabeiroConstants.Program.Name, outputFileExtension, generationArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
