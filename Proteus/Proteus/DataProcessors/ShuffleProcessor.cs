@@ -57,7 +57,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             while (true)
             {
-                Tuple<int, int> shuffle = shuffler.NextShuffle();
+                Tuple<int, int> shuffle = shuffler.Next();
 
                 if (shuffle == null)
                 {

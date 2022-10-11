@@ -36,7 +36,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         {
             ArgumentChecker.CheckStrictlyPositive(secondColumnNumber);
             ArgumentChecker.CheckDataType(secondDataType);
-            ArgumentChecker.CheckDifferent(columnNumber, secondColumnNumber);
+            ArgumentChecker.CheckDifferent<int>(columnNumber, secondColumnNumber);
 
             this.SecondColumnNumber = secondColumnNumber;
             this.SecondColumnDataType = secondDataType;

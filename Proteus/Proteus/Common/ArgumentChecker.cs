@@ -73,9 +73,17 @@ namespace LaurentiuCristofor.Proteus.Common
             }
         }
 
-        internal static void CheckDifferent(int firstArgument, int secondArgument)
+        internal static void CheckNotZero(double argument)
         {
-            if (secondArgument == firstArgument)
+            if (argument == 0)
+            {
+                throw new ProteusException($"A double argument is zero!");
+            }
+        }
+
+        internal static void CheckDifferent<T>(T firstArgument, T secondArgument)
+        {
+            if (secondArgument.Equals(firstArgument))
             {
                 throw new ProteusException($"Two different arguments were expected, but both arguments provided have the same value: {firstArgument}!");
             }

@@ -12,7 +12,7 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
     /// <summary>
     /// Includes parameters for generating data according to a specific distribution.
     /// </summary>
-    public class DistributionGenerationParameters : BaseGenerationParameters
+    public class DistributionGenerationParameters : RandomGenerationParameters
     {
         /// <summary>
         /// The type of data distribution that should be used for the data generation.

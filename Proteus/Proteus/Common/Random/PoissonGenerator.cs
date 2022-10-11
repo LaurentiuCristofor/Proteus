@@ -58,19 +58,19 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// Returns a new unsigned long value with the requested Poisson distribution.
         /// </summary>
         /// <returns>A new unsigned long value with the requested Poisson distribution.</returns>
-        public ulong NextULong()
+        public ulong Next()
         {
             // Generate a normal distribution if we initialized the generator for it.
             //
             if (this.NormalGenerator != null)
             {
-                return NextULongNormal();
+                return NextNormal();
             }
 
-            return NextULongPoisson();
+            return NextPoisson();
         }
 
-        private ulong NextULongPoisson()
+        private ulong NextPoisson()
         {
             // Q1. [Calculate exponential]
             //
@@ -101,9 +101,9 @@ namespace LaurentiuCristofor.Proteus.Common.Random
             }
         }
 
-        private ulong NextULongNormal()
+        private ulong NextNormal()
         {
-            double z = this.NormalGenerator.NextGaussian();
+            double z = this.NormalGenerator.Next();
 
             long value = (long)(this.Mean + z * Math.Sqrt(this.Mean) + 0.5);
 

@@ -71,7 +71,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// Returns the next value in the sample, between 1 and totalCount.
         /// </summary>
         /// <returns>The next value from the requested sample, or 0 if the method has been called after the sampling was completed.</returns>
-        public ulong NextSampleValue()
+        public ulong Next()
         {
             if (this.GeneratedCount == this.SampleCount)
             {

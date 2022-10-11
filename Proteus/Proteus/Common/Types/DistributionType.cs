@@ -8,14 +8,12 @@
 namespace LaurentiuCristofor.Proteus.Common.Types
 {
     /// <summary>
-    /// Types of data distributions.
+    /// Types of distributions.
     /// </summary>
     public enum DistributionType
     {
         NotSet = 0,
 
-        // Standard distributions.
-        //
         Uniform = 1,
         Normal = 2,
         Exponential = 3,

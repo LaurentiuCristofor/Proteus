@@ -47,7 +47,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// Returns the next pair of values to exchange.
         /// </summary>
         /// <returns>A tuple indicating the numbers of the values to exchange, or null if the shuffling has ended.</returns>
-        public Tuple<int, int> NextShuffle()
+        public Tuple<int, int> Next()
         {
             if (this.RemainingShufflingSteps == 0)
             {

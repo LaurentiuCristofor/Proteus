@@ -49,7 +49,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// Returns a new double value with the requested normal distribution.
         /// </summary>
         /// <returns>A new double value with the requested normal distribution.</returns>
-        public double NextGaussian()
+        public double Next()
         {
             if (this.HasNextValue)
             {

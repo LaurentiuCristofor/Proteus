@@ -116,13 +116,13 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
                     return this.UniformGenerator.NextDouble().ToString();
 
                 case DistributionType.Normal:
-                    return this.NormalGenerator.NextGaussian().ToString();
+                    return this.NormalGenerator.Next().ToString();
 
                 case DistributionType.Exponential:
-                    return this.ExponentialGenerator.NextDouble().ToString();
+                    return this.ExponentialGenerator.Next().ToString();
 
                 case DistributionType.Poisson:
-                    return this.PoissonGenerator.NextULong().ToString();
+                    return this.PoissonGenerator.Next().ToString();
 
                 default:
                     throw new ProteusException($"Internal error: Proteus is not handling data distribution type '{this.Parameters.DistributionType}'!");

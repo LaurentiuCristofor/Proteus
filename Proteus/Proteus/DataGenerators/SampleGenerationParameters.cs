@@ -10,7 +10,7 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
     /// <summary>
     /// Includes parameters for performing a sample data generation.
     /// </summary>
-    public class SampleGenerationParameters : BaseGenerationParameters
+    public class SampleGenerationParameters : RandomGenerationParameters
     {
         /// <summary>
         /// The total count out of which the sample data should be produced.

@@ -44,7 +44,7 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
 
         public string Generate()
         {
-            ulong nextSampleValue = this.Sampler.NextSampleValue();
+            ulong nextSampleValue = this.Sampler.Next();
 
             if (nextSampleValue == 0)
             {

@@ -43,7 +43,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// Returns a new double value with the requested exponential distribution.
         /// </summary>
         /// <returns>A new double value with the requested exponential distribution.</returns>
-        public double NextDouble()
+        public double Next()
         {
             double U;
 
