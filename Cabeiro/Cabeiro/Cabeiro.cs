@@ -739,6 +739,24 @@ namespace LaurentiuCristofor.Cabeiro
                     outputFilePath);
                 return;
             }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SplitLinesIntoRandomSets))
+            {
+                const int minimumArgumentNumber = 4;
+                const int maximumArgumentNumber = 5;
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
+
+                string inputFilePath = arguments[1];
+                int seedValue = int.Parse(arguments[2]);
+                int setsCount = ArgumentParser.GetStrictlyPositiveInteger(arguments[3]);
+                ArgumentParser.ExtractLastArguments(0, 4, arguments, out _, out string outputFilePath);
+
+                SplitLinesIntoRandomSets(
+                    inputFilePath,
+                    seedValue,
+                    setsCount,
+                    outputFilePath);
+                return;
+            }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SortBySecondColumnValue))
             {
                 const int minimumArgumentNumber = 7;
@@ -1814,15 +1832,12 @@ namespace LaurentiuCristofor.Cabeiro
             DataType dataType, string dataTypeString,
             string outputFilePath)
         {
-            // We need a successful column extraction to extract all columns,
-            // so we'll just ask to extract the first column value, which must always exist if there is any data in the line.
-            //
             OneColumnValueExtractionParameters extractionParameters = new OneColumnValueExtractionParameters(
                 columnSeparator,
                 columnNumber,
                 dataType);
 
-            // The file name will be bundled by the processor with the number of each column, so we exclude the text extension from it;
+            // The file name will be bundled by the processor with the number of each distinct column value, so we exclude the text extension from it;
             // it will get appended by the processor internally.
             //
             string outputFileExtension = $".{CabeiroConstants.Commands.SplitColumnValues}.{columnNumber}.{dataTypeString.ToLower()}";
@@ -1839,6 +1854,38 @@ namespace LaurentiuCristofor.Cabeiro
                 = new FileProcessor<OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue, SplitColumnValuesProcessor, OutputParameters>(
                     inputFilePath,
                     extractionParameters,
+                    processingParameters);
+
+            fileProcessor.ProcessFile();
+        }
+
+        private static void SplitLinesIntoRandomSets(
+            string inputFilePath,
+            int seedValue,
+            int setsCount,
+            string outputFilePath)
+        {
+            // The file name will be bundled by the processor with the number of each set, so we exclude the text extension from it;
+            // it will get appended by the processor internally.
+            //
+            string outputFileExtension
+                = (seedValue >= 0)
+                ? $".{CabeiroConstants.Commands.SplitLinesIntoRandomSets}.{seedValue}.{setsCount}"
+                : $".{CabeiroConstants.Commands.SplitLinesIntoRandomSets}.{setsCount}";
+            var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath(excludeTextExtension: true);
+
+            // The file extension is needed because the processor will need to append it for each file it creates.
+            //
+            OutputParameters processingParameters = new OutputParameters(
+                outputFilePath,
+                new string[] { CabeiroConstants.Files.Extensions.Txt },
+                new int[] { seedValue, setsCount });
+
+            var fileProcessor
+                = new FileProcessor<LineExtractor, Unused, string, SplitLinesIntoRandomSetsProcessor, OutputParameters>(
+                    inputFilePath,
+                    /*extractionParameters:*/ null,
                     processingParameters);
 
             fileProcessor.ProcessFile();

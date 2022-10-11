@@ -504,6 +504,19 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearUnique}");
             RegisterCommandDescription(commandDescription);
 
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.SplitLinesIntoRandomSets,
+                CommandCategory.Splitting,
+                "(SP)lit (L)ines (I)nto (R)andom (S)ets",
+                CabeiroConstants.Commands.Descriptions.SplitLinesIntoRandomSets,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SeedValue}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SetsCount}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.SeedValueText}"
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearSets}");
+            RegisterCommandDescription(commandDescription);
+
             // PostSorting commands.
             //
             commandDescription = new CommandDescription(

@@ -129,6 +129,7 @@ These commands split the content of a file across multiple files, based on vario
  * SPLR - (SP)lit (L)ine (R)anges
  * SPC - (SP)plit (C)olumns
  * SPCV - (SP)plit (C)olumn (V)alues
+ * SPLIRS - (SP)lit (L)ines (I)nto (R)andom (S)ets
 
 #### POST_SORTING commands
 

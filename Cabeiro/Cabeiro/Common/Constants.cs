@@ -89,6 +89,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string SplitLineRanges = "splr";
             public const string SplitColumns = "spc";
             public const string SplitColumnValues = "spcv";
+            public const string SplitLinesIntoRandomSets = "splirs";
 
             public const string SortBySecondColumnValue = "sb2cv";
             public const string MergeLines = "ml";
@@ -123,6 +124,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string SplitLineRanges = "Splits a file into multiple files, each containing a range of lines of specified size. Last file will likely have fewer lines than the rest.";
                 public const string SplitColumns = "Splits a file into multiple files, one for each column. Resulting files may have different size than the original file, if the original file contained lines with varying number of columns.";
                 public const string SplitColumnValues = "Splits a file into multiple files, one for each different value present in a specified column. Lines that do not have the specified column present are ignored.";
+                public const string SplitLinesIntoRandomSets = "Randomly splits the lines of a file into the specified number of sets. If the number of sets is larger than the number of lines, some of the sets will be empty.";
 
                 public const string MergeLines = "Merges lines from two sorted files. Does not verify the correct sorting of the input files.";
                 public const string MergeLinesByColumnValue = "Merges lines from two files sorted on a specific column. Does not verify the correct sorting of the input files.";
@@ -149,6 +151,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string MemoryRequirementLinearUnique = "Memory requirement: O(N), where N is the total size of unique data values found.";
                 public const string MemoryRequirementLinearTotal = "Memory requirement: O(N), where N is the total size of the input data file.";
                 public const string MemoryRequirementLinearSample = "Memory requirement: O(N), where N is the size of the requested sample.";
+                public const string MemoryRequirementLinearSets = "Memory requirement: O(N), where N is the number of requested sets.";
                 public const string MemoryRequirementLinearTotalSecond = "Memory requirement: O(N), where N is the total size of the second input data file.";
                 public const string MemoryRequirementLinearUniqueLookup = "Memory requirement: O(N), where N is the total size of unique data found in the lookup file.";
                 public const string MemoryRequirementLinearPrimaryColumnRepetitions = "Memory requirement: O(N), where N is the largest number of lines having the same primary column value.";
@@ -324,6 +327,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                     public const string LineValue = "<line_value>";
                     public const string RangeSize = "<range_size>";
                     public const string SampleSize = "<sample_size>";
+                    public const string SetsCount = "<sets_count>";
                     public const string SeedValue = "<seed_value>";
                     public const string GenerationCount = "<generation_count>";
                     public const string TotalCount = "<total_count>";
