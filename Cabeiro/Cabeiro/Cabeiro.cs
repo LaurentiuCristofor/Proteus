@@ -1106,12 +1106,12 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputParameters processingParameters = new OutputParameters(
+            OutputExtraParameters processingParameters = new OutputExtraParameters(
                 outputFilePath,
                 new string[] { newFirstColumnsList });
 
             var fileProcessor
-                = new FileProcessor<ColumnStringsExtractor, ColumnStringsExtractionParameters, ExtractedColumnStrings, OrderColumnsProcessor, OutputParameters>(
+                = new FileProcessor<ColumnStringsExtractor, ColumnStringsExtractionParameters, ExtractedColumnStrings, OrderColumnsProcessor, OutputExtraParameters>(
                     inputFilePath,
                     extractionParameters,
                     processingParameters);
@@ -1129,13 +1129,13 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new EditOperationFilePathBuilder(editType, inputFilePath, outputFileExtension, editArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputOperationParameters<StringEditType> processingParameters = new OutputOperationParameters<StringEditType>(
+            OutputExtraOperationParameters<StringEditType> processingParameters = new OutputExtraOperationParameters<StringEditType>(
                 outputFilePath,
                 editType,
                 editArguments);
 
             var fileProcessor
-                = new FileProcessor<LineAsOneExtractedValueExtractor, Unused, OneExtractedValue, EditStringProcessor, OutputOperationParameters<StringEditType>>(
+                = new FileProcessor<LineAsOneExtractedValueExtractor, Unused, OneExtractedValue, EditStringProcessor, OutputExtraOperationParameters<StringEditType>>(
                     inputFilePath,
                     /*extractionParameters:*/ null,
                     processingParameters);
@@ -1160,13 +1160,13 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new EditOperationFilePathBuilder(editType, inputFilePath, outputFileExtension, editArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputOperationParameters<StringEditType> processingParameters = new OutputOperationParameters<StringEditType>(
+            OutputExtraOperationParameters<StringEditType> processingParameters = new OutputExtraOperationParameters<StringEditType>(
                 outputFilePath,
                 editType,
                 editArguments);
 
             var fileProcessor
-                = new FileProcessor<OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue, EditStringProcessor, OutputOperationParameters<StringEditType>>(
+                = new FileProcessor<OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue, EditStringProcessor, OutputExtraOperationParameters<StringEditType>>(
                     inputFilePath,
                     extractionParameters,
                     processingParameters);
@@ -1232,13 +1232,13 @@ namespace LaurentiuCristofor.Cabeiro
 
             // We pass the line value as the first operation argument and the first argument becomes the second.
             //
-            OutputOperationParameters<PositionInsertionType> processingParameters = new OutputOperationParameters<PositionInsertionType>(
+            OutputExtraOperationParameters<PositionInsertionType> processingParameters = new OutputExtraOperationParameters<PositionInsertionType>(
                 outputFilePath,
                 insertionType,
                 (insertionArguments.Length > 0) ? new string[] { lineValue, insertionArguments[0] } : new string[] { lineValue });
 
             var fileProcessor
-                = new FileProcessor<LineExtractor, Unused, string, InsertLineProcessor, OutputOperationParameters<PositionInsertionType>>(
+                = new FileProcessor<LineExtractor, Unused, string, InsertLineProcessor, OutputExtraOperationParameters<PositionInsertionType>>(
                     inputFilePath,
                     /*extractionParameters:*/ null,
                     processingParameters);
@@ -1275,7 +1275,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(firstFilePath, outputFileExtension, joinArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputOperationParameters<JoinType> processingParameters = new OutputOperationParameters<JoinType>(
+            OutputExtraOperationParameters<JoinType> processingParameters = new OutputExtraOperationParameters<JoinType>(
                 outputFilePath,
                 joinType,
                 joinArguments);
@@ -1285,7 +1285,7 @@ namespace LaurentiuCristofor.Cabeiro
                 var dualFileProcessor
                     = new DualFileProcessor<
                         OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue,
-                        JoinPostSortingProcessor, OutputOperationParameters<JoinType>>(
+                        JoinPostSortingProcessor, OutputExtraOperationParameters<JoinType>>(
                         firstFilePath,
                         firstExtractionParameters,
                         secondFilePath,
@@ -1301,7 +1301,7 @@ namespace LaurentiuCristofor.Cabeiro
                         OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue,
                         OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue,
                         JoinBuilder, Dictionary<IDataHolder, List<string>>,
-                        JoinProcessor, OutputOperationParameters<JoinType>>(
+                        JoinProcessor, OutputExtraOperationParameters<JoinType>>(
                         firstFilePath,
                         firstExtractionParameters,
                         secondFilePath,
@@ -1322,14 +1322,14 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(firstFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputParameters processingParameters = new OutputParameters(
+            OutputExtraParameters processingParameters = new OutputExtraParameters(
                 outputFilePath,
                 new string[] { columnSeparator });
 
             var dualFileProcessor
                 = new DualFileProcessor<
                     LineExtractor, Unused, string,
-                    ConcatenateProcessor, OutputParameters>(
+                    ConcatenateProcessor, OutputExtraParameters>(
                     firstFilePath,
                     /*firstExtractionParameters:*/ null,
                     secondFilePath,
@@ -1353,13 +1353,13 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, transformationArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputOperationParameters<LineTransformationType> processingParameters = new OutputOperationParameters<LineTransformationType>(
+            OutputExtraOperationParameters<LineTransformationType> processingParameters = new OutputExtraOperationParameters<LineTransformationType>(
                 outputFilePath,
                 transformationType,
                 transformationArguments);
 
             var fileProcessor
-                = new FileProcessor<ColumnStringsExtractor, ColumnStringsExtractionParameters, ExtractedColumnStrings, TransformLinesProcessor, OutputOperationParameters<LineTransformationType>>(
+                = new FileProcessor<ColumnStringsExtractor, ColumnStringsExtractionParameters, ExtractedColumnStrings, TransformLinesProcessor, OutputExtraOperationParameters<LineTransformationType>>(
                     inputFilePath,
                     extractionParameters,
                     processingParameters);
@@ -1381,13 +1381,13 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, transformationArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputOperationParameters<ColumnTransformationType> processingParameters = new OutputOperationParameters<ColumnTransformationType>(
+            OutputExtraOperationParameters<ColumnTransformationType> processingParameters = new OutputExtraOperationParameters<ColumnTransformationType>(
                 outputFilePath,
                 transformationType,
                 transformationArguments);
 
             var fileProcessor
-                = new FileProcessor<ColumnStringsExtractor, ColumnStringsExtractionParameters, ExtractedColumnStrings, TransformColumnsProcessor, OutputOperationParameters<ColumnTransformationType>>(
+                = new FileProcessor<ColumnStringsExtractor, ColumnStringsExtractionParameters, ExtractedColumnStrings, TransformColumnsProcessor, OutputExtraOperationParameters<ColumnTransformationType>>(
                     inputFilePath,
                     extractionParameters,
                     processingParameters);
@@ -1413,13 +1413,13 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, comparisonArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputOperationParameters<ComparisonType> processingParameters = new OutputOperationParameters<ComparisonType>(
+            OutputExtraOperationParameters<ComparisonType> processingParameters = new OutputExtraOperationParameters<ComparisonType>(
                 outputFilePath,
                 comparisonType,
                 comparisonArguments);
 
             var fileProcessor
-                = new FileProcessor<OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue, SelectLineByColumnValueProcessor, OutputOperationParameters<ComparisonType>>(
+                = new FileProcessor<OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue, SelectLineByColumnValueProcessor, OutputExtraOperationParameters<ComparisonType>>(
                     inputFilePath,
                     extractionParameters,
                     processingParameters);
@@ -1437,13 +1437,13 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, selectionArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputOperationParameters<PositionSelectionType> processingParameters = new OutputOperationParameters<PositionSelectionType>(
+            OutputExtraOperationParameters<PositionSelectionType> processingParameters = new OutputExtraOperationParameters<PositionSelectionType>(
                 outputFilePath,
                 selectionType,
                 selectionArguments);
 
             var fileProcessor
-                = new FileProcessor<LineExtractor, Unused, string, SelectLineByNumberProcessor, OutputOperationParameters<PositionSelectionType>>(
+                = new FileProcessor<LineExtractor, Unused, string, SelectLineByNumberProcessor, OutputExtraOperationParameters<PositionSelectionType>>(
                     inputFilePath,
                     /*extractionParameters:*/ null,
                     processingParameters);
@@ -1465,13 +1465,13 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, selectionArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputOperationParameters<PositionSelectionType> processingParameters = new OutputOperationParameters<PositionSelectionType>(
+            OutputExtraOperationParameters<PositionSelectionType> processingParameters = new OutputExtraOperationParameters<PositionSelectionType>(
                 outputFilePath,
                 selectionType,
                 selectionArguments);
 
             var fileProcessor
-                = new FileProcessor<ColumnStringsExtractor, ColumnStringsExtractionParameters, ExtractedColumnStrings, SelectColumnByNumberProcessor, OutputOperationParameters<PositionSelectionType>>(
+                = new FileProcessor<ColumnStringsExtractor, ColumnStringsExtractionParameters, ExtractedColumnStrings, SelectColumnByNumberProcessor, OutputExtraOperationParameters<PositionSelectionType>>(
                     inputFilePath,
                     extractionParameters,
                     processingParameters);
@@ -1489,13 +1489,13 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, selectionArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputOperationParameters<StringSelectionType> processingParameters = new OutputOperationParameters<StringSelectionType>(
+            OutputExtraOperationParameters<StringSelectionType> processingParameters = new OutputExtraOperationParameters<StringSelectionType>(
                 outputFilePath,
                 selectionType,
                 selectionArguments);
 
             var fileProcessor
-                = new FileProcessor<LineAsOneExtractedValueExtractor, Unused, OneExtractedValue, SelectLineByStringProcessor, OutputOperationParameters<StringSelectionType>>(
+                = new FileProcessor<LineAsOneExtractedValueExtractor, Unused, OneExtractedValue, SelectLineByStringProcessor, OutputExtraOperationParameters<StringSelectionType>>(
                     inputFilePath,
                     /*extractionParameters:*/ null,
                     processingParameters);
@@ -1520,13 +1520,13 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, selectionArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputOperationParameters<StringSelectionType> processingParameters = new OutputOperationParameters<StringSelectionType>(
+            OutputExtraOperationParameters<StringSelectionType> processingParameters = new OutputExtraOperationParameters<StringSelectionType>(
                 outputFilePath,
                 selectionType,
                 selectionArguments);
 
             var fileProcessor
-                = new FileProcessor<OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue, SelectLineByStringProcessor, OutputOperationParameters<StringSelectionType>>(
+                = new FileProcessor<OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue, SelectLineByStringProcessor, OutputExtraOperationParameters<StringSelectionType>>(
                     inputFilePath,
                     extractionParameters,
                     processingParameters);
@@ -1548,13 +1548,13 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, comparisonArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputOperationParameters<ComparisonType> processingParameters = new OutputOperationParameters<ComparisonType>(
+            OutputExtraOperationParameters<ComparisonType> processingParameters = new OutputExtraOperationParameters<ComparisonType>(
                 outputFilePath,
                 comparisonType,
                 comparisonArguments);
 
             var fileProcessor
-                = new FileProcessor<ColumnStringsExtractor, ColumnStringsExtractionParameters, ExtractedColumnStrings, SelectLineByColumnCountProcessor, OutputOperationParameters<ComparisonType>>(
+                = new FileProcessor<ColumnStringsExtractor, ColumnStringsExtractionParameters, ExtractedColumnStrings, SelectLineByColumnCountProcessor, OutputExtraOperationParameters<ComparisonType>>(
                     inputFilePath,
                     extractionParameters,
                     processingParameters);
@@ -1775,13 +1775,13 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputParameters processingParameters = new OutputParameters(
+            OutputExtraParameters processingParameters = new OutputExtraParameters(
                 outputFilePath,
                 null,
                 new int[] { seedValue, sampleSize });
 
             var fileProcessor
-                = new FileProcessor<LineExtractor, Unused, string, SampleProcessor, OutputParameters>(
+                = new FileProcessor<LineExtractor, Unused, string, SampleProcessor, OutputExtraParameters>(
                     inputFilePath,
                     /*extractionParameters:*/ null,
                     processingParameters);
@@ -1803,14 +1803,14 @@ namespace LaurentiuCristofor.Cabeiro
 
             // The file extension is needed because the processor will need to append it for each file it creates.
             //
-            OutputParameters processingParameters = new OutputParameters(
+            OutputExtraParameters processingParameters = new OutputExtraParameters(
                 outputFilePath,
                 new string[] { CabeiroConstants.Files.Extensions.Txt },
                 null,
                 new ulong[] { rangeSize });
 
             var fileProcessor
-                = new FileProcessor<LineExtractor, Unused, string, SplitLineRangesProcessor, OutputParameters>(
+                = new FileProcessor<LineExtractor, Unused, string, SplitLineRangesProcessor, OutputExtraParameters>(
                     inputFilePath,
                     /*extractionParameters:*/ null,
                     processingParameters);
@@ -1835,12 +1835,12 @@ namespace LaurentiuCristofor.Cabeiro
 
             // The file extension is needed because the processor will need to append it for each file it creates.
             //
-            OutputParameters processingParameters = new OutputParameters(
+            OutputExtraParameters processingParameters = new OutputExtraParameters(
                 outputFilePath,
                 new string[] { CabeiroConstants.Files.Extensions.Txt });
 
             var fileProcessor
-                = new FileProcessor<ColumnStringsExtractor, ColumnStringsExtractionParameters, ExtractedColumnStrings, SplitColumnsProcessor, OutputParameters>(
+                = new FileProcessor<ColumnStringsExtractor, ColumnStringsExtractionParameters, ExtractedColumnStrings, SplitColumnsProcessor, OutputExtraParameters>(
                     inputFilePath,
                     extractionParameters,
                     processingParameters);
@@ -1869,12 +1869,12 @@ namespace LaurentiuCristofor.Cabeiro
 
             // The file extension is needed because the processor will need to append it for each file it creates.
             //
-            OutputParameters processingParameters = new OutputParameters(
+            OutputExtraParameters processingParameters = new OutputExtraParameters(
                 outputFilePath,
                 new string[] { CabeiroConstants.Files.Extensions.Txt });
 
             var fileProcessor
-                = new FileProcessor<OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue, SplitColumnValuesProcessor, OutputParameters>(
+                = new FileProcessor<OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue, SplitColumnValuesProcessor, OutputExtraParameters>(
                     inputFilePath,
                     extractionParameters,
                     processingParameters);
@@ -1900,13 +1900,13 @@ namespace LaurentiuCristofor.Cabeiro
 
             // The file extension is needed because the processor will need to append it for each file it creates.
             //
-            OutputParameters processingParameters = new OutputParameters(
+            OutputExtraParameters processingParameters = new OutputExtraParameters(
                 outputFilePath,
                 new string[] { CabeiroConstants.Files.Extensions.Txt },
                 new int[] { seedValue, setsCount });
 
             var fileProcessor
-                = new FileProcessor<LineExtractor, Unused, string, SplitLinesIntoRandomSetsProcessor, OutputParameters>(
+                = new FileProcessor<LineExtractor, Unused, string, SplitLinesIntoRandomSetsProcessor, OutputExtraParameters>(
                     inputFilePath,
                     /*extractionParameters:*/ null,
                     processingParameters);

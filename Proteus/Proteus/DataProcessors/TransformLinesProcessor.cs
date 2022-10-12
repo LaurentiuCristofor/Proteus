@@ -18,7 +18,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that transforms lines.
     /// </summary>
-    public class TransformLinesProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<LineTransformationType>, ExtractedColumnStrings>
+    public class TransformLinesProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraOperationParameters<LineTransformationType>, ExtractedColumnStrings>
     {
         protected LineTransformationType TransformationType { get; set; }
 
@@ -32,7 +32,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// </summary>
         protected List<string> LinesToUnite { get; set; }
 
-        public void Initialize(OutputOperationParameters<LineTransformationType> processingParameters)
+        public void Initialize(OutputExtraOperationParameters<LineTransformationType> processingParameters)
         {
             this.TransformationType = processingParameters.OperationType;
 

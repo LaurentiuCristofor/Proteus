@@ -20,7 +20,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
     /// A data processor that looks up a string in a data structure,
     /// to find a line to join with the currently processed line.
     /// </summary>
-    public class JoinProcessor : BaseOutputProcessor, IDataLookupProcessor<OutputOperationParameters<JoinType>, Dictionary<IDataHolder, List<string>>, OneExtractedValue>
+    public class JoinProcessor : BaseOutputProcessor, IDataLookupProcessor<OutputExtraOperationParameters<JoinType>, Dictionary<IDataHolder, List<string>>, OneExtractedValue>
     {
         protected JoinType JoinType { get; set; }
 
@@ -34,7 +34,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
         /// </summary>
         protected Dictionary<IDataHolder, List<string>> LookupDictionary { get; set; }
 
-        public void Initialize(OutputOperationParameters<JoinType> processingParameters)
+        public void Initialize(OutputExtraOperationParameters<JoinType> processingParameters)
         {
             this.JoinType = processingParameters.OperationType;
             this.OuterJoinDefaultValue = processingParameters.FirstArgument;

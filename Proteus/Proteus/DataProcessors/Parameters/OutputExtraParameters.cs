@@ -8,9 +8,9 @@
 namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
 {
     /// <summary>
-    /// Includes parameters for performing an output operation.
+    /// Includes extra parameters for performing an output operation.
     /// </summary>
-    public class OutputParameters : BaseOutputParameters
+    public class OutputExtraParameters : BaseOutputParameters
     {
         /// <summary>
         /// String-type parameters.
@@ -27,7 +27,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
         /// </summary>
         public ulong[] UlongParameters { get; set; }
 
-        public OutputParameters(
+        public OutputExtraParameters(
             string outputFilePath,
             string[] stringParameters = null,
             int[] intParameters = null,

@@ -8,7 +8,7 @@
 namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
 {
     /// <summary>
-    /// Includes parameters for performing an operation that outputs results to a file.
+    /// Includes common parameters for performing any operation that outputs results to a file.
     /// </summary>
     public class BaseOutputParameters
     {

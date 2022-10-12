@@ -21,7 +21,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// IntParameters[0] - randomization seed value
     /// IntParameters[1] - count of sets
     /// </summary>
-    public class SplitLinesIntoRandomSetsProcessor : BaseOutputProcessor, IDataProcessor<OutputParameters, string>
+    public class SplitLinesIntoRandomSetsProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraParameters, string>
     {
         protected const int OutputFileExtensionIndex = 0;
         protected const int SeedIndex = 0;
@@ -42,7 +42,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// </summary>
         protected System.Random RandomGenerator { get; set; }
 
-        public void Initialize(OutputParameters processingParameters)
+        public void Initialize(OutputExtraParameters processingParameters)
         {
             ArgumentChecker.CheckPresence(processingParameters.StringParameters, OutputFileExtensionIndex);
             ArgumentChecker.CheckNotNullAndNotEmpty(processingParameters.StringParameters[OutputFileExtensionIndex]);

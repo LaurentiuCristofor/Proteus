@@ -17,7 +17,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// A data processor that checks the column count against a selection criterion,
     /// to decide whether to output the line or not.
     /// </summary>
-    public class SelectLineByColumnCountProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<ComparisonType>, ExtractedColumnStrings>
+    public class SelectLineByColumnCountProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraOperationParameters<ComparisonType>, ExtractedColumnStrings>
     {
         protected ComparisonType ComparisonType { get; set; }
 
@@ -31,7 +31,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// </summary>
         protected IDataHolder SecondArgument { get; set; }
 
-        public void Initialize(OutputOperationParameters<ComparisonType> processingParameters)
+        public void Initialize(OutputExtraOperationParameters<ComparisonType> processingParameters)
         {
             this.ComparisonType = processingParameters.OperationType;
 

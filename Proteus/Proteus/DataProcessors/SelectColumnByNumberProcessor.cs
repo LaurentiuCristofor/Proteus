@@ -18,21 +18,21 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that selects a subset of columns to output.
     /// </summary>
-    public class SelectColumnByNumberProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<PositionSelectionType>, ExtractedColumnStrings>
+    public class SelectColumnByNumberProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraOperationParameters<PositionSelectionType>, ExtractedColumnStrings>
     {
         protected PositionSelectionType SelectionType { get; set; }
 
         /// <summary>
-        /// First column number argument, if expected.
+        /// First column count argument, if expected.
         /// </summary>
-        protected int FirstColumnNumber { get; set; }
+        protected int FirstColumnCount { get; set; }
 
         /// <summary>
-        /// Second column number argument, if expected.
+        /// Second column count argument, if expected.
         /// </summary>
-        protected int SecondColumnNumber { get; set; }
+        protected int SecondColumnCount { get; set; }
 
-        public void Initialize(OutputOperationParameters<PositionSelectionType> processingParameters)
+        public void Initialize(OutputExtraOperationParameters<PositionSelectionType> processingParameters)
         {
             this.SelectionType = processingParameters.OperationType;
 
@@ -44,9 +44,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 case PositionSelectionType.NotEach:
                     ArgumentChecker.CheckNotNull(processingParameters.FirstArgument);
 
-                    this.FirstColumnNumber = int.Parse(processingParameters.FirstArgument);
+                    this.FirstColumnCount = int.Parse(processingParameters.FirstArgument);
 
-                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstColumnNumber, 1);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstColumnCount, 1);
                     break;
 
                 case PositionSelectionType.Between:
@@ -54,12 +54,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     ArgumentChecker.CheckNotNull(processingParameters.FirstArgument);
                     ArgumentChecker.CheckNotNull(processingParameters.SecondArgument);
 
-                    this.FirstColumnNumber = int.Parse(processingParameters.FirstArgument);
-                    this.SecondColumnNumber = int.Parse(processingParameters.SecondArgument);
+                    this.FirstColumnCount = int.Parse(processingParameters.FirstArgument);
+                    this.SecondColumnCount = int.Parse(processingParameters.SecondArgument);
 
-                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstColumnNumber, 1);
-                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.SecondColumnNumber, 1);
-                    ArgumentChecker.CheckInterval(this.FirstColumnNumber, this.SecondColumnNumber);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstColumnCount, 1);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.SecondColumnCount, 1);
+                    ArgumentChecker.CheckInterval(this.FirstColumnCount, this.SecondColumnCount);
                     break;
 
                 default:
@@ -81,8 +81,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     {
                         // Columns numbers start from 1 - convert them to indexes in the column array.
                         //
-                        int beginColumnRangeIndex = this.FirstColumnNumber - 1;
-                        int endColumnRangeIndex = this.SecondColumnNumber - 1;
+                        int beginColumnRangeIndex = this.FirstColumnCount - 1;
+                        int endColumnRangeIndex = this.SecondColumnCount - 1;
 
                         if (beginColumnRangeIndex >= countColumns)
                         {
@@ -105,8 +105,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     {
                         // Columns numbers start from 1 - convert them to indexes in the column array.
                         //
-                        int beginColumnRangeIndex = this.FirstColumnNumber - 1;
-                        int endColumnRangeIndex = this.SecondColumnNumber - 1;
+                        int beginColumnRangeIndex = this.FirstColumnCount - 1;
+                        int endColumnRangeIndex = this.SecondColumnCount - 1;
 
                         if (beginColumnRangeIndex >= countColumns)
                         {
@@ -139,7 +139,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case PositionSelectionType.Last:
                     {
-                        int countLast = this.FirstColumnNumber;
+                        int countLast = this.FirstColumnCount;
 
                         if (countLast >= countColumns)
                         {
@@ -158,7 +158,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case PositionSelectionType.NotLast:
                     {
-                        int countLast = this.FirstColumnNumber;
+                        int countLast = this.FirstColumnCount;
 
                         // If there are more columns than those that need to be removed, output them.
                         // Otherwise, the line will be removed entirely.
@@ -172,7 +172,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case PositionSelectionType.Each:
                     {
-                        int countEach = this.FirstColumnNumber;
+                        int countEach = this.FirstColumnCount;
 
                         // Iterate over all columns and output each Nth one.
                         //
@@ -195,7 +195,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case PositionSelectionType.NotEach:
                     {
-                        int countEach = this.FirstColumnNumber;
+                        int countEach = this.FirstColumnCount;
 
                         // Iterate over all columns and output each one that isn't an Nth one.
                         //

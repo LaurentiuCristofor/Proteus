@@ -18,7 +18,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// StringParameters[0] - output file extension
     /// UlongParameters[0] - range size
     /// </summary>
-    public class SplitLineRangesProcessor : BaseOutputProcessor, IDataProcessor<OutputParameters, string>
+    public class SplitLineRangesProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraParameters, string>
     {
         protected const int OutputFileExtensionIndex = 0;
         protected const int RangeSizeIndex = 0;
@@ -35,7 +35,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// </summary>
         protected ulong RangeSize { get; set; }
 
-        public void Initialize(OutputParameters processingParameters)
+        public void Initialize(OutputExtraParameters processingParameters)
         {
             this.OutputFilePath = processingParameters.OutputFilePath;
 

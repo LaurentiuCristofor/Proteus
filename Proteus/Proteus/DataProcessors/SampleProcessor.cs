@@ -23,7 +23,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// IntParameters[0] - randomization seed value
     /// IntParameters[1] - sample size
     /// </summary>
-    public class SampleProcessor : BaseOutputProcessor, IDataProcessor<OutputParameters, string>
+    public class SampleProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraParameters, string>
     {
         protected const int SeedIndex = 0;
         protected const int SampleSizeIndex = 1;
@@ -43,7 +43,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// </summary>
         protected List<Tuple<ulong, string>> SampleLinesWithNumbers { get; set; }
 
-        public void Initialize(OutputParameters processingParameters)
+        public void Initialize(OutputExtraParameters processingParameters)
         {
             ArgumentChecker.CheckPresence(processingParameters.IntParameters, SeedIndex);
             int seed = processingParameters.IntParameters[SeedIndex];

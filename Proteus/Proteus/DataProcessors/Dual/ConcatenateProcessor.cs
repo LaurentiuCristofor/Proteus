@@ -17,7 +17,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
     /// OutputParameters is expected to contain:
     /// StringParameters[0] - line separator
     /// </summary>
-    public class ConcatenateProcessor: BaseOutputProcessor, IDualDataProcessor<OutputParameters, string>
+    public class ConcatenateProcessor: BaseOutputProcessor, IDualDataProcessor<OutputExtraParameters, string>
     {
         protected const int LineSeparatorIndex = 0;
 
@@ -26,7 +26,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
         /// </summary>
         protected string LineSeparator { get; set; }
 
-        public void Initialize(OutputParameters processingParameters)
+        public void Initialize(OutputExtraParameters processingParameters)
         {
             ArgumentChecker.CheckPresence(processingParameters.StringParameters, LineSeparatorIndex);
             this.LineSeparator = processingParameters.StringParameters[LineSeparatorIndex];

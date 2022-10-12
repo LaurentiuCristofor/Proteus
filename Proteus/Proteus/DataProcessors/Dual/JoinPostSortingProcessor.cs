@@ -19,7 +19,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
     /// <summary>
     /// A data processor that joins lines from two files based on the values of two columns.
     /// </summary>
-    public class JoinPostSortingProcessor: BaseOutputProcessor, IDualDataProcessor<OutputOperationParameters<JoinType>, OneExtractedValue>
+    public class JoinPostSortingProcessor: BaseOutputProcessor, IDualDataProcessor<OutputExtraOperationParameters<JoinType>, OneExtractedValue>
     {
         protected JoinType JoinType { get; set; }
 
@@ -38,7 +38,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
         /// </summary>
         protected List<string> LinesToJoinOnLastMatchedKey { get; set; }
 
-        public void Initialize(OutputOperationParameters<JoinType> processingParameters)
+        public void Initialize(OutputExtraOperationParameters<JoinType> processingParameters)
         {
             this.JoinType = processingParameters.OperationType;
             this.OuterJoinDefaultValue = processingParameters.FirstArgument;

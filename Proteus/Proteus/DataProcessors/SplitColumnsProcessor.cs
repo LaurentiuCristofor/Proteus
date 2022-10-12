@@ -20,7 +20,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// OutputParameters is expected to contain:
     /// StringParameters[0] - output file extension
     /// </summary>
-    public class SplitColumnsProcessor : BaseOutputProcessor, IDataProcessor<OutputParameters, ExtractedColumnStrings>
+    public class SplitColumnsProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraParameters, ExtractedColumnStrings>
     {
         protected const int OutputFileExtensionIndex = 0;
 
@@ -36,7 +36,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// </summary>
         protected Dictionary<int, FileWriter> MapColumnNumberToFileWriter { get; set; }
 
-        public void Initialize(OutputParameters processingParameters)
+        public void Initialize(OutputExtraParameters processingParameters)
         {
             this.OutputFilePath = processingParameters.OutputFilePath;
 

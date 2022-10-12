@@ -21,7 +21,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// OutputParameters is expected to contain:
     /// StringParameters[0] - new first columns list
     /// </summary>
-    public class OrderColumnsProcessor : BaseOutputProcessor, IDataProcessor<OutputParameters, ExtractedColumnStrings>
+    public class OrderColumnsProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraParameters, ExtractedColumnStrings>
     {
         /// <summary>
         /// The new first columns list.
@@ -48,7 +48,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// </summary>
         protected int MinUnorderedColumnNumber { get; set; }
 
-        public void Initialize(OutputParameters processingParameters)
+        public void Initialize(OutputExtraParameters processingParameters)
         {
             ArgumentChecker.CheckPresence(processingParameters.StringParameters, 0);
             this.NewFirstColumnsList = processingParameters.StringParameters[0];
