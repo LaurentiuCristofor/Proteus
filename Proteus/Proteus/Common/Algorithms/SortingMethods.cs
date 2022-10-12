@@ -8,7 +8,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace LaurentiuCristofor.Proteus.Common.Utilities
+namespace LaurentiuCristofor.Proteus.Common.Algorithms
 {
     public abstract class SortingMethods
     {
@@ -134,17 +134,6 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         }
 
         /// <summary>
-        /// An implementation of insertion sorting.
-        /// </summary>
-        /// <typeparam name="T">The list element type.</typeparam>
-        /// <param name="list">The list to sort.</param>
-        public static void InsertionSort<T>(List<T> list)
-            where T : IComparable
-        {
-            DeltaInsertionSort(list, 0, list.Count - 1, 1);
-        }
-
-        /// <summary>
         /// Implements insertion sorting of elements that are delta positions apart.
         /// </summary>
         /// <typeparam name="T">The list element type.</typeparam>
@@ -167,6 +156,17 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
 
                 list[j] = value;
             }
+        }
+
+        /// <summary>
+        /// An implementation of insertion sorting.
+        /// </summary>
+        /// <typeparam name="T">The list element type.</typeparam>
+        /// <param name="list">The list to sort.</param>
+        public static void InsertionSort<T>(List<T> list)
+            where T : IComparable
+        {
+            DeltaInsertionSort(list, 0, list.Count - 1, 1);
         }
 
         /// <summary>

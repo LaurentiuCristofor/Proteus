@@ -22,7 +22,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
     /// </summary>
     public class JoinProcessor : BaseOutputProcessor, IDataLookupProcessor<OutputOperationParameters<JoinType>, Dictionary<IDataHolder, List<string>>, OneExtractedValue>
     {
-        protected OutputOperationParameters<JoinType> Parameters { get; set; }
+        protected JoinType JoinType { get; set; }
+
+        /// <summary>
+        /// The default value to use for LeftOuterJoin, when there is no matching row "on the right".
+        /// </summary>
+        protected string OuterJoinDefaultValue { get; set; }
 
         /// <summary>
         /// The lookup data structure used to perform the operation.
@@ -31,9 +36,10 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
 
         public void Initialize(OutputOperationParameters<JoinType> processingParameters)
         {
-            this.Parameters = processingParameters;
+            this.JoinType = processingParameters.OperationType;
+            this.OuterJoinDefaultValue = processingParameters.FirstArgument;
 
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
+            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public void AddLookupDataStructure(Dictionary<IDataHolder, List<string>> lookupDictionary)
@@ -73,7 +79,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
             {
                 // In case of no match, we process according to the join type.
                 //
-                switch (this.Parameters.OperationType)
+                switch (this.JoinType)
                 {
                     case JoinType.Inner:
                         // We don't output anything for an inner join.
@@ -83,12 +89,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
                     case JoinType.LeftOuter:
                         // For a left outer join, we'll output the first line combined with the string provided by the user.
                         //
-                        string outputLine = lineData.OriginalLine + lineData.ColumnSeparator + this.Parameters.FirstArgument;
+                        string outputLine = lineData.OriginalLine + lineData.ColumnSeparator + this.OuterJoinDefaultValue;
                         this.OutputWriter.WriteLine(outputLine);
                         break;
 
                     default:
-                        throw new ProteusException($"Internal error: Proteus is not handling join type '{this.Parameters.OperationType}'!");
+                        throw new ProteusException($"Internal error: Proteus is not handling join type '{this.JoinType}'!");
                 }
             }
 

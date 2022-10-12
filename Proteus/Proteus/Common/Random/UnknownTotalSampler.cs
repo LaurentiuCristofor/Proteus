@@ -38,20 +38,20 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// <summary>
         /// The uniform random generator source.
         /// </summary>
-        private System.Random UniformGenerator { get; set; }
+        private System.Random RandomGenerator { get; set; }
 
         /// <summary>
         /// Creates a new random sampler that will produce sampleCount distinct values from an unknown number of calls
         /// using a specific instance of System.Random.
         /// </summary>
         /// <param name="sampleCount">The size of the sample.</param>
-        /// <param name="uniformGenerator">The System.Random instance to use, or null to generate a new instance.</param>
-        public UnknownTotalSampler(int sampleCount, System.Random uniformGenerator = null)
+        /// <param name="randomGenerator">The System.Random instance to use, or null to generate a new instance.</param>
+        public UnknownTotalSampler(int sampleCount, System.Random randomGenerator = null)
         {
             ArgumentChecker.CheckStrictlyPositive(sampleCount);
 
             this.SampleCount = sampleCount;
-            this.UniformGenerator = uniformGenerator ?? new System.Random();
+            this.RandomGenerator = randomGenerator ?? new System.Random();
 
             // R1. [Initialize]
             //
@@ -70,7 +70,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
 
             // Generate an integer value between 1 and this.ElementCount (inclusive).
             //
-            int M = this.UniformGenerator.Next(1, this.ElementCount + 1);
+            int M = this.RandomGenerator.Next(1, this.ElementCount + 1);
 
             if (M <= this.SampleCount)
             {

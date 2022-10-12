@@ -17,12 +17,12 @@ namespace LaurentiuCristofor.Proteus.Common.Random
     ///
     /// This algorithm implements the polar method of G.E.P. Box, M.E. Muller, and G. Marsaglia.
     /// </summary>
-    public sealed class NormalGenerator
+    public sealed class NormalGenerator : IStringGenerator
     {
         /// <summary>
         /// The uniform random generator source.
         /// </summary>
-        private System.Random UniformGenerator { get; set; }
+        private System.Random RandomGenerator { get; set; }
 
         /// <summary>
         /// Tells whether the generator already has the next value,
@@ -39,10 +39,10 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// Creates a random number generator with normal distribution
         /// using a specific instance of System.Random.
         /// </summary>
-        /// <param name="uniformGenerator">The System.Random instance to use, or null to generate a new instance.</param>
-        public NormalGenerator(System.Random uniformGenerator = null)
+        /// <param name="randomGenerator">The System.Random instance to use, or null to generate a new instance.</param>
+        public NormalGenerator(System.Random randomGenerator = null)
         {
-            this.UniformGenerator = uniformGenerator ?? new System.Random();
+            this.RandomGenerator = randomGenerator ?? new System.Random();
         }
 
         /// <summary>
@@ -61,8 +61,8 @@ namespace LaurentiuCristofor.Proteus.Common.Random
             {
                 // P1: [Get uniform variables]
                 //
-                double U1 = this.UniformGenerator.NextDouble();
-                double U2 = this.UniformGenerator.NextDouble();
+                double U1 = this.RandomGenerator.NextDouble();
+                double U2 = this.RandomGenerator.NextDouble();
 
                 // Distributes the values between -1 and 1.
                 //
@@ -90,6 +90,15 @@ namespace LaurentiuCristofor.Proteus.Common.Random
                 this.HasNextValue = true;
                 return X1;
             }
+        }
+
+        /// <summary>
+        /// Implements IStringGenerator.
+        /// </summary>
+        /// <returns>A string representation of the next generated value.</returns>
+        public string NextString()
+        {
+            return this.Next().ToString();
         }
     }
 }

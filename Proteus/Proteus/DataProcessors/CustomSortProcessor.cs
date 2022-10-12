@@ -21,7 +21,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class CustomSortProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<SortingAlgorithmType>, string>
     {
-        protected OutputOperationParameters<SortingAlgorithmType> Parameters { get; set; }
+        protected SortingAlgorithmType SortingType { get; set; }
 
         /// <summary>
         /// Data structure used for loading the lines before sorting them.
@@ -30,11 +30,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputOperationParameters<SortingAlgorithmType> processingParameters)
         {
-            this.Parameters = processingParameters;
+            this.SortingType = processingParameters.OperationType;
 
             this.Lines = new List<string>();
 
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath, trackProgress: true);
+            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: true);
         }
 
         public bool Execute(ulong lineNumber, string line)
@@ -52,7 +52,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             }
 
             Timer timer = new Timer($"\n{Constants.Messages.SortingStart}", Constants.Messages.SortingEnd, countFinalLineEndings: 0);
-            CustomSorting.Sort<string>(this.Lines, this.Parameters.OperationType);
+            CustomSorting.Sort<string>(this.Lines, this.SortingType);
             timer.StopAndReport();
 
             foreach (string line in this.Lines)

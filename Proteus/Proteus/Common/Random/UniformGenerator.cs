@@ -10,50 +10,33 @@ using System;
 namespace LaurentiuCristofor.Proteus.Common.Random
 {
     /// <summary>
-    /// A generator of floating point values with exponential distribution.
+    /// A generator of floating point values with uniform distribution.
     ///
-    /// The method used here is the logarithm method described in Knuth, TAOCP, volume 2, section 3.4.1,
-    /// page 133 of the third edition.
+    /// This is just a wrapper of System.Random that implements IStringGenerator.
     /// </summary>
-    public sealed class ExponentialGenerator : IStringGenerator
+    public sealed class UniformGenerator : IStringGenerator
     {
-        /// <summary>
-        /// The mean of the exponential distribution.
-        /// </summary>
-        private double Mean { get; set; }
-
         /// <summary>
         /// The uniform random generator source.
         /// </summary>
-        private System.Random RandomGenerator { get; set; }
+        public System.Random RandomGenerator { get; set; }
 
         /// <summary>
-        /// Creates a random number generator with exponential distribution of the specified mean
-        /// using a specific instance of System.Random.
+        /// Creates a UniformGenerator wrapper for a System.Random instance.
         /// </summary>
-        /// <param name="mean">The mean of the exponential distribution.</param>
         /// <param name="randomGenerator">The System.Random instance to use, or null to generate a new instance.</param>
-        public ExponentialGenerator(double mean = 1.0, System.Random randomGenerator = null)
+        public UniformGenerator(System.Random randomGenerator)
         {
-            this.Mean = mean;
             this.RandomGenerator = randomGenerator ?? new System.Random();
         }
 
         /// <summary>
-        /// Returns a new double value with the requested exponential distribution.
+        /// Returns a new double value with uniform distribution.
         /// </summary>
-        /// <returns>A new double value with the requested exponential distribution.</returns>
+        /// <returns>A new double value with uniform distribution.</returns>
         public double Next()
         {
-            double U;
-
-            do
-            {
-                U = this.RandomGenerator.NextDouble();
-            }
-            while (U == 0.0);
-
-            return this.Mean * (-Math.Log(U));
+            return this.RandomGenerator.NextDouble();
         }
 
         /// <summary>

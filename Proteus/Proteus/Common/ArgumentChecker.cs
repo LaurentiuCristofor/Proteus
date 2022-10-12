@@ -19,9 +19,9 @@ namespace LaurentiuCristofor.Proteus.Common
     {
         internal static void CheckPresence<T>(T[] parameters, int parameterIndex)
         {
-            if (parameters == null || parameterIndex + 1 > parameters.Length)
+            if (parameters == null || parameterIndex > parameters.Length - 1)
             {
-                throw new ProteusException($"An expected integer argument is missing!");
+                throw new ProteusException($"An expected argument is missing!");
             }
         }
 

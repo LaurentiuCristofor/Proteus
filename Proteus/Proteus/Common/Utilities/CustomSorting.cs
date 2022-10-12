@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 
+using LaurentiuCristofor.Proteus.Common.Algorithms;
 using LaurentiuCristofor.Proteus.Common.Types;
 
 namespace LaurentiuCristofor.Proteus.Common.Utilities

@@ -16,13 +16,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
     /// </summary>
     public class MergeProcessor: BaseOutputProcessor, IDualDataProcessor<BaseOutputParameters, OneExtractedValue>
     {
-        protected BaseOutputParameters Parameters { get; set; }
-
         public void Initialize(BaseOutputParameters processingParameters)
         {
-            this.Parameters = processingParameters;
-
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
+            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public ProcessingActionType Execute(

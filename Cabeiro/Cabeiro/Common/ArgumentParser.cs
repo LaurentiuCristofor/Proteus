@@ -895,5 +895,40 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 throw new CabeiroException($"Invalid distribution type argument: '{argument}'!");
             }
         }
+
+        /// <summary>
+        /// Parses argument value as a ProgressionType indicator.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the ProgressionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<ProgressionType, int> ParseProgressionType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.ProgressionTypeArithmetic))
+            {
+                return new Tuple<ProgressionType, int>(ProgressionType.Arithmetic, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ProgressionTypeGeometric))
+            {
+                return new Tuple<ProgressionType, int>(ProgressionType.Geometric, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ProgressionTypeHarmonic))
+            {
+                return new Tuple<ProgressionType, int>(ProgressionType.Harmonic, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ProgressionTypeFactorial))
+            {
+                return new Tuple<ProgressionType, int>(ProgressionType.Factorial, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ProgressionTypeFibonacci))
+            {
+                return new Tuple<ProgressionType, int>(ProgressionType.Fibonacci, 0);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid progression type argument: '{argument}'!");
+            }
+        }
     }
 }

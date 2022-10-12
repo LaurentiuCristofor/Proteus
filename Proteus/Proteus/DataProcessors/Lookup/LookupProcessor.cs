@@ -22,7 +22,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
     /// </summary>
     public class LookupProcessor : BaseOutputProcessor, IDataLookupProcessor<OutputOperationParameters<LookupType>, HashSet<IDataHolder>, OneExtractedValue>
     {
-        protected OutputOperationParameters<LookupType> Parameters { get; set; }
+        protected LookupType LookupType { get; set; }
 
         /// <summary>
         /// The lookup data structure used to perform the operation.
@@ -31,9 +31,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
 
         public void Initialize(OutputOperationParameters<LookupType> processingParameters)
         {
-            this.Parameters = processingParameters;
+            this.LookupType = processingParameters.OperationType;
 
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
+            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public void AddLookupDataStructure(HashSet<IDataHolder> lookupSet)
@@ -46,7 +46,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
             bool isDataIncluded = this.LookupSet.Contains(lineData.ExtractedData);
 
             bool shouldOutputLine;
-            switch (this.Parameters.OperationType)
+            switch (this.LookupType)
             {
                 case LookupType.Included:
                     shouldOutputLine = isDataIncluded;
@@ -57,7 +57,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling lookup type '{this.Parameters.OperationType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling lookup type '{this.LookupType}'!");
             }
 
             if (shouldOutputLine)

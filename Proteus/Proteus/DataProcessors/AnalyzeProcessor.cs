@@ -17,8 +17,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class AnalyzeProcessor : IDataProcessor<AnalyzeParameters, OneExtractedValue>
     {
-        protected AnalyzeParameters Parameters { get; set; }
-
         /// <summary>
         /// The DataAnalyzer instance that we will use to perform the analysis.
         /// </summary>
@@ -26,11 +24,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(AnalyzeParameters processingParameters)
         {
-            ArgumentChecker.CheckPositive(processingParameters.OutputLimit);
-
-            this.Parameters = processingParameters;
-
-            this.Analyzer = new DataAnalyzer(this.Parameters.DataType);
+            this.Analyzer = new DataAnalyzer(processingParameters.DataType, processingParameters.OutputLimit);
         }
 
         public bool Execute(ulong lineNumber, OneExtractedValue lineData)
@@ -44,7 +38,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         {
             this.Analyzer.PostProcessAnalyzedData();
 
-            this.Analyzer.OutputReport(this.Parameters.OutputLimit);
+            this.Analyzer.OutputReport();
         }
     }
 }

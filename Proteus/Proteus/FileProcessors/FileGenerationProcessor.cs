@@ -63,7 +63,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         {
             // Perform the generation step.
             //
-            string nextLine = this.DataGenerator.Generate();
+            string nextLine = this.DataGenerator.NextString();
 
             // Generation stops when a null line is returned.
             //

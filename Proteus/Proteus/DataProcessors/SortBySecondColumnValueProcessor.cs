@@ -21,8 +21,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class SortBySecondColumnValueProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, TwoExtractedValues>
     {
-        protected BaseOutputParameters Parameters { get; set; }
-
         /// <summary>
         /// Data structure used for loading the lines before sorting them.
         /// </summary>
@@ -35,11 +33,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(BaseOutputParameters processingParameters)
         {
-            this.Parameters = processingParameters;
-
             this.ColumnLinePairs = new List<DataPair<IDataHolder, string>>();
 
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
+            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, TwoExtractedValues lineData)

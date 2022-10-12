@@ -19,8 +19,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class FindStateTransitionsProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, TwoExtractedValues>
     {
-        protected BaseOutputParameters Parameters { get; set; }
-
         /// <summary>
         /// A copy of the data seen for the previous line.
         /// </summary>
@@ -28,9 +26,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(BaseOutputParameters processingParameters)
         {
-            this.Parameters = processingParameters;
-
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
+            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, TwoExtractedValues lineData)

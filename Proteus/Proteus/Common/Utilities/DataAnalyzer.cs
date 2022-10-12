@@ -17,9 +17,14 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
     public class DataAnalyzer
     {
         /// <summary>
-        /// The type of data that we analyze.
+        /// The type of data that we'll analyze.
         /// </summary>
-        public DataType DataType;
+        public DataType DataType { get; protected set; }
+
+        /// <summary>
+        /// A limit on how many top and bottom values we should output.
+        /// </summary>
+        public int OutputLimit { get; protected set; }
 
         /// <summary>
         /// The total number of data instances analyzed.
@@ -76,9 +81,17 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         /// </summary>
         protected List<Tuple<ulong, IDataHolder>> ListCountedData { get; set; }
 
-        public DataAnalyzer(DataType dataType)
+        /// <summary>
+        /// Creates a new DataAnalyzer instance.
+        /// </summary>
+        /// <param name="dataType">The type of data that we'll be analyzing.</param>
+        /// <param name="outputLimit">How many top and bottom values should be output; if zero, all values will be output.</param>
+        public DataAnalyzer(DataType dataType, int outputLimit = 0)
         {
+            ArgumentChecker.CheckPositive(outputLimit);
+
             this.DataType = dataType;
+            this.OutputLimit = outputLimit;
             this.MapDataToCount = new Dictionary<IDataHolder, ulong>();
         }
 
@@ -204,15 +217,9 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         /// <summary>
         /// Outputs the results of the analyzer.
         /// </summary>
-        /// <param name="outputLimit">How many top and bottom values should be printed; if zero, all values will be output.</param>
-        public void OutputReport(int outputLimit = 0)
+        public void OutputReport()
         {
             ILogger logger = LoggingManager.GetLogger();
-
-            if (outputLimit < 0)
-            {
-                throw new ProteusException("An invalid (negative) output limit was passed to DataAnalyzer.OutputReport()!");
-            }
 
             // If there is no data, we're done.
             //
@@ -227,7 +234,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
             // If outputLimit is 0 or if the limit is greater or equal than half the unique count, we can output all values;
             // else we output just the first and last outputLimit values.
             //
-            if (outputLimit == 0 || 2UL * (ulong)outputLimit >= this.UniqueDataCount)
+            if (this.OutputLimit == 0 || 2UL * (ulong)this.OutputLimit >= this.UniqueDataCount)
             {
                 foreach (var tuple in this.ListCountedData)
                 {
@@ -236,17 +243,17 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
             }
             else
             {
-                logger.OutputLine($"{Constants.Strings.Bottom}{Constants.Strings.NameValueSeparator}{outputLimit}");
+                logger.OutputLine($"{Constants.Strings.Bottom}{Constants.Strings.NameValueSeparator}{this.OutputLimit}");
 
-                for (int i = 0; i < outputLimit; ++i)
+                for (int i = 0; i < this.OutputLimit; ++i)
                 {
                     var tuple = this.ListCountedData[i];
                     OutputValueInformation(tuple);
                 }
 
-                logger.OutputLine($"{Constants.Strings.Top}{Constants.Strings.NameValueSeparator}{outputLimit}");
+                logger.OutputLine($"{Constants.Strings.Top}{Constants.Strings.NameValueSeparator}{this.OutputLimit}");
 
-                for (int i = this.ListCountedData.Count - outputLimit; i < this.ListCountedData.Count; ++i)
+                for (int i = this.ListCountedData.Count - this.OutputLimit; i < this.ListCountedData.Count; ++i)
                 {
                     var tuple = this.ListCountedData[i];
                     OutputValueInformation(tuple);

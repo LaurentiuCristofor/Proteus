@@ -20,11 +20,13 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// A data processor that samples the input lines.
     /// 
     /// OutputParameters is expected to contain:
-    /// IntParameters[0] - sample size
+    /// IntParameters[0] - randomization seed value
+    /// IntParameters[1] - sample size
     /// </summary>
     public class SampleProcessor : BaseOutputProcessor, IDataProcessor<OutputParameters, string>
     {
-        protected OutputParameters Parameters { get; set; }
+        protected const int SeedIndex = 0;
+        protected const int SampleSizeIndex = 1;
 
         /// <summary>
         /// The sample size parameter.
@@ -43,16 +45,18 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputParameters processingParameters)
         {
-            this.Parameters = processingParameters;
+            ArgumentChecker.CheckPresence<int>(processingParameters.IntParameters, SeedIndex);
+            int seed = processingParameters.IntParameters[SeedIndex];
 
-            ArgumentChecker.CheckPresence<int>(this.Parameters.IntParameters, 0);
-            this.SampleSize = this.Parameters.IntParameters[0];
+            ArgumentChecker.CheckPresence<int>(processingParameters.IntParameters, SampleSizeIndex);
+            this.SampleSize = processingParameters.IntParameters[SampleSizeIndex];
 
-            this.Sampler = new UnknownTotalSampler(this.SampleSize);
+            Random randomGenerator = (seed >= 0) ? new Random(seed) : new Random();
+            this.Sampler = new UnknownTotalSampler(this.SampleSize, randomGenerator);
 
             this.SampleLinesWithNumbers = new List<Tuple<ulong, string>>();
 
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath, trackProgress: true);
+            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: true);
         }
 
         public bool Execute(ulong lineNumber, string line)

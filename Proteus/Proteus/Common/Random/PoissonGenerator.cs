@@ -15,7 +15,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
     /// The algorithm used here is Algorithm Q described in Knuth, TAOCP, volume 2, section 3.4.1,
     /// page 117 of the second edition.
     /// </summary>
-    public sealed class PoissonGenerator
+    public sealed class PoissonGenerator : IStringGenerator
     {
         /// <summary>
         /// The mean of the Poisson distribution.
@@ -25,7 +25,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// <summary>
         /// The uniform random generator source.
         /// </summary>
-        private System.Random UniformGenerator { get; set; }
+        private System.Random RandomGenerator { get; set; }
 
         /// <summary>
         /// This random normal distribution generator will be used for large mean values.
@@ -37,20 +37,20 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// using a specific instance of System.Random.
         /// </summary>
         /// <param name="mean">The mean of the Poisson distribution.</param>
-        /// <param name="uniformGenerator">The System.Random instance to use, or null to generate a new instance.</param>
-        public PoissonGenerator(ulong mean, System.Random uniformGenerator = null)
+        /// <param name="randomGenerator">The System.Random instance to use, or null to generate a new instance.</param>
+        public PoissonGenerator(ulong mean, System.Random randomGenerator = null)
         {
             ArgumentChecker.CheckNotZero(mean);
 
             this.Mean = mean;
-            this.UniformGenerator = uniformGenerator ?? new System.Random();
+            this.RandomGenerator = randomGenerator ?? new System.Random();
 
             // For larger mean values we approximate the Poisson distribution
             // with a normal distribution.
             //
             if (this.Mean > 30)
             {
-                this.NormalGenerator = new NormalGenerator(this.UniformGenerator);
+                this.NormalGenerator = new NormalGenerator(this.RandomGenerator);
             }
         }
 
@@ -70,6 +70,10 @@ namespace LaurentiuCristofor.Proteus.Common.Random
             return NextPoisson();
         }
 
+        /// <summary>
+        /// Returns a new unsigned long value with the requested Poisson distribution.
+        /// </summary>
+        /// <returns>A new unsigned long value with the requested Poisson distribution.</returns>
         private ulong NextPoisson()
         {
             // Q1. [Calculate exponential]
@@ -82,7 +86,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
             {
                 // Q2. [Get uniform variable]
                 //
-                double U = this.UniformGenerator.NextDouble();
+                double U = this.RandomGenerator.NextDouble();
 
                 // Q3. [Multiply]
                 //
@@ -101,6 +105,10 @@ namespace LaurentiuCristofor.Proteus.Common.Random
             }
         }
 
+        /// <summary>
+        /// Returns a new unsigned long value using a normal distribution approximation of a Poisson distribution.
+        /// </summary>
+        /// <returns>A new unsigned long value generated using a normal distribution approximation of a Poisson distribution.</returns>
         private ulong NextNormal()
         {
             double z = this.NormalGenerator.Next();
@@ -108,6 +116,15 @@ namespace LaurentiuCristofor.Proteus.Common.Random
             long value = (long)(this.Mean + z * Math.Sqrt(this.Mean) + 0.5);
 
             return (value >= 0) ? (ulong)value : 0;
+        }
+
+        /// <summary>
+        /// Implements IStringGenerator.
+        /// </summary>
+        /// <returns>A string representation of the next generated value.</returns>
+        public string NextString()
+        {
+            return this.Next().ToString();
         }
     }
 }

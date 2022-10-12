@@ -24,7 +24,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class CustomSortByColumnValueProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<SortingAlgorithmType>, OneExtractedValue>
     {
-        protected OutputOperationParameters<SortingAlgorithmType> Parameters { get; set; }
+        protected SortingAlgorithmType SortingType { get; set; }
 
         /// <summary>
         /// Data structure used for loading the lines before sorting them.
@@ -33,11 +33,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputOperationParameters<SortingAlgorithmType> processingParameters)
         {
-            this.Parameters = processingParameters;
+            this.SortingType = processingParameters.OperationType;
 
             this.ColumnLinePairs = new List<DataPair<IDataHolder, string>>();
 
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath, trackProgress: true);
+            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: true);
         }
 
         public bool Execute(ulong lineNumber, OneExtractedValue lineData)
@@ -55,7 +55,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             }
 
             Timer timer = new Timer($"\n{Constants.Messages.SortingStart}", Constants.Messages.SortingEnd, countFinalLineEndings: 0);
-            CustomSorting.Sort<DataPair<IDataHolder, string>>(this.ColumnLinePairs, this.Parameters.OperationType);
+            CustomSorting.Sort<DataPair<IDataHolder, string>>(this.ColumnLinePairs, this.SortingType);
             timer.StopAndReport();
 
             foreach (DataPair<IDataHolder, string> dataPair in this.ColumnLinePairs)

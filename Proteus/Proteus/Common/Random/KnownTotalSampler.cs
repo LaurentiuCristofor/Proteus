@@ -41,7 +41,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// <summary>
         /// The uniform random generator source.
         /// </summary>
-        private System.Random UniformGenerator { get; set; }
+        private System.Random RandomGenerator { get; set; }
 
         /// <summary>
         /// Creates a new random sampler that will produce sampleCount distinct values between the values 1 and totalCount,
@@ -49,8 +49,8 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// </summary>
         /// <param name="totalCount">The largest value to sample; the smallest being 1.</param>
         /// <param name="sampleCount">The size of the sample.</param>
-        /// <param name="uniformGenerator">The System.Random instance to use, or null to generate a new instance.</param>
-        public KnownTotalSampler(ulong totalCount, ulong sampleCount, System.Random uniformGenerator = null)
+        /// <param name="randomGenerator">The System.Random instance to use, or null to generate a new instance.</param>
+        public KnownTotalSampler(ulong totalCount, ulong sampleCount, System.Random randomGenerator = null)
         {
             if (sampleCount < 1 || sampleCount > totalCount)
             {
@@ -59,7 +59,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
 
             this.TotalCount = totalCount;
             this.SampleCount = sampleCount;
-            this.UniformGenerator = uniformGenerator ?? new System.Random();
+            this.RandomGenerator = randomGenerator ?? new System.Random();
 
             // S1. [Initialize]
             //
@@ -82,7 +82,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
             {
                 // S2. [Generate U]
                 //
-                double U = this.UniformGenerator.NextDouble();
+                double U = this.RandomGenerator.NextDouble();
 
                 // S3. [Test]
                 //

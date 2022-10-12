@@ -151,6 +151,7 @@ Some of these commands provide memory-efficient alternatives to commands from ot
 These commands generate data.
 
 * GEND - (GEN)erate (D)istribution
+* GENP - (GEN)erate (P)rogression
 * GENS - (GEN)erate (S)ample
 
 ## History

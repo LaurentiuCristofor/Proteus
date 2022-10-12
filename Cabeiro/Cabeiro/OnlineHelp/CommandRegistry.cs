@@ -274,7 +274,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 /*longDescription:*/ null,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.FirstInputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondInputFilePath}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.LineSeparator}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
@@ -461,9 +461,11 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 "(S)elect (L)ines (S)ample",
                 /*longDescription:*/ null,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SeedValue}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.SampleSize}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
-                $"{CabeiroConstants.Commands.Notes.MemoryRequirementLinearSample}");
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.SeedValueText}"
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementLinearSample}");
             RegisterCommandDescription(commandDescription);
 
             // Splitting commands.
@@ -663,10 +665,23 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.SeedValue}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.GenerationCount}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.DistributionType}"
-                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.DistributionMean}]"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument}]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.SeedValueText}"
                 + $"\n\n{CabeiroConstants.Commands.Arguments.Descriptions.DistributionTypeText}"
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstant}");
+            RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.GenerateProgression,
+                CommandCategory.Generation,
+                "(GEN)erate (P)rogression",
+                CabeiroConstants.Commands.Descriptions.GenerateProgression,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.GenerationCount}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ProgressionType}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} {CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument}]"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.ProgressionTypeText}"
                 + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstant}");
             RegisterCommandDescription(commandDescription);
 

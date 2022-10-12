@@ -20,8 +20,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class EditStringProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<StringEditType>, OneExtractedValue>
     {
-        protected OutputOperationParameters<StringEditType> Parameters { get; set; }
-
         /// <summary>
         /// The editor used to perform the operation.
         /// </summary>
@@ -29,12 +27,10 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputOperationParameters<StringEditType> processingParameters)
         {
-            this.Parameters = processingParameters;
-
             this.StringEditor = new StringEditor();
-            this.StringEditor.Initialize(this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument);
+            this.StringEditor.Initialize(processingParameters.OperationType, processingParameters.FirstArgument, processingParameters.SecondArgument);
 
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
+            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, OneExtractedValue lineData)

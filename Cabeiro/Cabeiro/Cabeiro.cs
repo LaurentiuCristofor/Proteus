@@ -673,16 +673,18 @@ namespace LaurentiuCristofor.Cabeiro
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesSample))
             {
-                const int minimumArgumentNumber = 3;
-                const int maximumArgumentNumber = 4;
+                const int minimumArgumentNumber = 4;
+                const int maximumArgumentNumber = 5;
                 ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
                 string inputFilePath = arguments[1];
-                int sampleSize = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
-                ArgumentParser.ExtractLastArguments(0, 3, arguments, out _, out string outputFilePath);
+                int seedValue = int.Parse(arguments[2]);
+                int sampleSize = ArgumentParser.GetStrictlyPositiveInteger(arguments[3]);
+                ArgumentParser.ExtractLastArguments(0, 4, arguments, out _, out string outputFilePath);
 
                 SelectLinesSample(
                     inputFilePath,
+                    seedValue,
                     sampleSize,
                     outputFilePath);
                 return;
@@ -858,6 +860,23 @@ namespace LaurentiuCristofor.Cabeiro
                     seedValue,
                     generationCount,
                     distributionInfo.Item1, arguments[3],
+                    generationArguments,
+                    outputFilePath);
+                return;
+            }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.GenerateProgression))
+            {
+                const int minimumArgumentNumber = 3;
+                const int maximumArgumentNumber = 6;
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
+
+                ulong generationCount = ArgumentParser.GetUnsignedLongInteger(arguments[1]);
+                Tuple<ProgressionType, int> progressionInfo = ArgumentParser.ParseProgressionType(arguments[2]);
+                ArgumentParser.ExtractLastArguments(progressionInfo.Item2, 3, arguments, out string[] generationArguments, out string outputFilePath);
+
+                GenerateProgression(
+                    generationCount,
+                    progressionInfo.Item1, arguments[2],
                     generationArguments,
                     outputFilePath);
                 return;
@@ -1745,17 +1764,21 @@ namespace LaurentiuCristofor.Cabeiro
 
         private static void SelectLinesSample(
             string inputFilePath,
+            int seedValue,
             int sampleSize,
             string outputFilePath)
         {
-            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesSample}.{sampleSize}";
+            string outputFileExtension
+                = (seedValue >= 0)
+                ? $".{CabeiroConstants.Commands.SelectLinesSample}.{seedValue}.{sampleSize}"
+                : $".{CabeiroConstants.Commands.SelectLinesSample}.{sampleSize}";
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
             OutputParameters processingParameters = new OutputParameters(
                 outputFilePath,
                 null,
-                new int[] { sampleSize });
+                new int[] { seedValue, sampleSize });
 
             var fileProcessor
                 = new FileProcessor<LineExtractor, Unused, string, SampleProcessor, OutputParameters>(
@@ -2038,6 +2061,40 @@ namespace LaurentiuCristofor.Cabeiro
 
             var fileGenerationProcessor
                 = new FileGenerationProcessor<DistributionGenerator, DistributionGenerationParameters>(
+                    generationParameters,
+                    processingParameters);
+
+            fileGenerationProcessor.GenerateFile();
+        }
+
+        private static void GenerateProgression(
+            ulong generationCount,
+            ProgressionType progressionType, string progressionTypeString,
+            string[] generationArguments,
+            string outputFilePath)
+        {
+            double[] progressionArguments = null;
+            if (generationArguments.Length == 2)
+            {
+                double firstArgument = double.Parse(generationArguments[0]);
+                double secondArgument = double.Parse(generationArguments[1]);
+                progressionArguments = new double[] { firstArgument, secondArgument };
+            }
+
+            ProgressionGenerationParameters generationParameters = new ProgressionGenerationParameters(
+                generationCount,
+                progressionType,
+                progressionArguments);
+
+            string outputFileExtension = $".{CabeiroConstants.Commands.GenerateDistribution}.{progressionTypeString.ToLower()}.{generationCount}";
+            var filePathBuilder = new FilePathBuilder(CabeiroConstants.Program.Name, outputFileExtension, generationArguments, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            BaseOutputParameters processingParameters = new BaseOutputParameters(
+                outputFilePath);
+
+            var fileGenerationProcessor
+                = new FileGenerationProcessor<ProgressionGenerator, ProgressionGenerationParameters>(
                     generationParameters,
                     processingParameters);
 

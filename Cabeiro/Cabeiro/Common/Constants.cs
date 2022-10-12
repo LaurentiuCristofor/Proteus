@@ -102,6 +102,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string FindStateTransitions = "fst";
 
             public const string GenerateDistribution = "gend";
+            public const string GenerateProgression = "genp";
             public const string GenerateSample = "gens";
 
             // Command descriptions.
@@ -136,6 +137,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string FindStateTransitions = "Selects pairs of lines from a column-sorted file, which match on the sorted column's values, but differ on a second column's 'state' values. Two consecutive transitions will result in duplicate lines being output; for example, ABA will output AB and BA.";
 
                 public const string GenerateDistribution = "Generates a number of values with the specified distribution.";
+                public const string GenerateProgression = "Generates a number of values from the specified numerical progression.";
                 public const string GenerateSample = "Generates a sample of values out of values ranging from 1 to a specified total count.";
             }
 
@@ -296,6 +298,12 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string DistributionTypeExponential = "e";
                 public const string DistributionTypePoisson = "p";
 
+                public const string ProgressionTypeArithmetic = "a";
+                public const string ProgressionTypeGeometric = "g";
+                public const string ProgressionTypeHarmonic = "h";
+                public const string ProgressionTypeFactorial = "fact";
+                public const string ProgressionTypeFibonacci = "fib";
+
                 // Command argument description strings.
                 //
                 public abstract class Descriptions
@@ -319,6 +327,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                     public const string SortedColumnDataType = "<sorted_column_data_type>";
 
                     public const string ColumnSeparator = "<column_separator>";
+                    public const string LineSeparator = "<line_separator>";
 
                     public const string FirstArgument = "<first_argument>";
                     public const string SecondArgument = "<second_argument>";
@@ -331,7 +340,6 @@ namespace LaurentiuCristofor.Cabeiro.Common
                     public const string SeedValue = "<seed_value>";
                     public const string GenerationCount = "<generation_count>";
                     public const string TotalCount = "<total_count>";
-                    public const string DistributionMean = "<distribution_mean>";
 
                     public static readonly string HelpCategoriesText = $"{CommandName} will produce detailed information on the specified command."
                         + $"\n\n'{Commands.Arguments.All}' will list all available commands."
@@ -531,6 +539,16 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.DistributionTypeNormal}' = normal"
                         + $"\n\t- '{Constants.Commands.Arguments.DistributionTypeExponential}' = exponential; arguments: <distribution_mean> (double)"
                         + $"\n\t- '{Constants.Commands.Arguments.DistributionTypePoisson}' = Poisson; arguments: <distribution_mean> (ulong)"
+                        ;
+
+                    public const string ProgressionType = "<progression_type>";
+
+                    public static readonly string ProgressionTypeText = $"{Constants.Commands.Arguments.Descriptions.ProgressionType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.ProgressionTypeArithmetic}' = arithmetic; arguments: <starting_value> <delta_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ProgressionTypeGeometric}' = geometric; arguments: <starting_value> <ratio_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ProgressionTypeHarmonic}' = harmonic; arguments: <starting_value> <delta_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ProgressionTypeFactorial}' = factorial"
+                        + $"\n\t- '{Constants.Commands.Arguments.ProgressionTypeFibonacci}' = Fibonacci"
                         ;
                 }
             }

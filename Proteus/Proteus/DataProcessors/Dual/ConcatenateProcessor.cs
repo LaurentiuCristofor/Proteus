@@ -19,7 +19,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
     /// </summary>
     public class ConcatenateProcessor: BaseOutputProcessor, IDualDataProcessor<OutputParameters, string>
     {
-        protected OutputParameters Parameters { get; set; }
+        protected const int LineSeparatorIndex = 0;
 
         /// <summary>
         /// The line separator parameter.
@@ -28,12 +28,10 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
 
         public void Initialize(OutputParameters processingParameters)
         {
-            this.Parameters = processingParameters;
+            ArgumentChecker.CheckPresence<string>(processingParameters.StringParameters, LineSeparatorIndex);
+            this.LineSeparator = processingParameters.StringParameters[LineSeparatorIndex];
 
-            ArgumentChecker.CheckPresence<string>(this.Parameters.StringParameters, 0);
-            this.LineSeparator = this.Parameters.StringParameters[0];
-
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
+            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public ProcessingActionType Execute(

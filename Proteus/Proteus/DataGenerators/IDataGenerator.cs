@@ -5,24 +5,20 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+using LaurentiuCristofor.Proteus.Common;
+
 namespace LaurentiuCristofor.Proteus.DataGenerators
 {
     /// <summary>
-    /// An interface for generating data.
+    /// An extension of IStringGenerator that provides an additional API for initializing the generator.
     /// </summary>
     /// <typeparam name="TGenerationParameters">The parameters of the generation operation.</typeparam>
-    public interface IDataGenerator<TGenerationParameters>
+    public interface IDataGenerator<TGenerationParameters> : IStringGenerator
     {
         /// <summary>
         /// Initializes the generator with specific parameters.
         /// </summary>
-        /// <param name="extractionParameters">The generation parameters.</param>
+        /// <param name="generationParameters">The generation parameters.</param>
         void Initialize(TGenerationParameters generationParameters);
-
-        /// <summary>
-        /// Generates a piece of data and outputs its string representation.
-        /// </summary>
-        /// <returns>The string representation of the generated data or null if the generation has been completed.</returns>
-        string Generate();
     }
 }

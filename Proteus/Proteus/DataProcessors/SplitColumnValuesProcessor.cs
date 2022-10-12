@@ -23,7 +23,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class SplitColumnValuesProcessor : BaseOutputProcessor, IDataProcessor<OutputParameters, OneExtractedValue>
     {
-        protected OutputParameters Parameters { get; set; }
+        protected const int OutputFileExtensionIndex = 0;
+
+        protected string OutputFilePath { get; set; }
 
         /// <summary>
         /// The file extension that should be used for the output files.
@@ -37,11 +39,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputParameters processingParameters)
         {
-            this.Parameters = processingParameters;
+            this.OutputFilePath = processingParameters.OutputFilePath;
 
-            ArgumentChecker.CheckPresence<string>(this.Parameters.StringParameters, 0);
-            ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.StringParameters[0]);
-            this.OutputFileExtension = this.Parameters.StringParameters[0];
+            ArgumentChecker.CheckPresence<string>(processingParameters.StringParameters, OutputFileExtensionIndex);
+            ArgumentChecker.CheckNotNullAndNotEmpty(processingParameters.StringParameters[OutputFileExtensionIndex]);
+            this.OutputFileExtension = processingParameters.StringParameters[OutputFileExtensionIndex];
 
             this.MapColumnValueToFileWriter = new Dictionary<IDataHolder, FileWriter>();
         }
@@ -63,7 +65,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 this.MapColumnValueToFileWriter.Add(
                     data,
-                    new FileWriter(this.Parameters.OutputFilePath + $".{columnValueIdentifier}{this.OutputFileExtension}"));
+                    new FileWriter(this.OutputFilePath + $".{columnValueIdentifier}{this.OutputFileExtension}"));
             }
 
             this.MapColumnValueToFileWriter[data].WriteLine(lineData.OriginalLine);

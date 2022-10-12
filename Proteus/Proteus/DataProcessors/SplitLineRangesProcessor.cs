@@ -20,7 +20,10 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class SplitLineRangesProcessor : BaseOutputProcessor, IDataProcessor<OutputParameters, string>
     {
-        protected OutputParameters Parameters { get; set; }
+        protected const int OutputFileExtensionIndex = 0;
+        protected const int RangeSizeIndex = 0;
+
+        protected string OutputFilePath { get; set; }
 
         /// <summary>
         /// The file extension that should be used for the output files.
@@ -34,15 +37,15 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputParameters processingParameters)
         {
-            this.Parameters = processingParameters;
+            this.OutputFilePath = processingParameters.OutputFilePath;
 
-            ArgumentChecker.CheckPresence<string>(this.Parameters.StringParameters, 0);
-            ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.StringParameters[0]);
-            this.OutputFileExtension = this.Parameters.StringParameters[0];
+            ArgumentChecker.CheckPresence<string>(processingParameters.StringParameters, OutputFileExtensionIndex);
+            ArgumentChecker.CheckNotNullAndNotEmpty(processingParameters.StringParameters[OutputFileExtensionIndex]);
+            this.OutputFileExtension = processingParameters.StringParameters[OutputFileExtensionIndex];
 
-            ArgumentChecker.CheckPresence<ulong>(this.Parameters.UlongParameters, 0);
-            ArgumentChecker.CheckNotZero(this.Parameters.UlongParameters[0]);
-            this.RangeSize = this.Parameters.UlongParameters[0];
+            ArgumentChecker.CheckPresence<ulong>(processingParameters.UlongParameters, RangeSizeIndex);
+            ArgumentChecker.CheckNotZero(processingParameters.UlongParameters[RangeSizeIndex]);
+            this.RangeSize = processingParameters.UlongParameters[RangeSizeIndex];
         }
 
         public bool Execute(ulong lineNumber, string line)
@@ -51,7 +54,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             //
             if (this.OutputWriter == null)
             {
-                this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath + $".{lineNumber}{this.OutputFileExtension}");
+                this.OutputWriter = new FileWriter(this.OutputFilePath + $".{lineNumber}{this.OutputFileExtension}");
             }
 
             this.OutputWriter.WriteLine(line);

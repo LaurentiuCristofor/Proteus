@@ -20,7 +20,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class SelectLinePostSortingByValueRelativeToOtherLinesProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<RelativeValueSelectionType>, OneExtractedValue>
     {
-        protected OutputOperationParameters<RelativeValueSelectionType> Parameters { get; set; }
+        protected RelativeValueSelectionType SelectionType { get; set; }
 
         /// <summary>
         /// Last seen line data.
@@ -29,9 +29,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputOperationParameters<RelativeValueSelectionType> processingParameters)
         {
-            this.Parameters = processingParameters;
+            this.SelectionType = processingParameters.OperationType;
 
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
+            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, OneExtractedValue lineData)
@@ -48,7 +48,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             //
             bool shouldOutputLine = false;
             string lineToOutput = lineData.OriginalLine;
-            switch (this.Parameters.OperationType)
+            switch (this.SelectionType)
             {
                 case RelativeValueSelectionType.First:
                     if (this.LastSeenLineData == null
@@ -89,7 +89,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling relative value selection type '{this.Parameters.OperationType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling relative value selection type '{this.SelectionType}'!");
             }
 
             if (shouldOutputLine)
@@ -106,7 +106,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public override void CompleteExecution()
         {
-            if (this.Parameters.OperationType == RelativeValueSelectionType.Last)
+            if (this.SelectionType == RelativeValueSelectionType.Last)
             {
                 // The last seen line has to be printed.
                 //

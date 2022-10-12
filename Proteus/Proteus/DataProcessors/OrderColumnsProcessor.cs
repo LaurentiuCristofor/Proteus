@@ -23,8 +23,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class OrderColumnsProcessor : BaseOutputProcessor, IDataProcessor<OutputParameters, ExtractedColumnStrings>
     {
-        protected OutputParameters Parameters { get; set; }
-
         /// <summary>
         /// The new first columns list.
         /// </summary>
@@ -52,10 +50,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputParameters processingParameters)
         {
-            this.Parameters = processingParameters;
-
-            ArgumentChecker.CheckPresence<string>(this.Parameters.StringParameters, 0);
-            this.NewFirstColumnsList = this.Parameters.StringParameters[0];
+            ArgumentChecker.CheckPresence<string>(processingParameters.StringParameters, 0);
+            this.NewFirstColumnsList = processingParameters.StringParameters[0];
 
             // Parse the column numbers that we need to place first.
             //
@@ -102,7 +98,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 this.MinUnorderedColumnNumber = this.MaxOrderedColumnNumber + 1;
             }
 
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
+            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, ExtractedColumnStrings lineData)

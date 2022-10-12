@@ -19,8 +19,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class SortProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, string>
     {
-        protected BaseOutputParameters Parameters { get; set; }
-
         /// <summary>
         /// Data structure used for loading the lines before sorting them.
         /// </summary>
@@ -28,11 +26,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(BaseOutputParameters processingParameters)
         {
-            this.Parameters = processingParameters;
-
             this.Lines = new List<string>();
 
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath, trackProgress: true);
+            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: true);
         }
 
         public bool Execute(ulong lineNumber, string line)

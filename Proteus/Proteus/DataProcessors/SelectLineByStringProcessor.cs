@@ -19,8 +19,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class SelectLineByStringProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<StringSelectionType>, OneExtractedValue>
     {
-        protected OutputOperationParameters<StringSelectionType> Parameters { get; set; }
-
         /// <summary>
         /// The selector used to perform the operation.
         /// </summary>
@@ -28,12 +26,10 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputOperationParameters<StringSelectionType> processingParameters)
         {
-            this.Parameters = processingParameters;
-
             this.StringSelector = new StringSelector();
-            this.StringSelector.Initialize(this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument);
+            this.StringSelector.Initialize(processingParameters.OperationType, processingParameters.FirstArgument, processingParameters.SecondArgument);
 
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
+            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, OneExtractedValue lineData)

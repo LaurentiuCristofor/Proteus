@@ -22,7 +22,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class SelectLineByValueRelativeToOtherLinesProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<RelativeValueSelectionType>, OneExtractedValue>
     {
-        protected OutputOperationParameters<RelativeValueSelectionType> Parameters { get; set; }
+        protected RelativeValueSelectionType SelectionType { get; set; }
 
         /// <summary>
         /// Set of values seen so far.
@@ -36,9 +36,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputOperationParameters<RelativeValueSelectionType> processingParameters)
         {
-            this.Parameters = processingParameters;
+            this.SelectionType = processingParameters.OperationType;
 
-            switch (this.Parameters.OperationType)
+            switch (this.SelectionType)
             {
                 case RelativeValueSelectionType.First:
                 case RelativeValueSelectionType.NotFirst:
@@ -51,10 +51,10 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling relative value selection type '{this.Parameters.OperationType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling relative value selection type '{this.SelectionType}'!");
             }
 
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath, trackProgress: (this.Parameters.OperationType == RelativeValueSelectionType.Last));
+            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: (this.SelectionType == RelativeValueSelectionType.Last));
         }
 
         public bool Execute(ulong lineNumber, OneExtractedValue lineData)
@@ -65,7 +65,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             //
             bool shouldOutputLine = false;
             string lineToOutput = lineData.OriginalLine;
-            switch (this.Parameters.OperationType)
+            switch (this.SelectionType)
             {
                 case RelativeValueSelectionType.First:
                     // Lookup data in our set;
@@ -120,7 +120,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling relative value selection type '{this.Parameters.OperationType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling relative value selection type '{this.SelectionType}'!");
             }
 
             if (shouldOutputLine)
@@ -133,7 +133,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public override void CompleteExecution()
         {
-            if (this.Parameters.OperationType == RelativeValueSelectionType.Last)
+            if (this.SelectionType == RelativeValueSelectionType.Last)
             {
                 if (this.ValuesToLastLines == null)
                 {

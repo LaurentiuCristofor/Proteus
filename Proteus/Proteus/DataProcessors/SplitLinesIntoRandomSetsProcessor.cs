@@ -23,7 +23,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class SplitLinesIntoRandomSetsProcessor : BaseOutputProcessor, IDataProcessor<OutputParameters, string>
     {
-        protected OutputParameters Parameters { get; set; }
+        protected const int OutputFileExtensionIndex = 0;
+        protected const int SeedIndex = 0;
+        protected const int SetsCountIndex = 1;
 
         /// <summary>
         /// The count of sets into which we should split the input file's lines.
@@ -38,37 +40,35 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// <summary>
         /// The uniform random number generator that we will use for distributing lines to sets.
         /// </summary>
-        protected System.Random UniformGenerator { get; set; }
+        protected System.Random RandomGenerator { get; set; }
 
         public void Initialize(OutputParameters processingParameters)
         {
-            this.Parameters = processingParameters;
+            ArgumentChecker.CheckPresence<string>(processingParameters.StringParameters, OutputFileExtensionIndex);
+            ArgumentChecker.CheckNotNullAndNotEmpty(processingParameters.StringParameters[OutputFileExtensionIndex]);
+            string outputFileExtension = processingParameters.StringParameters[OutputFileExtensionIndex];
 
-            ArgumentChecker.CheckPresence<string>(this.Parameters.StringParameters, 0);
-            ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.StringParameters[0]);
-            string outputFileExtension = this.Parameters.StringParameters[0];
+            ArgumentChecker.CheckPresence<int>(processingParameters.IntParameters, SeedIndex);
+            int seed = processingParameters.IntParameters[SeedIndex];
 
-            ArgumentChecker.CheckPresence<int>(this.Parameters.IntParameters, 0);
-            int seed = this.Parameters.IntParameters[0];
-
-            ArgumentChecker.CheckPresence<int>(this.Parameters.IntParameters, 1);
-            ArgumentChecker.CheckStrictlyPositive(this.Parameters.IntParameters[1]);
-            this.SetsCount = this.Parameters.IntParameters[1];
+            ArgumentChecker.CheckPresence<int>(processingParameters.IntParameters, SetsCountIndex);
+            ArgumentChecker.CheckStrictlyPositive(processingParameters.IntParameters[SetsCountIndex]);
+            this.SetsCount = processingParameters.IntParameters[SetsCountIndex];
 
             this.MapSetToFileWriter = new Dictionary<int, FileWriter>();
             for (int i = 1; i <= this.SetsCount; ++i)
             {
-                this.MapSetToFileWriter.Add(i, new FileWriter(this.Parameters.OutputFilePath + $".{i}{outputFileExtension}"));
+                this.MapSetToFileWriter.Add(i, new FileWriter(processingParameters.OutputFilePath + $".{i}{outputFileExtension}"));
             }
 
-            this.UniformGenerator = (seed >= 0) ? new System.Random(seed) : new System.Random();
+            this.RandomGenerator = (seed >= 0) ? new System.Random(seed) : new System.Random();
         }
 
         public bool Execute(ulong lineNumber, string line)
         {
             // Pick a random set to place the line in.
             //
-            int setNumber = this.UniformGenerator.Next(1, this.SetsCount + 1);
+            int setNumber = this.RandomGenerator.Next(1, this.SetsCount + 1);
 
             this.MapSetToFileWriter[setNumber].WriteLine(line);
 
