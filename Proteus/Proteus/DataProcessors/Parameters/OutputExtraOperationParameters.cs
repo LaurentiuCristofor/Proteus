@@ -38,6 +38,36 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
         public OutputExtraOperationParameters(
             string outputFilePath,
             TOperationType operationType,
+            string[] stringParameters,
+            ulong[] ulongParameters)
+            : base(outputFilePath, stringParameters, ulongParameters)
+        {
+            this.OperationType = operationType;
+        }
+
+        public OutputExtraOperationParameters(
+            string outputFilePath,
+            TOperationType operationType,
+            string[] stringParameters,
+            double[] doubleParameters)
+            : base(outputFilePath, stringParameters, doubleParameters)
+        {
+            this.OperationType = operationType;
+        }
+
+        public OutputExtraOperationParameters(
+            string outputFilePath,
+            TOperationType operationType,
+            string[] stringParameters,
+            IDataHolder[] dataHolderParameters)
+            : base(outputFilePath, stringParameters, dataHolderParameters)
+        {
+            this.OperationType = operationType;
+        }
+
+        public OutputExtraOperationParameters(
+            string outputFilePath,
+            TOperationType operationType,
             int[] intParameters)
             : base(outputFilePath, intParameters)
         {
@@ -47,8 +77,26 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
         public OutputExtraOperationParameters(
             string outputFilePath,
             TOperationType operationType,
+            ulong[] ulongParameters)
+            : base(outputFilePath, ulongParameters)
+        {
+            this.OperationType = operationType;
+        }
+
+        public OutputExtraOperationParameters(
+            string outputFilePath,
+            TOperationType operationType,
+            double[] doubleParameters)
+            : base(outputFilePath, doubleParameters)
+        {
+            this.OperationType = operationType;
+        }
+
+        public OutputExtraOperationParameters(
+            string outputFilePath,
+            TOperationType operationType,
             IDataHolder[] dataHolderParameters)
-            : base(outputFilePath, null, null, null, null, dataHolderParameters)
+            : base(outputFilePath, dataHolderParameters)
         {
             this.OperationType = operationType;
         }

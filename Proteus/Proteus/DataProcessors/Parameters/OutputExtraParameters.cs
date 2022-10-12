@@ -57,6 +57,45 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
 
         public OutputExtraParameters(
             string outputFilePath,
+            string[] stringParameters,
+            ulong[] ulongParameters)
+            : base(outputFilePath)
+        {
+            this.StringParameters = stringParameters;
+            this.IntParameters = null;
+            this.UlongParameters = ulongParameters;
+            this.DoubleParameters = null;
+            this.DataHolderParameters = null;
+        }
+
+        public OutputExtraParameters(
+            string outputFilePath,
+            string[] stringParameters,
+            double[] doubleParameters)
+            : base(outputFilePath)
+        {
+            this.StringParameters = stringParameters;
+            this.IntParameters = null;
+            this.UlongParameters = null;
+            this.DoubleParameters = doubleParameters;
+            this.DataHolderParameters = null;
+        }
+
+        public OutputExtraParameters(
+            string outputFilePath,
+            string[] stringParameters,
+            IDataHolder[] dataHolderParameters)
+            : base(outputFilePath)
+        {
+            this.StringParameters = stringParameters;
+            this.IntParameters = null;
+            this.UlongParameters = null;
+            this.DoubleParameters = null;
+            this.DataHolderParameters = dataHolderParameters;
+        }
+
+        public OutputExtraParameters(
+            string outputFilePath,
             int[] intParameters)
             : base(outputFilePath)
         {
@@ -65,6 +104,42 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
             this.UlongParameters = null;
             this.DoubleParameters = null;
             this.DataHolderParameters = null;
+        }
+
+        public OutputExtraParameters(
+            string outputFilePath,
+            ulong[] ulongParameters)
+            : base(outputFilePath)
+        {
+            this.StringParameters = null;
+            this.IntParameters = null;
+            this.UlongParameters = ulongParameters;
+            this.DoubleParameters = null;
+            this.DataHolderParameters = null;
+        }
+
+        public OutputExtraParameters(
+            string outputFilePath,
+            double[] doubleParameters)
+            : base(outputFilePath)
+        {
+            this.StringParameters = null;
+            this.IntParameters = null;
+            this.UlongParameters = null;
+            this.DoubleParameters = doubleParameters;
+            this.DataHolderParameters = null;
+        }
+
+        public OutputExtraParameters(
+            string outputFilePath,
+            IDataHolder[] dataHolderParameters)
+            : base(outputFilePath)
+        {
+            this.StringParameters = null;
+            this.IntParameters = null;
+            this.UlongParameters = null;
+            this.DoubleParameters = null;
+            this.DataHolderParameters = dataHolderParameters;
         }
     }
 }

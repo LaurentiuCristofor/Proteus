@@ -40,12 +40,13 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             this.OutputFilePath = processingParameters.OutputFilePath;
 
             ArgumentChecker.CheckPresence(processingParameters.StringParameters, OutputFileExtensionIndex);
-            ArgumentChecker.CheckNotNullAndNotEmpty(processingParameters.StringParameters[OutputFileExtensionIndex]);
-            this.OutputFileExtension = processingParameters.StringParameters[OutputFileExtensionIndex];
-
             ArgumentChecker.CheckPresence(processingParameters.UlongParameters, RangeSizeIndex);
-            ArgumentChecker.CheckGreaterThanOrEqualTo(processingParameters.UlongParameters[RangeSizeIndex], 1UL);
+
+            this.OutputFileExtension = processingParameters.StringParameters[OutputFileExtensionIndex];
             this.RangeSize = processingParameters.UlongParameters[RangeSizeIndex];
+
+            ArgumentChecker.CheckNotNullAndNotEmpty(this.OutputFileExtension);
+            ArgumentChecker.CheckGreaterThanOrEqualTo(this.RangeSize, 1UL);
         }
 
         public bool Execute(ulong lineNumber, string line)

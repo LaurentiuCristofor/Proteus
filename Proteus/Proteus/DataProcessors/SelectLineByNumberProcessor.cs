@@ -61,9 +61,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 case PositionSelectionType.Each:
                 case PositionSelectionType.NotEach:
                     ArgumentChecker.CheckPresence(processingParameters.UlongParameters, FirstLineCountIndex);
-
                     this.FirstLineCount = processingParameters.UlongParameters[FirstLineCountIndex];
-
                     ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstLineCount, 1UL);
                     break;
 

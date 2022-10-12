@@ -50,9 +50,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 case PositionSelectionType.Each:
                 case PositionSelectionType.NotEach:
                     ArgumentChecker.CheckPresence(processingParameters.IntParameters, FirstColumnCountIndex);
-
                     this.FirstColumnCount = processingParameters.IntParameters[FirstColumnCountIndex];
-
                     ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstColumnCount, 1);
                     break;
 

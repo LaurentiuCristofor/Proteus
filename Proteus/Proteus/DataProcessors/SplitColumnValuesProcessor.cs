@@ -42,8 +42,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             this.OutputFilePath = processingParameters.OutputFilePath;
 
             ArgumentChecker.CheckPresence(processingParameters.StringParameters, OutputFileExtensionIndex);
-            ArgumentChecker.CheckNotNullAndNotEmpty(processingParameters.StringParameters[OutputFileExtensionIndex]);
             this.OutputFileExtension = processingParameters.StringParameters[OutputFileExtensionIndex];
+            ArgumentChecker.CheckNotNullAndNotEmpty(this.OutputFileExtension);
 
             this.MapColumnValueToFileWriter = new Dictionary<IDataHolder, FileWriter>();
         }
