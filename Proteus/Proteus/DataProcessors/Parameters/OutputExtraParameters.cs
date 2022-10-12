@@ -54,5 +54,17 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
             this.DoubleParameters = doubleParameters;
             this.DataHolderParameters = dataHolderParameters;
         }
+
+        public OutputExtraParameters(
+            string outputFilePath,
+            int[] intParameters)
+            : base(outputFilePath)
+        {
+            this.StringParameters = null;
+            this.IntParameters = intParameters;
+            this.UlongParameters = null;
+            this.DoubleParameters = null;
+            this.DataHolderParameters = null;
+        }
     }
 }

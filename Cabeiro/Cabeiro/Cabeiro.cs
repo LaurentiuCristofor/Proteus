@@ -1203,10 +1203,6 @@ namespace LaurentiuCristofor.Cabeiro
             var processingParameters = new OutputExtraOperationParameters<ValueEditType>(
                 outputFilePath,
                 editType,
-                null,
-                null,
-                null,
-                null,
                 new IDataHolder[] { argument });
 
             var fileProcessor
@@ -1450,10 +1446,6 @@ namespace LaurentiuCristofor.Cabeiro
             var processingParameters = new OutputExtraOperationParameters<ComparisonType>(
                 outputFilePath,
                 comparisonType,
-                null,
-                null,
-                null,
-                null,
                 dataHolderParameters);
 
             var fileProcessor
@@ -1477,21 +1469,22 @@ namespace LaurentiuCristofor.Cabeiro
 
             // There are one or two int parameters.
             //
-            int[] intParameters;
+            ulong[] ulongParameters;
             if (selectionArguments.Length > 1)
             {
-                intParameters = new int[] { int.Parse(selectionArguments[0]), int.Parse(selectionArguments[1]) };
+                ulongParameters = new ulong[] { ulong.Parse(selectionArguments[0]), ulong.Parse(selectionArguments[1]) };
             }
             else
             {
-                intParameters = new int[] { int.Parse(selectionArguments[0]) };
+                ulongParameters = new ulong[] { ulong.Parse(selectionArguments[0]) };
             }
 
             var processingParameters = new OutputExtraOperationParameters<PositionSelectionType>(
                 outputFilePath,
                 selectionType,
                 null,
-                intParameters);
+                null,
+                ulongParameters);
 
             var fileProcessor
                 = new FileProcessor<LineExtractor, Unused, string, SelectLineByNumberProcessor, OutputExtraOperationParameters<PositionSelectionType>>(
@@ -1531,7 +1524,6 @@ namespace LaurentiuCristofor.Cabeiro
             var processingParameters = new OutputExtraOperationParameters<PositionSelectionType>(
                 outputFilePath,
                 selectionType,
-                null,
                 intParameters);
 
             var fileProcessor
@@ -1632,10 +1624,6 @@ namespace LaurentiuCristofor.Cabeiro
             var processingParameters = new OutputExtraOperationParameters<ComparisonType>(
                 outputFilePath,
                 comparisonType,
-                null,
-                null,
-                null,
-                null,
                 dataHolderParameters);
 
             var fileProcessor
@@ -1862,7 +1850,6 @@ namespace LaurentiuCristofor.Cabeiro
 
             var processingParameters = new OutputExtraParameters(
                 outputFilePath,
-                null,
                 new int[] { seedValue, sampleSize });
 
             var fileProcessor

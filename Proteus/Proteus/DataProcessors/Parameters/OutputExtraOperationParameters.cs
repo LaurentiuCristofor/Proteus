@@ -34,5 +34,23 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
         {
             this.OperationType = operationType;
         }
+
+        public OutputExtraOperationParameters(
+            string outputFilePath,
+            TOperationType operationType,
+            int[] intParameters)
+            : base(outputFilePath, intParameters)
+        {
+            this.OperationType = operationType;
+        }
+
+        public OutputExtraOperationParameters(
+            string outputFilePath,
+            TOperationType operationType,
+            IDataHolder[] dataHolderParameters)
+            : base(outputFilePath, null, null, null, null, dataHolderParameters)
+        {
+            this.OperationType = operationType;
+        }
     }
 }
