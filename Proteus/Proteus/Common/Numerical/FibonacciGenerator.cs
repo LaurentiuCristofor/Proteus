@@ -9,6 +9,8 @@ namespace LaurentiuCristofor.Proteus.Common.Numerical
 {
     /// <summary>
     /// A generator of Fibonacci values.
+    /// 
+    /// We use double variables to avoid overflowing ulong ones.
     /// </summary>
     public sealed class FibonacciGenerator : IStringGenerator
     {
@@ -16,7 +18,7 @@ namespace LaurentiuCristofor.Proteus.Common.Numerical
         /// Holds the last two values of the Fibonacci progression.
         /// 0 indicates that the value has not yet been generated.
         /// </summary>
-        private ulong[] LastTwoValues { get; set; }
+        private double[] LastTwoValues { get; set; }
 
         /// <summary>
         /// Indicates the index within LastTwoValues where the next value should be stored after it is generated.
@@ -28,7 +30,7 @@ namespace LaurentiuCristofor.Proteus.Common.Numerical
         /// </summary>
         public FibonacciGenerator()
         {
-            this.LastTwoValues = new ulong[] { 0, 0 };
+            this.LastTwoValues = new double[] { 0, 0 };
             this.NextValueIndex = 0;
         }
 
@@ -36,7 +38,7 @@ namespace LaurentiuCristofor.Proteus.Common.Numerical
         /// Returns the next Fibonacci value.
         /// </summary>
         /// <returns>The next value in the Fibonacci progression.</returns>
-        public ulong Next()
+        public double Next()
         {
             // Adds the last two values and stores them at the position indicated by NextValueIndex.
             // The first two values represent special cases for which we hardcode the generation.
@@ -45,7 +47,7 @@ namespace LaurentiuCristofor.Proteus.Common.Numerical
 
             // Copy the value that we should output, before updating the NextValueIndex.
             //
-            ulong nextValue = this.LastTwoValues[this.NextValueIndex];
+            double nextValue = this.LastTwoValues[this.NextValueIndex];
 
             // Position NextValueIndex to where we should store the next value.
             // Use modulo to nicely wrap around the array end.

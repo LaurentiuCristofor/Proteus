@@ -9,18 +9,20 @@ namespace LaurentiuCristofor.Proteus.Common.Numerical
 {
     /// <summary>
     /// A generator of factorial values.
+    /// 
+    /// We use double variables, because ulong ones would overflow fast.
     /// </summary>
     public sealed class FactorialGenerator : IStringGenerator
     {
         /// <summary>
         /// The next value that should be generated.
         /// </summary>
-        private ulong NextValue { get; set; }
+        private double NextValue { get; set; }
 
         /// <summary>
         /// The multiplier value that should be used to generate the next value after NextValue.
         /// </summary>
-        private ulong NextMultiplierValue { get; set; } 
+        private double NextMultiplierValue { get; set; } 
 
         /// <summary>
         /// Creates a generator of factorial values.
@@ -35,10 +37,12 @@ namespace LaurentiuCristofor.Proteus.Common.Numerical
         /// Returns the next factorial value.
         /// </summary>
         /// <returns>The next value in the factorial progression.</returns>
-        public ulong Next()
+        public double Next()
         {
-            ulong value = this.NextValue;
+            double value = this.NextValue;
 
+            // Generate next value and then increment multiplier as well.
+            //
             this.NextValue *= this.NextMultiplierValue;
             ++this.NextMultiplierValue;
 

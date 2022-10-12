@@ -2086,7 +2086,7 @@ namespace LaurentiuCristofor.Cabeiro
                 progressionType,
                 progressionArguments);
 
-            string outputFileExtension = $".{CabeiroConstants.Commands.GenerateDistribution}.{progressionTypeString.ToLower()}.{generationCount}";
+            string outputFileExtension = $".{CabeiroConstants.Commands.GenerateProgression}.{progressionTypeString.ToLower()}.{generationCount}";
             var filePathBuilder = new FilePathBuilder(CabeiroConstants.Program.Name, outputFileExtension, generationArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
