@@ -18,7 +18,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that re-orders the columns of the input row.
     /// 
-    /// OutputParameters is expected to contain:
+    /// OutputExtraParameters is expected to contain:
     /// StringParameters[0] - new first columns list
     /// </summary>
     public class OrderColumnsProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraParameters, ExtractedColumnStrings>

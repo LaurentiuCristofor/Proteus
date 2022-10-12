@@ -19,7 +19,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that samples the input lines.
     /// 
-    /// OutputParameters is expected to contain:
+    /// OutputExtraParameters is expected to contain:
     /// IntParameters[0] - randomization seed value
     /// IntParameters[1] - sample size
     /// </summary>

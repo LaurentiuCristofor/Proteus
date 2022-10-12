@@ -17,9 +17,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
     /// A data processor that transforms lines.
+    ///
+    /// OutputExtraOperationParameters is expected to contain:
+    /// IntParameters[0] - count of lines to unite (optional)
     /// </summary>
     public class TransformLinesProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraOperationParameters<LineTransformationType>, ExtractedColumnStrings>
     {
+        protected const int CountOfLinesToUniteIndex = 0;
+
         protected LineTransformationType TransformationType { get; set; }
 
         /// <summary>
@@ -42,10 +47,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     break;
 
                 case LineTransformationType.Unite:
-                    ArgumentChecker.CheckNotNull(processingParameters.FirstArgument);
-
-                    this.CountOfLinesToUnite = int.Parse(processingParameters.FirstArgument);
-
+                    ArgumentChecker.CheckPresence(processingParameters.IntParameters, CountOfLinesToUniteIndex);
+                    this.CountOfLinesToUnite = processingParameters.IntParameters[CountOfLinesToUniteIndex];
                     ArgumentChecker.CheckGreaterThanOrEqualTo(this.CountOfLinesToUnite, 2);
 
                     this.LinesToUnite = new List<string>();

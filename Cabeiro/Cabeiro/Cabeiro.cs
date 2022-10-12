@@ -919,7 +919,7 @@ namespace LaurentiuCristofor.Cabeiro
 
         private static void AnalyzeLines(string inputFilePath, int valuesLimit)
         {
-            AnalyzeParameters processingParameters = new AnalyzeParameters(DataType.String, valuesLimit);
+            var processingParameters = new AnalyzeParameters(DataType.String, valuesLimit);
 
             var fileProcessor
                 = new FileProcessor<LineAsOneExtractedValueExtractor, Unused, OneExtractedValue, AnalyzeProcessor, AnalyzeParameters>(
@@ -937,12 +937,12 @@ namespace LaurentiuCristofor.Cabeiro
             DataType dataType,
             int valuesLimit)
         {
-            OneColumnValueExtractionParameters extractionParameters = new OneColumnValueExtractionParameters(
+            var extractionParameters = new OneColumnValueExtractionParameters(
                 columnSeparator,
                 columnNumber,
                 dataType);
 
-            AnalyzeParameters processingParameters = new AnalyzeParameters(dataType, valuesLimit);
+            var processingParameters = new AnalyzeParameters(dataType, valuesLimit);
 
             var fileProcessor
                 = new FileProcessor<OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue, AnalyzeProcessor, AnalyzeParameters>(
@@ -961,7 +961,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            BaseOutputParameters processingParameters = new BaseOutputParameters(
+            var processingParameters = new BaseOutputParameters(
                 outputFilePath);
 
             var fileProcessor
@@ -981,7 +981,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            BaseOutputParameters processingParameters = new BaseOutputParameters(
+            var processingParameters = new BaseOutputParameters(
                 outputFilePath);
 
             var fileProcessor
@@ -1000,7 +1000,7 @@ namespace LaurentiuCristofor.Cabeiro
             DataType dataType, string dataTypeString,
             string outputFilePath)
         {
-            OneColumnValueExtractionParameters extractionParameters = new OneColumnValueExtractionParameters(
+            var extractionParameters = new OneColumnValueExtractionParameters(
                 columnSeparator,
                 columnNumber,
                 dataType);
@@ -1009,7 +1009,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            BaseOutputParameters processingParameters = new BaseOutputParameters(
+            var processingParameters = new BaseOutputParameters(
                 outputFilePath);
 
             var fileProcessor
@@ -1030,7 +1030,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputOperationParameters<SortingAlgorithmType> processingParameters = new OutputOperationParameters<SortingAlgorithmType>(
+            var processingParameters = new OutputOperationParameters<SortingAlgorithmType>(
                 outputFilePath,
                 algorithmType);
 
@@ -1051,7 +1051,7 @@ namespace LaurentiuCristofor.Cabeiro
             SortingAlgorithmType algorithmType, string algorithmTypeString,
             string outputFilePath)
         {
-            OneColumnValueExtractionParameters extractionParameters = new OneColumnValueExtractionParameters(
+            var extractionParameters = new OneColumnValueExtractionParameters(
                 columnSeparator,
                 columnNumber,
                 dataType);
@@ -1060,7 +1060,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputOperationParameters<SortingAlgorithmType> processingParameters = new OutputOperationParameters<SortingAlgorithmType>(
+            var processingParameters = new OutputOperationParameters<SortingAlgorithmType>(
                 outputFilePath,
                 algorithmType);
 
@@ -1081,7 +1081,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            BaseOutputParameters processingParameters = new BaseOutputParameters(
+            var processingParameters = new BaseOutputParameters(
                 outputFilePath);
 
             var fileProcessor
@@ -1099,14 +1099,14 @@ namespace LaurentiuCristofor.Cabeiro
             string newFirstColumnsList,
             string outputFilePath)
         {
-            ColumnStringsExtractionParameters extractionParameters = new ColumnStringsExtractionParameters(
+            var extractionParameters = new ColumnStringsExtractionParameters(
                 columnSeparator);
 
             string outputFileExtension = $".{CabeiroConstants.Commands.OrderColumns}.{newFirstColumnsList}";
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputExtraParameters processingParameters = new OutputExtraParameters(
+            var processingParameters = new OutputExtraParameters(
                 outputFilePath,
                 new string[] { newFirstColumnsList });
 
@@ -1129,7 +1129,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new EditOperationFilePathBuilder(editType, inputFilePath, outputFileExtension, editArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputExtraOperationParameters<StringEditType> processingParameters = new OutputExtraOperationParameters<StringEditType>(
+            var processingParameters = new OutputExtraOperationParameters<StringEditType>(
                 outputFilePath,
                 editType,
                 editArguments);
@@ -1151,7 +1151,7 @@ namespace LaurentiuCristofor.Cabeiro
             string[] editArguments,
             string outputFilePath)
         {
-            OneColumnValueExtractionParameters extractionParameters = new OneColumnValueExtractionParameters(
+            var extractionParameters = new OneColumnValueExtractionParameters(
                 columnSeparator,
                 columnNumber,
                 DataType.String);
@@ -1160,7 +1160,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new EditOperationFilePathBuilder(editType, inputFilePath, outputFileExtension, editArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputExtraOperationParameters<StringEditType> processingParameters = new OutputExtraOperationParameters<StringEditType>(
+            var processingParameters = new OutputExtraOperationParameters<StringEditType>(
                 outputFilePath,
                 editType,
                 editArguments);
@@ -1183,7 +1183,7 @@ namespace LaurentiuCristofor.Cabeiro
             string[] editArguments,
             string outputFilePath)
         {
-            OneColumnValueExtractionParameters extractionParameters = new OneColumnValueExtractionParameters(
+            var extractionParameters = new OneColumnValueExtractionParameters(
                 columnSeparator,
                 columnNumber,
                 dataType);
@@ -1197,21 +1197,20 @@ namespace LaurentiuCristofor.Cabeiro
             IDataHolder argument = null;
             if (editArguments.Length > 0)
             {
-                argument = DataHolderOperations.BuildDataHolder(dataType, editArguments[0]);
-
-                if (argument == null)
-                {
-                    throw new CabeiroException($"'{editArguments[0]}' is not a valid value for the {dataType} data type !");
-                }
+                argument = DataHolderOperations.BuildAndCheckDataHolder(dataType, editArguments[0]);
             }
 
-            OutputValueEditParameters processingParameters = new OutputValueEditParameters(
+            var processingParameters = new OutputExtraOperationParameters<ValueEditType>(
                 outputFilePath,
                 editType,
-                argument);
+                null,
+                null,
+                null,
+                null,
+                new IDataHolder[] { argument });
 
             var fileProcessor
-                = new FileProcessor<OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue, EditColumnValueProcessor, OutputValueEditParameters>(
+                = new FileProcessor<OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue, EditColumnValueProcessor, OutputExtraOperationParameters<ValueEditType>>(
                     inputFilePath,
                     extractionParameters,
                     processingParameters);
@@ -1230,12 +1229,12 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, insertionArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            // We pass the line value as the first operation argument and the first argument becomes the second.
-            //
-            OutputExtraOperationParameters<PositionInsertionType> processingParameters = new OutputExtraOperationParameters<PositionInsertionType>(
+            var processingParameters = new OutputExtraOperationParameters<PositionInsertionType>(
                 outputFilePath,
                 insertionType,
-                (insertionArguments.Length > 0) ? new string[] { lineValue, insertionArguments[0] } : new string[] { lineValue });
+                new string[] { lineValue },
+                null,
+                (insertionArguments.Length > 0) ? new ulong[] { ulong.Parse(insertionArguments[0]) } : null);
 
             var fileProcessor
                 = new FileProcessor<LineExtractor, Unused, string, InsertLineProcessor, OutputExtraOperationParameters<PositionInsertionType>>(
@@ -1258,12 +1257,12 @@ namespace LaurentiuCristofor.Cabeiro
             string[] joinArguments,
             string outputFilePath)
         {
-            OneColumnValueExtractionParameters firstExtractionParameters = new OneColumnValueExtractionParameters(
+            var firstExtractionParameters = new OneColumnValueExtractionParameters(
                 columnSeparator,
                 firstFileColumnNumber,
                 dataType);
 
-            OneColumnValueExtractionParameters secondExtractionParameters = new OneColumnValueExtractionParameters(
+            var secondExtractionParameters = new OneColumnValueExtractionParameters(
                 columnSeparator,
                 secondFileColumnNumber,
                 dataType);
@@ -1275,7 +1274,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(firstFilePath, outputFileExtension, joinArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputExtraOperationParameters<JoinType> processingParameters = new OutputExtraOperationParameters<JoinType>(
+            var processingParameters = new OutputExtraOperationParameters<JoinType>(
                 outputFilePath,
                 joinType,
                 joinArguments);
@@ -1322,7 +1321,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(firstFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputExtraParameters processingParameters = new OutputExtraParameters(
+            var processingParameters = new OutputExtraParameters(
                 outputFilePath,
                 new string[] { columnSeparator });
 
@@ -1346,17 +1345,18 @@ namespace LaurentiuCristofor.Cabeiro
             string[] transformationArguments,
             string outputFilePath)
         {
-            ColumnStringsExtractionParameters extractionParameters = new ColumnStringsExtractionParameters(
+            var extractionParameters = new ColumnStringsExtractionParameters(
                 columnSeparator);
 
             string outputFileExtension = $".{CabeiroConstants.Commands.TransformLines}.{transformationTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, transformationArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputExtraOperationParameters<LineTransformationType> processingParameters = new OutputExtraOperationParameters<LineTransformationType>(
+            var processingParameters = new OutputExtraOperationParameters<LineTransformationType>(
                 outputFilePath,
                 transformationType,
-                transformationArguments);
+                null,
+                (transformationArguments.Length > 0) ? new int[] { int.Parse(transformationArguments[0]) } : null );
 
             var fileProcessor
                 = new FileProcessor<ColumnStringsExtractor, ColumnStringsExtractionParameters, ExtractedColumnStrings, TransformLinesProcessor, OutputExtraOperationParameters<LineTransformationType>>(
@@ -1374,17 +1374,34 @@ namespace LaurentiuCristofor.Cabeiro
             string[] transformationArguments,
             string outputFilePath)
         {
-            ColumnStringsExtractionParameters extractionParameters = new ColumnStringsExtractionParameters(
+            var extractionParameters = new ColumnStringsExtractionParameters(
                 columnSeparator);
 
             string outputFileExtension = $".{CabeiroConstants.Commands.TransformColumns}.{transformationTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, transformationArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputExtraOperationParameters<ColumnTransformationType> processingParameters = new OutputExtraOperationParameters<ColumnTransformationType>(
+            // The string parameter is always present and is the last one.
+            //
+            string[] stringParameters = new string[] { transformationArguments[transformationArguments.Length - 1] };
+
+            // There are one or two int parameters.
+            //
+            int[] intParameters;
+            if (transformationArguments.Length > 2)
+            {
+                intParameters = new int[] { int.Parse(transformationArguments[0]), int.Parse(transformationArguments[1]) };
+            }
+            else
+            {
+                intParameters = new int[] { int.Parse(transformationArguments[0]) };
+            }
+
+            var processingParameters = new OutputExtraOperationParameters<ColumnTransformationType>(
                 outputFilePath,
                 transformationType,
-                transformationArguments);
+                stringParameters,
+                intParameters);
 
             var fileProcessor
                 = new FileProcessor<ColumnStringsExtractor, ColumnStringsExtractionParameters, ExtractedColumnStrings, TransformColumnsProcessor, OutputExtraOperationParameters<ColumnTransformationType>>(
@@ -1404,7 +1421,7 @@ namespace LaurentiuCristofor.Cabeiro
             string[] comparisonArguments,
             string outputFilePath)
         {
-            OneColumnValueExtractionParameters extractionParameters = new OneColumnValueExtractionParameters(
+            var extractionParameters = new OneColumnValueExtractionParameters(
                 columnSeparator,
                 columnNumber,
                 dataType);
@@ -1413,10 +1430,31 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, comparisonArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputExtraOperationParameters<ComparisonType> processingParameters = new OutputExtraOperationParameters<ComparisonType>(
+            // There are one or two data holder parameters.
+            //
+            IDataHolder[] dataHolderParameters;
+            if (comparisonArguments.Length > 1)
+            {
+                IDataHolder firstArgument = DataHolderOperations.BuildAndCheckDataHolder(dataType, comparisonArguments[0]);
+                IDataHolder secondArgument = DataHolderOperations.BuildAndCheckDataHolder(dataType, comparisonArguments[1]);
+
+                dataHolderParameters = new IDataHolder[] { firstArgument, secondArgument };
+            }
+            else
+            {
+                IDataHolder firstArgument = DataHolderOperations.BuildAndCheckDataHolder(dataType, comparisonArguments[0]);
+
+                dataHolderParameters = new IDataHolder[] { firstArgument };
+            }
+
+            var processingParameters = new OutputExtraOperationParameters<ComparisonType>(
                 outputFilePath,
                 comparisonType,
-                comparisonArguments);
+                null,
+                null,
+                null,
+                null,
+                dataHolderParameters);
 
             var fileProcessor
                 = new FileProcessor<OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue, SelectLineByColumnValueProcessor, OutputExtraOperationParameters<ComparisonType>>(
@@ -1437,10 +1475,23 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, selectionArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputExtraOperationParameters<PositionSelectionType> processingParameters = new OutputExtraOperationParameters<PositionSelectionType>(
+            // There are one or two int parameters.
+            //
+            int[] intParameters;
+            if (selectionArguments.Length > 1)
+            {
+                intParameters = new int[] { int.Parse(selectionArguments[0]), int.Parse(selectionArguments[1]) };
+            }
+            else
+            {
+                intParameters = new int[] { int.Parse(selectionArguments[0]) };
+            }
+
+            var processingParameters = new OutputExtraOperationParameters<PositionSelectionType>(
                 outputFilePath,
                 selectionType,
-                selectionArguments);
+                null,
+                intParameters);
 
             var fileProcessor
                 = new FileProcessor<LineExtractor, Unused, string, SelectLineByNumberProcessor, OutputExtraOperationParameters<PositionSelectionType>>(
@@ -1458,17 +1509,30 @@ namespace LaurentiuCristofor.Cabeiro
             string[] selectionArguments,
             string outputFilePath)
         {
-            ColumnStringsExtractionParameters extractionParameters = new ColumnStringsExtractionParameters(
+            var extractionParameters = new ColumnStringsExtractionParameters(
                 columnSeparator);
 
             string outputFileExtension = $".{CabeiroConstants.Commands.SelectColumnsByNumber}.{selectionTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, selectionArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputExtraOperationParameters<PositionSelectionType> processingParameters = new OutputExtraOperationParameters<PositionSelectionType>(
+            // There are one or two int parameters.
+            //
+            int[] intParameters;
+            if (selectionArguments.Length > 1)
+            {
+                intParameters = new int[] { int.Parse(selectionArguments[0]), int.Parse(selectionArguments[1]) };
+            }
+            else
+            {
+                intParameters = new int[] { int.Parse(selectionArguments[0]) };
+            }
+
+            var processingParameters = new OutputExtraOperationParameters<PositionSelectionType>(
                 outputFilePath,
                 selectionType,
-                selectionArguments);
+                null,
+                intParameters);
 
             var fileProcessor
                 = new FileProcessor<ColumnStringsExtractor, ColumnStringsExtractionParameters, ExtractedColumnStrings, SelectColumnByNumberProcessor, OutputExtraOperationParameters<PositionSelectionType>>(
@@ -1489,7 +1553,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, selectionArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputExtraOperationParameters<StringSelectionType> processingParameters = new OutputExtraOperationParameters<StringSelectionType>(
+            var processingParameters = new OutputExtraOperationParameters<StringSelectionType>(
                 outputFilePath,
                 selectionType,
                 selectionArguments);
@@ -1511,7 +1575,7 @@ namespace LaurentiuCristofor.Cabeiro
             string[] selectionArguments,
             string outputFilePath)
         {
-            OneColumnValueExtractionParameters extractionParameters = new OneColumnValueExtractionParameters(
+            var extractionParameters = new OneColumnValueExtractionParameters(
                 columnSeparator,
                 columnNumber,
                 DataType.String);
@@ -1520,7 +1584,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, selectionArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputExtraOperationParameters<StringSelectionType> processingParameters = new OutputExtraOperationParameters<StringSelectionType>(
+            var processingParameters = new OutputExtraOperationParameters<StringSelectionType>(
                 outputFilePath,
                 selectionType,
                 selectionArguments);
@@ -1541,17 +1605,38 @@ namespace LaurentiuCristofor.Cabeiro
             string[] comparisonArguments,
             string outputFilePath)
         {
-            ColumnStringsExtractionParameters extractionParameters = new ColumnStringsExtractionParameters(
+            var extractionParameters = new ColumnStringsExtractionParameters(
                 columnSeparator);
 
             string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesByColumnCount}.{comparisonTypeString.ToLower()}";
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, comparisonArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputExtraOperationParameters<ComparisonType> processingParameters = new OutputExtraOperationParameters<ComparisonType>(
+            // There are one or two data holder parameters.
+            //
+            IDataHolder[] dataHolderParameters;
+            if (comparisonArguments.Length > 1)
+            {
+                IDataHolder firstArgument = DataHolderOperations.BuildAndCheckDataHolder(DataType.Integer, comparisonArguments[0]);
+                IDataHolder secondArgument = DataHolderOperations.BuildAndCheckDataHolder(DataType.Integer, comparisonArguments[1]);
+
+                dataHolderParameters = new IDataHolder[] { firstArgument, secondArgument };
+            }
+            else
+            {
+                IDataHolder firstArgument = DataHolderOperations.BuildAndCheckDataHolder(DataType.Integer, comparisonArguments[0]);
+
+                dataHolderParameters = new IDataHolder[] { firstArgument };
+            }
+
+            var processingParameters = new OutputExtraOperationParameters<ComparisonType>(
                 outputFilePath,
                 comparisonType,
-                comparisonArguments);
+                null,
+                null,
+                null,
+                null,
+                dataHolderParameters);
 
             var fileProcessor
                 = new FileProcessor<ColumnStringsExtractor, ColumnStringsExtractionParameters, ExtractedColumnStrings, SelectLineByColumnCountProcessor, OutputExtraOperationParameters<ComparisonType>>(
@@ -1575,7 +1660,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputOperationParameters<RelativeValueSelectionType> processingParameters = new OutputOperationParameters<RelativeValueSelectionType>(
+            var processingParameters = new OutputOperationParameters<RelativeValueSelectionType>(
                 outputFilePath,
                 selectionType);
 
@@ -1610,7 +1695,7 @@ namespace LaurentiuCristofor.Cabeiro
             RelativeValueSelectionType selectionType, string selectionTypeString,
             string outputFilePath)
         {
-            OneColumnValueExtractionParameters extractionParameters = new OneColumnValueExtractionParameters(
+            var extractionParameters = new OneColumnValueExtractionParameters(
                 columnSeparator,
                 columnNumber,
                 dataType);
@@ -1622,7 +1707,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputOperationParameters<RelativeValueSelectionType> processingParameters = new OutputOperationParameters<RelativeValueSelectionType>(
+            var processingParameters = new OutputOperationParameters<RelativeValueSelectionType>(
                 outputFilePath,
                 selectionType);
 
@@ -1662,7 +1747,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(dataFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputOperationParameters<LookupType> processingParameters = new OutputOperationParameters<LookupType>(
+            var processingParameters = new OutputOperationParameters<LookupType>(
                 outputFilePath,
                 lookupType);
 
@@ -1709,12 +1794,12 @@ namespace LaurentiuCristofor.Cabeiro
             LookupType lookupType, string lookupTypeString,
             string outputFilePath)
         {
-            OneColumnValueExtractionParameters dataFileExtractionParameters = new OneColumnValueExtractionParameters(
+            var dataFileExtractionParameters = new OneColumnValueExtractionParameters(
                 columnSeparator,
                 dataFileColumnNumber,
                 dataType);
 
-            OneColumnValueExtractionParameters lookupFileExtractionParameters = new OneColumnValueExtractionParameters(
+            var lookupFileExtractionParameters = new OneColumnValueExtractionParameters(
                 columnSeparator,
                 lookupFileColumnNumber,
                 dataType);
@@ -1726,7 +1811,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(dataFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputOperationParameters<LookupType> processingParameters = new OutputOperationParameters<LookupType>(
+            var processingParameters = new OutputOperationParameters<LookupType>(
                 outputFilePath,
                 lookupType);
 
@@ -1775,7 +1860,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            OutputExtraParameters processingParameters = new OutputExtraParameters(
+            var processingParameters = new OutputExtraParameters(
                 outputFilePath,
                 null,
                 new int[] { seedValue, sampleSize });
@@ -1803,7 +1888,7 @@ namespace LaurentiuCristofor.Cabeiro
 
             // The file extension is needed because the processor will need to append it for each file it creates.
             //
-            OutputExtraParameters processingParameters = new OutputExtraParameters(
+            var processingParameters = new OutputExtraParameters(
                 outputFilePath,
                 new string[] { CabeiroConstants.Files.Extensions.Txt },
                 null,
@@ -1823,7 +1908,7 @@ namespace LaurentiuCristofor.Cabeiro
             string columnSeparator,
             string outputFilePath)
         {
-            ColumnStringsExtractionParameters extractionParameters = new ColumnStringsExtractionParameters(
+            var extractionParameters = new ColumnStringsExtractionParameters(
                 columnSeparator);
 
             // The file name will be bundled by the processor with the number of each column, so we exclude the text extension from it;
@@ -1835,7 +1920,7 @@ namespace LaurentiuCristofor.Cabeiro
 
             // The file extension is needed because the processor will need to append it for each file it creates.
             //
-            OutputExtraParameters processingParameters = new OutputExtraParameters(
+            var processingParameters = new OutputExtraParameters(
                 outputFilePath,
                 new string[] { CabeiroConstants.Files.Extensions.Txt });
 
@@ -1855,7 +1940,7 @@ namespace LaurentiuCristofor.Cabeiro
             DataType dataType, string dataTypeString,
             string outputFilePath)
         {
-            OneColumnValueExtractionParameters extractionParameters = new OneColumnValueExtractionParameters(
+            var extractionParameters = new OneColumnValueExtractionParameters(
                 columnSeparator,
                 columnNumber,
                 dataType);
@@ -1869,7 +1954,7 @@ namespace LaurentiuCristofor.Cabeiro
 
             // The file extension is needed because the processor will need to append it for each file it creates.
             //
-            OutputExtraParameters processingParameters = new OutputExtraParameters(
+            var processingParameters = new OutputExtraParameters(
                 outputFilePath,
                 new string[] { CabeiroConstants.Files.Extensions.Txt });
 
@@ -1900,7 +1985,7 @@ namespace LaurentiuCristofor.Cabeiro
 
             // The file extension is needed because the processor will need to append it for each file it creates.
             //
-            OutputExtraParameters processingParameters = new OutputExtraParameters(
+            var processingParameters = new OutputExtraParameters(
                 outputFilePath,
                 new string[] { CabeiroConstants.Files.Extensions.Txt },
                 new int[] { seedValue, setsCount });
@@ -1923,7 +2008,7 @@ namespace LaurentiuCristofor.Cabeiro
             DataType firstDataType,
             string outputFilePath)
         {
-            TwoColumnValuesExtractionParameters extractionParameters = new TwoColumnValuesExtractionParameters(
+            var extractionParameters = new TwoColumnValuesExtractionParameters(
                 columnSeparator,
                 firstColumnNumber,
                 firstDataType,
@@ -1934,7 +2019,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            BaseOutputParameters processingParameters = new BaseOutputParameters(
+            var processingParameters = new BaseOutputParameters(
                 outputFilePath);
 
             var fileProcessor
@@ -1955,7 +2040,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(firstFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            BaseOutputParameters processingParameters = new BaseOutputParameters(
+            var processingParameters = new BaseOutputParameters(
                 outputFilePath);
 
             var dualFileProcessor
@@ -1979,7 +2064,7 @@ namespace LaurentiuCristofor.Cabeiro
             string secondFilePath,
             string outputFilePath)
         {
-            OneColumnValueExtractionParameters extractionParameters = new OneColumnValueExtractionParameters(
+            var extractionParameters = new OneColumnValueExtractionParameters(
                 columnSeparator,
                 columnNumber,
                 dataType);
@@ -1988,7 +2073,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(firstFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            BaseOutputParameters processingParameters = new BaseOutputParameters(
+            var processingParameters = new BaseOutputParameters(
                 outputFilePath);
 
             var dualFileProcessor
@@ -2013,7 +2098,7 @@ namespace LaurentiuCristofor.Cabeiro
             DataType firstDataType,
             string outputFilePath)
         {
-            TwoColumnValuesExtractionParameters extractionParameters = new TwoColumnValuesExtractionParameters(
+            var extractionParameters = new TwoColumnValuesExtractionParameters(
                 columnSeparator,
                 firstColumnNumber,
                 firstDataType,
@@ -2024,7 +2109,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            BaseOutputParameters processingParameters = new BaseOutputParameters(
+            var processingParameters = new BaseOutputParameters(
                 outputFilePath);
 
             var fileProcessor
@@ -2043,7 +2128,7 @@ namespace LaurentiuCristofor.Cabeiro
             string[] generationArguments,
             string outputFilePath)
         {
-            DistributionGenerationParameters generationParameters = new DistributionGenerationParameters(
+            var generationParameters = new DistributionGenerationParameters(
                 seedValue,
                 generationCount,
                 distributionType,
@@ -2056,7 +2141,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(CabeiroConstants.Program.Name, outputFileExtension, generationArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            BaseOutputParameters processingParameters = new BaseOutputParameters(
+            var processingParameters = new BaseOutputParameters(
                 outputFilePath);
 
             var fileGenerationProcessor
@@ -2081,7 +2166,7 @@ namespace LaurentiuCristofor.Cabeiro
                 progressionArguments = new double[] { firstArgument, secondArgument };
             }
 
-            ProgressionGenerationParameters generationParameters = new ProgressionGenerationParameters(
+            var generationParameters = new ProgressionGenerationParameters(
                 generationCount,
                 progressionType,
                 progressionArguments);
@@ -2090,7 +2175,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(CabeiroConstants.Program.Name, outputFileExtension, generationArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            BaseOutputParameters processingParameters = new BaseOutputParameters(
+            var processingParameters = new BaseOutputParameters(
                 outputFilePath);
 
             var fileGenerationProcessor
@@ -2107,7 +2192,7 @@ namespace LaurentiuCristofor.Cabeiro
             ulong totalCount,
             string outputFilePath)
         {
-            SampleGenerationParameters generationParameters = new SampleGenerationParameters(
+            var generationParameters = new SampleGenerationParameters(
                 seedValue,
                 generationCount,
                 totalCount);
@@ -2119,7 +2204,7 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(CabeiroConstants.Program.Name, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            BaseOutputParameters processingParameters = new BaseOutputParameters(
+            var processingParameters = new BaseOutputParameters(
                 outputFilePath);
 
             var fileGenerationProcessor

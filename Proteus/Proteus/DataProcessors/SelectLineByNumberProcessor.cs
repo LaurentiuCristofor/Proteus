@@ -17,9 +17,16 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that checks the line number against a selection criterion,
     /// to decide whether to output the line or not.
+    ///
+    /// OutputExtraOperationParameters is expected to contain:
+    /// UlongParameters[0] - first line count selection argument
+    /// UlongParameters[1] - second line count selection argument (optional)
     /// </summary>
     public class SelectLineByNumberProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraOperationParameters<PositionSelectionType>, string>
     {
+        protected const int FirstLineCountIndex = 0;
+        protected const int SecondLineCountIndex = 1;
+
         protected PositionSelectionType SelectionType { get; set; }
 
         /// <summary>
@@ -53,20 +60,20 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 case PositionSelectionType.NotLast:
                 case PositionSelectionType.Each:
                 case PositionSelectionType.NotEach:
-                    ArgumentChecker.CheckNotNull(processingParameters.FirstArgument);
+                    ArgumentChecker.CheckPresence(processingParameters.UlongParameters, FirstLineCountIndex);
 
-                    this.FirstLineCount = ulong.Parse(processingParameters.FirstArgument);
+                    this.FirstLineCount = processingParameters.UlongParameters[FirstLineCountIndex];
 
                     ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstLineCount, 1UL);
                     break;
 
                 case PositionSelectionType.Between:
                 case PositionSelectionType.NotBetween:
-                    ArgumentChecker.CheckNotNull(processingParameters.FirstArgument);
-                    ArgumentChecker.CheckNotNull(processingParameters.SecondArgument);
+                    ArgumentChecker.CheckPresence(processingParameters.UlongParameters, FirstLineCountIndex);
+                    ArgumentChecker.CheckPresence(processingParameters.UlongParameters, SecondLineCountIndex);
 
-                    this.FirstLineCount = ulong.Parse(processingParameters.FirstArgument);
-                    this.SecondLineCount = ulong.Parse(processingParameters.SecondArgument);
+                    this.FirstLineCount = processingParameters.UlongParameters[FirstLineCountIndex];
+                    this.SecondLineCount = processingParameters.UlongParameters[SecondLineCountIndex];
 
                     ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstLineCount, 1UL);
                     ArgumentChecker.CheckGreaterThanOrEqualTo(this.SecondLineCount, 1UL);

@@ -19,9 +19,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
     /// <summary>
     /// A data processor that looks up a string in a data structure,
     /// to find a line to join with the currently processed line.
+    /// 
+    /// OutputExtraOperationParameters is expected to contain:
+    /// StringParameters[0] - outer join default value (optional)
     /// </summary>
     public class JoinProcessor : BaseOutputProcessor, IDataLookupProcessor<OutputExtraOperationParameters<JoinType>, Dictionary<IDataHolder, List<string>>, OneExtractedValue>
     {
+        protected const int OuterJoinDefaultValueIndex = 0;
+
         protected JoinType JoinType { get; set; }
 
         /// <summary>
@@ -37,7 +42,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
         public void Initialize(OutputExtraOperationParameters<JoinType> processingParameters)
         {
             this.JoinType = processingParameters.OperationType;
-            this.OuterJoinDefaultValue = processingParameters.FirstArgument;
+
+            if (this.JoinType == JoinType.LeftOuter)
+            {
+                ArgumentChecker.CheckPresence(processingParameters.StringParameters, OuterJoinDefaultValueIndex);
+                this.OuterJoinDefaultValue = processingParameters.StringParameters[OuterJoinDefaultValueIndex];
+            }
 
             this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }

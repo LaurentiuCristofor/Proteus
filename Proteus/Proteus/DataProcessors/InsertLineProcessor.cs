@@ -15,9 +15,16 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that checks the current line number,
     /// to decide whether to insert a line at that position or not.
+    /// 
+    /// OutputExtraOperationParameters is expected to contain:
+    /// StringParameters[0] - line to insert
+    /// UlongParameters[0] - insertion line count (optional)
     /// </summary>
     public class InsertLineProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraOperationParameters<PositionInsertionType>, string>
     {
+        protected const int LineToInsertIndex = 0;
+        protected const int InsertionLineCountIndex = 0;
+
         protected PositionInsertionType InsertionType { get; set; }
 
         protected string LineToInsert { get; set; }
@@ -36,17 +43,15 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         {
             this.InsertionType = processingParameters.OperationType;
 
-            ArgumentChecker.CheckNotNullAndNotEmpty(processingParameters.FirstArgument);
-            this.LineToInsert = processingParameters.FirstArgument;
+            ArgumentChecker.CheckPresence(processingParameters.StringParameters, LineToInsertIndex);
+            this.LineToInsert = processingParameters.StringParameters[LineToInsertIndex];
 
             switch (this.InsertionType)
             {
                 case PositionInsertionType.Position:
                 case PositionInsertionType.Each:
-                    ArgumentChecker.CheckNotNull(processingParameters.SecondArgument);
-
-                    this.InsertionLineCount = ulong.Parse(processingParameters.SecondArgument);
-
+                    ArgumentChecker.CheckPresence(processingParameters.UlongParameters, InsertionLineCountIndex);
+                    this.InsertionLineCount = processingParameters.UlongParameters[InsertionLineCountIndex];
                     ArgumentChecker.CheckGreaterThanOrEqualTo(this.InsertionLineCount, 1UL);
                     break;
 

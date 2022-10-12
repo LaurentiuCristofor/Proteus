@@ -17,9 +17,18 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
     /// A data processor that transforms columns.
+    ///
+    /// OutputExtraOperationParameters is expected to contain:
+    /// StringParameters[0] - packing/unpacking separator
+    /// IntParameters[0] - first column number
+    /// IntParameters[1] - second column number (optional)
     /// </summary>
     public class TransformColumnsProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraOperationParameters<ColumnTransformationType>, ExtractedColumnStrings>
     {
+        protected const int SeparatorIndex = 0;
+        protected const int FirstColumnNumberIndex = 0;
+        protected const int SecondColumnNumberIndex = 1;
+
         protected ColumnTransformationType TransformationType { get; set; }
 
         /// <summary>
@@ -49,13 +58,13 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             switch (this.TransformationType)
             {
                 case ColumnTransformationType.Pack:
-                    ArgumentChecker.CheckNotNull(processingParameters.FirstArgument);
-                    ArgumentChecker.CheckNotNull(processingParameters.SecondArgument);
-                    ArgumentChecker.CheckNotNullAndNotEmpty(processingParameters.ThirdArgument);
+                    ArgumentChecker.CheckPresence(processingParameters.IntParameters, FirstColumnNumberIndex);
+                    ArgumentChecker.CheckPresence(processingParameters.IntParameters, SecondColumnNumberIndex);
+                    ArgumentChecker.CheckPresence(processingParameters.StringParameters, SeparatorIndex);
 
-                    this.FirstColumnNumber = int.Parse(processingParameters.FirstArgument);
-                    this.SecondColumnNumber = int.Parse(processingParameters.SecondArgument);
-                    this.PackingSeparator = processingParameters.ThirdArgument;
+                    this.FirstColumnNumber = processingParameters.IntParameters[FirstColumnNumberIndex];
+                    this.SecondColumnNumber = processingParameters.IntParameters[SecondColumnNumberIndex];
+                    this.PackingSeparator = processingParameters.StringParameters[SeparatorIndex];
 
                     ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstColumnNumber, 1);
                     ArgumentChecker.CheckGreaterThanOrEqualTo(this.SecondColumnNumber, 1);
@@ -63,13 +72,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     break;
 
                 case ColumnTransformationType.Unpack:
-                    ArgumentChecker.CheckNotNull(processingParameters.FirstArgument);
-                    ArgumentChecker.CheckNotNullAndNotEmpty(processingParameters.SecondArgument);
+                    ArgumentChecker.CheckPresence(processingParameters.IntParameters, FirstColumnNumberIndex);
+                    ArgumentChecker.CheckPresence(processingParameters.StringParameters, SeparatorIndex);
 
-                    this.FirstColumnNumber = int.Parse(processingParameters.FirstArgument);
-                    this.UnpackingSeparators = new string[] { processingParameters.SecondArgument };
+                    this.FirstColumnNumber = processingParameters.IntParameters[FirstColumnNumberIndex];
+                    this.UnpackingSeparators = new string[] { processingParameters.StringParameters[SeparatorIndex] };
 
                     ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstColumnNumber, 1);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(this.UnpackingSeparators[0]);
                     break;
 
                 default:

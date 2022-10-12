@@ -14,7 +14,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
     /// <summary>
     /// A data processor that concatenates lines from two files.
     /// 
-    /// OutputParameters is expected to contain:
+    /// OutputExtraParameters is expected to contain:
     /// StringParameters[0] - line separator
     /// </summary>
     public class ConcatenateProcessor: BaseOutputProcessor, IDualDataProcessor<OutputExtraParameters, string>

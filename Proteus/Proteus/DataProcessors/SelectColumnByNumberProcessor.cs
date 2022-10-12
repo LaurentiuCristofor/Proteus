@@ -17,9 +17,16 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
     /// A data processor that selects a subset of columns to output.
+    ///
+    /// OutputExtraOperationParameters is expected to contain:
+    /// IntParameters[0] - first column count
+    /// IntParameters[1] - second column count (optional)
     /// </summary>
     public class SelectColumnByNumberProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraOperationParameters<PositionSelectionType>, ExtractedColumnStrings>
     {
+        protected const int FirstColumnCountIndex = 0;
+        protected const int SecondColumnCountIndex = 1;
+
         protected PositionSelectionType SelectionType { get; set; }
 
         /// <summary>
@@ -42,20 +49,20 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 case PositionSelectionType.NotLast:
                 case PositionSelectionType.Each:
                 case PositionSelectionType.NotEach:
-                    ArgumentChecker.CheckNotNull(processingParameters.FirstArgument);
+                    ArgumentChecker.CheckPresence(processingParameters.IntParameters, FirstColumnCountIndex);
 
-                    this.FirstColumnCount = int.Parse(processingParameters.FirstArgument);
+                    this.FirstColumnCount = processingParameters.IntParameters[FirstColumnCountIndex];
 
                     ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstColumnCount, 1);
                     break;
 
                 case PositionSelectionType.Between:
                 case PositionSelectionType.NotBetween:
-                    ArgumentChecker.CheckNotNull(processingParameters.FirstArgument);
-                    ArgumentChecker.CheckNotNull(processingParameters.SecondArgument);
+                    ArgumentChecker.CheckPresence(processingParameters.IntParameters, FirstColumnCountIndex);
+                    ArgumentChecker.CheckPresence(processingParameters.IntParameters, SecondColumnCountIndex);
 
-                    this.FirstColumnCount = int.Parse(processingParameters.FirstArgument);
-                    this.SecondColumnCount = int.Parse(processingParameters.SecondArgument);
+                    this.FirstColumnCount = processingParameters.IntParameters[FirstColumnCountIndex];
+                    this.SecondColumnCount = processingParameters.IntParameters[SecondColumnCountIndex];
 
                     ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstColumnCount, 1);
                     ArgumentChecker.CheckGreaterThanOrEqualTo(this.SecondColumnCount, 1);

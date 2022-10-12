@@ -16,7 +16,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that randomly splits a file's content into a number of files.
     /// 
-    /// OutputParameters is expected to contain:
+    /// OutputExtraParameters is expected to contain:
     /// StringParameters[0] - output file extension
     /// IntParameters[0] - randomization seed value
     /// IntParameters[1] - count of sets

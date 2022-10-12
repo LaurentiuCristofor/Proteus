@@ -17,9 +17,16 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
     /// A data processor that edits a string.
+    ///
+    /// OutputExtraOperationParameters is expected to contain:
+    /// StringParameters[0] - first string edit argument (optional)
+    /// StringParameters[1] - second string edit argument (optional)
     /// </summary>
     public class EditStringProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraOperationParameters<StringEditType>, OneExtractedValue>
     {
+        protected const int FirstArgumentIndex = 0;
+        protected const int SecondArgumentIndex = 1;
+
         /// <summary>
         /// The editor used to perform the operation.
         /// </summary>
@@ -28,7 +35,17 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         public void Initialize(OutputExtraOperationParameters<StringEditType> processingParameters)
         {
             this.StringEditor = new StringEditor();
-            this.StringEditor.Initialize(processingParameters.OperationType, processingParameters.FirstArgument, processingParameters.SecondArgument);
+
+            string firstArgument
+                = (processingParameters.StringParameters != null && processingParameters.StringParameters.Length > FirstArgumentIndex)
+                ? processingParameters.StringParameters[FirstArgumentIndex]
+                : null;
+            string secondArgument
+                = (processingParameters.StringParameters != null && processingParameters.StringParameters.Length > SecondArgumentIndex)
+                ? processingParameters.StringParameters[SecondArgumentIndex]
+                : null;
+
+            this.StringEditor.Initialize(processingParameters.OperationType, firstArgument, secondArgument);
 
             this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }

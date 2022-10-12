@@ -14,7 +14,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that splits ranges of lines into their own files.
     /// 
-    /// OutputParameters is expected to contain:
+    /// OutputExtraParameters is expected to contain:
     /// StringParameters[0] - output file extension
     /// UlongParameters[0] - range size
     /// </summary>

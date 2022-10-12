@@ -18,9 +18,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
 {
     /// <summary>
     /// A data processor that joins lines from two files based on the values of two columns.
+    /// 
+    /// OutputExtraOperationParameters is expected to contain:
+    /// StringParameters[0] - outer join default value (optional)
     /// </summary>
     public class JoinPostSortingProcessor: BaseOutputProcessor, IDualDataProcessor<OutputExtraOperationParameters<JoinType>, OneExtractedValue>
     {
+        protected const int OuterJoinDefaultValueIndex = 0;
+
         protected JoinType JoinType { get; set; }
 
         /// <summary>
@@ -41,7 +46,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
         public void Initialize(OutputExtraOperationParameters<JoinType> processingParameters)
         {
             this.JoinType = processingParameters.OperationType;
-            this.OuterJoinDefaultValue = processingParameters.FirstArgument;
+
+            if (this.JoinType == JoinType.LeftOuter)
+            {
+                ArgumentChecker.CheckPresence(processingParameters.StringParameters, OuterJoinDefaultValueIndex);
+                this.OuterJoinDefaultValue = processingParameters.StringParameters[OuterJoinDefaultValueIndex];
+            }
 
             this.LinesToJoinOnLastMatchedKey = new List<string>();
 

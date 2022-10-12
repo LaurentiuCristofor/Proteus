@@ -18,7 +18,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that splits a file into multiple ones based on the value of a specified column.
     /// 
-    /// OutputParameters is expected to contain:
+    /// OutputExtraParameters is expected to contain:
     /// StringParameters[0] - output file extension
     /// </summary>
     public class SplitColumnValuesProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraParameters, OneExtractedValue>
