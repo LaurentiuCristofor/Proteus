@@ -19,20 +19,40 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class SelectLineByColumnValueProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<ComparisonType>, OneExtractedValue>
     {
-        protected OutputOperationParameters<ComparisonType> Parameters { get; set; }
+        protected ComparisonType ComparisonType { get; set; }
+
+        /// <summary>
+        /// First comparison argument, if expected.
+        /// </summary>
+        protected IDataHolder FirstArgument { get; set; }
+
+        /// <summary>
+        /// Second comparison argument, if expected.
+        /// </summary>
+        protected IDataHolder SecondArgument { get; set; }
 
         public void Initialize(OutputOperationParameters<ComparisonType> processingParameters)
         {
-            this.Parameters = processingParameters;
+            this.ComparisonType = processingParameters.OperationType;
 
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
+            if (processingParameters.FirstArgument != null)
+            {
+                this.FirstArgument = DataHolderOperations.BuildAndCheckDataHolder(DataType.Integer, processingParameters.FirstArgument);
+
+                if (processingParameters.SecondArgument != null)
+                {
+                    this.SecondArgument = DataHolderOperations.BuildAndCheckDataHolder(DataType.Integer, processingParameters.SecondArgument);
+                }
+            }
+
+            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, OneExtractedValue lineData)
         {
             // Perform the comparison to decide whether to output the line.
             //
-            if (DataHolderOperations.Compare(lineData.ExtractedData, this.Parameters.OperationType, this.Parameters.FirstArgument, this.Parameters.SecondArgument))
+            if (DataHolderOperations.Compare(lineData.ExtractedData, this.ComparisonType, this.FirstArgument, this.SecondArgument))
             {
                 this.OutputWriter.WriteLine(lineData.OriginalLine);
             }
