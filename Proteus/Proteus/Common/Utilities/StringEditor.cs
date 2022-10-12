@@ -84,13 +84,13 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
 
                 case StringEditType.PadLeft:
                 case StringEditType.PadRight:
-                    ArgumentChecker.CheckNotNull<string>(this.FirstArgument);
-                    ArgumentChecker.CheckIsOneCharacter(this.SecondArgument);
+                    ArgumentChecker.CheckNotNull(this.FirstArgument);
+                    ArgumentChecker.CheckOneCharacter(this.SecondArgument);
 
                     this.FirstArgumentAsInt = int.Parse(this.FirstArgument);
                     this.SecondArgumentAsChar = this.SecondArgument.ToCharArray()[0];
 
-                    ArgumentChecker.CheckStrictlyPositive(this.FirstArgumentAsInt);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstArgumentAsInt, 1);
                     break;
 
                 case StringEditType.PrefixLineNumbers:
@@ -113,37 +113,37 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
                 case StringEditType.DeleteLastCharacters:
                 case StringEditType.KeepFirstCharacters:
                 case StringEditType.KeepLastCharacters:
-                    ArgumentChecker.CheckNotNull<string>(this.FirstArgument);
+                    ArgumentChecker.CheckNotNull(this.FirstArgument);
 
                     this.FirstArgumentAsInt = int.Parse(this.FirstArgument);
 
-                    ArgumentChecker.CheckStrictlyPositive(this.FirstArgumentAsInt);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstArgumentAsInt, 1);
                     break;
 
                 case StringEditType.DeleteContentAtIndex:
                 case StringEditType.KeepContentAtIndex:
-                    ArgumentChecker.CheckNotNull<string>(this.FirstArgument);
-                    ArgumentChecker.CheckNotNull<string>(this.SecondArgument);
+                    ArgumentChecker.CheckNotNull(this.FirstArgument);
+                    ArgumentChecker.CheckNotNull(this.SecondArgument);
 
                     this.FirstArgumentAsInt = int.Parse(this.FirstArgument);
                     this.SecondArgumentAsInt = int.Parse(this.SecondArgument);
 
-                    ArgumentChecker.CheckPositive(this.FirstArgumentAsInt);
-                    ArgumentChecker.CheckStrictlyPositive(this.SecondArgumentAsInt);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstArgumentAsInt, 0);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.SecondArgumentAsInt, 1);
                     break;
 
                 case StringEditType.InsertContentAtIndex:
                     ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstArgument);
-                    ArgumentChecker.CheckNotNull<string>(this.SecondArgument);
+                    ArgumentChecker.CheckNotNull(this.SecondArgument);
 
                     this.SecondArgumentAsInt = int.Parse(this.SecondArgument);
 
-                    ArgumentChecker.CheckPositive(this.FirstArgumentAsInt);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstArgumentAsInt, 0);
                     break;
 
                 case StringEditType.ReplaceContent:
                     ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstArgument);
-                    ArgumentChecker.CheckNotNull<string>(this.SecondArgument);
+                    ArgumentChecker.CheckNotNull(this.SecondArgument);
                     break;
 
                 case StringEditType.InsertContentBeforeMarker:
@@ -167,12 +167,12 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
                     break;
 
                 case StringEditType.Set:
-                    ArgumentChecker.CheckNotNull<string>(this.FirstArgument);
+                    ArgumentChecker.CheckNotNull(this.FirstArgument);
                     break;
 
                 case StringEditType.SetIfEquals:
-                    ArgumentChecker.CheckNotNull<string>(this.FirstArgument);
-                    ArgumentChecker.CheckNotNull<string>(this.SecondArgument);
+                    ArgumentChecker.CheckNotNull(this.FirstArgument);
+                    ArgumentChecker.CheckNotNull(this.SecondArgument);
                     break;
 
                 default:

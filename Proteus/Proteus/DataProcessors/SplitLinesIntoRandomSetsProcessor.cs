@@ -44,15 +44,15 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputParameters processingParameters)
         {
-            ArgumentChecker.CheckPresence<string>(processingParameters.StringParameters, OutputFileExtensionIndex);
+            ArgumentChecker.CheckPresence(processingParameters.StringParameters, OutputFileExtensionIndex);
             ArgumentChecker.CheckNotNullAndNotEmpty(processingParameters.StringParameters[OutputFileExtensionIndex]);
             string outputFileExtension = processingParameters.StringParameters[OutputFileExtensionIndex];
 
-            ArgumentChecker.CheckPresence<int>(processingParameters.IntParameters, SeedIndex);
+            ArgumentChecker.CheckPresence(processingParameters.IntParameters, SeedIndex);
             int seed = processingParameters.IntParameters[SeedIndex];
 
-            ArgumentChecker.CheckPresence<int>(processingParameters.IntParameters, SetsCountIndex);
-            ArgumentChecker.CheckStrictlyPositive(processingParameters.IntParameters[SetsCountIndex]);
+            ArgumentChecker.CheckPresence(processingParameters.IntParameters, SetsCountIndex);
+            ArgumentChecker.CheckGreaterThanOrEqualTo(processingParameters.IntParameters[SetsCountIndex], 2);
             this.SetsCount = processingParameters.IntParameters[SetsCountIndex];
 
             this.MapSetToFileWriter = new Dictionary<int, FileWriter>();

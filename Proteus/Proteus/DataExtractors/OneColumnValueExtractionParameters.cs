@@ -32,7 +32,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             DataType dataType)
             : base(separator)
         {
-            ArgumentChecker.CheckStrictlyPositive(columnNumber);
+            ArgumentChecker.CheckGreaterThanOrEqualTo(columnNumber, 1);
             ArgumentChecker.CheckDataType(dataType);
 
             this.ColumnNumber = columnNumber;

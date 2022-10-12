@@ -80,7 +80,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         /// <returns>The new line, or null if the range does not fit within the column array.</returns>
         public string AssembleWithColumnRangeReplacement(int startColumnNumber, int endColumnNumber, string replacementData)
         {
-            ArgumentChecker.CheckInterval<int>(startColumnNumber, endColumnNumber);
+            ArgumentChecker.CheckInterval(startColumnNumber, endColumnNumber);
 
             if (startColumnNumber > this.Columns.Length)
             {

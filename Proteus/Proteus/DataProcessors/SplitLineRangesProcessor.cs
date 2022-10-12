@@ -39,12 +39,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         {
             this.OutputFilePath = processingParameters.OutputFilePath;
 
-            ArgumentChecker.CheckPresence<string>(processingParameters.StringParameters, OutputFileExtensionIndex);
+            ArgumentChecker.CheckPresence(processingParameters.StringParameters, OutputFileExtensionIndex);
             ArgumentChecker.CheckNotNullAndNotEmpty(processingParameters.StringParameters[OutputFileExtensionIndex]);
             this.OutputFileExtension = processingParameters.StringParameters[OutputFileExtensionIndex];
 
-            ArgumentChecker.CheckPresence<ulong>(processingParameters.UlongParameters, RangeSizeIndex);
-            ArgumentChecker.CheckNotZero(processingParameters.UlongParameters[RangeSizeIndex]);
+            ArgumentChecker.CheckPresence(processingParameters.UlongParameters, RangeSizeIndex);
+            ArgumentChecker.CheckGreaterThanOrEqualTo(processingParameters.UlongParameters[RangeSizeIndex], 1UL);
             this.RangeSize = processingParameters.UlongParameters[RangeSizeIndex];
         }
 

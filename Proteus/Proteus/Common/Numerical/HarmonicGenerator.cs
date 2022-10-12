@@ -28,7 +28,7 @@ namespace LaurentiuCristofor.Proteus.Common.Numerical
         {
             // Starting value cannot be 0, to avoid division by 0.
             //
-            ArgumentChecker.CheckNotZero(startingValue);
+            ArgumentChecker.CheckNotEqual(startingValue, 0);
 
             this.Generator = new ArithmeticGenerator(startingValue, deltaValue);
         }

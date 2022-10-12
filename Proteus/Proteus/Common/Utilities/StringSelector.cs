@@ -56,15 +56,15 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
             {
                 case StringSelectionType.HasLengthBetween:
                 case StringSelectionType.HasLengthNotBetween:
-                    ArgumentChecker.CheckNotNull<string>(this.FirstArgument);
-                    ArgumentChecker.CheckNotNull<string>(this.SecondArgument);
+                    ArgumentChecker.CheckNotNull(this.FirstArgument);
+                    ArgumentChecker.CheckNotNull(this.SecondArgument);
 
                     this.FirstArgumentAsInt = int.Parse(this.FirstArgument);
                     this.SecondArgumentAsInt = int.Parse(this.SecondArgument);
 
-                    ArgumentChecker.CheckPositive(this.FirstArgumentAsInt);
-                    ArgumentChecker.CheckPositive(this.SecondArgumentAsInt);
-                    ArgumentChecker.CheckInterval<int>(this.FirstArgumentAsInt, this.SecondArgumentAsInt);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstArgumentAsInt, 0);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.SecondArgumentAsInt, 0);
+                    ArgumentChecker.CheckInterval(this.FirstArgumentAsInt, this.SecondArgumentAsInt);
                     break;
 
                 case StringSelectionType.Includes:
@@ -84,7 +84,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
 
                 case StringSelectionType.Equals:
                 case StringSelectionType.NotEquals:
-                    ArgumentChecker.CheckNotNull<string>(this.FirstArgument);
+                    ArgumentChecker.CheckNotNull(this.FirstArgument);
                     break;
 
                 default:

@@ -41,7 +41,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         {
             this.OutputFilePath = processingParameters.OutputFilePath;
 
-            ArgumentChecker.CheckPresence<string>(processingParameters.StringParameters, OutputFileExtensionIndex);
+            ArgumentChecker.CheckPresence(processingParameters.StringParameters, OutputFileExtensionIndex);
             ArgumentChecker.CheckNotNullAndNotEmpty(processingParameters.StringParameters[OutputFileExtensionIndex]);
             this.OutputFileExtension = processingParameters.StringParameters[OutputFileExtensionIndex];
 

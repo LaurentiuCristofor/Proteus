@@ -88,7 +88,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         /// <param name="outputLimit">How many top and bottom values should be output; if zero, all values will be output.</param>
         public DataAnalyzer(DataType dataType, int outputLimit = 0)
         {
-            ArgumentChecker.CheckPositive(outputLimit);
+            ArgumentChecker.CheckGreaterThanOrEqualTo(outputLimit, 0);
 
             this.DataType = dataType;
             this.OutputLimit = outputLimit;

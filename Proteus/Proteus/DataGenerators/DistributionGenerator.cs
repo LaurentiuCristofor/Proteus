@@ -37,7 +37,7 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
 
                 case DistributionType.Exponential:
                     {
-                        ArgumentChecker.CheckNotNull<string>(generationParameters.DistributionMean);
+                        ArgumentChecker.CheckNotNull(generationParameters.DistributionMean);
 
                         double mean = double.Parse(generationParameters.DistributionMean);
 
@@ -47,7 +47,7 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
 
                 case DistributionType.Poisson:
                     {
-                        ArgumentChecker.CheckNotNull<string>(generationParameters.DistributionMean);
+                        ArgumentChecker.CheckNotNull(generationParameters.DistributionMean);
 
                         ulong mean = ulong.Parse(generationParameters.DistributionMean);
 

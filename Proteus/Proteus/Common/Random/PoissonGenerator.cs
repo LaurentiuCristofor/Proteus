@@ -40,7 +40,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// <param name="randomGenerator">The System.Random instance to use, or null to generate a new instance.</param>
         public PoissonGenerator(ulong mean, System.Random randomGenerator = null)
         {
-            ArgumentChecker.CheckNotZero(mean);
+            ArgumentChecker.CheckGreaterThanOrEqualTo(mean, 1UL);
 
             this.Mean = mean;
             this.RandomGenerator = randomGenerator ?? new System.Random();

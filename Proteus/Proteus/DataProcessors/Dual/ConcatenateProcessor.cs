@@ -28,7 +28,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
 
         public void Initialize(OutputParameters processingParameters)
         {
-            ArgumentChecker.CheckPresence<string>(processingParameters.StringParameters, LineSeparatorIndex);
+            ArgumentChecker.CheckPresence(processingParameters.StringParameters, LineSeparatorIndex);
             this.LineSeparator = processingParameters.StringParameters[LineSeparatorIndex];
 
             this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);

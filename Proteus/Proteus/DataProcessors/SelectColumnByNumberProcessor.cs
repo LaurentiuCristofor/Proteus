@@ -42,24 +42,24 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 case PositionSelectionType.NotLast:
                 case PositionSelectionType.Each:
                 case PositionSelectionType.NotEach:
-                    ArgumentChecker.CheckNotNull<string>(processingParameters.FirstArgument);
+                    ArgumentChecker.CheckNotNull(processingParameters.FirstArgument);
 
                     this.FirstColumnNumber = int.Parse(processingParameters.FirstArgument);
 
-                    ArgumentChecker.CheckStrictlyPositive(this.FirstColumnNumber);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstColumnNumber, 1);
                     break;
 
                 case PositionSelectionType.Between:
                 case PositionSelectionType.NotBetween:
-                    ArgumentChecker.CheckNotNull<string>(processingParameters.FirstArgument);
-                    ArgumentChecker.CheckNotNull<string>(processingParameters.SecondArgument);
+                    ArgumentChecker.CheckNotNull(processingParameters.FirstArgument);
+                    ArgumentChecker.CheckNotNull(processingParameters.SecondArgument);
 
                     this.FirstColumnNumber = int.Parse(processingParameters.FirstArgument);
                     this.SecondColumnNumber = int.Parse(processingParameters.SecondArgument);
 
-                    ArgumentChecker.CheckStrictlyPositive(this.FirstColumnNumber);
-                    ArgumentChecker.CheckStrictlyPositive(this.SecondColumnNumber);
-                    ArgumentChecker.CheckInterval<int>(this.FirstColumnNumber, this.SecondColumnNumber);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstColumnNumber, 1);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.SecondColumnNumber, 1);
+                    ArgumentChecker.CheckInterval(this.FirstColumnNumber, this.SecondColumnNumber);
                     break;
 
                 default:

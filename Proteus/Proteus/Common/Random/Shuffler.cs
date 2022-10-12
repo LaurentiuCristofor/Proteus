@@ -34,7 +34,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// <param name="randomGenerator">The System.Random instance to use, or null to generate a new instance.</param>
         public Shuffler(int totalCount, System.Random randomGenerator = null)
         {
-            ArgumentChecker.CheckPositive(totalCount);
+            ArgumentChecker.CheckGreaterThanOrEqualTo(totalCount, 0);
 
             this.RandomGenerator = randomGenerator ?? new System.Random();
 

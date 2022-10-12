@@ -49,27 +49,27 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             switch (this.TransformationType)
             {
                 case ColumnTransformationType.Pack:
-                    ArgumentChecker.CheckNotNull<string>(processingParameters.FirstArgument);
-                    ArgumentChecker.CheckNotNull<string>(processingParameters.SecondArgument);
+                    ArgumentChecker.CheckNotNull(processingParameters.FirstArgument);
+                    ArgumentChecker.CheckNotNull(processingParameters.SecondArgument);
                     ArgumentChecker.CheckNotNullAndNotEmpty(processingParameters.ThirdArgument);
 
                     this.FirstColumnNumber = int.Parse(processingParameters.FirstArgument);
                     this.SecondColumnNumber = int.Parse(processingParameters.SecondArgument);
                     this.PackingSeparator = processingParameters.ThirdArgument;
 
-                    ArgumentChecker.CheckStrictlyPositive(this.FirstColumnNumber);
-                    ArgumentChecker.CheckStrictlyPositive(this.SecondColumnNumber);
-                    ArgumentChecker.CheckInterval<int>(this.FirstColumnNumber, this.SecondColumnNumber);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstColumnNumber, 1);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.SecondColumnNumber, 1);
+                    ArgumentChecker.CheckInterval(this.FirstColumnNumber, this.SecondColumnNumber);
                     break;
 
                 case ColumnTransformationType.Unpack:
-                    ArgumentChecker.CheckNotNull<string>(processingParameters.FirstArgument);
+                    ArgumentChecker.CheckNotNull(processingParameters.FirstArgument);
                     ArgumentChecker.CheckNotNullAndNotEmpty(processingParameters.SecondArgument);
 
                     this.FirstColumnNumber = int.Parse(processingParameters.FirstArgument);
                     this.UnpackingSeparators = new string[] { processingParameters.SecondArgument };
 
-                    ArgumentChecker.CheckStrictlyPositive(this.FirstColumnNumber);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstColumnNumber, 1);
                     break;
 
                 default:

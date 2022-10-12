@@ -7,7 +7,6 @@
 
 using System;
 
-using LaurentiuCristofor.Proteus.Common.DataHolders;
 using LaurentiuCristofor.Proteus.Common.Types;
 
 namespace LaurentiuCristofor.Proteus.Common
@@ -41,7 +40,7 @@ namespace LaurentiuCristofor.Proteus.Common
             }
         }
 
-        internal static void CheckIsOneCharacter(string argument)
+        internal static void CheckOneCharacter(string argument)
         {
             if (String.IsNullOrEmpty(argument) || argument.Length != 1)
             {
@@ -49,35 +48,20 @@ namespace LaurentiuCristofor.Proteus.Common
             }
         }
 
-        internal static void CheckStrictlyPositive(int argument)
+        internal static void CheckGreaterThanOrEqualTo<T>(T firstArgument, T threshold)
+            where T : IComparable
         {
-            if (argument <= 0)
+            if (firstArgument.CompareTo(threshold) < 0)
             {
-                throw new ProteusException($"An integer argument is not strictly positive: {argument}!");
+                throw new ProteusException($"An argument with value {firstArgument} is smaller than the minimum value expected for it: {threshold}!");
             }
         }
 
-        internal static void CheckPositive(int argument)
+        internal static void CheckNotEqual<T>(T argument, T value)
         {
-            if (argument < 0)
+            if (argument.Equals(value))
             {
-                throw new ProteusException($"An integer argument is not positive: {argument}!");
-            }
-        }
-
-        internal static void CheckNotZero(ulong argument)
-        {
-            if (argument == 0)
-            {
-                throw new ProteusException($"An unsigned long integer argument is zero!");
-            }
-        }
-
-        internal static void CheckNotZero(double argument)
-        {
-            if (argument == 0)
-            {
-                throw new ProteusException($"A double argument is zero!");
+                throw new ProteusException($"An argument has unexpected value: {value}!");
             }
         }
 

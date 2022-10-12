@@ -24,22 +24,22 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
             switch (generationParameters.ProgressionType)
             {
                 case ProgressionType.Arithmetic:
-                    ArgumentChecker.CheckPresence<double>(generationParameters.ProgressionParameters, 0);
-                    ArgumentChecker.CheckPresence<double>(generationParameters.ProgressionParameters, 1);
+                    ArgumentChecker.CheckPresence(generationParameters.ProgressionParameters, 0);
+                    ArgumentChecker.CheckPresence(generationParameters.ProgressionParameters, 1);
 
                     this.Generator = new ArithmeticGenerator(generationParameters.ProgressionParameters[0], generationParameters.ProgressionParameters[1]);
                     break;
 
                 case ProgressionType.Geometric:
-                    ArgumentChecker.CheckPresence<double>(generationParameters.ProgressionParameters, 0);
-                    ArgumentChecker.CheckPresence<double>(generationParameters.ProgressionParameters, 1);
+                    ArgumentChecker.CheckPresence(generationParameters.ProgressionParameters, 0);
+                    ArgumentChecker.CheckPresence(generationParameters.ProgressionParameters, 1);
 
                     this.Generator = new GeometricGenerator(generationParameters.ProgressionParameters[0], generationParameters.ProgressionParameters[1]);
                     break;
 
                 case ProgressionType.Harmonic:
-                    ArgumentChecker.CheckPresence<double>(generationParameters.ProgressionParameters, 0);
-                    ArgumentChecker.CheckPresence<double>(generationParameters.ProgressionParameters, 1);
+                    ArgumentChecker.CheckPresence(generationParameters.ProgressionParameters, 0);
+                    ArgumentChecker.CheckPresence(generationParameters.ProgressionParameters, 1);
 
                     this.Generator = new HarmonicGenerator(generationParameters.ProgressionParameters[0], generationParameters.ProgressionParameters[1]);
                     break;

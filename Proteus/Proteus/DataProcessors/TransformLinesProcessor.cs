@@ -42,11 +42,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     break;
 
                 case LineTransformationType.Unite:
-                    ArgumentChecker.CheckNotNull<string>(processingParameters.FirstArgument);
+                    ArgumentChecker.CheckNotNull(processingParameters.FirstArgument);
 
                     this.CountOfLinesToUnite = int.Parse(processingParameters.FirstArgument);
 
-                    ArgumentChecker.CheckStrictlyPositive(this.CountOfLinesToUnite);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.CountOfLinesToUnite, 2);
 
                     this.LinesToUnite = new List<string>();
                     break;

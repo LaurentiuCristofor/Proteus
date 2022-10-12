@@ -43,11 +43,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             {
                 case PositionInsertionType.Position:
                 case PositionInsertionType.Each:
-                    ArgumentChecker.CheckNotNull<string>(processingParameters.SecondArgument);
+                    ArgumentChecker.CheckNotNull(processingParameters.SecondArgument);
 
                     this.InsertionLineCount = ulong.Parse(processingParameters.SecondArgument);
 
-                    ArgumentChecker.CheckNotZero(this.InsertionLineCount);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.InsertionLineCount, 1UL);
                     break;
 
                 case PositionInsertionType.Last:

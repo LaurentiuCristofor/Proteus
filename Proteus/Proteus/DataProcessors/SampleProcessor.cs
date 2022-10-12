@@ -45,10 +45,10 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputParameters processingParameters)
         {
-            ArgumentChecker.CheckPresence<int>(processingParameters.IntParameters, SeedIndex);
+            ArgumentChecker.CheckPresence(processingParameters.IntParameters, SeedIndex);
             int seed = processingParameters.IntParameters[SeedIndex];
 
-            ArgumentChecker.CheckPresence<int>(processingParameters.IntParameters, SampleSizeIndex);
+            ArgumentChecker.CheckPresence(processingParameters.IntParameters, SampleSizeIndex);
             this.SampleSize = processingParameters.IntParameters[SampleSizeIndex];
 
             Random randomGenerator = (seed >= 0) ? new Random(seed) : new Random();
