@@ -47,6 +47,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
             {
                 ArgumentChecker.CheckPresence(processingParameters.StringParameters, OuterJoinDefaultValueIndex);
                 this.OuterJoinDefaultValue = processingParameters.StringParameters[OuterJoinDefaultValueIndex];
+                ArgumentChecker.CheckNotNull(this.OuterJoinDefaultValue);
             }
 
             this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);

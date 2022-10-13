@@ -51,6 +51,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
             {
                 ArgumentChecker.CheckPresence(processingParameters.StringParameters, OuterJoinDefaultValueIndex);
                 this.OuterJoinDefaultValue = processingParameters.StringParameters[OuterJoinDefaultValueIndex];
+                ArgumentChecker.CheckNotNull(this.OuterJoinDefaultValue);
             }
 
             this.LinesToJoinOnLastMatchedKey = new List<string>();

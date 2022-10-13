@@ -280,7 +280,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         /// Outputs the information collected about a single data value.
         /// </summary>
         /// <param name="valueInformation">The information collected.</param>
-        private void OutputValueInformation(Tuple<ulong, IDataHolder> valueInformation)
+        protected void OutputValueInformation(Tuple<ulong, IDataHolder> valueInformation)
         {
             // We'll display the count and corresponding percentile value.
             //

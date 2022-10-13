@@ -24,31 +24,33 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class SelectLineByColumnCountProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraOperationParameters<ComparisonType>, ExtractedColumnStrings>
     {
-        protected const int FirstArgumentIndex = 0;
-        protected const int SecondArgumentIndex = 1;
+        protected const int FirstColumnCountIndex = 0;
+        protected const int SecondColumnCountIndex = 1;
 
         protected ComparisonType ComparisonType { get; set; }
 
         /// <summary>
-        /// First comparison argument, if expected.
+        /// First column count comparison argument.
         /// </summary>
-        protected IDataHolder FirstArgument { get; set; }
+        protected IDataHolder FirstColumnCount { get; set; }
 
         /// <summary>
-        /// Second comparison argument, if expected.
+        /// Second column count comparison argument, if expected.
         /// </summary>
-        protected IDataHolder SecondArgument { get; set; }
+        protected IDataHolder SecondColumnCount { get; set; }
 
         public void Initialize(OutputExtraOperationParameters<ComparisonType> processingParameters)
         {
             this.ComparisonType = processingParameters.OperationType;
 
-            ArgumentChecker.CheckPresence(processingParameters.DataHolderParameters, FirstArgumentIndex);
-            this.FirstArgument = processingParameters.DataHolderParameters[FirstArgumentIndex];
+            ArgumentChecker.CheckPresence(processingParameters.DataHolderParameters, FirstColumnCountIndex);
+            this.FirstColumnCount = processingParameters.DataHolderParameters[FirstColumnCountIndex];
+            ArgumentChecker.CheckNotNull(this.FirstColumnCount);
 
-            if (processingParameters.DataHolderParameters.Length > SecondArgumentIndex)
+            if (processingParameters.DataHolderParameters.Length > SecondColumnCountIndex)
             {
-                this.SecondArgument = processingParameters.DataHolderParameters[SecondArgumentIndex];
+                this.SecondColumnCount = processingParameters.DataHolderParameters[SecondColumnCountIndex];
+                ArgumentChecker.CheckNotNull(this.SecondColumnCount);
             }
 
             this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
@@ -62,7 +64,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             // Perform the comparison to decide whether to output the line.
             //
-            if (DataHolderOperations.Compare(columnCountContainer, this.ComparisonType, this.FirstArgument, this.SecondArgument))
+            if (DataHolderOperations.Compare(columnCountContainer, this.ComparisonType, this.FirstColumnCount, this.SecondColumnCount))
             {
                 this.OutputWriter.WriteLine(lineData.OriginalLine);
             }

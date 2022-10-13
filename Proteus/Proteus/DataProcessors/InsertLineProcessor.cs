@@ -45,6 +45,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             ArgumentChecker.CheckPresence(processingParameters.StringParameters, LineToInsertIndex);
             this.LineToInsert = processingParameters.StringParameters[LineToInsertIndex];
+            ArgumentChecker.CheckNotNull(this.LineToInsert);
 
             switch (this.InsertionType)
             {

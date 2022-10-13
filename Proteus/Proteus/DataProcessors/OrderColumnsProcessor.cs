@@ -52,6 +52,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         {
             ArgumentChecker.CheckPresence(processingParameters.StringParameters, 0);
             this.NewFirstColumnsList = processingParameters.StringParameters[0];
+            ArgumentChecker.CheckNotNull(this.NewFirstColumnsList);
 
             // Parse the column numbers that we need to place first.
             //

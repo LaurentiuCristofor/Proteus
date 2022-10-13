@@ -24,31 +24,33 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class SelectLineByColumnValueProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraOperationParameters<ComparisonType>, OneExtractedValue>
     {
-        protected const int FirstArgumentIndex = 0;
-        protected const int SecondArgumentIndex = 1;
+        protected const int FirstValueIndex = 0;
+        protected const int SecondValueIndex = 1;
 
         protected ComparisonType ComparisonType { get; set; }
 
         /// <summary>
         /// First comparison argument, if expected.
         /// </summary>
-        protected IDataHolder FirstArgument { get; set; }
+        protected IDataHolder FirstValue { get; set; }
 
         /// <summary>
         /// Second comparison argument, if expected.
         /// </summary>
-        protected IDataHolder SecondArgument { get; set; }
+        protected IDataHolder SecondValue { get; set; }
 
         public void Initialize(OutputExtraOperationParameters<ComparisonType> processingParameters)
         {
             this.ComparisonType = processingParameters.OperationType;
 
-            ArgumentChecker.CheckPresence(processingParameters.DataHolderParameters, FirstArgumentIndex);
-            this.FirstArgument = processingParameters.DataHolderParameters[FirstArgumentIndex];
+            ArgumentChecker.CheckPresence(processingParameters.DataHolderParameters, FirstValueIndex);
+            this.FirstValue = processingParameters.DataHolderParameters[FirstValueIndex];
+            ArgumentChecker.CheckNotNull(this.FirstValue);
 
-            if (processingParameters.DataHolderParameters.Length > SecondArgumentIndex)
+            if (processingParameters.DataHolderParameters.Length > SecondValueIndex)
             {
-                this.SecondArgument = processingParameters.DataHolderParameters[SecondArgumentIndex];
+                this.SecondValue = processingParameters.DataHolderParameters[SecondValueIndex];
+                ArgumentChecker.CheckNotNull(this.SecondValue);
             }
 
             this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
@@ -58,7 +60,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         {
             // Perform the comparison to decide whether to output the line.
             //
-            if (DataHolderOperations.Compare(lineData.ExtractedData, this.ComparisonType, this.FirstArgument, this.SecondArgument))
+            if (DataHolderOperations.Compare(lineData.ExtractedData, this.ComparisonType, this.FirstValue, this.SecondValue))
             {
                 this.OutputWriter.WriteLine(lineData.OriginalLine);
             }

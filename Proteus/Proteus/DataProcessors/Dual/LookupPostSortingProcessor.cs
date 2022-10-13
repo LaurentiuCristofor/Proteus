@@ -88,7 +88,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
         /// <param name="lookupType">The lookup criteria that we're using.</param>
         /// <param name="isIncluded">True if the lookup was successful; false otherwise.</param>
         /// <returns></returns>
-        private bool ProcessLine(string line, LookupType lookupType, bool isIncluded)
+        protected bool ProcessLine(string line, LookupType lookupType, bool isIncluded)
         {
             bool shouldOutputLine;
             switch (lookupType)

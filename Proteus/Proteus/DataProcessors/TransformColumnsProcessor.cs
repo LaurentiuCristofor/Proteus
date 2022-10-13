@@ -68,6 +68,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                     ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstColumnNumber, 1);
                     ArgumentChecker.CheckGreaterThanOrEqualTo(this.SecondColumnNumber, 1);
+                    ArgumentChecker.CheckNotNull(this.PackingSeparator);
                     ArgumentChecker.CheckInterval(this.FirstColumnNumber, this.SecondColumnNumber);
                     break;
 

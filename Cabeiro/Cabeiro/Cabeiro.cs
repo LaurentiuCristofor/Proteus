@@ -1131,10 +1131,13 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new EditOperationFilePathBuilder(editType, inputFilePath, outputFileExtension, editArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
+            ParseEditArguments(editType, editArguments, out string[] stringArguments, out int[] intArguments);
+
             var processingParameters = new OutputExtraOperationParameters<StringEditType>(
                 outputFilePath,
                 editType,
-                editArguments);
+                stringArguments,
+                intArguments);
 
             var fileProcessor
                 = new FileProcessor<LineAsOneExtractedValueExtractor, Unused, OneExtractedValue, EditStringProcessor, OutputExtraOperationParameters<StringEditType>>(
@@ -1162,10 +1165,13 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new EditOperationFilePathBuilder(editType, inputFilePath, outputFileExtension, editArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
+            ParseEditArguments(editType, editArguments, out string[] stringArguments, out int[] intArguments);
+
             var processingParameters = new OutputExtraOperationParameters<StringEditType>(
                 outputFilePath,
                 editType,
-                editArguments);
+                stringArguments,
+                intArguments);
 
             var fileProcessor
                 = new FileProcessor<OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue, EditStringProcessor, OutputExtraOperationParameters<StringEditType>>(
@@ -1174,6 +1180,103 @@ namespace LaurentiuCristofor.Cabeiro
                     processingParameters);
 
             fileProcessor.ProcessFile();
+        }
+
+        private static void ParseEditArguments(StringEditType editType, string[] editArguments, out string[] stringArguments, out int[] intArguments)
+        {
+            stringArguments = null;
+            intArguments = null;
+
+            switch (editType)
+            {
+                case StringEditType.TrimCharsStart:
+                case StringEditType.TrimCharsEnd:
+                case StringEditType.TrimChars:
+                case StringEditType.PrefixLineNumbers:
+                case StringEditType.AddPrefix:
+                case StringEditType.AddSuffix:
+                case StringEditType.DeletePrefix:
+                case StringEditType.DeleteSuffix:
+                case StringEditType.DeleteContentBeforeMarker:
+                case StringEditType.DeleteContentAfterMarker:
+                case StringEditType.KeepContentBeforeMarker:
+                case StringEditType.KeepContentAfterMarker:
+                case StringEditType.DeleteContentBeforeLastMarker:
+                case StringEditType.DeleteContentAfterLastMarker:
+                case StringEditType.KeepContentBeforeLastMarker:
+                case StringEditType.KeepContentAfterLastMarker:
+                case StringEditType.ReplaceContent:
+                case StringEditType.InsertContentBeforeMarker:
+                case StringEditType.InsertContentAfterMarker:
+                case StringEditType.InsertContentBeforeLastMarker:
+                case StringEditType.InsertContentAfterLastMarker:
+                case StringEditType.DeleteContentBetweenMarkers:
+                case StringEditType.KeepContentBetweenMarkers:
+                case StringEditType.KeepContentOutsideMarkers:
+                case StringEditType.DeleteContentBetweenLastMarkers:
+                case StringEditType.KeepContentBetweenLastMarkers:
+                case StringEditType.KeepContentOutsideLastMarkers:
+                case StringEditType.DeleteContentBetweenInnermostMarkers:
+                case StringEditType.KeepContentBetweenInnermostMarkers:
+                case StringEditType.KeepContentOutsideInnermostMarkers:
+                case StringEditType.DeleteContentBetweenOutermostMarkers:
+                case StringEditType.KeepContentBetweenOutermostMarkers:
+                case StringEditType.KeepContentOutsideOutermostMarkers:
+                case StringEditType.Set:
+                case StringEditType.SetIfEquals:
+                    {
+                        // These operations take one or two string arguments.
+                        //
+                        string firstArgument = editArguments[0];
+                        if (editArguments.Length > 1)
+                        {
+                            string secondArgument = editArguments[1];
+                            stringArguments = new string[] { firstArgument, secondArgument };
+                        }
+                        else
+                        {
+                            stringArguments = new string[] { firstArgument };
+                        }
+                        break;
+                    }
+
+                case StringEditType.PadLeft:
+                case StringEditType.PadRight:
+                    // These operations that a string and an int argument, in this order.
+                    //
+                    stringArguments = new string[] { editArguments[0] };
+                    intArguments = new int[] { int.Parse(editArguments[1]) };
+                    break;
+
+                case StringEditType.InsertContentAtIndex:
+                    // These operations that an int and a string argument, int this order.
+                    //
+                    stringArguments = new string[] { editArguments[1] };
+                    intArguments = new int[] { int.Parse(editArguments[0]) };
+                    break;
+
+                case StringEditType.DeleteFirstCharacters:
+                case StringEditType.DeleteLastCharacters:
+                case StringEditType.KeepFirstCharacters:
+                case StringEditType.KeepLastCharacters:
+                case StringEditType.DeleteContentAtIndex:
+                case StringEditType.KeepContentAtIndex:
+                    {
+                        // These operations take one or two int arguments.
+                        //
+                        int firstArgument = int.Parse(editArguments[0]);
+                        if (editArguments.Length > 1)
+                        {
+                            int secondArgument = int.Parse(editArguments[1]);
+                            intArguments = new int[] { firstArgument, secondArgument };
+                        }
+                        else
+                        {
+                            intArguments = new int[] { firstArgument };
+                        }
+                        break;
+                    }
+            }
         }
 
         private static void EditColumnValues(
@@ -1544,10 +1647,19 @@ namespace LaurentiuCristofor.Cabeiro
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, selectionArguments, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
+            int[] intArguments = null;
+            if (selectionType == StringSelectionType.HasLengthBetween 
+                || selectionType == StringSelectionType.HasLengthNotBetween)
+            {
+                intArguments = new int[] { int.Parse(selectionArguments[0]), int.Parse(selectionArguments[1]) };
+                selectionArguments = null;
+            }
+
             var processingParameters = new OutputExtraOperationParameters<StringSelectionType>(
                 outputFilePath,
                 selectionType,
-                selectionArguments);
+                selectionArguments,
+                intArguments);
 
             var fileProcessor
                 = new FileProcessor<LineAsOneExtractedValueExtractor, Unused, OneExtractedValue, SelectLineByStringProcessor, OutputExtraOperationParameters<StringSelectionType>>(

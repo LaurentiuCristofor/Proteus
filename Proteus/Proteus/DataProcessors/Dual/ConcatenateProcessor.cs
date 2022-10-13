@@ -30,6 +30,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
         {
             ArgumentChecker.CheckPresence(processingParameters.StringParameters, LineSeparatorIndex);
             this.LineSeparator = processingParameters.StringParameters[LineSeparatorIndex];
+            ArgumentChecker.CheckNotNull(this.LineSeparator);
 
             this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }

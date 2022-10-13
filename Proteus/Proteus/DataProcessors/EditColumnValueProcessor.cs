@@ -18,18 +18,18 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// A data processor that edits a column value.
     ///
     /// OutputExtraOperationParameters is expected to contain:
-    /// DataHolderParameters[0] - edit argument (optional)
+    /// DataHolderParameters[0] - edit operand (optional)
     /// </summary>
     public class EditColumnValueProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraOperationParameters<ValueEditType>, OneExtractedValue>
     {
-        protected int ArgumentIndex = 0;
+        protected int EditOperandIndex = 0;
 
         protected ValueEditType EditType { get; set; }
 
         /// <summary>
-        /// The edit argument, if expected.
+        /// The edit operand, if expected.
         /// </summary>
-        protected IDataHolder Argument { get; set; }
+        protected IDataHolder EditOperand { get; set; }
 
         public void Initialize(OutputExtraOperationParameters<ValueEditType> processingParameters)
         {
@@ -44,8 +44,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 case ValueEditType.Subtract:
                 case ValueEditType.Multiply:
                 case ValueEditType.Divide:
-                    ArgumentChecker.CheckPresence(processingParameters.DataHolderParameters, ArgumentIndex);
-                    this.Argument = processingParameters.DataHolderParameters[ArgumentIndex];
+                    ArgumentChecker.CheckPresence(processingParameters.DataHolderParameters, EditOperandIndex);
+                    this.EditOperand = processingParameters.DataHolderParameters[EditOperandIndex];
+                    ArgumentChecker.CheckNotNull(this.EditOperand);
                     break;
 
                 default:
@@ -68,19 +69,19 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     break;
 
                 case ValueEditType.Add:
-                    lineData.Columns[columnIndex] = lineData.ExtractedData.Add(this.Argument).ToString();
+                    lineData.Columns[columnIndex] = lineData.ExtractedData.Add(this.EditOperand).ToString();
                     break;
 
                 case ValueEditType.Subtract:
-                    lineData.Columns[columnIndex] = lineData.ExtractedData.Subtract(this.Argument).ToString();
+                    lineData.Columns[columnIndex] = lineData.ExtractedData.Subtract(this.EditOperand).ToString();
                     break;
 
                 case ValueEditType.Multiply:
-                    lineData.Columns[columnIndex] = lineData.ExtractedData.Multiply(this.Argument).ToString();
+                    lineData.Columns[columnIndex] = lineData.ExtractedData.Multiply(this.EditOperand).ToString();
                     break;
 
                 case ValueEditType.Divide:
-                    lineData.Columns[columnIndex] = lineData.ExtractedData.Divide(this.Argument).ToString();
+                    lineData.Columns[columnIndex] = lineData.ExtractedData.Divide(this.EditOperand).ToString();
                     break;
 
                 default:
