@@ -18,17 +18,31 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
     /// A data processor that shuffles the input lines.
+    /// 
+    /// OutputExtraParameters is expected to contain:
+    /// IntParameters[0] - randomization seed value
     /// </summary>
-    public class ShuffleProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, string>
+    public class ShuffleProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraParameters, string>
     {
+        protected const int SeedIndex = 0;
+
+        /// <summary>
+        /// The randomization seed used for shuffling.
+        /// A negative value indicates that no seed will be used.
+        /// </summary>
+        protected int Seed { get; set; }
+
         /// <summary>
         /// Data structure used for loading the lines before sorting them.
         /// </summary>
         protected List<string> Lines { get; set; }
 
-        public void Initialize(BaseOutputParameters processingParameters)
+        public void Initialize(OutputExtraParameters processingParameters)
         {
             this.Lines = new List<string>();
+
+            ArgumentChecker.CheckPresence(processingParameters.IntParameters, SeedIndex);
+            this.Seed = processingParameters.IntParameters[SeedIndex];
 
             this.OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: true);
         }
@@ -47,7 +61,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 throw new ProteusException("Internal error: An expected data structure has not been initialized!");
             }
 
-            Shuffler shuffler = new Shuffler(this.Lines.Count);
+            Random randomGenerator = (this.Seed >= 0) ? new Random(this.Seed) : new Random();
+            Shuffler shuffler = new Shuffler(this.Lines.Count, randomGenerator);
 
             Timer timer = new Timer($"\n{Constants.Messages.ShufflingStart}", Constants.Messages.ShufflingEnd, countFinalLineEndings: 0);
 

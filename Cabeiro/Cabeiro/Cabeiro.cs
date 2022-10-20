@@ -260,14 +260,16 @@ namespace LaurentiuCristofor.Cabeiro
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.Shuffle))
             {
-                const int minimumArgumentNumber = 2;
-                const int maximumArgumentNumber = 3;
+                const int minimumArgumentNumber = 3;
+                const int maximumArgumentNumber = 4;
                 ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                string inputFilePath = arguments[1];
-                ArgumentParser.ExtractLastArguments(0, 2, arguments, out _, out string outputFilePath);
+                int seedValue = int.Parse(arguments[1]);
+                string inputFilePath = arguments[2];
+                ArgumentParser.ExtractLastArguments(0, 3, arguments, out _, out string outputFilePath);
 
                 ShuffleFile(
+                    seedValue,
                     inputFilePath,
                     outputFilePath);
                 return;
@@ -396,7 +398,7 @@ namespace LaurentiuCristofor.Cabeiro
                     dataType, arguments[4],
                     secondFilePath,
                     secondFileColumnNumber,
-                    operationInfo.Item1, arguments[6],
+                    operationInfo.Item1, arguments[7],
                     operationArguments,
                     outputFilePath);
                 return;
@@ -677,14 +679,14 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 5;
                 ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                string inputFilePath = arguments[1];
-                int seedValue = int.Parse(arguments[2]);
+                int seedValue = int.Parse(arguments[1]);
+                string inputFilePath = arguments[2];
                 int sampleSize = ArgumentParser.GetStrictlyPositiveInteger(arguments[3]);
                 ArgumentParser.ExtractLastArguments(0, 4, arguments, out _, out string outputFilePath);
 
                 SelectLinesSample(
-                    inputFilePath,
                     seedValue,
+                    inputFilePath,
                     sampleSize,
                     outputFilePath);
                 return;
@@ -747,14 +749,14 @@ namespace LaurentiuCristofor.Cabeiro
                 const int maximumArgumentNumber = 5;
                 ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
 
-                string inputFilePath = arguments[1];
-                int seedValue = int.Parse(arguments[2]);
+                int seedValue = int.Parse(arguments[1]);
+                string inputFilePath = arguments[2];
                 int setsCount = ArgumentParser.GetStrictlyPositiveInteger(arguments[3]);
                 ArgumentParser.ExtractLastArguments(0, 4, arguments, out _, out string outputFilePath);
 
                 SplitLinesIntoRandomSets(
-                    inputFilePath,
                     seedValue,
+                    inputFilePath,
                     setsCount,
                     outputFilePath);
                 return;
@@ -1074,18 +1076,25 @@ namespace LaurentiuCristofor.Cabeiro
         }
 
         private static void ShuffleFile(
+            int seedValue,
             string inputFilePath,
             string outputFilePath)
         {
-            string outputFileExtension = $".{CabeiroConstants.Commands.Shuffle}";
+            string outputFileExtension
+                = (seedValue >= 0)
+                ? $".{CabeiroConstants.Commands.Shuffle}.{seedValue}"
+                : $".{CabeiroConstants.Commands.Shuffle}";
             var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, /*operationArguments:*/ null, outputFilePath);
             outputFilePath = filePathBuilder.BuildOutputFilePath();
 
-            var processingParameters = new BaseOutputParameters(
-                outputFilePath);
+            int[] intParameters = new int[] { seedValue };
+
+            var processingParameters = new OutputExtraParameters(
+                outputFilePath,
+                intParameters);
 
             var fileProcessor
-                = new FileProcessor<LineExtractor, Unused, string, ShuffleProcessor, BaseOutputParameters>(
+                = new FileProcessor<LineExtractor, Unused, string, ShuffleProcessor, OutputExtraParameters>(
                     inputFilePath,
                     /*extractionParameters:*/ null,
                     processingParameters);
@@ -1945,8 +1954,8 @@ namespace LaurentiuCristofor.Cabeiro
         }
 
         private static void SelectLinesSample(
-            string inputFilePath,
             int seedValue,
+            string inputFilePath,
             int sampleSize,
             string outputFilePath)
         {
@@ -2072,8 +2081,8 @@ namespace LaurentiuCristofor.Cabeiro
         }
 
         private static void SplitLinesIntoRandomSets(
-            string inputFilePath,
             int seedValue,
+            string inputFilePath,
             int setsCount,
             string outputFilePath)
         {

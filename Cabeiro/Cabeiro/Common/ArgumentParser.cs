@@ -44,11 +44,11 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
             if (argumentNumber < minimumArgumentNumber)
             {
-                throw new CabeiroException($"Command expects at least {minimumArgumentNumber} arguments, but has received only {argumentNumber} arguments!");
+                throw new CabeiroException($"Too few arguments: expected at least {minimumArgumentNumber}, but only received {argumentNumber}!");
             }
             else if (argumentNumber > maximumArgumentNumber)
             {
-                throw new CabeiroException($"Command expects no more than {maximumArgumentNumber} arguments, but has received {argumentNumber} arguments!");
+                throw new CabeiroException($"Too many arguments: expected up to {maximumArgumentNumber}, but received {argumentNumber}!");
             }
         }
 
@@ -67,7 +67,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
             if (argumentNumber != expectedArgumentNumber)
             {
-                throw new CabeiroException($"Command expected {expectedArgumentNumber} arguments, but has received {argumentNumber} arguments!");
+                throw new CabeiroException($"Incorrect number of arguments: expected {expectedArgumentNumber}, but received {argumentNumber}!");
             }
         }
 
@@ -133,7 +133,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
         {
             if (expectedArgumentIndex >= arguments.Length)
             {
-                throw new CabeiroException($"Command is missing arguments!");
+                throw new CabeiroException($"An expected argument is missing!");
             }
 
             return arguments[expectedArgumentIndex];
@@ -191,6 +191,17 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
 
             outputFilePath = GetOptionalArgument(arguments, nextArgumentIndex);
+            if (outputFilePath != null)
+            {
+                ++nextArgumentIndex;
+            }
+
+            // Check for unexpected arguments.
+            //
+            if (nextArgumentIndex < arguments.Length)
+            {
+                throw new CabeiroException($"Too many arguments: argument '{arguments[nextArgumentIndex]}' was not expected!");
+            }
         }
 
         /// <summary>
@@ -778,6 +789,10 @@ namespace LaurentiuCristofor.Cabeiro.Common
             else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeNotEquals))
             {
                 return new Tuple<StringSelectionType, int>(StringSelectionType.NotEquals, 1);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeIncludesBefore))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.IncludesBefore, 2);
             }
             else
             {

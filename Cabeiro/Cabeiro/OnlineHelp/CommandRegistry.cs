@@ -169,7 +169,8 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 CommandCategory.Ordering,
                 "(SH)uffle file",
                 /*longDescription:*/ null,
-                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.SeedValue}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Notes.MemoryRequirementLinearTotal}");
             RegisterCommandDescription(commandDescription);
@@ -460,8 +461,8 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 CommandCategory.Selection,
                 "(S)elect (L)ines (S)ample",
                 /*longDescription:*/ null,
-                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SeedValue}"
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.SeedValue}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.SampleSize}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.SeedValueText}"
@@ -511,8 +512,8 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 CommandCategory.Splitting,
                 "(SP)lit (L)ines (I)nto (R)andom (S)ets",
                 CabeiroConstants.Commands.Descriptions.SplitLinesIntoRandomSets,
-                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
-                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SeedValue}"
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.SeedValue}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.SetsCount}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.SeedValueText}"
@@ -626,7 +627,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 CabeiroConstants.Commands.JoinLinesPostSorting,
                 CommandCategory.Post_Sorting,
                 "(J)oin (L)ines (P)ost (S)orting",
-                /*longDescription:*/ null,
+                CabeiroConstants.Commands.Descriptions.JoinLinesPostSorting,
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.FirstInputFilePath}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstFileColumnNumber}"
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"

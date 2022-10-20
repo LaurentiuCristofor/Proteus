@@ -223,15 +223,15 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string StringEditTypeDeleteContentBetweenMarkers = "dcb2m";
                 public const string StringEditTypeKeepContentBetweenMarkers = "kcb2m";
                 public const string StringEditTypeKeepContentOutsideMarkers = "kco2m";
-                public const string StringEditTypeDeleteContentBetweenLastMarkers = "dcb2lm";
-                public const string StringEditTypeKeepContentBetweenLastMarkers = "kcb2lm";
-                public const string StringEditTypeKeepContentOutsideLastMarkers = "kco2lm";
-                public const string StringEditTypeDeleteContentBetweenInnermostMarkers = "dcb2im";
-                public const string StringEditTypeKeepContentBetweenInnermostMarkers = "kcb2im";
-                public const string StringEditTypeKeepContentOutsideInnermostMarkers = "kco2im";
-                public const string StringEditTypeDeleteContentBetweenOutermostMarkers = "dcb2om";
-                public const string StringEditTypeKeepContentBetweenOutermostMarkers = "kcb2om";
-                public const string StringEditTypeKeepContentOutsideOutermostMarkers = "kco2om";
+                public const string StringEditTypeDeleteContentBetweenLastMarkers = "dcbl2m";
+                public const string StringEditTypeKeepContentBetweenLastMarkers = "kcbl2m";
+                public const string StringEditTypeKeepContentOutsideLastMarkers = "kcol2m";
+                public const string StringEditTypeDeleteContentBetweenInnermostMarkers = "dcbi2m";
+                public const string StringEditTypeKeepContentBetweenInnermostMarkers = "kcbi2m";
+                public const string StringEditTypeKeepContentOutsideInnermostMarkers = "kcoi2m";
+                public const string StringEditTypeDeleteContentBetweenOutermostMarkers = "dcbo2m";
+                public const string StringEditTypeKeepContentBetweenOutermostMarkers = "kcbo2m";
+                public const string StringEditTypeKeepContentOutsideOutermostMarkers = "kcoo2m";
                 public const string StringEditTypeSet = "s";
                 public const string StringEditTypeSetIfEquals = "sie";
 
@@ -284,6 +284,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string StringSelectionTypeNotStartsAndEndsWith = "nstartend";
                 public const string StringSelectionTypeEquals = "eq";
                 public const string StringSelectionTypeNotEquals = "neq";
+                public const string StringSelectionTypeIncludesBefore = "inclb";
 
                 public const string RelativeValueSelectionFirst = "first";
                 public const string RelativeValueSelectionNotFirst = "nfirst";
@@ -499,7 +500,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                     public static readonly string StringSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeHasLengthBetween}' = has length between; arguments: <start_value> <end_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeHasLengthNotBetween}' = has length not between; arguments: <start_value> <end_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeIncludes }' = includes; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeIncludes}' = includes; arguments: <string_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotIncludes}' = not includes; arguments: <string_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeStartsWith}' = starts with; arguments: <string_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotStartsWith}' = not starts with; arguments: <string_value>"
@@ -509,6 +510,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotStartsAndEndsWith}' = not starts and ends with; arguments: <starting_value> <ending_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeEquals}' = equals; arguments: <string_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotEquals}' = not equals; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeIncludesBefore}' = includes string before another string; arguments: <string_value> <succeeding_string_value>"
                         ;
 
                     public static readonly string RelativeLineSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"

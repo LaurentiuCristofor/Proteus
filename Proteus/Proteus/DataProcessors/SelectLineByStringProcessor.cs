@@ -6,6 +6,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.Algorithms;
 using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
@@ -88,6 +89,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case StringSelectionType.StartsAndEndsWith:
                 case StringSelectionType.NotStartsAndEndsWith:
+                case StringSelectionType.IncludesBefore:
                     ArgumentChecker.CheckPresence(processingParameters.StringParameters, FirstStringIndex);
                     ArgumentChecker.CheckPresence(processingParameters.StringParameters, SecondStringIndex);
 
@@ -169,6 +171,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case StringSelectionType.NotEquals:
                     return !data.Equals(this.FirstString);
+
+                case StringSelectionType.IncludesBefore:
+                    return StringMethods.FindMarkers(data, this.FirstString, this.SecondString, out _, out _);
 
                 default:
                     throw new ProteusException($"Internal error: Proteus is not handling string selection type '{this.SelectionType}'!");
