@@ -90,6 +90,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 case StringSelectionType.StartsAndEndsWith:
                 case StringSelectionType.NotStartsAndEndsWith:
                 case StringSelectionType.IncludesBefore:
+                case StringSelectionType.NotIncludesBefore:
                     ArgumentChecker.CheckPresence(processingParameters.StringParameters, FirstStringIndex);
                     ArgumentChecker.CheckPresence(processingParameters.StringParameters, SecondStringIndex);
 
@@ -174,6 +175,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case StringSelectionType.IncludesBefore:
                     return StringMethods.FindMarkers(data, this.FirstString, this.SecondString, out _, out _);
+
+                case StringSelectionType.NotIncludesBefore:
+                    return !StringMethods.FindMarkers(data, this.FirstString, this.SecondString, out _, out _);
 
                 default:
                     throw new ProteusException($"Internal error: Proteus is not handling string selection type '{this.SelectionType}'!");

@@ -285,6 +285,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string StringSelectionTypeEquals = "eq";
                 public const string StringSelectionTypeNotEquals = "neq";
                 public const string StringSelectionTypeIncludesBefore = "inclb";
+                public const string StringSelectionTypeNotIncludesBefore = "ninclb";
 
                 public const string RelativeValueSelectionFirst = "first";
                 public const string RelativeValueSelectionNotFirst = "nfirst";
@@ -431,7 +432,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentBetweenOutermostMarkers}' = keep content between outermost occurrences of markers; arguments: <first_marker> <second_marker>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentOutsideOutermostMarkers}' = keep content outside outermost occurrences of markers; arguments: <first_marker> <second_marker>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeSet}' = set; arguments: <replacement>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeSetIfEquals}' = set if equals value; arguments: <value_to_match> <replacement>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeSetIfEquals}' = set if equals; arguments: <value_to_match> <replacement>"
                         ;
 
                     public static readonly string ValueEditTypeText = $"{Constants.Commands.Arguments.Descriptions.EditType} can take the values:"
@@ -510,7 +511,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotStartsAndEndsWith}' = not starts and ends with; arguments: <starting_value> <ending_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeEquals}' = equals; arguments: <string_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotEquals}' = not equals; arguments: <string_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeIncludesBefore}' = includes string before another string; arguments: <string_value> <succeeding_string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeIncludesBefore}' = includes before; arguments: <string_value> <succeeding_string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotIncludesBefore}' = not includes before; arguments: <string_value> <succeeding_string_value>"
                         ;
 
                     public static readonly string RelativeLineSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"

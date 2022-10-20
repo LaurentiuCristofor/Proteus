@@ -794,6 +794,10 @@ namespace LaurentiuCristofor.Cabeiro.Common
             {
                 return new Tuple<StringSelectionType, int>(StringSelectionType.IncludesBefore, 2);
             }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeNotIncludesBefore))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.NotIncludesBefore, 2);
+            }
             else
             {
                 throw new CabeiroException($"Invalid string selection type argument: '{argument}'!");
