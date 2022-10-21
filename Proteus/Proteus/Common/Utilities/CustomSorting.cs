@@ -26,6 +26,12 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         {
             switch (algorithmType)
             {
+                case SortingAlgorithmType.NotSet:
+                    // Use the default sorting algorithm if no custom sorting algorithm was set.
+                    //
+                    list.Sort();
+                    break;
+
                 case SortingAlgorithmType.Insertion:
                     SortingOperations.InsertionSort<T>(list);
                     break;

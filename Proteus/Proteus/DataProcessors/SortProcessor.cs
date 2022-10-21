@@ -8,6 +8,7 @@
 using System.Collections.Generic;
 
 using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.Common.Utilities;
 using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
 using LaurentiuCristofor.Proteus.FileOperations;
@@ -16,16 +17,21 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
     /// A data processor that sorts the input lines.
+    /// Uses the specified custom sorting algorithm or the default sorting algorithm if no custom sorting algorithm is specified.
     /// </summary>
-    public class SortProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, string>
+    public class SortProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<SortingAlgorithmType>, string>
     {
+        protected SortingAlgorithmType SortingType { get; set; }
+
         /// <summary>
         /// Data structure used for loading the lines before sorting them.
         /// </summary>
         protected List<string> Lines { get; set; }
 
-        public void Initialize(BaseOutputParameters processingParameters)
+        public void Initialize(OutputOperationParameters<SortingAlgorithmType> processingParameters)
         {
+            SortingType = processingParameters.OperationType;
+
             Lines = new List<string>();
 
             OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: true);
@@ -46,7 +52,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             }
 
             Timer timer = new Timer($"\n{Constants.Messages.SortingStart}", Constants.Messages.SortingEnd, countFinalLineEndings: 0);
-            Lines.Sort();
+            CustomSorting.Sort(Lines, SortingType);
             timer.StopAndReport();
 
             foreach (string line in Lines)

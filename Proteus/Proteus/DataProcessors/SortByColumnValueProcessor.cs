@@ -5,11 +5,11 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
 using System.Collections.Generic;
 
 using LaurentiuCristofor.Proteus.Common;
 using LaurentiuCristofor.Proteus.Common.DataHolders;
+using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.Common.Utilities;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
@@ -19,16 +19,21 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
     /// A data processor that sorts the input lines by the value of a specific column.
+    /// Uses the specified custom sorting algorithm or the default sorting algorithm if no custom sorting algorithm is specified.
     /// </summary>
-    public class SortByColumnValueProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, OneExtractedValue>
+    public class SortByColumnValueProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<SortingAlgorithmType>, OneExtractedValue>
     {
+        protected SortingAlgorithmType SortingType { get; set; }
+
         /// <summary>
         /// Data structure used for loading the lines before sorting them.
         /// </summary>
         protected List<DataPair<IDataHolder, string>> ColumnLinePairs { get; set; }
 
-        public void Initialize(BaseOutputParameters processingParameters)
+        public void Initialize(OutputOperationParameters<SortingAlgorithmType> processingParameters)
         {
+            SortingType = processingParameters.OperationType;
+
             ColumnLinePairs = new List<DataPair<IDataHolder, string>>();
 
             OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: true);
@@ -49,7 +54,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             }
 
             Timer timer = new Timer($"\n{Constants.Messages.SortingStart}", Constants.Messages.SortingEnd, countFinalLineEndings: 0);
-            ColumnLinePairs.Sort();
+            CustomSorting.Sort(ColumnLinePairs, SortingType);
             timer.StopAndReport();
 
             foreach (DataPair<IDataHolder, string> dataPair in ColumnLinePairs)
