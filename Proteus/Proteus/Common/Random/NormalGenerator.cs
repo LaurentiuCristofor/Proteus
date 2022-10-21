@@ -26,7 +26,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
 
         /// <summary>
         /// Tells whether the generator already has the next value,
-        /// because generation generates two values at a time.
+        /// because generation produces two values at a time.
         /// </summary>
         private bool HasNextValue { get; set; }
 

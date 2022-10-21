@@ -9,6 +9,9 @@ using LaurentiuCristofor.Proteus.Common.Types;
 
 namespace LaurentiuCristofor.Cabeiro.Common
 {
+    /// <summary>
+    /// A special file path builder used for string edit operations.
+    /// </summary>
     public class EditOperationFilePathBuilder : FilePathBuilder
     {
         protected StringEditType EditType { get; set; }

@@ -12,12 +12,12 @@ using LaurentiuCristofor.Proteus.Common.Types;
 namespace LaurentiuCristofor.Cabeiro.Common
 {
     /// <summary>
-    /// A collection of methods for parsing command line arguments.
+    /// A collection of methods for parsing Cabeiro's command line arguments.
     /// </summary>
     public abstract class ArgumentParser
     {
         /// <summary>
-        /// Checks if argument value equals the given command name.
+        /// Checks if the argument's value equals the given command name.
         /// </summary>
         /// <param name="argument">The argument value to check.</param>
         /// <param name="commandName">The command name to check against.</param>
@@ -28,7 +28,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
         }
 
         /// <summary>
-        /// Checks if the argument number matches the expected argument numbers
+        /// Checks if the number of arguments falls into the expected range
         /// and throws an exception if it does not.
         /// </summary>
         /// <param name="argumentNumber">The argument number to check.</param>
@@ -53,7 +53,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
         }
 
         /// <summary>
-        /// Checks if the argument number matches the expected argument number
+        /// Checks if the number of arguments matches the expected number
         /// and throws an exception if it does not.
         /// </summary>
         /// <param name="argumentNumber">The argument number to check.</param>
@@ -160,9 +160,9 @@ namespace LaurentiuCristofor.Cabeiro.Common
         /// </summary>
         /// <param name="expectedOperationArguments">The number or arguments required for the current operation.</param>
         /// <param name="nextArgumentIndex">The index from where to extract the next argument.</param>
-        /// <param name="arguments">The arguments that we work on.</param>
-        /// <param name="operationArguments">Will collect the arguments, or will be set to an empty array if no arguments were expected.</param>
-        /// <param name="outputFilePath">Will get set to the output file path, or null if no argument was available.</param>
+        /// <param name="arguments">The arguments array that we operate on.</param>
+        /// <param name="operationArguments">Will collect the extracted arguments.</param>
+        /// <param name="outputFilePath">Will get set to the output file path or to null if no argument was available.</param>
         public static void ExtractLastArguments(
             int expectedOperationArguments,
             int nextArgumentIndex,

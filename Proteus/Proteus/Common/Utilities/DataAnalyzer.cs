@@ -14,6 +14,16 @@ using LaurentiuCristofor.Proteus.Common.Types;
 
 namespace LaurentiuCristofor.Proteus.Common.Utilities
 {
+    /// <summary>
+    /// A class that collects various statistics about a set of data passed in.
+    /// 
+    /// Analyzed data must be of the same type used to initialize the DataAnalyzer.
+    /// Analysis happens in 3 steps:
+    /// (1) Analyze() must be called on each data piece.
+    /// (2) PostProcessAnalyzedData() must be called after all data was passed to analyze
+    /// and before requesting analysis results.
+    /// (3) OutputReport() must be called last, to obtain the analysis report.
+    /// </summary>
     public class DataAnalyzer
     {
         /// <summary>
@@ -99,11 +109,16 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         /// Analyzes a piece of data.
         /// </summary>
         /// <param name="data">Data to analyze.</param>
-        public void AnalyzeData(IDataHolder data)
+        public void Analyze(IDataHolder data)
         {
+            if (this.ListCountedData != null || this.Entropy != 0.0)
+            {
+                throw new ProteusException($"DataAnalyzer::Analyze() cannot be called after DataAnalyzer::PostProcessAnalyzedData()!");
+            }
+
             if (data.GetDataType() != this.DataType)
             {
-                throw new ProteusException($"DataAnalyzer of type {this.DataType} was called on data of type {data.GetDataType()}!");
+                throw new ProteusException($"Incorrect input data: a DataAnalyzer of type {this.DataType} was called on data of type {data.GetDataType()}!");
             }
 
             this.TotalDataCount++;
@@ -165,13 +180,13 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         }
 
         /// <summary>
+        /// This method must be called after analyzing all data, to complete the analysis.
+        /// 
         /// Generates the list of counted data and orders it by count.
         /// Computes Shannon entropy for data.
         /// </summary>
         public void PostProcessAnalyzedData()
         {
-            // Some sanity checks.
-            //
             if (this.ListCountedData != null || this.Entropy != 0.0)
             {
                 throw new ProteusException($"DataAnalyzer::PostProcessAnalyzedData() should not be called more than once!");
@@ -219,6 +234,11 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         /// </summary>
         public void OutputReport()
         {
+            if (this.ListCountedData == null)
+            {
+                throw new ProteusException($"DataAnalyzer::OutputReport() should be called after DataAnalyzer::PostProcessAnalyzedData()!");
+            }
+
             ILogger logger = LoggingManager.GetLogger();
 
             // If there is no data, we're done.

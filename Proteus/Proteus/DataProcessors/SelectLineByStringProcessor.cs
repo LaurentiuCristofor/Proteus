@@ -19,10 +19,10 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// to decide whether to output the line or not.
     ///
     /// OutputExtraOperationParameters is expected to contain:
-    /// StringParameters[0] - first string (optional)
-    /// StringParameters[1] - second string (optional)
-    /// IntParameters[0] - first char count (optional)
-    /// IntParameters[1] - second char count (optional)
+    /// StringParameters[0] - first string (if required)
+    /// StringParameters[1] - second string (if required)
+    /// IntParameters[0] - first char count (if required)
+    /// IntParameters[1] - second char count (if required)
     /// </summary>
     public class SelectLineByStringProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraOperationParameters<StringSelectionType>, OneExtractedValue>
     {
@@ -174,10 +174,10 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     return !data.Equals(this.FirstString);
 
                 case StringSelectionType.IncludesBefore:
-                    return StringMethods.FindMarkers(data, this.FirstString, this.SecondString, out _, out _);
+                    return StringOperations.FindMarkers(data, this.FirstString, this.SecondString, out _, out _);
 
                 case StringSelectionType.NotIncludesBefore:
-                    return !StringMethods.FindMarkers(data, this.FirstString, this.SecondString, out _, out _);
+                    return !StringOperations.FindMarkers(data, this.FirstString, this.SecondString, out _, out _);
 
                 default:
                     throw new ProteusException($"Internal error: Proteus is not handling string selection type '{this.SelectionType}'!");

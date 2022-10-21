@@ -20,7 +20,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     ///
     /// OutputExtraOperationParameters is expected to contain:
     /// DataHolderParameters[0] - first comparison argument
-    /// DataHolderParameters[1] - second comparison argument (optional)
+    /// DataHolderParameters[1] - second comparison argument (if required)
     /// </summary>
     public class SelectLineByColumnCountProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraOperationParameters<ComparisonType>, ExtractedColumnStrings>
     {

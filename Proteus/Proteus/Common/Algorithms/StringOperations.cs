@@ -7,7 +7,7 @@
 
 namespace LaurentiuCristofor.Proteus.Common.Algorithms
 {
-    public abstract class StringMethods
+    public abstract class StringOperations
     {
         /// <summary>
         /// Inverts the character sequence of a string value.

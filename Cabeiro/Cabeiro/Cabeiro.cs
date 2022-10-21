@@ -41,7 +41,7 @@ namespace LaurentiuCristofor.Cabeiro
         {
             try
             {
-                // Validate version of Proteus library.
+                // Validate the version of the Proteus library.
                 //
                 ValidateProteusVersion();
 

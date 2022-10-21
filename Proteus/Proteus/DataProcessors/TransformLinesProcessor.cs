@@ -19,7 +19,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// A data processor that transforms lines.
     ///
     /// OutputExtraOperationParameters is expected to contain:
-    /// IntParameters[0] - count of lines to unite (optional)
+    /// IntParameters[0] - count of lines to unite (if required)
     /// </summary>
     public class TransformLinesProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraOperationParameters<LineTransformationType>, ExtractedColumnStrings>
     {

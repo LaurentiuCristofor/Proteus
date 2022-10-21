@@ -9,6 +9,9 @@ using System.Reflection;
 
 namespace LaurentiuCristofor.Proteus.Common
 {
+    /// <summary>
+    /// This class can be used to get information about the Proteus assembly.
+    /// </summary>
     public abstract class ProteusInfo
     {
         public static AssemblyName GetAssemblyInfo()

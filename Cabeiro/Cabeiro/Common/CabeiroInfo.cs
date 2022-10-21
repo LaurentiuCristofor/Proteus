@@ -9,6 +9,9 @@ using System.Reflection;
 
 namespace LaurentiuCristofor.Cabeiro.Common
 {
+    /// <summary>
+    /// This class can be used to get information about the Cabeiro assembly.
+    /// </summary>
     public abstract class CabeiroInfo
     {
         public static AssemblyName GetAssemblyInfo()

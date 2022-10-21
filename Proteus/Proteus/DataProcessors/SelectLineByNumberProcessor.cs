@@ -20,7 +20,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     ///
     /// OutputExtraOperationParameters is expected to contain:
     /// UlongParameters[0] - first line count selection argument
-    /// UlongParameters[1] - second line count selection argument (optional)
+    /// UlongParameters[1] - second line count selection argument (if required)
     /// </summary>
     public class SelectLineByNumberProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraOperationParameters<PositionSelectionType>, string>
     {

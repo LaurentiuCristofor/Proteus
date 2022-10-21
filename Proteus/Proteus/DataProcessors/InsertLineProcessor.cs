@@ -18,7 +18,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// 
     /// OutputExtraOperationParameters is expected to contain:
     /// StringParameters[0] - line to insert
-    /// UlongParameters[0] - insertion line count (optional)
+    /// UlongParameters[0] - insertion line count (if required)
     /// </summary>
     public class InsertLineProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraOperationParameters<PositionInsertionType>, string>
     {

@@ -30,8 +30,8 @@ namespace LaurentiuCristofor.Proteus.Common
 
         public abstract class Messages
         {
-            public const string LineTooShortForColumnExtraction = "\nLine {0} is too short for extracting column number {1}!";
-            public const string InvalidValueForColumnExtraction = "\nFound an invalid value for column {0} of type {1} in line {2}: '{3}'!";
+            public const string LineTooShortForColumnExtractionFormat = "\nLine {0} is too short for extracting column number {1}!";
+            public const string InvalidValueForColumnExtractionFormat = "\nFound an invalid value for column {0} of type {1} in line {2}: '{3}'!";
 
             public const string NoDataFoundForAnalysis = "No data was found to analyze!";
 

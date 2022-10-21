@@ -29,7 +29,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public bool Execute(ulong lineNumber, OneExtractedValue lineData)
         {
-            this.Analyzer.AnalyzeData(lineData.ExtractedData);
+            this.Analyzer.Analyze(lineData.ExtractedData);
 
             return true;
         }

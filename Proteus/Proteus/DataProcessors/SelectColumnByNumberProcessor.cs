@@ -20,7 +20,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     ///
     /// OutputExtraOperationParameters is expected to contain:
     /// IntParameters[0] - first column count
-    /// IntParameters[1] - second column count (optional)
+    /// IntParameters[1] - second column count (if required)
     /// </summary>
     public class SelectColumnByNumberProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraOperationParameters<PositionSelectionType>, ExtractedColumnStrings>
     {

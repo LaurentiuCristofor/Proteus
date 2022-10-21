@@ -20,7 +20,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
     /// A data processor that joins lines from two files based on the values of two columns.
     /// 
     /// OutputExtraOperationParameters is expected to contain:
-    /// StringParameters[0] - outer join default value (optional)
+    /// StringParameters[0] - outer join default value (if required)
     /// </summary>
     public class JoinPostSortingProcessor: BaseOutputProcessor, IDualDataProcessor<OutputExtraOperationParameters<JoinType>, OneExtractedValue>
     {

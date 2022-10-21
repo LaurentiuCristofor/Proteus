@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 
 using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.Algorithms;
 using LaurentiuCristofor.Proteus.Common.Random;
 using LaurentiuCristofor.Proteus.Common.Utilities;
 using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
@@ -87,9 +88,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 // Exchange the lines indicated by the pair of indices.
                 //
-                string line = this.Lines[indexFirstLine];
-                this.Lines[indexFirstLine] = this.Lines[indexSecondLine];
-                this.Lines[indexSecondLine] = line;
+                SortingOperations.Exchange(this.Lines, indexFirstLine, indexSecondLine);
             }
 
             timer.StopAndReport();

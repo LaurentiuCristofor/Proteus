@@ -12,6 +12,9 @@ using LaurentiuCristofor.Proteus.Common.Logging;
 
 namespace LaurentiuCristofor.Proteus.Common.Utilities
 {
+    /// <summary>
+    /// A class used to measure the time elapsed between its initialization and a call to StopAndReport().
+    /// </summary>
     public class Timer
     {
         /// <summary>
@@ -30,7 +33,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         protected uint CountFinalLineEndings { get; set; }
 
         /// <summary>
-        /// Creates a timer for measuring a time interval.
+        /// Creates a timer for measuring a time interval and specifies the messages that should be printed when the time counting starts and stops.
         /// </summary>
         /// <param name="startMessage">The message to log at the start of the interval.</param>
         /// <param name="stopMessage">The message to log at the end of the interval.</param>
@@ -39,12 +42,13 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         {
             this.StopMessage = stopMessage;
             this.CountFinalLineEndings = countFinalLineEndings;
+
             if (startMessage != null)
             {
                 LoggingManager.GetLogger().Log(startMessage);
             }
-            this.Stopwatch = new Stopwatch();
-            this.Stopwatch.Start();
+
+            this.Stopwatch = Stopwatch.StartNew();
         }
 
         /// <summary>
@@ -56,21 +60,35 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         }
 
         /// <summary>
-        /// Stops the Stopwatch instance and reports the elapsed time.
+        /// Creates a timer that prints no messages.
         /// </summary>
-        public void StopAndReport()
+        public Timer() : this (null, null, 0)
+        {
+        }
+
+        /// <summary>
+        /// Stops the Stopwatch instance and reports the elapsed time.
+        /// <returns>The elapsed TimeSpan value.</returns>
+        /// </summary>
+        public TimeSpan StopAndReport()
         {
             this.Stopwatch.Stop();
+
             TimeSpan timeSpan = this.Stopwatch.Elapsed;
+            string formattedTimeSpan = Timer.FormatTimeSpan(timeSpan);
+
             if (this.StopMessage != null)
             {
-                LoggingManager.GetLogger().Log($"{this.StopMessage}{Timer.FormatTimeSpan(timeSpan)}");
+                LoggingManager.GetLogger().Log($"{this.StopMessage}{formattedTimeSpan}");
             }
+
             uint count = this.CountFinalLineEndings;
             while (count-- > 0)
             {
                 LoggingManager.GetLogger().LogLine(string.Empty);
             }
+
+            return timeSpan;
         }
 
         /// <summary>

@@ -21,7 +21,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// OutputExtraOperationParameters is expected to contain:
     /// StringParameters[0] - packing/unpacking separator
     /// IntParameters[0] - first column number
-    /// IntParameters[1] - second column number (optional)
+    /// IntParameters[1] - second column number (if required)
     /// </summary>
     public class TransformColumnsProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraOperationParameters<ColumnTransformationType>, ExtractedColumnStrings>
     {

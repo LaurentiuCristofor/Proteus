@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace LaurentiuCristofor.Proteus.Common.Algorithms
 {
-    public abstract class SortingMethods
+    public abstract class SortingOperations
     {
         /// <summary>
         /// Exchanges two elements in a list.

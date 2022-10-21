@@ -15,29 +15,35 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
 {
     public abstract class CustomSorting
     {
+        /// <summary>
+        /// Sorts a list using a custom sorting algorithm.
+        /// </summary>
+        /// <typeparam name="T">The type of the list elements.</typeparam>
+        /// <param name="list">The list to sort.</param>
+        /// <param name="algorithmType">The custom sorting algorithm to use.</param>
         public static void Sort<T>(List<T> list, SortingAlgorithmType algorithmType)
             where T : IComparable
         {
             switch (algorithmType)
             {
                 case SortingAlgorithmType.Insertion:
-                    SortingMethods.InsertionSort<T>(list);
+                    SortingOperations.InsertionSort<T>(list);
                     break;
 
                 case SortingAlgorithmType.Shell:
-                    SortingMethods.ShellSort<T>(list);
+                    SortingOperations.ShellSort<T>(list);
                     break;
 
                 case SortingAlgorithmType.Merge:
-                    SortingMethods.MergeSort<T>(list);
+                    SortingOperations.MergeSort<T>(list);
                     break;
 
                 case SortingAlgorithmType.Quicksort:
-                    SortingMethods.Quicksort<T>(list);
+                    SortingOperations.Quicksort<T>(list);
                     break;
 
                 case SortingAlgorithmType.Heap:
-                    SortingMethods.HeapSort<T>(list);
+                    SortingOperations.HeapSort<T>(list);
                     break;
 
                 default:

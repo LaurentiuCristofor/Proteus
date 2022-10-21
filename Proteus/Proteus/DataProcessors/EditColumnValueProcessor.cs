@@ -18,7 +18,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// A data processor that edits a column value.
     ///
     /// OutputExtraOperationParameters is expected to contain:
-    /// DataHolderParameters[0] - edit operand (optional)
+    /// DataHolderParameters[0] - edit operand (if required)
     /// </summary>
     public class EditColumnValueProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraOperationParameters<ValueEditType>, OneExtractedValue>
     {

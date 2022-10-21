@@ -21,7 +21,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
     /// to find a line to join with the currently processed line.
     /// 
     /// OutputExtraOperationParameters is expected to contain:
-    /// StringParameters[0] - outer join default value (optional)
+    /// StringParameters[0] - outer join default value (if required)
     /// </summary>
     public class JoinProcessor : BaseOutputProcessor, IDataLookupProcessor<OutputExtraOperationParameters<JoinType>, Dictionary<IDataHolder, List<string>>, OneExtractedValue>
     {
