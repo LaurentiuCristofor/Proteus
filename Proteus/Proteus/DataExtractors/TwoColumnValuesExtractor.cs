@@ -20,18 +20,18 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
         public void Initialize(TwoColumnValuesExtractionParameters extractionParameters)
         {
-            this.Parameters = extractionParameters;
+            Parameters = extractionParameters;
         }
 
         public TwoExtractedValues ExtractData(ulong lineNumber, string line)
         {
             // Split the line into columns using the separator parameter.
             //
-            string[] columns = line.Split(this.Parameters.Separators, StringSplitOptions.None);
+            string[] columns = line.Split(Parameters.Separators, StringSplitOptions.None);
 
             // Try to extract the first column value.
             //
-            IDataHolder columnData = OneColumnValueExtractor.ExtractColumn(lineNumber, columns, this.Parameters.ColumnNumber, this.Parameters.ColumnDataType);
+            IDataHolder columnData = OneColumnValueExtractor.ExtractColumn(lineNumber, columns, Parameters.ColumnNumber, Parameters.ColumnDataType);
             if (columnData == null)
             {
                 return null;
@@ -39,7 +39,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
             // Try to extract the second column value.
             //
-            IDataHolder secondColumnData = OneColumnValueExtractor.ExtractColumn(lineNumber, columns, this.Parameters.SecondColumnNumber, this.Parameters.SecondColumnDataType);
+            IDataHolder secondColumnData = OneColumnValueExtractor.ExtractColumn(lineNumber, columns, Parameters.SecondColumnNumber, Parameters.SecondColumnDataType);
             if (secondColumnData == null)
             {
                 return null;
@@ -47,7 +47,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
             // Package and return all the information that we extracted from the line.
             //
-            return new TwoExtractedValues(line, columns, this.Parameters.Separators[0], columnData, this.Parameters.ColumnNumber, secondColumnData);
+            return new TwoExtractedValues(line, columns, Parameters.Separators[0], columnData, Parameters.ColumnNumber, secondColumnData);
         }
     }
 }

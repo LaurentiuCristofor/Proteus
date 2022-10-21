@@ -40,15 +40,15 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         /// <param name="countFinalLineEndings">The number of line endings to print after we printed the elapsed time.</param>
         public Timer(string startMessage, string stopMessage, uint countFinalLineEndings = 1)
         {
-            this.StopMessage = stopMessage;
-            this.CountFinalLineEndings = countFinalLineEndings;
+            StopMessage = stopMessage;
+            CountFinalLineEndings = countFinalLineEndings;
 
             if (startMessage != null)
             {
                 LoggingManager.GetLogger().Log(startMessage);
             }
 
-            this.Stopwatch = Stopwatch.StartNew();
+            Stopwatch = Stopwatch.StartNew();
         }
 
         /// <summary>
@@ -72,17 +72,17 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         /// </summary>
         public TimeSpan StopAndReport()
         {
-            this.Stopwatch.Stop();
+            Stopwatch.Stop();
 
-            TimeSpan timeSpan = this.Stopwatch.Elapsed;
+            TimeSpan timeSpan = Stopwatch.Elapsed;
             string formattedTimeSpan = Timer.FormatTimeSpan(timeSpan);
 
-            if (this.StopMessage != null)
+            if (StopMessage != null)
             {
-                LoggingManager.GetLogger().Log($"{this.StopMessage}{formattedTimeSpan}");
+                LoggingManager.GetLogger().Log($"{StopMessage}{formattedTimeSpan}");
             }
 
-            uint count = this.CountFinalLineEndings;
+            uint count = CountFinalLineEndings;
             while (count-- > 0)
             {
                 LoggingManager.GetLogger().LogLine(string.Empty);

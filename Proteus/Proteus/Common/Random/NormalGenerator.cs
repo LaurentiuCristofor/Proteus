@@ -42,7 +42,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// <param name="randomGenerator">The System.Random instance to use, or null to generate a new instance.</param>
         public NormalGenerator(System.Random randomGenerator = null)
         {
-            this.RandomGenerator = randomGenerator ?? new System.Random();
+            RandomGenerator = randomGenerator ?? new System.Random();
         }
 
         /// <summary>
@@ -51,18 +51,18 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// <returns>A new double value with the requested normal distribution.</returns>
         public double Next()
         {
-            if (this.HasNextValue)
+            if (HasNextValue)
             {
-                this.HasNextValue = false;
-                return this.NextValue;
+                HasNextValue = false;
+                return NextValue;
             }
 
             while (true)
             {
                 // P1: [Get uniform variables]
                 //
-                double U1 = this.RandomGenerator.NextDouble();
-                double U2 = this.RandomGenerator.NextDouble();
+                double U1 = RandomGenerator.NextDouble();
+                double U2 = RandomGenerator.NextDouble();
 
                 // Distributes the values between -1 and 1.
                 //
@@ -86,8 +86,8 @@ namespace LaurentiuCristofor.Proteus.Common.Random
                 double X1 = V1 * squareRootFactor;
                 double X2 = V2 * squareRootFactor;
 
-                this.NextValue = X2;
-                this.HasNextValue = true;
+                NextValue = X2;
+                HasNextValue = true;
                 return X1;
             }
         }
@@ -98,7 +98,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// <returns>A string representation of the next generated value.</returns>
         public string NextString()
         {
-            return this.Next().ToString();
+            return Next().ToString();
         }
     }
 }

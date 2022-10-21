@@ -36,11 +36,11 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         {
             ArgumentChecker.CheckGreaterThanOrEqualTo(totalCount, 0);
 
-            this.RandomGenerator = randomGenerator ?? new System.Random();
+            RandomGenerator = randomGenerator ?? new System.Random();
 
             // P1. [Initialize]
             //
-            this.RemainingShufflingSteps = totalCount;
+            RemainingShufflingSteps = totalCount;
         }
 
         /// <summary>
@@ -49,24 +49,24 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// <returns>A tuple indicating the numbers of the values to exchange, or null if the shuffling has ended.</returns>
         public Tuple<int, int> Next()
         {
-            if (this.RemainingShufflingSteps == 0)
+            if (RemainingShufflingSteps == 0)
             {
                 return null;
             }
 
             // P2. [Generate U]
             //
-            double U = this.RandomGenerator.NextDouble();
+            double U = RandomGenerator.NextDouble();
 
             // P3. [Exchange]
-            // valueNumber will get a value between 1 and this.RemainingShufflingSteps.
+            // valueNumber will get a value between 1 and RemainingShufflingSteps.
             //
-            int valueNumber = (int)Math.Floor(this.RemainingShufflingSteps * U) + 1;
-            int otherValueNumber = this.RemainingShufflingSteps;
+            int valueNumber = (int)Math.Floor(RemainingShufflingSteps * U) + 1;
+            int otherValueNumber = RemainingShufflingSteps;
 
             // P4. [Decrease step]
             //
-            --this.RemainingShufflingSteps;
+            --RemainingShufflingSteps;
 
             return new Tuple<int, int>(valueNumber, otherValueNumber);
         }

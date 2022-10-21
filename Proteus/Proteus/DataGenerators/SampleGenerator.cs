@@ -29,12 +29,12 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
 
             // Initialize our sampler.
             //
-            this.Sampler = new KnownTotalSampler(generationParameters.TotalCount, generationParameters.GenerationCount, uniformGenerator);
+            Sampler = new KnownTotalSampler(generationParameters.TotalCount, generationParameters.GenerationCount, uniformGenerator);
         }
 
         public string NextString()
         {
-            ulong nextSampleValue = this.Sampler.Next();
+            ulong nextSampleValue = Sampler.Next();
 
             if (nextSampleValue == 0)
             {

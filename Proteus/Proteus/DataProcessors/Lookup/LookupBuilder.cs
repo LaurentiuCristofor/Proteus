@@ -24,14 +24,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
 
         public LookupBuilder()
         {
-            this.LookupSet = new HashSet<IDataHolder>();
+            LookupSet = new HashSet<IDataHolder>();
         }
 
         public HashSet<IDataHolder> Execute(OneExtractedValue lineData)
         {
-            this.LookupSet.Add(lineData.ExtractedData);
+            LookupSet.Add(lineData.ExtractedData);
 
-            return this.LookupSet;
+            return LookupSet;
         }
     }
 }

@@ -49,31 +49,31 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             ArgumentChecker.CheckPresence(processingParameters.IntParameters, SampleSizeIndex);
 
             int seed = processingParameters.IntParameters[SeedIndex];
-            this.SampleSize = processingParameters.IntParameters[SampleSizeIndex];
+            SampleSize = processingParameters.IntParameters[SampleSizeIndex];
 
             Random randomGenerator = (seed >= 0) ? new Random(seed) : new Random();
-            this.Sampler = new UnknownTotalSampler(this.SampleSize, randomGenerator);
+            Sampler = new UnknownTotalSampler(SampleSize, randomGenerator);
 
-            this.SampleLinesWithNumbers = new List<DataPair<ulong, string>>();
+            SampleLinesWithNumbers = new List<DataPair<ulong, string>>();
 
-            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: true);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: true);
         }
 
         public bool Execute(ulong lineNumber, string line)
         {
-            if (lineNumber <= (ulong)this.SampleSize)
+            if (lineNumber <= (ulong)SampleSize)
             {
-                this.SampleLinesWithNumbers.Add(new DataPair<ulong, string>(lineNumber, line));
+                SampleLinesWithNumbers.Add(new DataPair<ulong, string>(lineNumber, line));
             }
             else
             {
                 // Check if the current line should replace a sample line.
                 // Convert the number to an index for the replacement.
                 //
-                int sampleLineReplacementNumber = this.Sampler.EvaluateAnotherElement();
+                int sampleLineReplacementNumber = Sampler.EvaluateAnotherElement();
                 if (sampleLineReplacementNumber > 0)
                 {
-                    this.SampleLinesWithNumbers[sampleLineReplacementNumber - 1] = new DataPair<ulong, string>(lineNumber, line);
+                    SampleLinesWithNumbers[sampleLineReplacementNumber - 1] = new DataPair<ulong, string>(lineNumber, line);
                 }
             }
 
@@ -82,18 +82,18 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public override void CompleteExecution()
         {
-            if (this.SampleLinesWithNumbers.Count < this.SampleSize)
+            if (SampleLinesWithNumbers.Count < SampleSize)
             {
-                throw new ProteusException($"The input file is smaller than the requested sample size! The requested sample size was {this.SampleSize} but only {this.SampleLinesWithNumbers.Count} lines were found.");
+                throw new ProteusException($"The input file is smaller than the requested sample size! The requested sample size was {SampleSize} but only {SampleLinesWithNumbers.Count} lines were found.");
             }
 
             Timer timer = new Timer($"\n{Constants.Messages.SortingStart}", Constants.Messages.SortingEnd, countFinalLineEndings: 0);
-            this.SampleLinesWithNumbers.Sort();
+            SampleLinesWithNumbers.Sort();
             timer.StopAndReport();
 
-            foreach (DataPair<ulong, string> dataPair in this.SampleLinesWithNumbers)
+            foreach (DataPair<ulong, string> dataPair in SampleLinesWithNumbers)
             {
-                this.OutputWriter.WriteLine(dataPair.SecondData);
+                OutputWriter.WriteLine(dataPair.SecondData);
             }
 
             base.CompleteExecution();

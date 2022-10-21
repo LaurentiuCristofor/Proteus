@@ -29,32 +29,32 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(BaseOutputParameters processingParameters)
         {
-            this.ColumnLinePairs = new List<DataPair<IDataHolder, string>>();
+            ColumnLinePairs = new List<DataPair<IDataHolder, string>>();
 
-            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: true);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: true);
         }
 
         public bool Execute(ulong lineNumber, OneExtractedValue lineData)
         {
-            this.ColumnLinePairs.Add(new DataPair<IDataHolder, string>(lineData.ExtractedData, lineData.OriginalLine));
+            ColumnLinePairs.Add(new DataPair<IDataHolder, string>(lineData.ExtractedData, lineData.OriginalLine));
 
             return true;
         }
 
         public override void CompleteExecution()
         {
-            if (this.ColumnLinePairs == null)
+            if (ColumnLinePairs == null)
             {
                 throw new ProteusException("Internal error: An expected data structure has not been initialized!");
             }
 
             Timer timer = new Timer($"\n{Constants.Messages.SortingStart}", Constants.Messages.SortingEnd, countFinalLineEndings: 0);
-            this.ColumnLinePairs.Sort();
+            ColumnLinePairs.Sort();
             timer.StopAndReport();
 
-            foreach (DataPair<IDataHolder, string> dataPair in this.ColumnLinePairs)
+            foreach (DataPair<IDataHolder, string> dataPair in ColumnLinePairs)
             {
-                this.OutputWriter.WriteLine(dataPair.SecondData);
+                OutputWriter.WriteLine(dataPair.SecondData);
             }
 
             base.CompleteExecution();

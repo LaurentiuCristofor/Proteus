@@ -31,9 +31,9 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             string[] columns,
             string columnSeparator)
         {
-            this.OriginalLine = originalLine;
-            this.Columns = columns;
-            this.ColumnSeparator = columnSeparator;
+            OriginalLine = originalLine;
+            Columns = columns;
+            ColumnSeparator = columnSeparator;
         }
 
         /// <summary>
@@ -43,11 +43,11 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         /// <returns>The new line, or null if the original line only consisted of the removed column.</returns>
         public string AssembleWithoutColumn(int columnNumber)
         {
-            if (columnNumber > this.Columns.Length)
+            if (columnNumber > Columns.Length)
             {
-                return string.Join(this.ColumnSeparator, this.Columns);
+                return string.Join(ColumnSeparator, Columns);
             }
-            else if (columnNumber == 1 && columnNumber == this.Columns.Length)
+            else if (columnNumber == 1 && columnNumber == Columns.Length)
             {
                 return null;
             }
@@ -55,20 +55,20 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             // Simply build a new column array, ommitting the entry for our column,
             // and then build the line from it.
             //
-            string[] newColumns = new string[this.Columns.Length - 1];
+            string[] newColumns = new string[Columns.Length - 1];
             int columnIndex = columnNumber - 1;
 
-            for (int readIndex = 0, writeIndex = 0; readIndex < this.Columns.Length; ++readIndex)
+            for (int readIndex = 0, writeIndex = 0; readIndex < Columns.Length; ++readIndex)
             {
                 if (readIndex == columnIndex)
                 {
                     continue;
                 }
 
-                newColumns[writeIndex++] = this.Columns[readIndex];
+                newColumns[writeIndex++] = Columns[readIndex];
             }
 
-            return string.Join(this.ColumnSeparator, newColumns);
+            return string.Join(ColumnSeparator, newColumns);
         }
 
         /// <summary>
@@ -82,26 +82,26 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         {
             ArgumentChecker.CheckInterval(startColumnNumber, endColumnNumber);
 
-            if (startColumnNumber > this.Columns.Length)
+            if (startColumnNumber > Columns.Length)
             {
-                return string.Join(this.ColumnSeparator, this.Columns);
+                return string.Join(ColumnSeparator, Columns);
             }
-            else if (startColumnNumber == 1 && endColumnNumber == this.Columns.Length)
+            else if (startColumnNumber == 1 && endColumnNumber == Columns.Length)
             {
                 return replacementData;
             }
-            else if (endColumnNumber > this.Columns.Length)
+            else if (endColumnNumber > Columns.Length)
             {
                 return null;
             }
 
             // Build a new array of columns, replacing a range of columns with a specific data.
             //
-            string[] newColumns = new string[this.Columns.Length - endColumnNumber + startColumnNumber];
+            string[] newColumns = new string[Columns.Length - endColumnNumber + startColumnNumber];
 
             int startColumnIndex = startColumnNumber - 1;
             int endColumnIndex = endColumnNumber - 1;
-            for (int readIndex = 0, writeIndex = 0; readIndex < this.Columns.Length; ++readIndex)
+            for (int readIndex = 0, writeIndex = 0; readIndex < Columns.Length; ++readIndex)
             {
                 if (readIndex == startColumnIndex)
                 {
@@ -120,10 +120,10 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
                 // Copy data for all other columns outside the range.
                 //
-                newColumns[writeIndex++] = this.Columns[readIndex];
+                newColumns[writeIndex++] = Columns[readIndex];
             }
 
-            return string.Join(this.ColumnSeparator, newColumns);
+            return string.Join(ColumnSeparator, newColumns);
         }
     }
 }

@@ -22,9 +22,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
 
         public void Initialize(OutputOperationParameters<LookupType> processingParameters)
         {
-            this.LookupType = processingParameters.OperationType;
+            LookupType = processingParameters.OperationType;
 
-            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public ProcessingActionType Execute(
@@ -43,7 +43,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
                 // If we're writing them out (if ProcessLine() returns true), then continue writing them all;
                 // otherwise, terminate processing.
                 //
-                if (ProcessLine(firstLineData.OriginalLine, this.LookupType, isIncluded: false))
+                if (ProcessLine(firstLineData.OriginalLine, LookupType, isIncluded: false))
                 {
                     return ProcessingActionType.AdvanceFirst;
                 }
@@ -60,7 +60,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
             {
                 // The line did not match. Process it and move to the next one.
                 //
-                ProcessLine(firstLineData.OriginalLine, this.LookupType, isIncluded: false);
+                ProcessLine(firstLineData.OriginalLine, LookupType, isIncluded: false);
 
                 return ProcessingActionType.AdvanceFirst;
             }
@@ -68,7 +68,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
             {
                 // The line matched. Process it and move to the next one.
                 //
-                ProcessLine(firstLineData.OriginalLine, this.LookupType, isIncluded: true);
+                ProcessLine(firstLineData.OriginalLine, LookupType, isIncluded: true);
 
                 return ProcessingActionType.AdvanceFirst;
             }
@@ -102,12 +102,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling lookup type '{this.LookupType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling lookup type '{LookupType}'!");
             }
 
             if (shouldOutputLine)
             {
-                this.OutputWriter.WriteLine(line);
+                OutputWriter.WriteLine(line);
             }
 
             return shouldOutputLine;

@@ -5,8 +5,6 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-
 namespace LaurentiuCristofor.Proteus.Common.Random
 {
     /// <summary>
@@ -27,7 +25,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// <param name="randomGenerator">The System.Random instance to use, or null to generate a new instance.</param>
         public UniformGenerator(System.Random randomGenerator)
         {
-            this.RandomGenerator = randomGenerator ?? new System.Random();
+            RandomGenerator = randomGenerator ?? new System.Random();
         }
 
         /// <summary>
@@ -36,7 +34,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// <returns>A new double value with uniform distribution.</returns>
         public double Next()
         {
-            return this.RandomGenerator.NextDouble();
+            return RandomGenerator.NextDouble();
         }
 
         /// <summary>
@@ -45,7 +43,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// <returns>A string representation of the next generated value.</returns>
         public string NextString()
         {
-            return this.Next().ToString();
+            return Next().ToString();
         }
     }
 }

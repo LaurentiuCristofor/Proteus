@@ -42,13 +42,13 @@ namespace LaurentiuCristofor.Proteus.FileOperations
 
         public FileWriter(string outputFilePath, bool trackProgress = false)
         {
-            this.OutputFilePath = outputFilePath;
+            OutputFilePath = outputFilePath;
 
-            this.TrackProgress = trackProgress;
+            TrackProgress = trackProgress;
 
-            this.OutputWriter = new StreamWriter(this.OutputFilePath);
+            OutputWriter = new StreamWriter(OutputFilePath);
 
-            this.CountLinesWritten = 0;
+            CountLinesWritten = 0;
         }
 
         /// <summary>
@@ -59,18 +59,18 @@ namespace LaurentiuCristofor.Proteus.FileOperations
         {
             // If we need to track progress, reset the progress tracker output before our first write.
             //
-            if (this.TrackProgress && this.CountLinesWritten == 0)
+            if (TrackProgress && CountLinesWritten == 0)
             {
                 ProgressTracker.Reset();
             }
 
-            this.OutputWriter.WriteLine(line);
+            OutputWriter.WriteLine(line);
 
-            this.CountLinesWritten++;
+            CountLinesWritten++;
 
-            if (this.TrackProgress)
+            if (TrackProgress)
             {
-                ProgressTracker.Track(this.CountLinesWritten);
+                ProgressTracker.Track(CountLinesWritten);
             }
         }
 
@@ -79,9 +79,9 @@ namespace LaurentiuCristofor.Proteus.FileOperations
         /// </summary>
         public void CloseAndReport()
         {
-            this.OutputWriter.Close();
+            OutputWriter.Close();
 
-            LoggingManager.GetLogger().LogLine($"\n{this.CountLinesWritten:N0} {Constants.Messages.LinesWrittenToFile} '{Path.GetFileName(this.OutputFilePath)}'.");
+            LoggingManager.GetLogger().LogLine($"\n{CountLinesWritten:N0} {Constants.Messages.LinesWrittenToFile} '{Path.GetFileName(OutputFilePath)}'.");
         }
     }
 }

@@ -37,35 +37,35 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputExtraParameters processingParameters)
         {
-            this.OutputFilePath = processingParameters.OutputFilePath;
+            OutputFilePath = processingParameters.OutputFilePath;
 
             ArgumentChecker.CheckPresence(processingParameters.StringParameters, OutputFileExtensionIndex);
             ArgumentChecker.CheckPresence(processingParameters.UlongParameters, RangeSizeIndex);
 
-            this.OutputFileExtension = processingParameters.StringParameters[OutputFileExtensionIndex];
-            this.RangeSize = processingParameters.UlongParameters[RangeSizeIndex];
+            OutputFileExtension = processingParameters.StringParameters[OutputFileExtensionIndex];
+            RangeSize = processingParameters.UlongParameters[RangeSizeIndex];
 
-            ArgumentChecker.CheckNotNullAndNotEmpty(this.OutputFileExtension);
-            ArgumentChecker.CheckGreaterThanOrEqualTo(this.RangeSize, 1UL);
+            ArgumentChecker.CheckNotNullAndNotEmpty(OutputFileExtension);
+            ArgumentChecker.CheckGreaterThanOrEqualTo(RangeSize, 1UL);
         }
 
         public bool Execute(ulong lineNumber, string line)
         {
             // Open a new file, if we're at the beginning of a new range.
             //
-            if (this.OutputWriter == null)
+            if (OutputWriter == null)
             {
-                this.OutputWriter = new FileWriter(this.OutputFilePath + $".{lineNumber}{this.OutputFileExtension}");
+                OutputWriter = new FileWriter(OutputFilePath + $".{lineNumber}{OutputFileExtension}");
             }
 
-            this.OutputWriter.WriteLine(line);
+            OutputWriter.WriteLine(line);
 
             // If we just finished outputting a range, close current file.
             //
-            if (lineNumber % this.RangeSize == 0)
+            if (lineNumber % RangeSize == 0)
             {
-                this.OutputWriter.CloseAndReport();
-                this.OutputWriter = null;
+                OutputWriter.CloseAndReport();
+                OutputWriter = null;
             }
 
             return true;

@@ -50,36 +50,36 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             string outputFileExtension = processingParameters.StringParameters[OutputFileExtensionIndex];
             int seed = processingParameters.IntParameters[SeedIndex];
-            this.SetsCount = processingParameters.IntParameters[SetsCountIndex];
+            SetsCount = processingParameters.IntParameters[SetsCountIndex];
 
             ArgumentChecker.CheckNotNullAndNotEmpty(outputFileExtension);
-            ArgumentChecker.CheckGreaterThanOrEqualTo(this.SetsCount, 2);
+            ArgumentChecker.CheckGreaterThanOrEqualTo(SetsCount, 2);
 
-            this.MapSetToFileWriter = new Dictionary<int, FileWriter>();
-            for (int i = 1; i <= this.SetsCount; ++i)
+            MapSetToFileWriter = new Dictionary<int, FileWriter>();
+            for (int i = 1; i <= SetsCount; ++i)
             {
-                this.MapSetToFileWriter.Add(i, new FileWriter(processingParameters.OutputFilePath + $".{i}{outputFileExtension}"));
+                MapSetToFileWriter.Add(i, new FileWriter(processingParameters.OutputFilePath + $".{i}{outputFileExtension}"));
             }
 
-            this.RandomGenerator = (seed >= 0) ? new System.Random(seed) : new System.Random();
+            RandomGenerator = (seed >= 0) ? new System.Random(seed) : new System.Random();
         }
 
         public bool Execute(ulong lineNumber, string line)
         {
             // Pick a random set to place the line in.
             //
-            int setNumber = this.RandomGenerator.Next(1, this.SetsCount + 1);
+            int setNumber = RandomGenerator.Next(1, SetsCount + 1);
 
-            this.MapSetToFileWriter[setNumber].WriteLine(line);
+            MapSetToFileWriter[setNumber].WriteLine(line);
 
             return true;
         }
 
         public override void CompleteExecution()
         {
-            foreach (int setNumber in this.MapSetToFileWriter.Keys)
+            foreach (int setNumber in MapSetToFileWriter.Keys)
             {
-                this.MapSetToFileWriter[setNumber].CloseAndReport();
+                MapSetToFileWriter[setNumber].CloseAndReport();
             }
 
             base.CompleteExecution();

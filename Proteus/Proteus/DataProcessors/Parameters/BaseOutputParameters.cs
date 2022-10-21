@@ -20,7 +20,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
         public BaseOutputParameters(
             string outputFilePath)
         {
-            this.OutputFilePath = outputFilePath;
+            OutputFilePath = outputFilePath;
         }
     }
 }

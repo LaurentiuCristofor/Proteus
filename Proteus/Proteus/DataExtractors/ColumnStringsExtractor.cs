@@ -18,16 +18,16 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
         public void Initialize(ColumnStringsExtractionParameters extractionParameters)
         {
-            this.Parameters = extractionParameters;
+            Parameters = extractionParameters;
         }
 
         public ExtractedColumnStrings ExtractData(ulong lineNumber, string line)
         {
             // Split the line into columns using the separator parameter.
             //
-            string[] columns = line.Split(this.Parameters.Separators, StringSplitOptions.None);
+            string[] columns = line.Split(Parameters.Separators, StringSplitOptions.None);
 
-            return new ExtractedColumnStrings(line, columns, this.Parameters.Separators[0]);
+            return new ExtractedColumnStrings(line, columns, Parameters.Separators[0]);
         }
     }
 }

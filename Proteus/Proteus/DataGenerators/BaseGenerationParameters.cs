@@ -20,7 +20,7 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
         public BaseGenerationParameters(
             ulong generationCount)
         {
-            this.GenerationCount = generationCount;
+            GenerationCount = generationCount;
         }
     }
 }

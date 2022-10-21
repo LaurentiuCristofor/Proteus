@@ -33,9 +33,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputExtraOperationParameters<ValueEditType> processingParameters)
         {
-            this.EditType = processingParameters.OperationType;
+            EditType = processingParameters.OperationType;
 
-            switch (this.EditType)
+            switch (EditType)
             {
                 case ValueEditType.Rewrite:
                     break;
@@ -45,15 +45,15 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 case ValueEditType.Multiply:
                 case ValueEditType.Divide:
                     ArgumentChecker.CheckPresence(processingParameters.DataHolderParameters, EditOperandIndex);
-                    this.EditOperand = processingParameters.DataHolderParameters[EditOperandIndex];
-                    ArgumentChecker.CheckNotNull(this.EditOperand);
+                    EditOperand = processingParameters.DataHolderParameters[EditOperandIndex];
+                    ArgumentChecker.CheckNotNull(EditOperand);
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling value edit type '{this.EditType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling value edit type '{EditType}'!");
             }
 
-            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, OneExtractedValue lineData)
@@ -62,37 +62,37 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             // Update the column string representation with the string representation of the edited data.
             //
-            switch (this.EditType)
+            switch (EditType)
             {
                 case ValueEditType.Rewrite:
                     lineData.Columns[columnIndex] = lineData.ExtractedData.ToString();
                     break;
 
                 case ValueEditType.Add:
-                    lineData.Columns[columnIndex] = lineData.ExtractedData.Add(this.EditOperand).ToString();
+                    lineData.Columns[columnIndex] = lineData.ExtractedData.Add(EditOperand).ToString();
                     break;
 
                 case ValueEditType.Subtract:
-                    lineData.Columns[columnIndex] = lineData.ExtractedData.Subtract(this.EditOperand).ToString();
+                    lineData.Columns[columnIndex] = lineData.ExtractedData.Subtract(EditOperand).ToString();
                     break;
 
                 case ValueEditType.Multiply:
-                    lineData.Columns[columnIndex] = lineData.ExtractedData.Multiply(this.EditOperand).ToString();
+                    lineData.Columns[columnIndex] = lineData.ExtractedData.Multiply(EditOperand).ToString();
                     break;
 
                 case ValueEditType.Divide:
-                    lineData.Columns[columnIndex] = lineData.ExtractedData.Divide(this.EditOperand).ToString();
+                    lineData.Columns[columnIndex] = lineData.ExtractedData.Divide(EditOperand).ToString();
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling value edit type '{this.EditType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling value edit type '{EditType}'!");
             }
 
             // Put back together all column strings, to form the edited line.
             //
             string editedLine = string.Join(lineData.ColumnSeparator, lineData.Columns);
 
-            this.OutputWriter.WriteLine(editedLine);
+            OutputWriter.WriteLine(editedLine);
 
             return true;
         }

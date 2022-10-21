@@ -36,25 +36,25 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputOperationParameters<RelativeValueSelectionType> processingParameters)
         {
-            this.SelectionType = processingParameters.OperationType;
+            SelectionType = processingParameters.OperationType;
 
-            switch (this.SelectionType)
+            switch (SelectionType)
             {
                 case RelativeValueSelectionType.First:
                 case RelativeValueSelectionType.NotFirst:
-                    this.SetValues = new HashSet<IDataHolder>();
+                    SetValues = new HashSet<IDataHolder>();
                     break;
 
                 case RelativeValueSelectionType.Last:
                 case RelativeValueSelectionType.NotLast:
-                    this.ValuesToLastLines = new Dictionary<IDataHolder, string>();
+                    ValuesToLastLines = new Dictionary<IDataHolder, string>();
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling relative value selection type '{this.SelectionType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling relative value selection type '{SelectionType}'!");
             }
 
-            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: (this.SelectionType == RelativeValueSelectionType.Last));
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: (SelectionType == RelativeValueSelectionType.Last));
         }
 
         public bool Execute(ulong lineNumber, OneExtractedValue lineData)
@@ -65,67 +65,67 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             //
             bool shouldOutputLine = false;
             string lineToOutput = lineData.OriginalLine;
-            switch (this.SelectionType)
+            switch (SelectionType)
             {
                 case RelativeValueSelectionType.First:
                     // Lookup data in our set;
                     //
-                    if (!this.SetValues.Contains(data))
+                    if (!SetValues.Contains(data))
                     {
                         shouldOutputLine = true;
-                        this.SetValues.Add(data);
+                        SetValues.Add(data);
                     }
                     break;
 
                 case RelativeValueSelectionType.NotFirst:
                     // Lookup data in our set;
                     //
-                    if (this.SetValues.Contains(data))
+                    if (SetValues.Contains(data))
                     {
                         shouldOutputLine = true;
                     }
                     else
                     {
-                        this.SetValues.Add(data);
+                        SetValues.Add(data);
                     }
                     break;
 
                 case RelativeValueSelectionType.Last:
-                    if (this.ValuesToLastLines.ContainsKey(data))
+                    if (ValuesToLastLines.ContainsKey(data))
                     {
-                        this.ValuesToLastLines[data] = lineData.OriginalLine;
+                        ValuesToLastLines[data] = lineData.OriginalLine;
                     }
                     else
                     {
-                        this.ValuesToLastLines.Add(data, lineData.OriginalLine);
+                        ValuesToLastLines.Add(data, lineData.OriginalLine);
                     }
                     break;
 
                 case RelativeValueSelectionType.NotLast:
-                    if (this.ValuesToLastLines.ContainsKey(data))
+                    if (ValuesToLastLines.ContainsKey(data))
                     {
                         // The line we saw before with this data value is not the last, so we can output it.
                         //
-                        lineToOutput = this.ValuesToLastLines[data];
+                        lineToOutput = ValuesToLastLines[data];
                         shouldOutputLine = true;
 
                         // Update last line seen for this data value.
                         //
-                        this.ValuesToLastLines[data] = lineData.OriginalLine;
+                        ValuesToLastLines[data] = lineData.OriginalLine;
                     }
                     else
                     {
-                        this.ValuesToLastLines.Add(data, lineData.OriginalLine);
+                        ValuesToLastLines.Add(data, lineData.OriginalLine);
                     }
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling relative value selection type '{this.SelectionType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling relative value selection type '{SelectionType}'!");
             }
 
             if (shouldOutputLine)
             {
-                this.OutputWriter.WriteLine(lineToOutput);
+                OutputWriter.WriteLine(lineToOutput);
             }
 
             return true;
@@ -133,16 +133,16 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public override void CompleteExecution()
         {
-            if (this.SelectionType == RelativeValueSelectionType.Last)
+            if (SelectionType == RelativeValueSelectionType.Last)
             {
-                if (this.ValuesToLastLines == null)
+                if (ValuesToLastLines == null)
                 {
                     throw new ProteusException("Internal error: An expected data structure has not been initialized!");
                 }
 
-                foreach (string line in this.ValuesToLastLines.Values)
+                foreach (string line in ValuesToLastLines.Values)
                 {
-                    this.OutputWriter.WriteLine(line);
+                    OutputWriter.WriteLine(line);
                 }
             }
 

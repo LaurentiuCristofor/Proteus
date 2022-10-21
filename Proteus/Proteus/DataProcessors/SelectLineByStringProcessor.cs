@@ -58,22 +58,22 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputExtraOperationParameters<StringSelectionType> processingParameters)
         {
-            this.SelectionType = processingParameters.OperationType;
+            SelectionType = processingParameters.OperationType;
 
             // Validate arguments for the operation.
-            switch (this.SelectionType)
+            switch (SelectionType)
             {
                 case StringSelectionType.HasLengthBetween:
                 case StringSelectionType.HasLengthNotBetween:
                     ArgumentChecker.CheckPresence(processingParameters.IntParameters, FirstCharCountIndex);
                     ArgumentChecker.CheckPresence(processingParameters.IntParameters, SecondCharCountIndex);
 
-                    this.FirstCharCount = processingParameters.IntParameters[FirstCharCountIndex];
-                    this.SecondCharCount = processingParameters.IntParameters[SecondCharCountIndex];
+                    FirstCharCount = processingParameters.IntParameters[FirstCharCountIndex];
+                    SecondCharCount = processingParameters.IntParameters[SecondCharCountIndex];
 
-                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstCharCount, 0);
-                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.SecondCharCount, 0);
-                    ArgumentChecker.CheckInterval(this.FirstCharCount, this.SecondCharCount);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(FirstCharCount, 0);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(SecondCharCount, 0);
+                    ArgumentChecker.CheckInterval(FirstCharCount, SecondCharCount);
                     break;
 
                 case StringSelectionType.Includes:
@@ -83,8 +83,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 case StringSelectionType.EndsWith:
                 case StringSelectionType.NotEndsWith:
                     ArgumentChecker.CheckPresence(processingParameters.StringParameters, FirstStringIndex);
-                    this.FirstString = processingParameters.StringParameters[FirstStringIndex];
-                    ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstString);
+                    FirstString = processingParameters.StringParameters[FirstStringIndex];
+                    ArgumentChecker.CheckNotNullAndNotEmpty(FirstString);
                     break;
 
                 case StringSelectionType.StartsAndEndsWith:
@@ -94,34 +94,34 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     ArgumentChecker.CheckPresence(processingParameters.StringParameters, FirstStringIndex);
                     ArgumentChecker.CheckPresence(processingParameters.StringParameters, SecondStringIndex);
 
-                    this.FirstString = processingParameters.StringParameters[FirstStringIndex];
-                    this.SecondString = processingParameters.StringParameters[SecondStringIndex];
+                    FirstString = processingParameters.StringParameters[FirstStringIndex];
+                    SecondString = processingParameters.StringParameters[SecondStringIndex];
 
-                    ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstString);
-                    ArgumentChecker.CheckNotNullAndNotEmpty(this.SecondString);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(FirstString);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(SecondString);
                     break;
 
                 case StringSelectionType.Equals:
                 case StringSelectionType.NotEquals:
                     ArgumentChecker.CheckPresence(processingParameters.StringParameters, FirstStringIndex);
-                    this.FirstString = processingParameters.StringParameters[FirstStringIndex];
-                    ArgumentChecker.CheckNotNull(this.FirstString);
+                    FirstString = processingParameters.StringParameters[FirstStringIndex];
+                    ArgumentChecker.CheckNotNull(FirstString);
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling string selection type '{this.SelectionType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling string selection type '{SelectionType}'!");
             }
 
-            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, OneExtractedValue lineData)
         {
             string data = lineData.ExtractedData.ToString();
 
-            if (this.Select(data))
+            if (Select(data))
             {
-                this.OutputWriter.WriteLine(lineData.OriginalLine);
+                OutputWriter.WriteLine(lineData.OriginalLine);
             }
 
             return true;
@@ -135,52 +135,52 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// <returns></returns>
         protected bool Select(string data)
         {
-            switch (this.SelectionType)
+            switch (SelectionType)
             {
                 case StringSelectionType.HasLengthBetween:
-                    return data.Length >= this.FirstCharCount && data.Length <= this.SecondCharCount;
+                    return data.Length >= FirstCharCount && data.Length <= SecondCharCount;
 
                 case StringSelectionType.HasLengthNotBetween:
-                    return data.Length < this.FirstCharCount || data.Length > this.SecondCharCount;
+                    return data.Length < FirstCharCount || data.Length > SecondCharCount;
 
                 case StringSelectionType.Includes:
-                    return data.IndexOf(this.FirstString) != -1;
+                    return data.IndexOf(FirstString) != -1;
 
                 case StringSelectionType.NotIncludes:
-                    return data.IndexOf(this.FirstString) == -1;
+                    return data.IndexOf(FirstString) == -1;
 
                 case StringSelectionType.StartsWith:
-                    return data.StartsWith(this.FirstString);
+                    return data.StartsWith(FirstString);
 
                 case StringSelectionType.NotStartsWith:
-                    return !data.StartsWith(this.FirstString);
+                    return !data.StartsWith(FirstString);
 
                 case StringSelectionType.EndsWith:
-                    return data.EndsWith(this.FirstString);
+                    return data.EndsWith(FirstString);
 
                 case StringSelectionType.NotEndsWith:
-                    return !data.EndsWith(this.FirstString);
+                    return !data.EndsWith(FirstString);
 
                 case StringSelectionType.StartsAndEndsWith:
-                    return data.StartsWith(this.FirstString) && data.EndsWith(this.SecondString);
+                    return data.StartsWith(FirstString) && data.EndsWith(SecondString);
 
                 case StringSelectionType.NotStartsAndEndsWith:
-                    return !data.StartsWith(this.FirstString) || !data.EndsWith(this.SecondString);
+                    return !data.StartsWith(FirstString) || !data.EndsWith(SecondString);
 
                 case StringSelectionType.Equals:
-                    return data.Equals(this.FirstString);
+                    return data.Equals(FirstString);
 
                 case StringSelectionType.NotEquals:
-                    return !data.Equals(this.FirstString);
+                    return !data.Equals(FirstString);
 
                 case StringSelectionType.IncludesBefore:
-                    return StringOperations.FindMarkers(data, this.FirstString, this.SecondString, out _, out _);
+                    return StringOperations.FindMarkers(data, FirstString, SecondString, out _, out _);
 
                 case StringSelectionType.NotIncludesBefore:
-                    return !StringOperations.FindMarkers(data, this.FirstString, this.SecondString, out _, out _);
+                    return !StringOperations.FindMarkers(data, FirstString, SecondString, out _, out _);
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling string selection type '{this.SelectionType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling string selection type '{SelectionType}'!");
             }
         }
     }

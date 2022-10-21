@@ -41,28 +41,28 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputExtraOperationParameters<ComparisonType> processingParameters)
         {
-            this.ComparisonType = processingParameters.OperationType;
+            ComparisonType = processingParameters.OperationType;
 
             ArgumentChecker.CheckPresence(processingParameters.DataHolderParameters, FirstValueIndex);
-            this.FirstValue = processingParameters.DataHolderParameters[FirstValueIndex];
-            ArgumentChecker.CheckNotNull(this.FirstValue);
+            FirstValue = processingParameters.DataHolderParameters[FirstValueIndex];
+            ArgumentChecker.CheckNotNull(FirstValue);
 
             if (processingParameters.DataHolderParameters.Length > SecondValueIndex)
             {
-                this.SecondValue = processingParameters.DataHolderParameters[SecondValueIndex];
-                ArgumentChecker.CheckNotNull(this.SecondValue);
+                SecondValue = processingParameters.DataHolderParameters[SecondValueIndex];
+                ArgumentChecker.CheckNotNull(SecondValue);
             }
 
-            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, OneExtractedValue lineData)
         {
             // Perform the comparison to decide whether to output the line.
             //
-            if (DataHolderOperations.Compare(lineData.ExtractedData, this.ComparisonType, this.FirstValue, this.SecondValue))
+            if (DataHolderOperations.Compare(lineData.ExtractedData, ComparisonType, FirstValue, SecondValue))
             {
-                this.OutputWriter.WriteLine(lineData.OriginalLine);
+                OutputWriter.WriteLine(lineData.OriginalLine);
             }
 
             return true;

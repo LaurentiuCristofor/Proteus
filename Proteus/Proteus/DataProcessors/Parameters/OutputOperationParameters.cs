@@ -24,7 +24,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
             TOperationType operationType)
             : base(outputFilePath)
         {
-            this.OperationType = operationType;
+            OperationType = operationType;
         }
     }
 }

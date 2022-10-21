@@ -18,8 +18,8 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
     {
         public void Initialize(ProgressionGenerationParameters generationParameters)
         {
-            this.GenerationCount = generationParameters.GenerationCount;
-            this.GeneratedCount = 0;
+            GenerationCount = generationParameters.GenerationCount;
+            GeneratedCount = 0;
 
             switch (generationParameters.ProgressionType)
             {
@@ -27,29 +27,29 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
                     ArgumentChecker.CheckPresence(generationParameters.ProgressionParameters, 0);
                     ArgumentChecker.CheckPresence(generationParameters.ProgressionParameters, 1);
 
-                    this.Generator = new ArithmeticGenerator(generationParameters.ProgressionParameters[0], generationParameters.ProgressionParameters[1]);
+                    Generator = new ArithmeticGenerator(generationParameters.ProgressionParameters[0], generationParameters.ProgressionParameters[1]);
                     break;
 
                 case ProgressionType.Geometric:
                     ArgumentChecker.CheckPresence(generationParameters.ProgressionParameters, 0);
                     ArgumentChecker.CheckPresence(generationParameters.ProgressionParameters, 1);
 
-                    this.Generator = new GeometricGenerator(generationParameters.ProgressionParameters[0], generationParameters.ProgressionParameters[1]);
+                    Generator = new GeometricGenerator(generationParameters.ProgressionParameters[0], generationParameters.ProgressionParameters[1]);
                     break;
 
                 case ProgressionType.Harmonic:
                     ArgumentChecker.CheckPresence(generationParameters.ProgressionParameters, 0);
                     ArgumentChecker.CheckPresence(generationParameters.ProgressionParameters, 1);
 
-                    this.Generator = new HarmonicGenerator(generationParameters.ProgressionParameters[0], generationParameters.ProgressionParameters[1]);
+                    Generator = new HarmonicGenerator(generationParameters.ProgressionParameters[0], generationParameters.ProgressionParameters[1]);
                     break;
 
                 case ProgressionType.Factorial:
-                    this.Generator = new FactorialGenerator();
+                    Generator = new FactorialGenerator();
                     break;
 
                 case ProgressionType.Fibonacci:
-                    this.Generator = new FibonacciGenerator();
+                    Generator = new FibonacciGenerator();
                     break;
 
                 default:

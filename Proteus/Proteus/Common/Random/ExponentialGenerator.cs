@@ -35,8 +35,8 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// <param name="randomGenerator">The System.Random instance to use, or null to generate a new instance.</param>
         public ExponentialGenerator(double mean = 1.0, System.Random randomGenerator = null)
         {
-            this.Mean = mean;
-            this.RandomGenerator = randomGenerator ?? new System.Random();
+            Mean = mean;
+            RandomGenerator = randomGenerator ?? new System.Random();
         }
 
         /// <summary>
@@ -49,11 +49,11 @@ namespace LaurentiuCristofor.Proteus.Common.Random
 
             do
             {
-                U = this.RandomGenerator.NextDouble();
+                U = RandomGenerator.NextDouble();
             }
             while (U == 0.0);
 
-            return this.Mean * (-Math.Log(U));
+            return Mean * (-Math.Log(U));
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// <returns>A string representation of the next generated value.</returns>
         public string NextString()
         {
-            return this.Next().ToString();
+            return Next().ToString();
         }
     }
 }

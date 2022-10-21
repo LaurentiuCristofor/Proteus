@@ -20,19 +20,19 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
     {
         public void Initialize(DistributionGenerationParameters generationParameters)
         {
-            this.GenerationCount = generationParameters.GenerationCount;
-            this.GeneratedCount = 0;
+            GenerationCount = generationParameters.GenerationCount;
+            GeneratedCount = 0;
 
             Random uniformGenerator = (generationParameters.Seed >= 0) ? new Random(generationParameters.Seed) : new Random();
 
             switch (generationParameters.DistributionType)
             {
                 case DistributionType.Uniform:
-                    this.Generator = new UniformGenerator(uniformGenerator);
+                    Generator = new UniformGenerator(uniformGenerator);
                     break;
 
                 case DistributionType.Normal:
-                    this.Generator = new NormalGenerator(uniformGenerator);
+                    Generator = new NormalGenerator(uniformGenerator);
                     break;
 
                 case DistributionType.Exponential:
@@ -41,7 +41,7 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
 
                         double mean = double.Parse(generationParameters.DistributionMean);
 
-                        this.Generator = new ExponentialGenerator(mean, uniformGenerator);
+                        Generator = new ExponentialGenerator(mean, uniformGenerator);
                         break;
                     }
 
@@ -51,7 +51,7 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
 
                         ulong mean = ulong.Parse(generationParameters.DistributionMean);
 
-                        this.Generator = new PoissonGenerator(mean, uniformGenerator);
+                        Generator = new PoissonGenerator(mean, uniformGenerator);
                         break;
                     }
 

@@ -57,14 +57,14 @@ namespace LaurentiuCristofor.Proteus.Common.Random
                 throw new ProteusException("Sample count and total count must satisfy the following relationship: 0 < sample count <= total count");
             }
 
-            this.TotalCount = totalCount;
-            this.SampleCount = sampleCount;
-            this.RandomGenerator = randomGenerator ?? new System.Random();
+            TotalCount = totalCount;
+            SampleCount = sampleCount;
+            RandomGenerator = randomGenerator ?? new System.Random();
 
             // S1. [Initialize]
             //
-            this.EvaluatedCount = 0;
-            this.GeneratedCount = 0;
+            EvaluatedCount = 0;
+            GeneratedCount = 0;
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// <returns>The next value from the requested sample, or 0 if the method has been called after the sampling was completed.</returns>
         public ulong Next()
         {
-            if (this.GeneratedCount == this.SampleCount)
+            if (GeneratedCount == SampleCount)
             {
                 return 0;
             }
@@ -82,24 +82,24 @@ namespace LaurentiuCristofor.Proteus.Common.Random
             {
                 // S2. [Generate U]
                 //
-                double U = this.RandomGenerator.NextDouble();
+                double U = RandomGenerator.NextDouble();
 
                 // S3. [Test]
                 //
-                if ((this.TotalCount - this.EvaluatedCount) * U >= this.SampleCount - this.GeneratedCount)
+                if ((TotalCount - EvaluatedCount) * U >= SampleCount - GeneratedCount)
                 {
                     // S5. [Skip]
                     //
-                    ++this.EvaluatedCount;
+                    ++EvaluatedCount;
                 }
                 else
                 {
                     // S4. [Select]
                     //
-                    ulong generatedValue = this.EvaluatedCount + 1;
+                    ulong generatedValue = EvaluatedCount + 1;
 
-                    ++this.GeneratedCount;
-                    ++this.EvaluatedCount;
+                    ++GeneratedCount;
+                    ++EvaluatedCount;
 
                     return generatedValue;
                 }

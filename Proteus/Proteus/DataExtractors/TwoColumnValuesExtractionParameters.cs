@@ -38,8 +38,8 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             ArgumentChecker.CheckDataType(secondDataType);
             ArgumentChecker.CheckDifferent(columnNumber, secondColumnNumber);
 
-            this.SecondColumnNumber = secondColumnNumber;
-            this.SecondColumnDataType = secondDataType;
+            SecondColumnNumber = secondColumnNumber;
+            SecondColumnDataType = secondDataType;
         }
     }
 }

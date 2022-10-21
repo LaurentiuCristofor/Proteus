@@ -30,7 +30,7 @@ namespace LaurentiuCristofor.Proteus.Common.Numerical
             //
             ArgumentChecker.CheckNotEqual(startingValue, 0);
 
-            this.Generator = new ArithmeticGenerator(startingValue, deltaValue);
+            Generator = new ArithmeticGenerator(startingValue, deltaValue);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace LaurentiuCristofor.Proteus.Common.Numerical
         {
             // Compute the next arithmetic value and then its reciprocal.
             //
-            double arithmeticValue = this.Generator.Next();
+            double arithmeticValue = Generator.Next();
             double harmonicValue = 1 / arithmeticValue;
 
             return harmonicValue;
@@ -53,7 +53,7 @@ namespace LaurentiuCristofor.Proteus.Common.Numerical
         /// <returns>A string representation of the next generated value.</returns>
         public string NextString()
         {
-            return this.Next().ToString();
+            return Next().ToString();
         }
     }
 }

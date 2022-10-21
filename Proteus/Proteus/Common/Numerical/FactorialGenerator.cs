@@ -29,8 +29,8 @@ namespace LaurentiuCristofor.Proteus.Common.Numerical
         /// </summary>
         public FactorialGenerator()
         {
-            this.NextValue = 1;
-            this.NextMultiplierValue = 2;
+            NextValue = 1;
+            NextMultiplierValue = 2;
         }
 
         /// <summary>
@@ -39,12 +39,12 @@ namespace LaurentiuCristofor.Proteus.Common.Numerical
         /// <returns>The next value in the factorial progression.</returns>
         public double Next()
         {
-            double value = this.NextValue;
+            double value = NextValue;
 
             // Generate next value and then increment multiplier as well.
             //
-            this.NextValue *= this.NextMultiplierValue;
-            ++this.NextMultiplierValue;
+            NextValue *= NextMultiplierValue;
+            ++NextMultiplierValue;
 
             return value;
         }
@@ -55,7 +55,7 @@ namespace LaurentiuCristofor.Proteus.Common.Numerical
         /// <returns>A string representation of the next generated value.</returns>
         public string NextString()
         {
-            return this.Next().ToString();
+            return Next().ToString();
         }
     }
 }

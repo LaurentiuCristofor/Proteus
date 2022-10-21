@@ -17,7 +17,7 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
 
         public UnsignedIntegerDataHolder(ulong data)
         {
-            this.Data = data;
+            Data = data;
         }
 
         public DataType GetDataType()
@@ -37,12 +37,12 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
 
         public ulong GetUnsignedIntegerValue()
         {
-            return this.Data;
+            return Data;
         }
 
         public double GetFloatingPointValue()
         {
-            return this.Data;
+            return Data;
         }
 
         public DateTime GetDateTimeValue()
@@ -52,30 +52,30 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
 
         public override string ToString()
         {
-            return this.Data.ToString();
+            return Data.ToString();
         }
 
         public IDataHolder Add(IDataHolder otherData)
         {
-            this.Data += otherData.GetUnsignedIntegerValue();
+            Data += otherData.GetUnsignedIntegerValue();
             return this;
         }
 
         public IDataHolder Subtract(IDataHolder otherData)
         {
-            this.Data -= otherData.GetUnsignedIntegerValue();
+            Data -= otherData.GetUnsignedIntegerValue();
             return this;
         }
 
         public IDataHolder Multiply(IDataHolder otherData)
         {
-            this.Data *= otherData.GetUnsignedIntegerValue();
+            Data *= otherData.GetUnsignedIntegerValue();
             return this;
         }
 
         public IDataHolder Divide(IDataHolder otherData)
         {
-            this.Data /= otherData.GetUnsignedIntegerValue();
+            Data /= otherData.GetUnsignedIntegerValue();
             return this;
         }
 
@@ -86,13 +86,13 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
                 throw new ProteusException("Attempting to compare with null!");
             }
 
-            return this.Data.CompareTo(otherData.GetUnsignedIntegerValue());
+            return Data.CompareTo(otherData.GetUnsignedIntegerValue());
         }
 
         public int CompareTo(object otherObject)
         {
             UnsignedIntegerDataHolder otherData = (UnsignedIntegerDataHolder)otherObject;
-            return this.CompareTo(otherData);
+            return CompareTo(otherData);
         }
 
         public override bool Equals(Object otherObject)
@@ -106,7 +106,7 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
 
             try
             {
-                comparison = this.CompareTo(otherObject);
+                comparison = CompareTo(otherObject);
             }
             catch (ProteusException)
             {
@@ -118,7 +118,7 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
 
         public override int GetHashCode()
         {
-            return this.Data.GetHashCode();
+            return Data.GetHashCode();
         }
     }
 }

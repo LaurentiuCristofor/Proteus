@@ -67,11 +67,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputExtraOperationParameters<StringEditType> processingParameters)
         {
-            this.EditType = processingParameters.OperationType;
+            EditType = processingParameters.OperationType;
 
             // Validate the arguments for each operation type.
             //
-            switch (this.EditType)
+            switch (EditType)
             {
                 case StringEditType.Rewrite:
                 case StringEditType.Invert:
@@ -87,7 +87,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 case StringEditType.TrimChars:
                     ArgumentChecker.CheckPresence(processingParameters.StringParameters, FirstStringIndex);
                     ArgumentChecker.CheckNotNullAndNotEmpty(processingParameters.StringParameters[FirstStringIndex]);
-                    this.FirstStringAsCharArray = processingParameters.StringParameters[FirstStringIndex].ToCharArray();
+                    FirstStringAsCharArray = processingParameters.StringParameters[FirstStringIndex].ToCharArray();
                     break;
 
                 case StringEditType.PadLeft:
@@ -96,10 +96,10 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     ArgumentChecker.CheckPresence(processingParameters.IntParameters, FirstCharCountIndex);
                     ArgumentChecker.CheckOneCharacter(processingParameters.StringParameters[FirstStringIndex]);
 
-                    this.FirstStringAsChar = processingParameters.StringParameters[FirstStringIndex].ToCharArray()[0];
-                    this.FirstCharCount = processingParameters.IntParameters[FirstCharCountIndex];
+                    FirstStringAsChar = processingParameters.StringParameters[FirstStringIndex].ToCharArray()[0];
+                    FirstCharCount = processingParameters.IntParameters[FirstCharCountIndex];
 
-                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstCharCount, 1);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(FirstCharCount, 1);
                     break;
 
                 case StringEditType.PrefixLineNumbers:
@@ -116,8 +116,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 case StringEditType.KeepContentBeforeLastMarker:
                 case StringEditType.KeepContentAfterLastMarker:
                     ArgumentChecker.CheckPresence(processingParameters.StringParameters, FirstStringIndex);
-                    this.FirstString = processingParameters.StringParameters[FirstStringIndex];
-                    ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstString);
+                    FirstString = processingParameters.StringParameters[FirstStringIndex];
+                    ArgumentChecker.CheckNotNullAndNotEmpty(FirstString);
                     break;
 
                 case StringEditType.DeleteFirstCharacters:
@@ -125,8 +125,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 case StringEditType.KeepFirstCharacters:
                 case StringEditType.KeepLastCharacters:
                     ArgumentChecker.CheckPresence(processingParameters.IntParameters, FirstCharCountIndex);
-                    this.FirstCharCount = processingParameters.IntParameters[FirstCharCountIndex];
-                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstCharCount, 1);
+                    FirstCharCount = processingParameters.IntParameters[FirstCharCountIndex];
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(FirstCharCount, 1);
                     break;
 
                 case StringEditType.DeleteContentAtIndex:
@@ -134,33 +134,33 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     ArgumentChecker.CheckPresence(processingParameters.IntParameters, FirstCharCountIndex);
                     ArgumentChecker.CheckPresence(processingParameters.IntParameters, SecondCharCountIndex);
 
-                    this.FirstCharCount = processingParameters.IntParameters[FirstCharCountIndex];
-                    this.FirstCharCount = processingParameters.IntParameters[SecondCharCountIndex];
+                    FirstCharCount = processingParameters.IntParameters[FirstCharCountIndex];
+                    FirstCharCount = processingParameters.IntParameters[SecondCharCountIndex];
 
-                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstCharCount, 0);
-                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.SecondCharCount, 1);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(FirstCharCount, 0);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(SecondCharCount, 1);
                     break;
 
                 case StringEditType.InsertContentAtIndex:
                     ArgumentChecker.CheckPresence(processingParameters.StringParameters, FirstStringIndex);
                     ArgumentChecker.CheckPresence(processingParameters.IntParameters, FirstCharCountIndex);
 
-                    this.FirstString = processingParameters.StringParameters[FirstStringIndex];
-                    this.FirstCharCount = processingParameters.IntParameters[FirstCharCountIndex];
+                    FirstString = processingParameters.StringParameters[FirstStringIndex];
+                    FirstCharCount = processingParameters.IntParameters[FirstCharCountIndex];
 
-                    ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstString);
-                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstCharCount, 0);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(FirstString);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(FirstCharCount, 0);
                     break;
 
                 case StringEditType.ReplaceContent:
                     ArgumentChecker.CheckPresence(processingParameters.StringParameters, FirstStringIndex);
                     ArgumentChecker.CheckPresence(processingParameters.StringParameters, SecondStringIndex);
 
-                    this.FirstString = processingParameters.StringParameters[FirstStringIndex];
-                    this.SecondString = processingParameters.StringParameters[SecondStringIndex];
+                    FirstString = processingParameters.StringParameters[FirstStringIndex];
+                    SecondString = processingParameters.StringParameters[SecondStringIndex];
 
-                    ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstString);
-                    ArgumentChecker.CheckNotNull(this.SecondString);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(FirstString);
+                    ArgumentChecker.CheckNotNull(SecondString);
                     break;
 
                 case StringEditType.InsertContentBeforeMarker:
@@ -182,41 +182,41 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     ArgumentChecker.CheckPresence(processingParameters.StringParameters, FirstStringIndex);
                     ArgumentChecker.CheckPresence(processingParameters.StringParameters, SecondStringIndex);
 
-                    this.FirstString = processingParameters.StringParameters[FirstStringIndex];
-                    this.SecondString = processingParameters.StringParameters[SecondStringIndex];
+                    FirstString = processingParameters.StringParameters[FirstStringIndex];
+                    SecondString = processingParameters.StringParameters[SecondStringIndex];
 
-                    ArgumentChecker.CheckNotNullAndNotEmpty(this.FirstString);
-                    ArgumentChecker.CheckNotNullAndNotEmpty(this.SecondString);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(FirstString);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(SecondString);
                     break;
 
                 case StringEditType.Set:
                     ArgumentChecker.CheckPresence(processingParameters.StringParameters, FirstStringIndex);
-                    this.FirstString = processingParameters.StringParameters[FirstStringIndex];
-                    ArgumentChecker.CheckNotNull(this.FirstString);
+                    FirstString = processingParameters.StringParameters[FirstStringIndex];
+                    ArgumentChecker.CheckNotNull(FirstString);
                     break;
 
                 case StringEditType.SetIfEquals:
                     ArgumentChecker.CheckPresence(processingParameters.StringParameters, FirstStringIndex);
                     ArgumentChecker.CheckPresence(processingParameters.StringParameters, SecondStringIndex);
 
-                    this.FirstString = processingParameters.StringParameters[FirstStringIndex];
-                    this.SecondString = processingParameters.StringParameters[SecondStringIndex];
+                    FirstString = processingParameters.StringParameters[FirstStringIndex];
+                    SecondString = processingParameters.StringParameters[SecondStringIndex];
 
-                    ArgumentChecker.CheckNotNull(this.FirstString);
-                    ArgumentChecker.CheckNotNull(this.SecondString);
+                    ArgumentChecker.CheckNotNull(FirstString);
+                    ArgumentChecker.CheckNotNull(SecondString);
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling string edit type '{this.EditType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling string edit type '{EditType}'!");
             }
 
-            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, OneExtractedValue lineData)
         {
             string data = lineData.ExtractedData.ToString();
-            string editedData = this.Edit(data, lineNumber);
+            string editedData = Edit(data, lineNumber);
             string editedLine = editedData;
 
             // Check if we need to reconstruct a line from column parts;
@@ -231,7 +231,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 editedLine = string.Join(lineData.ColumnSeparator, lineData.Columns);
             }
 
-            this.OutputWriter.WriteLine(editedLine);
+            OutputWriter.WriteLine(editedLine);
 
             return true;
         }
@@ -251,7 +251,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             string editedData = data;
 
-            switch (this.EditType)
+            switch (EditType)
             {
                 case StringEditType.Rewrite:
                     // Nothing to do, keep the data unchanged.
@@ -283,94 +283,94 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     break;
 
                 case StringEditType.TrimCharsStart:
-                    editedData = data.TrimStart(this.FirstStringAsCharArray);
+                    editedData = data.TrimStart(FirstStringAsCharArray);
                     break;
 
                 case StringEditType.TrimCharsEnd:
-                    editedData = data.TrimEnd(this.FirstStringAsCharArray);
+                    editedData = data.TrimEnd(FirstStringAsCharArray);
                     break;
 
                 case StringEditType.TrimChars:
-                    editedData = data.Trim(this.FirstStringAsCharArray);
+                    editedData = data.Trim(FirstStringAsCharArray);
                     break;
 
                 case StringEditType.PadLeft:
-                    editedData = data.PadLeft(this.FirstCharCount, this.FirstStringAsChar);
+                    editedData = data.PadLeft(FirstCharCount, FirstStringAsChar);
                     break;
 
                 case StringEditType.PadRight:
-                    editedData = data.PadRight(this.FirstCharCount, this.FirstStringAsChar);
+                    editedData = data.PadRight(FirstCharCount, FirstStringAsChar);
                     break;
 
                 case StringEditType.PrefixLineNumbers:
-                    editedData = $"{lineNumber}{this.FirstString}{data}";
+                    editedData = $"{lineNumber}{FirstString}{data}";
                     break;
 
                 case StringEditType.AddPrefix:
-                    editedData = $"{this.FirstString}{data}";
+                    editedData = $"{FirstString}{data}";
                     break;
 
                 case StringEditType.AddSuffix:
-                    editedData = $"{data}{this.FirstString}";
+                    editedData = $"{data}{FirstString}";
                     break;
 
                 case StringEditType.DeletePrefix:
-                    if (data.StartsWith(this.FirstString))
+                    if (data.StartsWith(FirstString))
                     {
-                        int prefixLength = this.FirstString.Length;
+                        int prefixLength = FirstString.Length;
                         editedData = data.Substring(prefixLength);
                     }
                     break;
 
                 case StringEditType.DeleteSuffix:
-                    if (data.EndsWith(this.FirstString))
+                    if (data.EndsWith(FirstString))
                     {
-                        int suffixLength = this.FirstString.Length;
+                        int suffixLength = FirstString.Length;
                         editedData = data.Substring(0, data.Length - suffixLength);
                     }
                     break;
 
                 case StringEditType.DeleteFirstCharacters:
-                    editedData = StringOperations.RemoveCharacters(data, this.FirstCharCount, deleteFromStart: true);
+                    editedData = StringOperations.RemoveCharacters(data, FirstCharCount, deleteFromStart: true);
                     break;
 
                 case StringEditType.DeleteLastCharacters:
-                    editedData = StringOperations.RemoveCharacters(data, this.FirstCharCount, deleteFromStart: false);
+                    editedData = StringOperations.RemoveCharacters(data, FirstCharCount, deleteFromStart: false);
                     break;
 
                 case StringEditType.KeepFirstCharacters:
-                    editedData = StringOperations.KeepCharacters(data, this.FirstCharCount, keepFromStart: true);
+                    editedData = StringOperations.KeepCharacters(data, FirstCharCount, keepFromStart: true);
                     break;
 
                 case StringEditType.KeepLastCharacters:
-                    editedData = StringOperations.KeepCharacters(data, this.FirstCharCount, keepFromStart: false);
+                    editedData = StringOperations.KeepCharacters(data, FirstCharCount, keepFromStart: false);
                     break;
 
                 case StringEditType.DeleteContentAtIndex:
-                    editedData = StringOperations.DeleteContent(data, this.FirstCharCount, this.SecondCharCount);
+                    editedData = StringOperations.DeleteContent(data, FirstCharCount, SecondCharCount);
                     break;
 
                 case StringEditType.KeepContentAtIndex:
-                    editedData = StringOperations.KeepContent(data, this.FirstCharCount, this.SecondCharCount);
+                    editedData = StringOperations.KeepContent(data, FirstCharCount, SecondCharCount);
                     break;
 
                 case StringEditType.InsertContentAtIndex:
                     {
-                        int index = this.FirstCharCount;
+                        int index = FirstCharCount;
                         if (index <= data.Length)
                         {
-                            editedData = data.Insert(index, this.FirstString);
+                            editedData = data.Insert(index, FirstString);
                         }
                         break;
                     }
 
                 case StringEditType.ReplaceContent:
-                    editedData = data.Replace(this.FirstString, this.SecondString);
+                    editedData = data.Replace(FirstString, SecondString);
                     break;
 
                 case StringEditType.DeleteContentBeforeMarker:
                     {
-                        int index = data.IndexOf(this.FirstString);
+                        int index = data.IndexOf(FirstString);
                         if (index != -1)
                         {
                             editedData = data.Substring(index);
@@ -380,7 +380,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case StringEditType.DeleteContentBeforeLastMarker:
                     {
-                        int index = data.LastIndexOf(this.FirstString);
+                        int index = data.LastIndexOf(FirstString);
                         if (index != -1)
                         {
                             editedData = data.Substring(index);
@@ -390,27 +390,27 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case StringEditType.DeleteContentAfterMarker:
                     {
-                        int index = data.IndexOf(this.FirstString);
+                        int index = data.IndexOf(FirstString);
                         if (index != -1)
                         {
-                            editedData = data.Substring(0, index + this.FirstString.Length);
+                            editedData = data.Substring(0, index + FirstString.Length);
                         }
                         break;
                     }
 
                 case StringEditType.DeleteContentAfterLastMarker:
                     {
-                        int index = data.LastIndexOf(this.FirstString);
+                        int index = data.LastIndexOf(FirstString);
                         if (index != -1)
                         {
-                            editedData = data.Substring(0, index + this.FirstString.Length);
+                            editedData = data.Substring(0, index + FirstString.Length);
                         }
                         break;
                     }
 
                 case StringEditType.KeepContentBeforeMarker:
                     {
-                        int index = data.IndexOf(this.FirstString);
+                        int index = data.IndexOf(FirstString);
                         if (index != -1)
                         {
                             editedData = data.Substring(0, index);
@@ -424,7 +424,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case StringEditType.KeepContentBeforeLastMarker:
                     {
-                        int index = data.LastIndexOf(this.FirstString);
+                        int index = data.LastIndexOf(FirstString);
                         if (index != -1)
                         {
                             editedData = data.Substring(0, index);
@@ -438,10 +438,10 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case StringEditType.KeepContentAfterMarker:
                     {
-                        int index = data.IndexOf(this.FirstString);
+                        int index = data.IndexOf(FirstString);
                         if (index != -1)
                         {
-                            editedData = data.Substring(index + this.FirstString.Length);
+                            editedData = data.Substring(index + FirstString.Length);
                         }
                         else
                         {
@@ -452,10 +452,10 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case StringEditType.KeepContentAfterLastMarker:
                     {
-                        int index = data.LastIndexOf(this.FirstString);
+                        int index = data.LastIndexOf(FirstString);
                         if (index != -1)
                         {
-                            editedData = data.Substring(index + this.FirstString.Length);
+                            editedData = data.Substring(index + FirstString.Length);
                         }
                         else
                         {
@@ -466,85 +466,85 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case StringEditType.InsertContentBeforeMarker:
                     {
-                        int index = data.IndexOf(this.SecondString);
+                        int index = data.IndexOf(SecondString);
                         if (index != -1)
                         {
-                            editedData = data.Insert(index, this.FirstString);
+                            editedData = data.Insert(index, FirstString);
                         }
                         break;
                     }
 
                 case StringEditType.InsertContentBeforeLastMarker:
                     {
-                        int index = data.LastIndexOf(this.SecondString);
+                        int index = data.LastIndexOf(SecondString);
                         if (index != -1)
                         {
-                            editedData = data.Insert(index, this.FirstString);
+                            editedData = data.Insert(index, FirstString);
                         }
                         break;
                     }
 
                 case StringEditType.InsertContentAfterMarker:
                     {
-                        int index = data.IndexOf(this.SecondString);
+                        int index = data.IndexOf(SecondString);
                         if (index != -1)
                         {
-                            editedData = data.Insert(index + this.SecondString.Length, this.FirstString);
+                            editedData = data.Insert(index + SecondString.Length, FirstString);
                         }
                         break;
                     }
 
                 case StringEditType.InsertContentAfterLastMarker:
                     {
-                        int index = data.LastIndexOf(this.SecondString);
+                        int index = data.LastIndexOf(SecondString);
                         if (index != -1)
                         {
-                            editedData = data.Insert(index + this.SecondString.Length, this.FirstString);
+                            editedData = data.Insert(index + SecondString.Length, FirstString);
                         }
                         break;
                     }
 
                 case StringEditType.DeleteContentBetweenMarkers:
                     {
-                        if (StringOperations.FindMarkers(data, this.FirstString, this.SecondString, out int indexFirstMarker, out int indexSecondMarker))
+                        if (StringOperations.FindMarkers(data, FirstString, SecondString, out int indexFirstMarker, out int indexSecondMarker))
                         {
-                            editedData = StringOperations.DeleteContentBetweenMarkers(data, this.FirstString, indexFirstMarker, indexSecondMarker);
+                            editedData = StringOperations.DeleteContentBetweenMarkers(data, FirstString, indexFirstMarker, indexSecondMarker);
                         }
                         break;
                     }
 
                 case StringEditType.DeleteContentBetweenLastMarkers:
                     {
-                        if (StringOperations.FindLastMarkers(data, this.FirstString, this.SecondString, out int indexFirstMarker, out int indexSecondMarker))
+                        if (StringOperations.FindLastMarkers(data, FirstString, SecondString, out int indexFirstMarker, out int indexSecondMarker))
                         {
-                            editedData = StringOperations.DeleteContentBetweenMarkers(data, this.FirstString, indexFirstMarker, indexSecondMarker);
+                            editedData = StringOperations.DeleteContentBetweenMarkers(data, FirstString, indexFirstMarker, indexSecondMarker);
                         }
                         break;
                     }
 
                 case StringEditType.DeleteContentBetweenInnermostMarkers:
                     {
-                        if (StringOperations.FindInnermostMarkers(data, this.FirstString, this.SecondString, out int indexFirstMarker, out int indexSecondMarker))
+                        if (StringOperations.FindInnermostMarkers(data, FirstString, SecondString, out int indexFirstMarker, out int indexSecondMarker))
                         {
-                            editedData = StringOperations.DeleteContentBetweenMarkers(data, this.FirstString, indexFirstMarker, indexSecondMarker);
+                            editedData = StringOperations.DeleteContentBetweenMarkers(data, FirstString, indexFirstMarker, indexSecondMarker);
                         }
                         break;
                     }
 
                 case StringEditType.DeleteContentBetweenOutermostMarkers:
                     {
-                        if (StringOperations.FindOutermostMarkers(data, this.FirstString, this.SecondString, out int indexFirstMarker, out int indexSecondMarker))
+                        if (StringOperations.FindOutermostMarkers(data, FirstString, SecondString, out int indexFirstMarker, out int indexSecondMarker))
                         {
-                            editedData = StringOperations.DeleteContentBetweenMarkers(data, this.FirstString, indexFirstMarker, indexSecondMarker);
+                            editedData = StringOperations.DeleteContentBetweenMarkers(data, FirstString, indexFirstMarker, indexSecondMarker);
                         }
                         break;
                     }
 
                 case StringEditType.KeepContentBetweenMarkers:
                     {
-                        if (StringOperations.FindMarkers(data, this.FirstString, this.SecondString, out int indexFirstMarker, out int indexSecondMarker))
+                        if (StringOperations.FindMarkers(data, FirstString, SecondString, out int indexFirstMarker, out int indexSecondMarker))
                         {
-                            editedData = StringOperations.KeepContentBetweenMarkers(data, this.FirstString, indexFirstMarker, indexSecondMarker);
+                            editedData = StringOperations.KeepContentBetweenMarkers(data, FirstString, indexFirstMarker, indexSecondMarker);
                         }
                         else
                         {
@@ -555,9 +555,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case StringEditType.KeepContentBetweenLastMarkers:
                     {
-                        if (StringOperations.FindLastMarkers(data, this.FirstString, this.SecondString, out int indexFirstMarker, out int indexSecondMarker))
+                        if (StringOperations.FindLastMarkers(data, FirstString, SecondString, out int indexFirstMarker, out int indexSecondMarker))
                         {
-                            editedData = StringOperations.KeepContentBetweenMarkers(data, this.FirstString, indexFirstMarker, indexSecondMarker);
+                            editedData = StringOperations.KeepContentBetweenMarkers(data, FirstString, indexFirstMarker, indexSecondMarker);
                         }
                         else
                         {
@@ -568,9 +568,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case StringEditType.KeepContentBetweenInnermostMarkers:
                     {
-                        if (StringOperations.FindInnermostMarkers(data, this.FirstString, this.SecondString, out int indexFirstMarker, out int indexSecondMarker))
+                        if (StringOperations.FindInnermostMarkers(data, FirstString, SecondString, out int indexFirstMarker, out int indexSecondMarker))
                         {
-                            editedData = StringOperations.KeepContentBetweenMarkers(data, this.FirstString, indexFirstMarker, indexSecondMarker);
+                            editedData = StringOperations.KeepContentBetweenMarkers(data, FirstString, indexFirstMarker, indexSecondMarker);
                         }
                         else
                         {
@@ -581,9 +581,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case StringEditType.KeepContentBetweenOutermostMarkers:
                     {
-                        if (StringOperations.FindOutermostMarkers(data, this.FirstString, this.SecondString, out int indexFirstMarker, out int indexSecondMarker))
+                        if (StringOperations.FindOutermostMarkers(data, FirstString, SecondString, out int indexFirstMarker, out int indexSecondMarker))
                         {
-                            editedData = StringOperations.KeepContentBetweenMarkers(data, this.FirstString, indexFirstMarker, indexSecondMarker);
+                            editedData = StringOperations.KeepContentBetweenMarkers(data, FirstString, indexFirstMarker, indexSecondMarker);
                         }
                         else
                         {
@@ -594,9 +594,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case StringEditType.KeepContentOutsideMarkers:
                     {
-                        if (StringOperations.FindMarkers(data, this.FirstString, this.SecondString, out int indexFirstMarker, out int indexSecondMarker))
+                        if (StringOperations.FindMarkers(data, FirstString, SecondString, out int indexFirstMarker, out int indexSecondMarker))
                         {
-                            editedData = StringOperations.KeepContentOutsideMarkers(data, this.SecondString, indexFirstMarker, indexSecondMarker);
+                            editedData = StringOperations.KeepContentOutsideMarkers(data, SecondString, indexFirstMarker, indexSecondMarker);
                         }
                         else
                         {
@@ -607,9 +607,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case StringEditType.KeepContentOutsideLastMarkers:
                     {
-                        if (StringOperations.FindLastMarkers(data, this.FirstString, this.SecondString, out int indexFirstMarker, out int indexSecondMarker))
+                        if (StringOperations.FindLastMarkers(data, FirstString, SecondString, out int indexFirstMarker, out int indexSecondMarker))
                         {
-                            editedData = StringOperations.KeepContentOutsideMarkers(data, this.SecondString, indexFirstMarker, indexSecondMarker);
+                            editedData = StringOperations.KeepContentOutsideMarkers(data, SecondString, indexFirstMarker, indexSecondMarker);
                         }
                         else
                         {
@@ -620,9 +620,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case StringEditType.KeepContentOutsideInnermostMarkers:
                     {
-                        if (StringOperations.FindInnermostMarkers(data, this.FirstString, this.SecondString, out int indexFirstMarker, out int indexSecondMarker))
+                        if (StringOperations.FindInnermostMarkers(data, FirstString, SecondString, out int indexFirstMarker, out int indexSecondMarker))
                         {
-                            editedData = StringOperations.KeepContentOutsideMarkers(data, this.SecondString, indexFirstMarker, indexSecondMarker);
+                            editedData = StringOperations.KeepContentOutsideMarkers(data, SecondString, indexFirstMarker, indexSecondMarker);
                         }
                         else
                         {
@@ -633,9 +633,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case StringEditType.KeepContentOutsideOutermostMarkers:
                     {
-                        if (StringOperations.FindOutermostMarkers(data, this.FirstString, this.SecondString, out int indexFirstMarker, out int indexSecondMarker))
+                        if (StringOperations.FindOutermostMarkers(data, FirstString, SecondString, out int indexFirstMarker, out int indexSecondMarker))
                         {
-                            editedData = StringOperations.KeepContentOutsideMarkers(data, this.SecondString, indexFirstMarker, indexSecondMarker);
+                            editedData = StringOperations.KeepContentOutsideMarkers(data, SecondString, indexFirstMarker, indexSecondMarker);
                         }
                         else
                         {
@@ -645,18 +645,18 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     }
 
                 case StringEditType.Set:
-                    editedData = this.FirstString;
+                    editedData = FirstString;
                     break;
 
                 case StringEditType.SetIfEquals:
-                    if (data.Equals(this.FirstString))
+                    if (data.Equals(FirstString))
                     {
-                        editedData = this.SecondString;
+                        editedData = SecondString;
                     }
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling string edit type '{this.EditType}'");
+                    throw new ProteusException($"Internal error: Proteus is not handling string edit type '{EditType}'");
             }
 
             return editedData;

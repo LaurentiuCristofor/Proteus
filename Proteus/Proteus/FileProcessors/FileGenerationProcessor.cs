@@ -34,10 +34,10 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
 
         public FileGenerationProcessor(TGenerationParameters generationParameters, BaseOutputParameters processingParameters)
         {
-            this.DataGenerator = new TDataGenerator();
-            this.DataGenerator.Initialize(generationParameters);
+            DataGenerator = new TDataGenerator();
+            DataGenerator.Initialize(generationParameters);
 
-            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: true);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: true);
         }
 
         /// <summary>
@@ -63,18 +63,18 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         {
             // Perform the generation step.
             //
-            string nextLine = this.DataGenerator.NextString();
+            string nextLine = DataGenerator.NextString();
 
             // Generation stops when a null line is returned.
             //
             if (nextLine == null)
             {
-                this.OutputWriter.CloseAndReport();
+                OutputWriter.CloseAndReport();
 
                 return false;
             }
 
-            this.OutputWriter.WriteLine(nextLine);
+            OutputWriter.WriteLine(nextLine);
 
             return true;
         }

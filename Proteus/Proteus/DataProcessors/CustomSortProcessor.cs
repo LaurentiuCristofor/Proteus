@@ -30,34 +30,34 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputOperationParameters<SortingAlgorithmType> processingParameters)
         {
-            this.SortingType = processingParameters.OperationType;
+            SortingType = processingParameters.OperationType;
 
-            this.Lines = new List<string>();
+            Lines = new List<string>();
 
-            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: true);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: true);
         }
 
         public bool Execute(ulong lineNumber, string line)
         {
-            this.Lines.Add(line);
+            Lines.Add(line);
 
             return true;
         }
 
         public override void CompleteExecution()
         {
-            if (this.Lines == null)
+            if (Lines == null)
             {
                 throw new ProteusException("Internal error: An expected data structure has not been initialized!");
             }
 
             Timer timer = new Timer($"\n{Constants.Messages.SortingStart}", Constants.Messages.SortingEnd, countFinalLineEndings: 0);
-            CustomSorting.Sort<string>(this.Lines, this.SortingType);
+            CustomSorting.Sort<string>(Lines, SortingType);
             timer.StopAndReport();
 
-            foreach (string line in this.Lines)
+            foreach (string line in Lines)
             {
-                this.OutputWriter.WriteLine(line);
+                OutputWriter.WriteLine(line);
             }
 
             base.CompleteExecution();

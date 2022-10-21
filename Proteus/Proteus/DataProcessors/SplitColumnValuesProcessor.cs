@@ -39,13 +39,13 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputExtraParameters processingParameters)
         {
-            this.OutputFilePath = processingParameters.OutputFilePath;
+            OutputFilePath = processingParameters.OutputFilePath;
 
             ArgumentChecker.CheckPresence(processingParameters.StringParameters, OutputFileExtensionIndex);
-            this.OutputFileExtension = processingParameters.StringParameters[OutputFileExtensionIndex];
-            ArgumentChecker.CheckNotNullAndNotEmpty(this.OutputFileExtension);
+            OutputFileExtension = processingParameters.StringParameters[OutputFileExtensionIndex];
+            ArgumentChecker.CheckNotNullAndNotEmpty(OutputFileExtension);
 
-            this.MapColumnValueToFileWriter = new Dictionary<IDataHolder, FileWriter>();
+            MapColumnValueToFileWriter = new Dictionary<IDataHolder, FileWriter>();
         }
 
         public bool Execute(ulong lineNumber, OneExtractedValue lineData)
@@ -57,27 +57,27 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             // File names must be unique and because column values may contain characters that are forbidden in file names,
             // we will instead generate an identifier value for each unique column value.
             //
-            if (!this.MapColumnValueToFileWriter.ContainsKey(data))
+            if (!MapColumnValueToFileWriter.ContainsKey(data))
             {
                 // Assign as identifier the number of the unique values seen so far, including this one.
                 //
-                int columnValueIdentifier = this.MapColumnValueToFileWriter.Count + 1;
+                int columnValueIdentifier = MapColumnValueToFileWriter.Count + 1;
 
-                this.MapColumnValueToFileWriter.Add(
+                MapColumnValueToFileWriter.Add(
                     data,
-                    new FileWriter(this.OutputFilePath + $".{columnValueIdentifier}{this.OutputFileExtension}"));
+                    new FileWriter(OutputFilePath + $".{columnValueIdentifier}{OutputFileExtension}"));
             }
 
-            this.MapColumnValueToFileWriter[data].WriteLine(lineData.OriginalLine);
+            MapColumnValueToFileWriter[data].WriteLine(lineData.OriginalLine);
 
             return true;
         }
 
         public override void CompleteExecution()
         {
-            foreach (IDataHolder columnValue in this.MapColumnValueToFileWriter.Keys)
+            foreach (IDataHolder columnValue in MapColumnValueToFileWriter.Keys)
             {
-                this.MapColumnValueToFileWriter[columnValue].CloseAndReport();
+                MapColumnValueToFileWriter[columnValue].CloseAndReport();
             }
 
             base.CompleteExecution();

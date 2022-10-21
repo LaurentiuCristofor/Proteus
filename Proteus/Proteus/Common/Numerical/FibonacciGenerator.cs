@@ -30,8 +30,8 @@ namespace LaurentiuCristofor.Proteus.Common.Numerical
         /// </summary>
         public FibonacciGenerator()
         {
-            this.LastTwoValues = new double[] { 0, 0 };
-            this.NextValueIndex = 0;
+            LastTwoValues = new double[] { 0, 0 };
+            NextValueIndex = 0;
         }
 
         /// <summary>
@@ -43,16 +43,16 @@ namespace LaurentiuCristofor.Proteus.Common.Numerical
             // Adds the last two values and stores them at the position indicated by NextValueIndex.
             // The first two values represent special cases for which we hardcode the generation.
             //
-            this.LastTwoValues[this.NextValueIndex] = (this.LastTwoValues[this.NextValueIndex] == 0) ? 1 : this.LastTwoValues[0] + this.LastTwoValues[1];
+            LastTwoValues[NextValueIndex] = (LastTwoValues[NextValueIndex] == 0) ? 1 : LastTwoValues[0] + LastTwoValues[1];
 
             // Copy the value that we should output, before updating the NextValueIndex.
             //
-            double nextValue = this.LastTwoValues[this.NextValueIndex];
+            double nextValue = LastTwoValues[NextValueIndex];
 
             // Position NextValueIndex to where we should store the next value.
             // Use modulo to nicely wrap around the array end.
             //
-            this.NextValueIndex = (this.NextValueIndex + 1) % 2;
+            NextValueIndex = (NextValueIndex + 1) % 2;
 
             return nextValue;
         }
@@ -63,7 +63,7 @@ namespace LaurentiuCristofor.Proteus.Common.Numerical
         /// <returns>A string representation of the next generated value.</returns>
         public string NextString()
         {
-            return this.Next().ToString();
+            return Next().ToString();
         }
     }
 }

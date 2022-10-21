@@ -29,10 +29,10 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
         public void Initialize(OutputExtraParameters processingParameters)
         {
             ArgumentChecker.CheckPresence(processingParameters.StringParameters, LineSeparatorIndex);
-            this.LineSeparator = processingParameters.StringParameters[LineSeparatorIndex];
-            ArgumentChecker.CheckNotNull(this.LineSeparator);
+            LineSeparator = processingParameters.StringParameters[LineSeparatorIndex];
+            ArgumentChecker.CheckNotNull(LineSeparator);
 
-            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public ProcessingActionType Execute(
@@ -44,9 +44,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
                 return ProcessingActionType.Terminate;
             }
 
-            string concatenatedLines = firstLine + this.LineSeparator + secondLine;
+            string concatenatedLines = firstLine + LineSeparator + secondLine;
 
-            this.OutputWriter.WriteLine(concatenatedLines);
+            OutputWriter.WriteLine(concatenatedLines);
 
             return ProcessingActionType.AdvanceBoth;
         }

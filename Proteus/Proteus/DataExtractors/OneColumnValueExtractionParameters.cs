@@ -35,8 +35,8 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             ArgumentChecker.CheckGreaterThanOrEqualTo(columnNumber, 1);
             ArgumentChecker.CheckDataType(dataType);
 
-            this.ColumnNumber = columnNumber;
-            this.ColumnDataType = dataType;
+            ColumnNumber = columnNumber;
+            ColumnDataType = dataType;
         }
     }
 }

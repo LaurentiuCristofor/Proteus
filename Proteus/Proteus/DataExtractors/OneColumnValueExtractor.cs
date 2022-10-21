@@ -23,18 +23,18 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
         public void Initialize(OneColumnValueExtractionParameters extractionParameters)
         {
-            this.Parameters = extractionParameters;
+            Parameters = extractionParameters;
         }
 
         public OneExtractedValue ExtractData(ulong lineNumber, string line)
         {
             // Split the line into columns using the separator parameter.
             //
-            string[] columns = line.Split(this.Parameters.Separators, StringSplitOptions.None);
+            string[] columns = line.Split(Parameters.Separators, StringSplitOptions.None);
 
             // Try to extract the column value.
             //
-            IDataHolder columnData = ExtractColumn(lineNumber, columns, this.Parameters.ColumnNumber, this.Parameters.ColumnDataType);
+            IDataHolder columnData = ExtractColumn(lineNumber, columns, Parameters.ColumnNumber, Parameters.ColumnDataType);
             if (columnData == null)
             {
                 return null;
@@ -42,7 +42,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
 
             // Package and return all the information that we extracted from the line.
             //
-            return new OneExtractedValue(line, columns, this.Parameters.Separators[0], columnData, this.Parameters.ColumnNumber);
+            return new OneExtractedValue(line, columns, Parameters.Separators[0], columnData, Parameters.ColumnNumber);
         }
 
         /// <summary>

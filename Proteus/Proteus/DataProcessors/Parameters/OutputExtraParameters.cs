@@ -48,11 +48,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
             IDataHolder[] dataHolderParameters = null)
             : base(outputFilePath)
         {
-            this.StringParameters = stringParameters;
-            this.IntParameters = intParameters;
-            this.UlongParameters = ulongParameters;
-            this.DoubleParameters = doubleParameters;
-            this.DataHolderParameters = dataHolderParameters;
+            StringParameters = stringParameters;
+            IntParameters = intParameters;
+            UlongParameters = ulongParameters;
+            DoubleParameters = doubleParameters;
+            DataHolderParameters = dataHolderParameters;
         }
 
         public OutputExtraParameters(
@@ -61,11 +61,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
             ulong[] ulongParameters)
             : base(outputFilePath)
         {
-            this.StringParameters = stringParameters;
-            this.IntParameters = null;
-            this.UlongParameters = ulongParameters;
-            this.DoubleParameters = null;
-            this.DataHolderParameters = null;
+            StringParameters = stringParameters;
+            IntParameters = null;
+            UlongParameters = ulongParameters;
+            DoubleParameters = null;
+            DataHolderParameters = null;
         }
 
         public OutputExtraParameters(
@@ -74,11 +74,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
             double[] doubleParameters)
             : base(outputFilePath)
         {
-            this.StringParameters = stringParameters;
-            this.IntParameters = null;
-            this.UlongParameters = null;
-            this.DoubleParameters = doubleParameters;
-            this.DataHolderParameters = null;
+            StringParameters = stringParameters;
+            IntParameters = null;
+            UlongParameters = null;
+            DoubleParameters = doubleParameters;
+            DataHolderParameters = null;
         }
 
         public OutputExtraParameters(
@@ -87,11 +87,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
             IDataHolder[] dataHolderParameters)
             : base(outputFilePath)
         {
-            this.StringParameters = stringParameters;
-            this.IntParameters = null;
-            this.UlongParameters = null;
-            this.DoubleParameters = null;
-            this.DataHolderParameters = dataHolderParameters;
+            StringParameters = stringParameters;
+            IntParameters = null;
+            UlongParameters = null;
+            DoubleParameters = null;
+            DataHolderParameters = dataHolderParameters;
         }
 
         public OutputExtraParameters(
@@ -99,11 +99,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
             int[] intParameters)
             : base(outputFilePath)
         {
-            this.StringParameters = null;
-            this.IntParameters = intParameters;
-            this.UlongParameters = null;
-            this.DoubleParameters = null;
-            this.DataHolderParameters = null;
+            StringParameters = null;
+            IntParameters = intParameters;
+            UlongParameters = null;
+            DoubleParameters = null;
+            DataHolderParameters = null;
         }
 
         public OutputExtraParameters(
@@ -111,11 +111,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
             ulong[] ulongParameters)
             : base(outputFilePath)
         {
-            this.StringParameters = null;
-            this.IntParameters = null;
-            this.UlongParameters = ulongParameters;
-            this.DoubleParameters = null;
-            this.DataHolderParameters = null;
+            StringParameters = null;
+            IntParameters = null;
+            UlongParameters = ulongParameters;
+            DoubleParameters = null;
+            DataHolderParameters = null;
         }
 
         public OutputExtraParameters(
@@ -123,11 +123,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
             double[] doubleParameters)
             : base(outputFilePath)
         {
-            this.StringParameters = null;
-            this.IntParameters = null;
-            this.UlongParameters = null;
-            this.DoubleParameters = doubleParameters;
-            this.DataHolderParameters = null;
+            StringParameters = null;
+            IntParameters = null;
+            UlongParameters = null;
+            DoubleParameters = doubleParameters;
+            DataHolderParameters = null;
         }
 
         public OutputExtraParameters(
@@ -135,11 +135,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
             IDataHolder[] dataHolderParameters)
             : base(outputFilePath)
         {
-            this.StringParameters = null;
-            this.IntParameters = null;
-            this.UlongParameters = null;
-            this.DoubleParameters = null;
-            this.DataHolderParameters = dataHolderParameters;
+            StringParameters = null;
+            IntParameters = null;
+            UlongParameters = null;
+            DoubleParameters = null;
+            DataHolderParameters = dataHolderParameters;
         }
     }
 }

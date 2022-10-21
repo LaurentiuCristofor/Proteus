@@ -38,13 +38,13 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputExtraParameters processingParameters)
         {
-            this.OutputFilePath = processingParameters.OutputFilePath;
+            OutputFilePath = processingParameters.OutputFilePath;
 
             ArgumentChecker.CheckPresence(processingParameters.StringParameters, OutputFileExtensionIndex);
-            this.OutputFileExtension = processingParameters.StringParameters[OutputFileExtensionIndex];
-            ArgumentChecker.CheckNotNullAndNotEmpty(this.OutputFileExtension);
+            OutputFileExtension = processingParameters.StringParameters[OutputFileExtensionIndex];
+            ArgumentChecker.CheckNotNullAndNotEmpty(OutputFileExtension);
 
-            this.MapColumnNumberToFileWriter = new Dictionary<int, FileWriter>();
+            MapColumnNumberToFileWriter = new Dictionary<int, FileWriter>();
         }
 
         public bool Execute(ulong lineNumber, ExtractedColumnStrings lineData)
@@ -57,14 +57,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 // If we don't have a file created for this column already, create one now.
                 //
-                if (!this.MapColumnNumberToFileWriter.ContainsKey(columnNumber))
+                if (!MapColumnNumberToFileWriter.ContainsKey(columnNumber))
                 {
-                    this.MapColumnNumberToFileWriter.Add(
+                    MapColumnNumberToFileWriter.Add(
                         columnNumber,
-                        new FileWriter(this.OutputFilePath + $".{columnNumber}{this.OutputFileExtension}"));
+                        new FileWriter(OutputFilePath + $".{columnNumber}{OutputFileExtension}"));
                 }
 
-                this.MapColumnNumberToFileWriter[columnNumber].WriteLine(lineData.Columns[columnIndex]);
+                MapColumnNumberToFileWriter[columnNumber].WriteLine(lineData.Columns[columnIndex]);
             }
 
             return true;
@@ -72,9 +72,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public override void CompleteExecution()
         {
-            foreach (int columnNumber in this.MapColumnNumberToFileWriter.Keys)
+            foreach (int columnNumber in MapColumnNumberToFileWriter.Keys)
             {
-                this.MapColumnNumberToFileWriter[columnNumber].CloseAndReport();
+                MapColumnNumberToFileWriter[columnNumber].CloseAndReport();
             }
 
             base.CompleteExecution();

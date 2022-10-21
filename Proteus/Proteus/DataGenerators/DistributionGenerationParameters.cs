@@ -31,8 +31,8 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
             string distributionMean)
             : base(seed, generationCount)
         {
-            this.DistributionType = distributionType;
-            this.DistributionMean = distributionMean;
+            DistributionType = distributionType;
+            DistributionMean = distributionMean;
         }
     }
 }

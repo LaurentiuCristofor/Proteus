@@ -53,41 +53,41 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputExtraOperationParameters<ColumnTransformationType> processingParameters)
         {
-            this.TransformationType = processingParameters.OperationType;
+            TransformationType = processingParameters.OperationType;
 
-            switch (this.TransformationType)
+            switch (TransformationType)
             {
                 case ColumnTransformationType.Pack:
                     ArgumentChecker.CheckPresence(processingParameters.IntParameters, FirstColumnNumberIndex);
                     ArgumentChecker.CheckPresence(processingParameters.IntParameters, SecondColumnNumberIndex);
                     ArgumentChecker.CheckPresence(processingParameters.StringParameters, SeparatorIndex);
 
-                    this.FirstColumnNumber = processingParameters.IntParameters[FirstColumnNumberIndex];
-                    this.SecondColumnNumber = processingParameters.IntParameters[SecondColumnNumberIndex];
-                    this.PackingSeparator = processingParameters.StringParameters[SeparatorIndex];
+                    FirstColumnNumber = processingParameters.IntParameters[FirstColumnNumberIndex];
+                    SecondColumnNumber = processingParameters.IntParameters[SecondColumnNumberIndex];
+                    PackingSeparator = processingParameters.StringParameters[SeparatorIndex];
 
-                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstColumnNumber, 1);
-                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.SecondColumnNumber, 1);
-                    ArgumentChecker.CheckNotNull(this.PackingSeparator);
-                    ArgumentChecker.CheckInterval(this.FirstColumnNumber, this.SecondColumnNumber);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(FirstColumnNumber, 1);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(SecondColumnNumber, 1);
+                    ArgumentChecker.CheckNotNull(PackingSeparator);
+                    ArgumentChecker.CheckInterval(FirstColumnNumber, SecondColumnNumber);
                     break;
 
                 case ColumnTransformationType.Unpack:
                     ArgumentChecker.CheckPresence(processingParameters.IntParameters, FirstColumnNumberIndex);
                     ArgumentChecker.CheckPresence(processingParameters.StringParameters, SeparatorIndex);
 
-                    this.FirstColumnNumber = processingParameters.IntParameters[FirstColumnNumberIndex];
-                    this.UnpackingSeparators = new string[] { processingParameters.StringParameters[SeparatorIndex] };
+                    FirstColumnNumber = processingParameters.IntParameters[FirstColumnNumberIndex];
+                    UnpackingSeparators = new string[] { processingParameters.StringParameters[SeparatorIndex] };
 
-                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.FirstColumnNumber, 1);
-                    ArgumentChecker.CheckNotNullAndNotEmpty(this.UnpackingSeparators[0]);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(FirstColumnNumber, 1);
+                    ArgumentChecker.CheckNotNullAndNotEmpty(UnpackingSeparators[0]);
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling column transformation type '{this.TransformationType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling column transformation type '{TransformationType}'!");
             }
 
-            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, ExtractedColumnStrings lineData)
@@ -96,12 +96,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             int countColumns = lineData.Columns.Length;
 
-            switch (this.TransformationType)
+            switch (TransformationType)
             {
                 case ColumnTransformationType.Pack:
                     {
-                        int startColumnNumber = this.FirstColumnNumber;
-                        int endColumnNumber = this.SecondColumnNumber;
+                        int startColumnNumber = FirstColumnNumber;
+                        int endColumnNumber = SecondColumnNumber;
 
                         string packedData = null;
                         if (startColumnNumber <= countColumns)
@@ -113,7 +113,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                             // Pack the column range.
                             //
-                            packedData = string.Join(this.PackingSeparator, lineData.Columns, startColumnNumber - 1, endColumnNumber - startColumnNumber + 1);
+                            packedData = string.Join(PackingSeparator, lineData.Columns, startColumnNumber - 1, endColumnNumber - startColumnNumber + 1);
                         }
 
                         // Assemble the output line.
@@ -124,14 +124,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case ColumnTransformationType.Unpack:
                     {
-                        int columnNumber = this.FirstColumnNumber;
+                        int columnNumber = FirstColumnNumber;
 
                         string columnData = null;
                         if (columnNumber <= countColumns)
                         {
                             // Unpack column value.
                             //
-                            string[] unpackedColumns = lineData.Columns[columnNumber - 1].Split(this.UnpackingSeparators, StringSplitOptions.None);
+                            string[] unpackedColumns = lineData.Columns[columnNumber - 1].Split(UnpackingSeparators, StringSplitOptions.None);
                             columnData = string.Join(lineData.ColumnSeparator, unpackedColumns);
                         }
 
@@ -142,10 +142,10 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     }
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling column transformation type '{this.TransformationType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling column transformation type '{TransformationType}'!");
             }
 
-            this.OutputWriter.WriteLine(outputLine);
+            OutputWriter.WriteLine(outputLine);
 
             return true;
         }

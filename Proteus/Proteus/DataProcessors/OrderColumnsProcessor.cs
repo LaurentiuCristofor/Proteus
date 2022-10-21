@@ -51,42 +51,42 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         public void Initialize(OutputExtraParameters processingParameters)
         {
             ArgumentChecker.CheckPresence(processingParameters.StringParameters, 0);
-            this.NewFirstColumnsList = processingParameters.StringParameters[0];
-            ArgumentChecker.CheckNotNull(this.NewFirstColumnsList);
+            NewFirstColumnsList = processingParameters.StringParameters[0];
+            ArgumentChecker.CheckNotNull(NewFirstColumnsList);
 
             // Parse the column numbers that we need to place first.
             //
-            string[] orderedColumnNumbersAsStrings = this.NewFirstColumnsList.Split(Constants.Strings.ListSeparator.ToCharArray(), StringSplitOptions.None);
+            string[] orderedColumnNumbersAsStrings = NewFirstColumnsList.Split(Constants.Strings.ListSeparator.ToCharArray(), StringSplitOptions.None);
             if (orderedColumnNumbersAsStrings.Length == 0)
             {
                 throw new ProteusException("The expected list of column numbers is empty!");
             }
-            this.OrderedColumnNumbers = new int[orderedColumnNumbersAsStrings.Length];
-            this.OrderedColumnNumbersSet = new HashSet<int>();
+            OrderedColumnNumbers = new int[orderedColumnNumbersAsStrings.Length];
+            OrderedColumnNumbersSet = new HashSet<int>();
             for (int i = 0; i < orderedColumnNumbersAsStrings.Length; ++i)
             {
-                this.OrderedColumnNumbers[i] = int.Parse(orderedColumnNumbersAsStrings[i]);
+                OrderedColumnNumbers[i] = int.Parse(orderedColumnNumbersAsStrings[i]);
 
-                if (this.OrderedColumnNumbersSet.Contains(this.OrderedColumnNumbers[i]))
+                if (OrderedColumnNumbersSet.Contains(OrderedColumnNumbers[i]))
                 {
-                    throw new ProteusException($"Column number {this.OrderedColumnNumbers[i]} was specified twice!");
+                    throw new ProteusException($"Column number {OrderedColumnNumbers[i]} was specified twice!");
                 }
 
-                this.OrderedColumnNumbersSet.Add(this.OrderedColumnNumbers[i]);
+                OrderedColumnNumbersSet.Add(OrderedColumnNumbers[i]);
 
-                if (this.OrderedColumnNumbers[i] > this.MaxOrderedColumnNumber)
+                if (OrderedColumnNumbers[i] > MaxOrderedColumnNumber)
                 {
-                    this.MaxOrderedColumnNumber = this.OrderedColumnNumbers[i];
+                    MaxOrderedColumnNumber = OrderedColumnNumbers[i];
                 }
             }
 
             // Find the smallest column number that was not specified in the ordering list.
             //
-            for (int columnNumber = 1; columnNumber <= this.MaxOrderedColumnNumber; ++columnNumber)
+            for (int columnNumber = 1; columnNumber <= MaxOrderedColumnNumber; ++columnNumber)
             {
-                if (!this.OrderedColumnNumbersSet.Contains(columnNumber))
+                if (!OrderedColumnNumbersSet.Contains(columnNumber))
                 {
-                    this.MinUnorderedColumnNumber = columnNumber;
+                    MinUnorderedColumnNumber = columnNumber;
                     break;
                 }
             }
@@ -94,12 +94,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             // If no gap was found in the ordering list, set the smallest column number
             // to the number following the largest column number in the ordering list.
             //
-            if (this.MinUnorderedColumnNumber == 0)
+            if (MinUnorderedColumnNumber == 0)
             {
-                this.MinUnorderedColumnNumber = this.MaxOrderedColumnNumber + 1;
+                MinUnorderedColumnNumber = MaxOrderedColumnNumber + 1;
             }
 
-            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, ExtractedColumnStrings lineData)
@@ -108,7 +108,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             // If this line doesn't have enough columns, skip it.
             //
-            if (countColumns < this.MaxOrderedColumnNumber)
+            if (countColumns < MaxOrderedColumnNumber)
             {
                 return true;
             }
@@ -117,9 +117,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             // First, pick the values of the new first columns.
             //
-            for (int i = 0; i < this.OrderedColumnNumbers.Length; ++i)
+            for (int i = 0; i < OrderedColumnNumbers.Length; ++i)
             {
-                int columnIndex = this.OrderedColumnNumbers[i] - 1;
+                int columnIndex = OrderedColumnNumbers[i] - 1;
                 if (String.IsNullOrEmpty(line))
                 {
                     line = lineData.Columns[columnIndex];
@@ -132,16 +132,16 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             // Finally, pick the values of the remaining columns.
             //
-            for (int columnIndex = this.MinUnorderedColumnNumber - 1; columnIndex < countColumns; ++columnIndex)
+            for (int columnIndex = MinUnorderedColumnNumber - 1; columnIndex < countColumns; ++columnIndex)
             {
                 int columnNumber = columnIndex + 1;
-                if (!this.OrderedColumnNumbersSet.Contains(columnNumber))
+                if (!OrderedColumnNumbersSet.Contains(columnNumber))
                 {
                     line += $"{lineData.ColumnSeparator}{lineData.Columns[columnIndex]}";
                 }
             }
 
-            this.OutputWriter.WriteLine(line);
+            OutputWriter.WriteLine(line);
 
             return true;
         }

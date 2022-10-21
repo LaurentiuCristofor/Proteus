@@ -17,12 +17,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     {
         public void Initialize(BaseOutputParameters processingParameters)
         {
-            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, string line)
         {
-            this.OutputWriter.WriteLine(line);
+            OutputWriter.WriteLine(line);
 
             return true;
         }

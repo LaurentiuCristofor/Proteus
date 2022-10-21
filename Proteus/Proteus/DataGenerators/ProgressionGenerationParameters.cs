@@ -30,8 +30,8 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
             double[] progressionParameters = null)
             : base(generationCount)
         {
-            this.ProgressionType = progressionType;
-            this.ProgressionParameters = progressionParameters;
+            ProgressionType = progressionType;
+            ProgressionParameters = progressionParameters;
         }
     }
 }

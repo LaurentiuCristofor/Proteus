@@ -29,8 +29,8 @@ namespace LaurentiuCristofor.Proteus.Common.Numerical
         /// <param name="ratioValue">The ratio value of the progression.</param>
         public GeometricGenerator(double startingValue, double ratioValue)
         {
-            this.NextValue = startingValue;
-            this.RatioValue = ratioValue;
+            NextValue = startingValue;
+            RatioValue = ratioValue;
         }
 
         /// <summary>
@@ -39,9 +39,9 @@ namespace LaurentiuCristofor.Proteus.Common.Numerical
         /// <returns>The next value in the geometric progression.</returns>
         public double Next()
         {
-            double value = this.NextValue;
+            double value = NextValue;
 
-            this.NextValue *= this.RatioValue;
+            NextValue *= RatioValue;
 
             return value;
         }
@@ -52,7 +52,7 @@ namespace LaurentiuCristofor.Proteus.Common.Numerical
         /// <returns>A string representation of the next generated value.</returns>
         public string NextString()
         {
-            return this.Next().ToString();
+            return Next().ToString();
         }
     }
 }

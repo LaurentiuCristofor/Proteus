@@ -41,21 +41,21 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
 
         public void Initialize(OutputExtraOperationParameters<JoinType> processingParameters)
         {
-            this.JoinType = processingParameters.OperationType;
+            JoinType = processingParameters.OperationType;
 
-            if (this.JoinType == JoinType.LeftOuter)
+            if (JoinType == JoinType.LeftOuter)
             {
                 ArgumentChecker.CheckPresence(processingParameters.StringParameters, OuterJoinDefaultValueIndex);
-                this.OuterJoinDefaultValue = processingParameters.StringParameters[OuterJoinDefaultValueIndex];
-                ArgumentChecker.CheckNotNull(this.OuterJoinDefaultValue);
+                OuterJoinDefaultValue = processingParameters.StringParameters[OuterJoinDefaultValueIndex];
+                ArgumentChecker.CheckNotNull(OuterJoinDefaultValue);
             }
 
-            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public void AddLookupDataStructure(Dictionary<IDataHolder, List<string>> lookupDictionary)
         {
-            this.LookupDictionary = lookupDictionary;
+            LookupDictionary = lookupDictionary;
         }
 
         public bool Execute(ulong lineNumber, OneExtractedValue lineData)
@@ -65,9 +65,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
             // The case where we find a match in the lookup dictionary
             // is handled in the same way for all join types.
             //
-            if (this.LookupDictionary.ContainsKey(lineKey))
+            if (LookupDictionary.ContainsKey(lineKey))
             {
-                List<string> joinLines = this.LookupDictionary[lineKey];
+                List<string> joinLines = LookupDictionary[lineKey];
 
                 foreach (string joinLine in joinLines)
                 {
@@ -83,14 +83,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
                         outputLine += lineData.ColumnSeparator + joinLine;
                     }
 
-                    this.OutputWriter.WriteLine(outputLine);
+                    OutputWriter.WriteLine(outputLine);
                 }
             }
             else
             {
                 // In case of no match, we process according to the join type.
                 //
-                switch (this.JoinType)
+                switch (JoinType)
                 {
                     case JoinType.Inner:
                         // We don't output anything for an inner join.
@@ -100,12 +100,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
                     case JoinType.LeftOuter:
                         // For a left outer join, we'll output the first line combined with the string provided by the user.
                         //
-                        string outputLine = lineData.OriginalLine + lineData.ColumnSeparator + this.OuterJoinDefaultValue;
-                        this.OutputWriter.WriteLine(outputLine);
+                        string outputLine = lineData.OriginalLine + lineData.ColumnSeparator + OuterJoinDefaultValue;
+                        OutputWriter.WriteLine(outputLine);
                         break;
 
                     default:
-                        throw new ProteusException($"Internal error: Proteus is not handling join type '{this.JoinType}'!");
+                        throw new ProteusException($"Internal error: Proteus is not handling join type '{JoinType}'!");
                 }
             }
 

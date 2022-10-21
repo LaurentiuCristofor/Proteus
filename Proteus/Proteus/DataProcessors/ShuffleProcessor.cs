@@ -40,30 +40,30 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputExtraParameters processingParameters)
         {
-            this.Lines = new List<string>();
+            Lines = new List<string>();
 
             ArgumentChecker.CheckPresence(processingParameters.IntParameters, SeedIndex);
-            this.Seed = processingParameters.IntParameters[SeedIndex];
+            Seed = processingParameters.IntParameters[SeedIndex];
 
-            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: true);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: true);
         }
 
         public bool Execute(ulong lineNumber, string line)
         {
-            this.Lines.Add(line);
+            Lines.Add(line);
 
             return true;
         }
 
         public override void CompleteExecution()
         {
-            if (this.Lines == null)
+            if (Lines == null)
             {
                 throw new ProteusException("Internal error: An expected data structure has not been initialized!");
             }
 
-            Random randomGenerator = (this.Seed >= 0) ? new Random(this.Seed) : new Random();
-            Shuffler shuffler = new Shuffler(this.Lines.Count, randomGenerator);
+            Random randomGenerator = (Seed >= 0) ? new Random(Seed) : new Random();
+            Shuffler shuffler = new Shuffler(Lines.Count, randomGenerator);
 
             Timer timer = new Timer($"\n{Constants.Messages.ShufflingStart}", Constants.Messages.ShufflingEnd, countFinalLineEndings: 0);
 
@@ -88,14 +88,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 // Exchange the lines indicated by the pair of indices.
                 //
-                SortingOperations.Exchange(this.Lines, indexFirstLine, indexSecondLine);
+                SortingOperations.Exchange(Lines, indexFirstLine, indexSecondLine);
             }
 
             timer.StopAndReport();
 
-            foreach (string line in this.Lines)
+            foreach (string line in Lines)
             {
-                this.OutputWriter.WriteLine(line);
+                OutputWriter.WriteLine(line);
             }
 
             base.CompleteExecution();

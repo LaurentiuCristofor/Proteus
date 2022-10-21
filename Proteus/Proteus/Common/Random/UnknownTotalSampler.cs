@@ -5,8 +5,6 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-
 namespace LaurentiuCristofor.Proteus.Common.Random
 {
     /// <summary>
@@ -50,12 +48,12 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         {
             ArgumentChecker.CheckGreaterThanOrEqualTo(sampleCount, 1);
 
-            this.SampleCount = sampleCount;
-            this.RandomGenerator = randomGenerator ?? new System.Random();
+            SampleCount = sampleCount;
+            RandomGenerator = randomGenerator ?? new System.Random();
 
             // R1. [Initialize]
             //
-            this.ElementCount = this.SampleCount;
+            ElementCount = SampleCount;
         }
 
         /// <summary>
@@ -66,13 +64,13 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         {
             // R3. [Generate and test]
             //
-            ++this.ElementCount;
+            ++ElementCount;
 
-            // Generate an integer value between 1 and this.ElementCount (inclusive).
+            // Generate an integer value between 1 and ElementCount (inclusive).
             //
-            int M = this.RandomGenerator.Next(1, this.ElementCount + 1);
+            int M = RandomGenerator.Next(1, ElementCount + 1);
 
-            if (M <= this.SampleCount)
+            if (M <= SampleCount)
             {
                 // R4. [Add to reservoir]
                 //

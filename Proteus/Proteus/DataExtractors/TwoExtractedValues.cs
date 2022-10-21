@@ -30,7 +30,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             IDataHolder secondExtractedData)
             : base(originalLine, columns, columnSeparator, extractedData, extractedColumnNumber)
         {
-            this.SecondExtractedData = secondExtractedData;
+            SecondExtractedData = secondExtractedData;
         }
     }
 }

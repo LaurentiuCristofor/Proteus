@@ -32,7 +32,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
             IDataHolder[] dataHolderParameters = null)
             : base(outputFilePath, stringParameters, intParameters, ulongParameters, doubleParameters, dataHolderParameters)
         {
-            this.OperationType = operationType;
+            OperationType = operationType;
         }
 
         public OutputExtraOperationParameters(
@@ -42,7 +42,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
             ulong[] ulongParameters)
             : base(outputFilePath, stringParameters, ulongParameters)
         {
-            this.OperationType = operationType;
+            OperationType = operationType;
         }
 
         public OutputExtraOperationParameters(
@@ -52,7 +52,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
             double[] doubleParameters)
             : base(outputFilePath, stringParameters, doubleParameters)
         {
-            this.OperationType = operationType;
+            OperationType = operationType;
         }
 
         public OutputExtraOperationParameters(
@@ -62,7 +62,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
             IDataHolder[] dataHolderParameters)
             : base(outputFilePath, stringParameters, dataHolderParameters)
         {
-            this.OperationType = operationType;
+            OperationType = operationType;
         }
 
         public OutputExtraOperationParameters(
@@ -71,7 +71,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
             int[] intParameters)
             : base(outputFilePath, intParameters)
         {
-            this.OperationType = operationType;
+            OperationType = operationType;
         }
 
         public OutputExtraOperationParameters(
@@ -80,7 +80,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
             ulong[] ulongParameters)
             : base(outputFilePath, ulongParameters)
         {
-            this.OperationType = operationType;
+            OperationType = operationType;
         }
 
         public OutputExtraOperationParameters(
@@ -89,7 +89,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
             double[] doubleParameters)
             : base(outputFilePath, doubleParameters)
         {
-            this.OperationType = operationType;
+            OperationType = operationType;
         }
 
         public OutputExtraOperationParameters(
@@ -98,7 +98,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
             IDataHolder[] dataHolderParameters)
             : base(outputFilePath, dataHolderParameters)
         {
-            this.OperationType = operationType;
+            OperationType = operationType;
         }
     }
 }

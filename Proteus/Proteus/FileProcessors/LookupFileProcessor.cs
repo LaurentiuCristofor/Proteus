@@ -94,29 +94,29 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
             string lookupFilePath, TLookupExtractionParameters lookupFileExtractionParameters,
             TProcessingParameters processingParameters)
         {
-            this.DataFilePath = dataFilePath;
+            DataFilePath = dataFilePath;
 
-            this.DataFileExtractor = new TDataExtractor();
-            this.DataFileExtractor.Initialize(dataFileExtractionParameters);
+            DataFileExtractor = new TDataExtractor();
+            DataFileExtractor.Initialize(dataFileExtractionParameters);
 
-            this.LookupFilePath = lookupFilePath;
+            LookupFilePath = lookupFilePath;
 
-            this.LookupFileExtractor = new TLookupDataExtractor();
-            this.LookupFileExtractor.Initialize(lookupFileExtractionParameters);
+            LookupFileExtractor = new TLookupDataExtractor();
+            LookupFileExtractor.Initialize(lookupFileExtractionParameters);
 
-            this.LookupDataStructureBuilder = new TLookupDataStructureBuilder();
+            LookupDataStructureBuilder = new TLookupDataStructureBuilder();
 
-            this.DataProcessor = new TDataProcessor();
-            this.DataProcessor.Initialize(processingParameters);
+            DataProcessor = new TDataProcessor();
+            DataProcessor.Initialize(processingParameters);
 
             // Quickly check existence of data file, to avoid processing the lookup file for nothing.
             //
-            this.InputReader = new StreamReader(this.DataFilePath);
-            this.InputReader.Close();
+            InputReader = new StreamReader(DataFilePath);
+            InputReader.Close();
 
-            this.InputReader = new StreamReader(this.LookupFilePath);
+            InputReader = new StreamReader(LookupFilePath);
 
-            this.LineCounter = 0;
+            LineCounter = 0;
         }
 
         /// <summary>
@@ -133,17 +133,17 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
 
             // Switch reader to data file.
             //
-            this.InputReader = new StreamReader(this.DataFilePath);
+            InputReader = new StreamReader(DataFilePath);
 
             // Reset line counter.
             // It's not necessary to reset the progress tracker
             // because the status message from the end of the lookup file processing does that.
             //
-            this.LineCounter = 0;
+            LineCounter = 0;
 
             // Add lookup data structure that we just built to the data processor.
             //
-            this.DataProcessor.AddLookupDataStructure(this.LookupDataStructure);
+            DataProcessor.AddLookupDataStructure(LookupDataStructure);
 
             while (ProcessNextRowOfDataFile())
             {
@@ -161,7 +161,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         {
             // Read next line.
             //
-            string nextRow = this.InputReader.ReadLine();
+            string nextRow = InputReader.ReadLine();
 
             // Check for end of file.
             //
@@ -172,12 +172,12 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
 
             // Count line and track progress.
             //
-            this.LineCounter++;
-            ProgressTracker.Track(this.LineCounter);
+            LineCounter++;
+            ProgressTracker.Track(LineCounter);
 
             // Perform the extraction step.
             //
-            TLookupExtractedData nextData = this.LookupFileExtractor.ExtractData(this.LineCounter, nextRow);
+            TLookupExtractedData nextData = LookupFileExtractor.ExtractData(LineCounter, nextRow);
 
             // Skip lines from which we could not extract data.
             //
@@ -188,7 +188,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
 
             // Then perform the lookup data structure building step.
             //
-            this.LookupDataStructure = this.LookupDataStructureBuilder.Execute(nextData);
+            LookupDataStructure = LookupDataStructureBuilder.Execute(nextData);
 
             return true;
         }
@@ -201,7 +201,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         {
             // Read next line.
             //
-            string nextRow = this.InputReader.ReadLine();
+            string nextRow = InputReader.ReadLine();
 
             // Check for end of file.
             //
@@ -212,12 +212,12 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
 
             // Count line and track progress.
             //
-            this.LineCounter++;
-            ProgressTracker.Track(this.LineCounter);
+            LineCounter++;
+            ProgressTracker.Track(LineCounter);
 
             // Perform the extraction step.
             //
-            TExtractedData nextData = this.DataFileExtractor.ExtractData(this.LineCounter, nextRow);
+            TExtractedData nextData = DataFileExtractor.ExtractData(LineCounter, nextRow);
 
             // Skip lines from which we could not extract data.
             //
@@ -229,7 +229,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
             // Then perform the processing step.
             // Check the result for an early processing termination.
             //
-            if (!this.DataProcessor.Execute(this.LineCounter, nextData))
+            if (!DataProcessor.Execute(LineCounter, nextData))
             {
                 return EndDataFileProcessing();
             }
@@ -243,9 +243,9 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         /// <returns>Always returns false to indicate that execution should terminate.</returns>
         protected bool EndLookupFileProcessing()
         {
-            this.InputReader.Close();
+            InputReader.Close();
 
-            LoggingManager.GetLogger().LogLine($"\n{this.LineCounter:N0} {Constants.Messages.LinesReadFromLookupFile} '{Path.GetFileName(this.LookupFilePath)}'.");
+            LoggingManager.GetLogger().LogLine($"\n{LineCounter:N0} {Constants.Messages.LinesReadFromLookupFile} '{Path.GetFileName(LookupFilePath)}'.");
 
             return false;
         }
@@ -256,11 +256,11 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         /// <returns>Always returns false to indicate that execution should terminate.</returns>
         protected bool EndDataFileProcessing()
         {
-            this.DataProcessor.CompleteExecution();
+            DataProcessor.CompleteExecution();
 
-            this.InputReader.Close();
+            InputReader.Close();
 
-            LoggingManager.GetLogger().LogLine($"\n{this.LineCounter:N0} {Constants.Messages.LinesReadFromDataFile} '{Path.GetFileName(this.DataFilePath)}'.");
+            LoggingManager.GetLogger().LogLine($"\n{LineCounter:N0} {Constants.Messages.LinesReadFromDataFile} '{Path.GetFileName(DataFilePath)}'.");
 
             return false;
         }

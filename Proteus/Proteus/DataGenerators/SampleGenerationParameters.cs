@@ -25,7 +25,7 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
             ulong totalCount)
             : base(seed, generationCount)
         {
-            this.TotalCount = totalCount;
+            TotalCount = totalCount;
         }
     }
 }

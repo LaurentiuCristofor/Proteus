@@ -6,7 +6,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using LaurentiuCristofor.Proteus.Common;
-using LaurentiuCristofor.Proteus.Common.DataHolders;
 using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
@@ -29,90 +28,90 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputOperationParameters<RelativeValueSelectionType> processingParameters)
         {
-            this.SelectionType = processingParameters.OperationType;
+            SelectionType = processingParameters.OperationType;
 
-            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, OneExtractedValue lineData)
         {
             // Verify that the input file is sorted on the extracted data.
             //
-            if (this.LastSeenLineData != null
-                && lineData.ExtractedData.CompareTo(this.LastSeenLineData.ExtractedData) < 0)
+            if (LastSeenLineData != null
+                && lineData.ExtractedData.CompareTo(LastSeenLineData.ExtractedData) < 0)
             {
-                throw new ProteusException($"Input file is not sorted as expected! Value '{lineData.ExtractedData}' succeeds value '{this.LastSeenLineData.ExtractedData}'.");
+                throw new ProteusException($"Input file is not sorted as expected! Value '{lineData.ExtractedData}' succeeds value '{LastSeenLineData.ExtractedData}'.");
             }
 
             // Determine whether to output the line based on the handling type.
             //
             bool shouldOutputLine = false;
             string lineToOutput = lineData.OriginalLine;
-            switch (this.SelectionType)
+            switch (SelectionType)
             {
                 case RelativeValueSelectionType.First:
-                    if (this.LastSeenLineData == null
-                        || !lineData.ExtractedData.Equals(this.LastSeenLineData.ExtractedData))
+                    if (LastSeenLineData == null
+                        || !lineData.ExtractedData.Equals(LastSeenLineData.ExtractedData))
                     {
                         shouldOutputLine = true;
                     }
                     break;
 
                 case RelativeValueSelectionType.NotFirst:
-                    if (this.LastSeenLineData != null
-                        && lineData.ExtractedData.Equals(this.LastSeenLineData.ExtractedData))
+                    if (LastSeenLineData != null
+                        && lineData.ExtractedData.Equals(LastSeenLineData.ExtractedData))
                     {
                         shouldOutputLine = true;
                     }
                     break;
 
                 case RelativeValueSelectionType.Last:
-                    if (this.LastSeenLineData != null
-                        && !lineData.ExtractedData.Equals(this.LastSeenLineData.ExtractedData))
+                    if (LastSeenLineData != null
+                        && !lineData.ExtractedData.Equals(LastSeenLineData.ExtractedData))
                     {
                         // We're seeing a new value, so the earlier line is the last one in which we saw the previous value.
                         //
-                        lineToOutput = this.LastSeenLineData.OriginalLine;
+                        lineToOutput = LastSeenLineData.OriginalLine;
                         shouldOutputLine = true;
                     }
                     break;
 
                 case RelativeValueSelectionType.NotLast:
-                    if (this.LastSeenLineData != null
-                        && lineData.ExtractedData.Equals(this.LastSeenLineData.ExtractedData))
+                    if (LastSeenLineData != null
+                        && lineData.ExtractedData.Equals(LastSeenLineData.ExtractedData))
                     {
                         // We're seeing the value again, so the earlier line is not the last one and can be printed now.
                         //
-                        lineToOutput = this.LastSeenLineData.OriginalLine;
+                        lineToOutput = LastSeenLineData.OriginalLine;
                         shouldOutputLine = true;
                     }
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling relative value selection type '{this.SelectionType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling relative value selection type '{SelectionType}'!");
             }
 
             if (shouldOutputLine)
             {
-                this.OutputWriter.WriteLine(lineToOutput);
+                OutputWriter.WriteLine(lineToOutput);
             }
 
             // Update last seen line data.
             //
-            this.LastSeenLineData = lineData;
+            LastSeenLineData = lineData;
 
             return true;
         }
 
         public override void CompleteExecution()
         {
-            if (this.SelectionType == RelativeValueSelectionType.Last)
+            if (SelectionType == RelativeValueSelectionType.Last)
             {
                 // The last seen line has to be printed.
                 //
-                if (this.LastSeenLineData != null)
+                if (LastSeenLineData != null)
                 {
-                    this.OutputWriter.WriteLine(this.LastSeenLineData.OriginalLine);
+                    OutputWriter.WriteLine(LastSeenLineData.OriginalLine);
                 }
             }
 

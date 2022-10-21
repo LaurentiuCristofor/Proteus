@@ -33,18 +33,18 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
         {
             // Indicate end of generation if we achieved the requested output.
             //
-            if (this.GeneratedCount == this.GenerationCount)
+            if (GeneratedCount == GenerationCount)
             {
                 return null;
             }
 
             // Count this data generation.
             //
-            ++this.GeneratedCount;
+            ++GeneratedCount;
 
             // Return the string representation of the next generated value.
             //
-            return this.Generator.NextString();
+            return Generator.NextString();
         }
     }
 }

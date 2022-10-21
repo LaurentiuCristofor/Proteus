@@ -18,7 +18,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
     {
         public void Initialize(BaseOutputParameters processingParameters)
         {
-            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public ProcessingActionType Execute(
@@ -36,7 +36,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
 
                 // If we finished with the first file, just output the remaining lines from the second one.
                 //
-                this.OutputWriter.WriteLine(secondLineData.OriginalLine);
+                OutputWriter.WriteLine(secondLineData.OriginalLine);
 
                 return ProcessingActionType.AdvanceSecond;
             }
@@ -44,7 +44,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
             {
                 // If we finished with the second file, just output the remaining lines from the first one.
                 //
-                this.OutputWriter.WriteLine(firstLineData.OriginalLine);
+                OutputWriter.WriteLine(firstLineData.OriginalLine);
 
                 return ProcessingActionType.AdvanceFirst;
             }
@@ -53,13 +53,13 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
             //
             if (firstLineData.ExtractedData.CompareTo(secondLineData.ExtractedData) <= 0)
             {
-                this.OutputWriter.WriteLine(firstLineData.OriginalLine);
+                OutputWriter.WriteLine(firstLineData.OriginalLine);
 
                 return ProcessingActionType.AdvanceFirst;
             }
             else
             {
-                this.OutputWriter.WriteLine(secondLineData.OriginalLine);
+                OutputWriter.WriteLine(secondLineData.OriginalLine);
 
                 return ProcessingActionType.AdvanceSecond;
             }

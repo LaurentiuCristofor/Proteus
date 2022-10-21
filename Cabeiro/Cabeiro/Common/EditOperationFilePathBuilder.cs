@@ -19,16 +19,16 @@ namespace LaurentiuCristofor.Cabeiro.Common
         public EditOperationFilePathBuilder(StringEditType editType, string inputFilePath, string outputFileExtension, string[] editArguments, string outputFilePath)
             : base(inputFilePath, outputFileExtension, editArguments, outputFilePath)
         {
-            this.EditType = editType;
+            EditType = editType;
         }
 
         protected override void ProcessArguments()
         {
             // PLN requires additional special processing of its separator argument.
             //
-            if (this.EditType == StringEditType.PrefixLineNumbers)
+            if (EditType == StringEditType.PrefixLineNumbers)
             {
-                this.OperationArguments[0] = ArgumentParser.ParseSeparator(this.OperationArguments[0]);
+                OperationArguments[0] = ArgumentParser.ParseSeparator(OperationArguments[0]);
             }
         }
 
@@ -36,7 +36,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
         {
             // For PLN we don't append its separator argument to the output file extension.
             //
-            if (this.EditType == StringEditType.PrefixLineNumbers)
+            if (EditType == StringEditType.PrefixLineNumbers)
             {
                 return;
             }

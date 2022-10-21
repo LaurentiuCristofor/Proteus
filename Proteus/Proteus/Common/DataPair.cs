@@ -43,14 +43,14 @@ namespace LaurentiuCristofor.Proteus.Common
                 throw new ProteusException("First data of a DataPair cannot be null!");
             }
 
-            this.FirstData = firstData;
-            this.SecondData = secondData;
+            FirstData = firstData;
+            SecondData = secondData;
         }
 
         public int CompareTo(object otherObject)
         {
             DataPair<T1, T2> otherDataPair = (DataPair<T1, T2>)otherObject;
-            return this.FirstData.CompareTo(otherDataPair.FirstData);
+            return FirstData.CompareTo(otherDataPair.FirstData);
         }
 
         public override bool Equals(Object otherObject)

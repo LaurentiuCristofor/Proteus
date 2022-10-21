@@ -42,15 +42,15 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         {
             ArgumentChecker.CheckGreaterThanOrEqualTo(mean, 1UL);
 
-            this.Mean = mean;
-            this.RandomGenerator = randomGenerator ?? new System.Random();
+            Mean = mean;
+            RandomGenerator = randomGenerator ?? new System.Random();
 
             // For larger mean values we approximate the Poisson distribution
             // with a normal distribution.
             //
-            if (this.Mean > 30)
+            if (Mean > 30)
             {
-                this.NormalGenerator = new NormalGenerator(this.RandomGenerator);
+                NormalGenerator = new NormalGenerator(RandomGenerator);
             }
         }
 
@@ -62,7 +62,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         {
             // Generate a normal distribution if we initialized the generator for it.
             //
-            if (this.NormalGenerator != null)
+            if (NormalGenerator != null)
             {
                 return NextNormal();
             }
@@ -79,14 +79,14 @@ namespace LaurentiuCristofor.Proteus.Common.Random
             // Q1. [Calculate exponential]
             //
             ulong value = 0;
-            double p = Math.Exp(-(double)this.Mean);
+            double p = Math.Exp(-(double)Mean);
             double q = 1.0;
 
             while (true)
             {
                 // Q2. [Get uniform variable]
                 //
-                double U = this.RandomGenerator.NextDouble();
+                double U = RandomGenerator.NextDouble();
 
                 // Q3. [Multiply]
                 //
@@ -111,9 +111,9 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// <returns>A new unsigned long value generated using a normal distribution approximation of a Poisson distribution.</returns>
         private ulong NextNormal()
         {
-            double z = this.NormalGenerator.Next();
+            double z = NormalGenerator.Next();
 
-            long value = (long)(this.Mean + z * Math.Sqrt(this.Mean) + 0.5);
+            long value = (long)(Mean + z * Math.Sqrt(Mean) + 0.5);
 
             return (value >= 0) ? (ulong)value : 0;
         }
@@ -124,7 +124,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// <returns>A string representation of the next generated value.</returns>
         public string NextString()
         {
-            return this.Next().ToString();
+            return Next().ToString();
         }
     }
 }

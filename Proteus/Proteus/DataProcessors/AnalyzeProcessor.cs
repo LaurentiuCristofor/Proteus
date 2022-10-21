@@ -5,7 +5,6 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using LaurentiuCristofor.Proteus.Common;
 using LaurentiuCristofor.Proteus.Common.Utilities;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
@@ -24,21 +23,21 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(AnalyzeParameters processingParameters)
         {
-            this.Analyzer = new DataAnalyzer(processingParameters.DataType, processingParameters.OutputLimit);
+            Analyzer = new DataAnalyzer(processingParameters.DataType, processingParameters.OutputLimit);
         }
 
         public bool Execute(ulong lineNumber, OneExtractedValue lineData)
         {
-            this.Analyzer.Analyze(lineData.ExtractedData);
+            Analyzer.Analyze(lineData.ExtractedData);
 
             return true;
         }
 
         public void CompleteExecution()
         {
-            this.Analyzer.PostProcessAnalyzedData();
+            Analyzer.PostProcessAnalyzedData();
 
-            this.Analyzer.OutputReport();
+            Analyzer.OutputReport();
         }
     }
 }

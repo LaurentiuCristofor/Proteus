@@ -41,19 +41,19 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputExtraOperationParameters<ComparisonType> processingParameters)
         {
-            this.ComparisonType = processingParameters.OperationType;
+            ComparisonType = processingParameters.OperationType;
 
             ArgumentChecker.CheckPresence(processingParameters.DataHolderParameters, FirstColumnCountIndex);
-            this.FirstColumnCount = processingParameters.DataHolderParameters[FirstColumnCountIndex];
-            ArgumentChecker.CheckNotNull(this.FirstColumnCount);
+            FirstColumnCount = processingParameters.DataHolderParameters[FirstColumnCountIndex];
+            ArgumentChecker.CheckNotNull(FirstColumnCount);
 
             if (processingParameters.DataHolderParameters.Length > SecondColumnCountIndex)
             {
-                this.SecondColumnCount = processingParameters.DataHolderParameters[SecondColumnCountIndex];
-                ArgumentChecker.CheckNotNull(this.SecondColumnCount);
+                SecondColumnCount = processingParameters.DataHolderParameters[SecondColumnCountIndex];
+                ArgumentChecker.CheckNotNull(SecondColumnCount);
             }
 
-            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, ExtractedColumnStrings lineData)
@@ -64,9 +64,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             // Perform the comparison to decide whether to output the line.
             //
-            if (DataHolderOperations.Compare(columnCountContainer, this.ComparisonType, this.FirstColumnCount, this.SecondColumnCount))
+            if (DataHolderOperations.Compare(columnCountContainer, ComparisonType, FirstColumnCount, SecondColumnCount))
             {
-                this.OutputWriter.WriteLine(lineData.OriginalLine);
+                OutputWriter.WriteLine(lineData.OriginalLine);
             }
 
             return true;

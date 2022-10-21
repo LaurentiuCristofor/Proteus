@@ -41,29 +41,29 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputExtraOperationParameters<PositionInsertionType> processingParameters)
         {
-            this.InsertionType = processingParameters.OperationType;
+            InsertionType = processingParameters.OperationType;
 
             ArgumentChecker.CheckPresence(processingParameters.StringParameters, LineToInsertIndex);
-            this.LineToInsert = processingParameters.StringParameters[LineToInsertIndex];
-            ArgumentChecker.CheckNotNull(this.LineToInsert);
+            LineToInsert = processingParameters.StringParameters[LineToInsertIndex];
+            ArgumentChecker.CheckNotNull(LineToInsert);
 
-            switch (this.InsertionType)
+            switch (InsertionType)
             {
                 case PositionInsertionType.Position:
                 case PositionInsertionType.Each:
                     ArgumentChecker.CheckPresence(processingParameters.UlongParameters, InsertionLineCountIndex);
-                    this.InsertionLineCount = processingParameters.UlongParameters[InsertionLineCountIndex];
-                    ArgumentChecker.CheckGreaterThanOrEqualTo(this.InsertionLineCount, 1UL);
+                    InsertionLineCount = processingParameters.UlongParameters[InsertionLineCountIndex];
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(InsertionLineCount, 1UL);
                     break;
 
                 case PositionInsertionType.Last:
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling number insertion type '{this.InsertionType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling number insertion type '{InsertionType}'!");
             }
 
-            this.OutputWriter = new FileWriter(processingParameters.OutputFilePath);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, string line)
@@ -71,25 +71,25 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             // Decide whether to output the argument line
             // before the current existing line.
             //
-            switch (this.InsertionType)
+            switch (InsertionType)
             {
                 case PositionInsertionType.Position:
                     // If we reached the desired position, insert our line argument.
                     //
-                    if (lineNumber == this.InsertionLineCount)
+                    if (lineNumber == InsertionLineCount)
                     {
-                        this.OutputWriter.WriteLine(this.LineToInsert);
-                        ++this.LastOutputLineNumber;
+                        OutputWriter.WriteLine(LineToInsert);
+                        ++LastOutputLineNumber;
                     }
                     break;
 
                 case PositionInsertionType.Each:
                     // Insert our line argument whenever its line number in the output file would be a multiple of our desired "each" argument.
                     //
-                    if ((this.LastOutputLineNumber + 1) % this.InsertionLineCount == 0)
+                    if ((LastOutputLineNumber + 1) % InsertionLineCount == 0)
                     {
-                        this.OutputWriter.WriteLine(this.LineToInsert);
-                        ++this.LastOutputLineNumber;
+                        OutputWriter.WriteLine(LineToInsert);
+                        ++LastOutputLineNumber;
                     }
                     break;
 
@@ -99,11 +99,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling number insertion type '{this.InsertionType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling number insertion type '{InsertionType}'!");
             }
 
-            this.OutputWriter.WriteLine(line);
-            ++this.LastOutputLineNumber;
+            OutputWriter.WriteLine(line);
+            ++LastOutputLineNumber;
 
             return true;
         }
@@ -112,13 +112,13 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         {
             // Decide whether to output the line as the last line.
             //
-            if ((this.InsertionType == PositionInsertionType.Position
-                && this.InsertionLineCount == this.LastOutputLineNumber + 1)
-                || (this.InsertionType == PositionInsertionType.Each
-                && ((this.LastOutputLineNumber + 1) % this.InsertionLineCount == 0))
-                || this.InsertionType == PositionInsertionType.Last)
+            if ((InsertionType == PositionInsertionType.Position
+                && InsertionLineCount == LastOutputLineNumber + 1)
+                || (InsertionType == PositionInsertionType.Each
+                && ((LastOutputLineNumber + 1) % InsertionLineCount == 0))
+                || InsertionType == PositionInsertionType.Last)
             {
-                this.OutputWriter.WriteLine(this.LineToInsert);
+                OutputWriter.WriteLine(LineToInsert);
             }
 
             base.CompleteExecution();
