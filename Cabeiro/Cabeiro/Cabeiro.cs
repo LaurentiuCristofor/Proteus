@@ -186,77 +186,59 @@ namespace LaurentiuCristofor.Cabeiro
                     outputFilePath);
                 return;
             }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.Sort))
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.Sort)
+                || ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.CustomSort))
             {
+                bool isCustom = ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.CustomSort);
+
                 const int minimumArgumentNumber = 2;
                 const int maximumArgumentNumber = 3;
-                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
+                ArgumentParser.CheckExpectedArgumentNumber(
+                    arguments.Length,
+                    isCustom ? minimumArgumentNumber + 1 : minimumArgumentNumber,
+                    isCustom ? maximumArgumentNumber + 1 : maximumArgumentNumber);
 
                 string inputFilePath = arguments[1];
-                ArgumentParser.ExtractLastArguments(0, 2, arguments, out _, out string outputFilePath);
+                Tuple<SortingAlgorithmType, int> operationInfo
+                    = isCustom
+                    ? ArgumentParser.ParseSortingAlgorithmType(arguments[2])
+                    : new Tuple<SortingAlgorithmType, int>(SortingAlgorithmType.NotSet, 0);
+                ArgumentParser.ExtractLastArguments(operationInfo.Item2, isCustom ? 3 : 2, arguments, out _, out string outputFilePath);
 
                 SortFile(
                     inputFilePath,
-                    SortingAlgorithmType.NotSet, null,
+                    operationInfo.Item1, isCustom ? arguments[2] : null,
                     outputFilePath);
                 return;
             }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SortByColumnValue))
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SortByColumnValue)
+                || ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.CustomSortByColumnValue))
             {
+                bool isCustom = ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.CustomSortByColumnValue);
+
                 const int minimumArgumentNumber = 5;
                 const int maximumArgumentNumber = 6;
-                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
+                ArgumentParser.CheckExpectedArgumentNumber(
+                    arguments.Length,
+                    isCustom ? minimumArgumentNumber + 1 : minimumArgumentNumber,
+                    isCustom ? maximumArgumentNumber + 1 : maximumArgumentNumber);
 
                 string inputFilePath = arguments[1];
                 int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
                 string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
                 DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
-                ArgumentParser.ExtractLastArguments(0, 5, arguments, out _, out string outputFilePath);
+                Tuple<SortingAlgorithmType, int> operationInfo
+                    = isCustom
+                    ? ArgumentParser.ParseSortingAlgorithmType(arguments[5])
+                    : new Tuple<SortingAlgorithmType, int>(SortingAlgorithmType.NotSet, 0);
+                ArgumentParser.ExtractLastArguments(operationInfo.Item2, isCustom ? 6 : 5, arguments, out _, out string outputFilePath);
 
                 SortFileByColumnValue(
                     inputFilePath,
                     columnNumber,
                     columnSeparator,
                     dataType, arguments[4],
-                    SortingAlgorithmType.NotSet, null,
-                    outputFilePath);
-                return;
-            }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.CustomSort))
-            {
-                const int minimumArgumentNumber = 3;
-                const int maximumArgumentNumber = 4;
-                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
-
-                string inputFilePath = arguments[1];
-                Tuple<SortingAlgorithmType, int> operationInfo = ArgumentParser.ParseSortingAlgorithmType(arguments[2]);
-                ArgumentParser.ExtractLastArguments(operationInfo.Item2, 3, arguments, out _, out string outputFilePath);
-
-                SortFile(
-                    inputFilePath,
-                    operationInfo.Item1, arguments[2],
-                    outputFilePath);
-                return;
-            }
-            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.CustomSortByColumnValue))
-            {
-                const int minimumArgumentNumber = 6;
-                const int maximumArgumentNumber = 7;
-                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
-
-                string inputFilePath = arguments[1];
-                int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
-                string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
-                DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
-                Tuple<SortingAlgorithmType, int> operationInfo = ArgumentParser.ParseSortingAlgorithmType(arguments[5]);
-                ArgumentParser.ExtractLastArguments(operationInfo.Item2, 6, arguments, out _, out string outputFilePath);
-
-                SortFileByColumnValue(
-                    inputFilePath,
-                    columnNumber,
-                    columnSeparator,
-                    dataType, arguments[4],
-                    operationInfo.Item1, arguments[5],
+                    operationInfo.Item1, isCustom ? arguments[5] : null,
                     outputFilePath);
                 return;
             }
