@@ -88,7 +88,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 // Exchange the lines indicated by the pair of indices.
                 //
-                SortingOperations.Exchange(Lines, indexFirstLine, indexSecondLine);
+                ListOperations.Exchange(Lines, indexFirstLine, indexSecondLine);
             }
 
             timer.StopAndReport();

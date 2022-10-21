@@ -13,21 +13,6 @@ namespace LaurentiuCristofor.Proteus.Common.Algorithms
     public abstract class SortingOperations
     {
         /// <summary>
-        /// Exchanges two elements in a list.
-        /// Does not check the validity of the input.
-        /// </summary>
-        /// <typeparam name="T">The list element type.</typeparam>
-        /// <param name="list">The list in which to exchange elements.</param>
-        /// <param name="i">The index of the first element to exchange.</param>
-        /// <param name="j">The index of the second element to exchange.</param>
-        public static void Exchange<T>(List<T> list, int i, int j)
-        {
-            T savedValue = list[i];
-            list[i] = list[j];
-            list[j] = savedValue;
-        }
-
-        /// <summary>
         /// Returns the index in the list where value is found
         /// or where it should be inserted.
         /// Does not check the validity of the input.
@@ -77,17 +62,17 @@ namespace LaurentiuCristofor.Proteus.Common.Algorithms
         {
             if (list[i].CompareTo(list[j]) > 0)
             {
-                Exchange(list, i, j);
+                ListOperations.Exchange(list, i, j);
             }
 
             if (list[i].CompareTo(list[k]) > 0)
             {
-                Exchange(list, i, k);
+                ListOperations.Exchange(list, i, k);
             }
 
             if (list[j].CompareTo(list[k]) > 0)
             {
-                Exchange(list, j, k);
+                ListOperations.Exchange(list, j, k);
             }
         }
 
@@ -315,7 +300,7 @@ namespace LaurentiuCristofor.Proteus.Common.Algorithms
             //
             --right;
 
-            Exchange(list, middle, right);
+            ListOperations.Exchange(list, middle, right);
 
             int i, j;
             for (i = left, j = right; ;)
@@ -333,10 +318,10 @@ namespace LaurentiuCristofor.Proteus.Common.Algorithms
                     break;
                 }
 
-                Exchange(list, i, j);
+                ListOperations.Exchange(list, i, j);
             }
 
-            Exchange(list, i, right);
+            ListOperations.Exchange(list, i, right);
 
             return i;
         }
@@ -401,7 +386,7 @@ namespace LaurentiuCristofor.Proteus.Common.Algorithms
             for (int i = last; i > 0; --i)
             {
                 SiftDown(list, 0, i);
-                Exchange(list, 0, i);
+                ListOperations.Exchange(list, 0, i);
             }
         }
     }
