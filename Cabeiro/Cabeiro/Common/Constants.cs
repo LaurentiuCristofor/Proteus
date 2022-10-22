@@ -125,7 +125,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string SplitLineRanges = "Splits a file into multiple files, each containing a range of lines of specified size. Last file will likely have fewer lines than the rest.";
                 public const string SplitColumns = "Splits a file into multiple files, one for each column. Resulting files may have different size than the original file, if the original file contained lines with varying number of columns.";
                 public const string SplitColumnValues = "Splits a file into multiple files, one for each different value present in a specified column. Lines that do not have the specified column present are ignored.";
-                public const string SplitLinesIntoRandomSets = "Randomly splits the lines of a file into the specified number of sets. If the number of sets is larger than the number of lines, some of the sets will be empty.";
+                public const string SplitLinesIntoRandomSets = "Randomly splits the lines of a file into the specified number of sets. If the number of sets is larger than the number of lines, some of the sets will be empty and no output files will be created for them.";
 
                 public const string MergeLines = "Merges lines from two sorted files. Does not verify the correct sorting of the input files.";
                 public const string MergeLinesByColumnValue = "Merges lines from two files sorted on a specific column. Does not verify the correct sorting of the input files.";

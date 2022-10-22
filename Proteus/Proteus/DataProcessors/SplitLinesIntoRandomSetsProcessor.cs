@@ -27,6 +27,13 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         protected const int SeedIndex = 0;
         protected const int SetsCountIndex = 1;
 
+        protected string OutputFilePath { get; set; }
+
+        /// <summary>
+        /// The file extension that should be used for the output files.
+        /// </summary>
+        protected string OutputFileExtension { get; set; }
+
         /// <summary>
         /// The count of sets into which we should split the input file's lines.
         /// </summary>
@@ -44,22 +51,20 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(OutputExtraParameters processingParameters)
         {
+            OutputFilePath = processingParameters.OutputFilePath;
+
             ArgumentChecker.CheckPresence(processingParameters.StringParameters, OutputFileExtensionIndex);
             ArgumentChecker.CheckPresence(processingParameters.IntParameters, SeedIndex);
             ArgumentChecker.CheckPresence(processingParameters.IntParameters, SetsCountIndex);
 
-            string outputFileExtension = processingParameters.StringParameters[OutputFileExtensionIndex];
+            OutputFileExtension = processingParameters.StringParameters[OutputFileExtensionIndex];
             int seed = processingParameters.IntParameters[SeedIndex];
             SetsCount = processingParameters.IntParameters[SetsCountIndex];
 
-            ArgumentChecker.CheckNotNullAndNotEmpty(outputFileExtension);
+            ArgumentChecker.CheckNotNullAndNotEmpty(OutputFileExtension);
             ArgumentChecker.CheckGreaterThanOrEqualTo(SetsCount, 2);
 
             MapSetToFileWriter = new Dictionary<int, FileWriter>();
-            for (int i = 1; i <= SetsCount; ++i)
-            {
-                MapSetToFileWriter.Add(i, new FileWriter(processingParameters.OutputFilePath + $".{i}{outputFileExtension}"));
-            }
 
             RandomGenerator = (seed >= 0) ? new System.Random(seed) : new System.Random();
         }
@@ -70,6 +75,16 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             //
             int setNumber = RandomGenerator.Next(1, SetsCount + 1);
 
+            // We create the writer for a set only if we have a row to place in it.
+            // This avoids creating unnecessary empty files.
+            //
+            if (!MapSetToFileWriter.ContainsKey(setNumber))
+            {
+                MapSetToFileWriter.Add(setNumber, new FileWriter(OutputFilePath + $".{setNumber}{OutputFileExtension}"));
+            }
+
+            // Write the line into the chosen set's writer.
+            //
             MapSetToFileWriter[setNumber].WriteLine(line);
 
             return true;
