@@ -17,15 +17,15 @@
     <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Proteus">
-      <HintPath>..\..\Proteus\Proteus\bin\Debug\netstandard2.0\Proteus.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Proteus">
+      <HintPath>..\..\Proteus\Proteus\bin\Release\netstandard2.0\Proteus.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
