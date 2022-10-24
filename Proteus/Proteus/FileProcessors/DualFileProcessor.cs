@@ -110,20 +110,20 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
             FirstInputFilePath = firstInputFilePath;
             SecondInputFilePath = secondInputFilePath;
 
-            firstFileExtractor = new TDataExtractor();
-            firstFileExtractor.Initialize(firstExtractionParameters);
+            this.firstFileExtractor = new TDataExtractor();
+            this.firstFileExtractor.Initialize(firstExtractionParameters);
 
-            secondFileExtractor = new TDataExtractor();
-            secondFileExtractor.Initialize(secondExtractionParameters);
+            this.secondFileExtractor = new TDataExtractor();
+            this.secondFileExtractor.Initialize(secondExtractionParameters);
 
             DataProcessor = new TDataProcessor();
             DataProcessor.Initialize(processingParameters);
 
-            firstInputReader = new StreamReader(FirstInputFilePath);
-            secondInputReader = new StreamReader(SecondInputFilePath);
+            this.firstInputReader = new StreamReader(FirstInputFilePath);
+            this.secondInputReader = new StreamReader(SecondInputFilePath);
 
-            firstLineCounter = 0;
-            secondLineCounter = 0;
+            this.firstLineCounter = 0;
+            this.secondLineCounter = 0;
 
             NextAction = ProcessingActionType.AdvanceBoth;
         }
@@ -200,16 +200,16 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
             switch (NextAction)
             {
                 case ProcessingActionType.AdvanceFirst:
-                    AdvanceInFile(ref firstInputReader, ref firstFileExtractor, ref nextFirstFileData, ref hasProcessedFirstFile, ref firstLineCounter, secondLineCounter);
+                    AdvanceInFile(ref this.firstInputReader, ref this.firstFileExtractor, ref this.nextFirstFileData, ref this.hasProcessedFirstFile, ref this.firstLineCounter, this.secondLineCounter);
                     break;
 
                 case ProcessingActionType.AdvanceSecond:
-                    AdvanceInFile(ref secondInputReader, ref secondFileExtractor, ref nextSecondFileData, ref hasProcessedSecondFile, ref secondLineCounter, firstLineCounter);
+                    AdvanceInFile(ref this.secondInputReader, ref this.secondFileExtractor, ref this.nextSecondFileData, ref this.hasProcessedSecondFile, ref this.secondLineCounter, this.firstLineCounter);
                     break;
 
                 case ProcessingActionType.AdvanceBoth:
-                    AdvanceInFile(ref firstInputReader, ref firstFileExtractor, ref nextFirstFileData, ref hasProcessedFirstFile, ref firstLineCounter, secondLineCounter);
-                    AdvanceInFile(ref secondInputReader, ref secondFileExtractor, ref nextSecondFileData, ref hasProcessedSecondFile, ref secondLineCounter, firstLineCounter);
+                    AdvanceInFile(ref this.firstInputReader, ref this.firstFileExtractor, ref this.nextFirstFileData, ref this.hasProcessedFirstFile, ref this.firstLineCounter, this.secondLineCounter);
+                    AdvanceInFile(ref this.secondInputReader, ref this.secondFileExtractor, ref this.nextSecondFileData, ref this.hasProcessedSecondFile, ref this.secondLineCounter, this.firstLineCounter);
                     break;
 
                 case ProcessingActionType.Terminate:
@@ -222,8 +222,8 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
             // Then perform the processing step.
             //
             NextAction = DataProcessor.Execute(
-                hasProcessedFirstFile, firstLineCounter, nextFirstFileData,
-                hasProcessedSecondFile, secondLineCounter, nextSecondFileData);
+                this.hasProcessedFirstFile, this.firstLineCounter, this.nextFirstFileData,
+                this.hasProcessedSecondFile, this.secondLineCounter, this.nextSecondFileData);
 
             return true;
         }
@@ -236,12 +236,12 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         {
             DataProcessor.CompleteExecution();
 
-            firstInputReader.Close();
-            secondInputReader.Close();
+            this.firstInputReader.Close();
+            this.secondInputReader.Close();
 
             ILogger logger = LoggingManager.GetLogger();
-            logger.LogLine($"\n{firstLineCounter:N0} {Constants.Messages.LinesReadFromFirstFile} '{Path.GetFileName(FirstInputFilePath)}'.");
-            logger.LogLine($"\n{secondLineCounter:N0} {Constants.Messages.LinesReadFromSecondFile} '{Path.GetFileName(SecondInputFilePath)}'.");
+            logger.LogLine($"\n{this.firstLineCounter:N0} {Constants.Messages.LinesReadFromFirstFile} '{Path.GetFileName(FirstInputFilePath)}'.");
+            logger.LogLine($"\n{this.secondLineCounter:N0} {Constants.Messages.LinesReadFromSecondFile} '{Path.GetFileName(SecondInputFilePath)}'.");
 
             return false;
         }
