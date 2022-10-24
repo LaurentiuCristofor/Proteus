@@ -9,23 +9,23 @@
     <Description>Cabeiro text file processing utility.</Description>
     <RepositoryUrl>https://github.com/LaurentiuCristofor/Proteus</RepositoryUrl>
     <ApplicationIcon />
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
-    <FileVersion>1.2.0.0</FileVersion>
-    <Version>1.2.0.0</Version>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <Version>2.0.0.0</Version>
     <Copyright>Laurentiu Cristofor</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Proteus">
-      <HintPath>..\..\Proteus\Proteus\bin\Debug\netstandard2.0\Proteus.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Proteus">
+      <HintPath>..\..\Proteus\Proteus\bin\Release\netstandard2.0\Proteus.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

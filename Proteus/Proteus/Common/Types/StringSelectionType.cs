@@ -26,5 +26,7 @@ namespace LaurentiuCristofor.Proteus.Common.Types
         NotStartsAndEndsWith = 10,
         Equals = 11,
         NotEquals = 12,
+        IncludesBefore = 13,
+        NotIncludesBefore = 14,
     }
 }

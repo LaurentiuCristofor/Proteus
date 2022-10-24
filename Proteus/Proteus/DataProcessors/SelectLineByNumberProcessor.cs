@@ -17,76 +17,81 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that checks the line number against a selection criterion,
     /// to decide whether to output the line or not.
+    ///
+    /// OutputExtraOperationParameters is expected to contain:
+    /// UlongParameters[0] - first line count selection argument
+    /// UlongParameters[1] - second line count selection argument (if required)
     /// </summary>
-    public class SelectLineByNumberProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<PositionSelectionType>, string>
+    public class SelectLineByNumberProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraOperationParameters<PositionSelectionType>, string>
     {
-        protected OutputOperationParameters<PositionSelectionType> Parameters { get; set; }
+        protected const int FirstLineCountIndex = 0;
+        protected const int SecondLineCountIndex = 1;
+
+        protected PositionSelectionType SelectionType { get; set; }
 
         /// <summary>
-        /// First line number comparison argument, as an unsigned integer value.
+        /// First line count argument, if expected.
         /// </summary>
-        protected ulong FirstArgumentAsULong { get; set; }
+        protected ulong FirstLineCount { get; set; }
 
         /// <summary>
-        /// Second line number comparison argument, as an unsigned integer value.
+        /// Second line count argument, if expected.
         /// </summary>
-        protected ulong SecondArgumentAsULong { get; set; }
+        protected ulong SecondLineCount { get; set; }
 
         /// <summary>
         /// Data structure used for implementing LineNumberComparisonType.Last and LineNumberComparisonType.NotLast.
         /// </summary>
         protected Queue<string> SizeLimitedQueue { get; set; }
 
-        public void Initialize(OutputOperationParameters<PositionSelectionType> processingParameters)
+        public void Initialize(OutputExtraOperationParameters<PositionSelectionType> processingParameters)
         {
-            this.Parameters = processingParameters;
+            SelectionType = processingParameters.OperationType;
 
-            if (this.Parameters.OperationType == PositionSelectionType.Last
-                || this.Parameters.OperationType == PositionSelectionType.NotLast)
+            if (SelectionType == PositionSelectionType.Last
+                || SelectionType == PositionSelectionType.NotLast)
             {
-                this.SizeLimitedQueue = new Queue<string>();
+                SizeLimitedQueue = new Queue<string>();
             }
 
-            switch (this.Parameters.OperationType)
+            switch (SelectionType)
             {
                 case PositionSelectionType.Last:
                 case PositionSelectionType.NotLast:
                 case PositionSelectionType.Each:
                 case PositionSelectionType.NotEach:
-                    ArgumentChecker.CheckNotNull(this.Parameters.FirstArgument);
-
-                    this.FirstArgumentAsULong = ulong.Parse(this.Parameters.FirstArgument);
-
-                    ArgumentChecker.CheckNotZero(this.FirstArgumentAsULong);
+                    ArgumentChecker.CheckPresence(processingParameters.UlongParameters, FirstLineCountIndex);
+                    FirstLineCount = processingParameters.UlongParameters[FirstLineCountIndex];
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(FirstLineCount, 1UL);
                     break;
 
                 case PositionSelectionType.Between:
                 case PositionSelectionType.NotBetween:
-                    ArgumentChecker.CheckNotNull(this.Parameters.FirstArgument);
-                    ArgumentChecker.CheckNotNull(this.Parameters.SecondArgument);
+                    ArgumentChecker.CheckPresence(processingParameters.UlongParameters, FirstLineCountIndex);
+                    ArgumentChecker.CheckPresence(processingParameters.UlongParameters, SecondLineCountIndex);
 
-                    this.FirstArgumentAsULong = ulong.Parse(this.Parameters.FirstArgument);
-                    this.SecondArgumentAsULong = ulong.Parse(this.Parameters.SecondArgument);
+                    FirstLineCount = processingParameters.UlongParameters[FirstLineCountIndex];
+                    SecondLineCount = processingParameters.UlongParameters[SecondLineCountIndex];
 
-                    ArgumentChecker.CheckNotZero(this.FirstArgumentAsULong);
-                    ArgumentChecker.CheckNotZero(this.SecondArgumentAsULong);
-                    ArgumentChecker.CheckInterval(this.FirstArgumentAsULong, this.SecondArgumentAsULong);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(FirstLineCount, 1UL);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(SecondLineCount, 1UL);
+                    ArgumentChecker.CheckInterval(FirstLineCount, SecondLineCount);
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling number selection type '{this.Parameters.OperationType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling number selection type '{SelectionType}'!");
             }
 
-            if (this.Parameters.OperationType == PositionSelectionType.Last)
+            if (SelectionType == PositionSelectionType.Last)
             {
                 // For this operation, the writing is performed after we've completed reading,
                 // so we want additional progress tracking for it.
                 //
-                this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath, trackProgress: true);
+                OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: true);
             }
             else
             {
-                this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
+                OutputWriter = new FileWriter(processingParameters.OutputFilePath);
             }
         }
 
@@ -98,18 +103,18 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             // To skip outputting a line, we return true.
             // To stop further file processing, we return false.
             //
-            switch (this.Parameters.OperationType)
+            switch (SelectionType)
             {
                 case PositionSelectionType.Between:
                     // Skip first lines until we reach the line from which we start to output.
                     //
-                    if (lineNumber < this.FirstArgumentAsULong)
+                    if (lineNumber < FirstLineCount)
                     {
                         return true;
                     }
                     // Abort further processing once we've completed outputting the lines we wanted.
                     //
-                    else if (lineNumber > this.SecondArgumentAsULong)
+                    else if (lineNumber > SecondLineCount)
                     {
                         return false;
                     }
@@ -118,8 +123,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 case PositionSelectionType.NotBetween:
                     // Skip the lines in the interval that we don't want to output.
                     //
-                    if (lineNumber >= this.FirstArgumentAsULong
-                        && lineNumber <= this.SecondArgumentAsULong)
+                    if (lineNumber >= FirstLineCount
+                        && lineNumber <= SecondLineCount)
                     {
                         return true;
                     }
@@ -132,12 +137,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     // By the time we finish processing the file, the queue will contain all lines
                     // that we need to output and we'll output them in CompleteExecution().
                     //
-                    if ((ulong)this.SizeLimitedQueue.Count == this.FirstArgumentAsULong)
+                    if ((ulong)SizeLimitedQueue.Count == FirstLineCount)
                     {
-                        this.SizeLimitedQueue.Dequeue();
+                        SizeLimitedQueue.Dequeue();
                     }
 
-                    this.SizeLimitedQueue.Enqueue(line);
+                    SizeLimitedQueue.Enqueue(line);
 
                     return true;
 
@@ -150,12 +155,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                         // we'll remove a line when adding a new one, to keep the queue size constant;
                         // then we will output the line that we just removed.
                         //
-                        if ((ulong)this.SizeLimitedQueue.Count == this.FirstArgumentAsULong)
+                        if ((ulong)SizeLimitedQueue.Count == FirstLineCount)
                         {
-                            lineToOutput = this.SizeLimitedQueue.Dequeue();
+                            lineToOutput = SizeLimitedQueue.Dequeue();
                         }
 
-                        this.SizeLimitedQueue.Enqueue(line);
+                        SizeLimitedQueue.Enqueue(line);
 
                         // Quick exit in case we don't have a line to output.
                         //
@@ -172,7 +177,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 case PositionSelectionType.Each:
                     // Skip the lines whose numbers are not multiples of our argument.
                     //
-                    if (lineNumber % this.FirstArgumentAsULong > 0)
+                    if (lineNumber % FirstLineCount > 0)
                     {
                         return true;
                     }
@@ -181,33 +186,33 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                 case PositionSelectionType.NotEach:
                     // Skip the lines whose numbers are multiples of our argument.
                     //
-                    if (lineNumber % this.FirstArgumentAsULong == 0)
+                    if (lineNumber % FirstLineCount == 0)
                     {
                         return true;
                     }
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling number selection type '{this.Parameters.OperationType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling position selection type '{SelectionType}'!");
             }
 
-            this.OutputWriter.WriteLine(line);
+            OutputWriter.WriteLine(line);
 
             return true;
         }
 
         public override void CompleteExecution()
         {
-            if (this.Parameters.OperationType == PositionSelectionType.Last)
+            if (SelectionType == PositionSelectionType.Last)
             {
-                if (this.SizeLimitedQueue == null)
+                if (SizeLimitedQueue == null)
                 {
                     throw new ProteusException("Internal error: An expected data structure has not been initialized!");
                 }
 
-                foreach (string line in this.SizeLimitedQueue)
+                foreach (string line in SizeLimitedQueue)
                 {
-                    this.OutputWriter.WriteLine(line);
+                    OutputWriter.WriteLine(line);
                 }
             }
 

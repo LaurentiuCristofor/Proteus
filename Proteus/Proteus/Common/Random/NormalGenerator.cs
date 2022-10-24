@@ -17,16 +17,16 @@ namespace LaurentiuCristofor.Proteus.Common.Random
     ///
     /// This algorithm implements the polar method of G.E.P. Box, M.E. Muller, and G. Marsaglia.
     /// </summary>
-    public sealed class NormalGenerator
+    public sealed class NormalGenerator : IStringGenerator
     {
         /// <summary>
         /// The uniform random generator source.
         /// </summary>
-        private System.Random UniformGenerator { get; set; }
+        private System.Random RandomGenerator { get; set; }
 
         /// <summary>
         /// Tells whether the generator already has the next value,
-        /// because generation generates two values at a time.
+        /// because generation produces two values at a time.
         /// </summary>
         private bool HasNextValue { get; set; }
 
@@ -39,30 +39,30 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// Creates a random number generator with normal distribution
         /// using a specific instance of System.Random.
         /// </summary>
-        /// <param name="uniformGenerator">The System.Random instance to use, or null to generate a new instance.</param>
-        public NormalGenerator(System.Random uniformGenerator = null)
+        /// <param name="randomGenerator">The System.Random instance to use, or null to generate a new instance.</param>
+        public NormalGenerator(System.Random randomGenerator = null)
         {
-            this.UniformGenerator = uniformGenerator ?? new System.Random();
+            RandomGenerator = randomGenerator ?? new System.Random();
         }
 
         /// <summary>
         /// Returns a new double value with the requested normal distribution.
         /// </summary>
         /// <returns>A new double value with the requested normal distribution.</returns>
-        public double NextGaussian()
+        public double Next()
         {
-            if (this.HasNextValue)
+            if (HasNextValue)
             {
-                this.HasNextValue = false;
-                return this.NextValue;
+                HasNextValue = false;
+                return NextValue;
             }
 
             while (true)
             {
                 // P1: [Get uniform variables]
                 //
-                double U1 = this.UniformGenerator.NextDouble();
-                double U2 = this.UniformGenerator.NextDouble();
+                double U1 = RandomGenerator.NextDouble();
+                double U2 = RandomGenerator.NextDouble();
 
                 // Distributes the values between -1 and 1.
                 //
@@ -86,10 +86,19 @@ namespace LaurentiuCristofor.Proteus.Common.Random
                 double X1 = V1 * squareRootFactor;
                 double X2 = V2 * squareRootFactor;
 
-                this.NextValue = X2;
-                this.HasNextValue = true;
+                NextValue = X2;
+                HasNextValue = true;
                 return X1;
             }
+        }
+
+        /// <summary>
+        /// Implements IStringGenerator.
+        /// </summary>
+        /// <returns>A string representation of the next generated value.</returns>
+        public string NextString()
+        {
+            return Next().ToString();
         }
     }
 }

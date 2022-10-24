@@ -57,15 +57,15 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
 
         public FileProcessor(string inputFilePath, TExtractionParameters extractionParameters, TProcessingParameters processingParameters)
         {
-            this.DataExtractor = new TDataExtractor();
-            this.DataExtractor.Initialize(extractionParameters);
+            DataExtractor = new TDataExtractor();
+            DataExtractor.Initialize(extractionParameters);
 
-            this.DataProcessor = new TDataProcessor();
-            this.DataProcessor.Initialize(processingParameters);
+            DataProcessor = new TDataProcessor();
+            DataProcessor.Initialize(processingParameters);
 
-            this.InputFilePath = inputFilePath;
-            this.InputReader = new StreamReader(this.InputFilePath);
-            this.LineCounter = 0;
+            InputFilePath = inputFilePath;
+            InputReader = new StreamReader(InputFilePath);
+            LineCounter = 0;
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         {
             // Read next line.
             //
-            string nextRow = this.InputReader.ReadLine();
+            string nextRow = InputReader.ReadLine();
 
             // Check for end of file.
             //
@@ -102,12 +102,12 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
 
             // Count line and track progress.
             //
-            this.LineCounter++;
-            ProgressTracker.Track(this.LineCounter);
+            LineCounter++;
+            ProgressTracker.Track(LineCounter);
 
             // Perform the extraction step.
             //
-            TData nextData = this.DataExtractor.ExtractData(this.LineCounter, nextRow);
+            TData nextData = DataExtractor.ExtractData(LineCounter, nextRow);
 
             // Skip lines from which we could not extract data.
             //
@@ -119,7 +119,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
             // Then perform the processing step.
             // Check the result for an early processing termination.
             //
-            if (!this.DataProcessor.Execute(this.LineCounter, nextData))
+            if (!DataProcessor.Execute(LineCounter, nextData))
             {
                 return EndProcessing();
             }
@@ -133,11 +133,11 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         /// <returns>Always returns false to indicate that execution should terminate.</returns>
         protected bool EndProcessing()
         {
-            this.DataProcessor.CompleteExecution();
+            DataProcessor.CompleteExecution();
 
-            this.InputReader.Close();
+            InputReader.Close();
 
-            LoggingManager.GetLogger().LogLine($"\n{this.LineCounter:N0} {Constants.Messages.LinesReadFromFile} '{Path.GetFileName(this.InputFilePath)}'.");
+            LoggingManager.GetLogger().LogLine($"\n{LineCounter:N0} {Constants.Messages.LinesReadFromFile} '{Path.GetFileName(InputFilePath)}'.");
 
             return false;
         }

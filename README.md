@@ -31,13 +31,6 @@ Some memory-expensive operations also have less-expensive alternatives that work
 Cabeiro is meant to support only simple and generic data processing operations.
 The Proteus library could grow to support more complex data analysis scenarios, which would then be exposed by different tools than Cabeiro. 
 
-## Build instructions
-
-On Windows systems, use Visual Studio with `Proteus\Proteus.sln` and `Cabeiro\Cabeiro.sln`.
-
-On Linux systems, use Mono and the `Mono/build.sh` script.
-Once `Cabeiro.exe` is built under `Mono/build`, it can be executed with `mono Cabeiro.exe`.
-
 ## Getting started with Cabeiro
 
 Most of the information in this section is also available through Cabeiro''s help function.
@@ -85,6 +78,8 @@ These commands change the order of the lines or columns of a file.
 * I - (I)nvert file
 * S - (S)ort file
 * SBCV - (S)ort file (B)y (C)olumn (V)alue
+* CS - (C)ustom (S)ort file
+* CSBCV - (C)ustom (S)ort file (B)y (C)olumn (V)alue
 * SH - (SH)uffle file
 * OC - (O)rder (C)olumns
 
@@ -127,6 +122,7 @@ These commands split the content of a file across multiple files, based on vario
  * SPLR - (SP)lit (L)ine (R)anges
  * SPC - (SP)plit (C)olumns
  * SPCV - (SP)plit (C)olumn (V)alues
+ * SPLIRS - (SP)lit (L)ines (I)nto (R)andom (S)ets
 
 #### POST_SORTING commands
 
@@ -148,9 +144,24 @@ Some of these commands provide memory-efficient alternatives to commands from ot
 These commands generate data.
 
 * GEND - (GEN)erate (D)istribution
+* GENP - (GEN)erate (P)rogression
 * GENS - (GEN)erate (S)ample
 
-## History
+# Build instructions
+
+On Windows systems, use Visual Studio with `Proteus\Proteus.sln` and `Cabeiro\Cabeiro.sln`.
+
+On Linux systems, use Mono and the `Mono/build.sh` script.
+Once `Cabeiro.exe` is built under `Mono/build`, it can be executed with `mono Cabeiro.exe`.
+
+# Versioning
+
+Major version numbers are incremented for changes that break backward compatibility or add major new features.
+
+Even minor version numbers are used for official `main` branch releases.
+Odd minor version numbers are only used during development in branches different from `main`.
+
+# History
 
 Around 2007, I was working on a project that involved analyzing log files and I found that I often needed to perform various simple filtering and editing operations on these files.
 At first, I wrote some scripts to help me perform these operations, but then, as their number increased, I decided to write a command line tool that I named *LogTools*.

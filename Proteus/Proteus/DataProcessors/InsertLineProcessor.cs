@@ -15,46 +15,55 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// <summary>
     /// A data processor that checks the current line number,
     /// to decide whether to insert a line at that position or not.
+    /// 
+    /// OutputExtraOperationParameters is expected to contain:
+    /// StringParameters[0] - line to insert
+    /// UlongParameters[0] - insertion line count (if required)
     /// </summary>
-    public class InsertLineProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<PositionInsertionType>, string>
+    public class InsertLineProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraOperationParameters<PositionInsertionType>, string>
     {
-        protected OutputOperationParameters<PositionInsertionType> Parameters { get; set; }
+        protected const int LineToInsertIndex = 0;
+        protected const int InsertionLineCountIndex = 0;
+
+        protected PositionInsertionType InsertionType { get; set; }
+
+        protected string LineToInsert { get; set; }
 
         /// <summary>
-        /// Second argument, as an unsigned integer value.
+        /// A line count indicator of where to insert, if expected.
         /// </summary>
-        protected ulong SecondArgumentAsULong { get; set; }
+        protected ulong InsertionLineCount { get; set; }
 
         /// <summary>
         /// Counter of lines written out.
         /// </summary>
         protected ulong LastOutputLineNumber { get; set; }
 
-        public void Initialize(OutputOperationParameters<PositionInsertionType> processingParameters)
+        public void Initialize(OutputExtraOperationParameters<PositionInsertionType> processingParameters)
         {
-            this.Parameters = processingParameters;
+            InsertionType = processingParameters.OperationType;
 
-            switch (this.Parameters.OperationType)
+            ArgumentChecker.CheckPresence(processingParameters.StringParameters, LineToInsertIndex);
+            LineToInsert = processingParameters.StringParameters[LineToInsertIndex];
+            ArgumentChecker.CheckNotNull(LineToInsert);
+
+            switch (InsertionType)
             {
                 case PositionInsertionType.Position:
                 case PositionInsertionType.Each:
-                    ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.FirstArgument);
-                    ArgumentChecker.CheckNotNull(this.Parameters.SecondArgument);
-
-                    this.SecondArgumentAsULong = ulong.Parse(this.Parameters.SecondArgument);
-
-                    ArgumentChecker.CheckNotZero(this.SecondArgumentAsULong);
+                    ArgumentChecker.CheckPresence(processingParameters.UlongParameters, InsertionLineCountIndex);
+                    InsertionLineCount = processingParameters.UlongParameters[InsertionLineCountIndex];
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(InsertionLineCount, 1UL);
                     break;
 
                 case PositionInsertionType.Last:
-                    ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.FirstArgument);
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling number insertion type '{this.Parameters.OperationType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling number insertion type '{InsertionType}'!");
             }
 
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, string line)
@@ -62,25 +71,25 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             // Decide whether to output the argument line
             // before the current existing line.
             //
-            switch (this.Parameters.OperationType)
+            switch (InsertionType)
             {
                 case PositionInsertionType.Position:
                     // If we reached the desired position, insert our line argument.
                     //
-                    if (lineNumber == this.SecondArgumentAsULong)
+                    if (lineNumber == InsertionLineCount)
                     {
-                        this.OutputWriter.WriteLine(this.Parameters.FirstArgument);
-                        ++this.LastOutputLineNumber;
+                        OutputWriter.WriteLine(LineToInsert);
+                        ++LastOutputLineNumber;
                     }
                     break;
 
                 case PositionInsertionType.Each:
                     // Insert our line argument whenever its line number in the output file would be a multiple of our desired "each" argument.
                     //
-                    if ((this.LastOutputLineNumber + 1) % this.SecondArgumentAsULong == 0)
+                    if ((LastOutputLineNumber + 1) % InsertionLineCount == 0)
                     {
-                        this.OutputWriter.WriteLine(this.Parameters.FirstArgument);
-                        ++this.LastOutputLineNumber;
+                        OutputWriter.WriteLine(LineToInsert);
+                        ++LastOutputLineNumber;
                     }
                     break;
 
@@ -90,11 +99,11 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling number insertion type '{this.Parameters.OperationType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling number insertion type '{InsertionType}'!");
             }
 
-            this.OutputWriter.WriteLine(line);
-            ++this.LastOutputLineNumber;
+            OutputWriter.WriteLine(line);
+            ++LastOutputLineNumber;
 
             return true;
         }
@@ -103,13 +112,13 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         {
             // Decide whether to output the line as the last line.
             //
-            if ((this.Parameters.OperationType == PositionInsertionType.Position
-                && this.SecondArgumentAsULong == this.LastOutputLineNumber + 1)
-                || (this.Parameters.OperationType == PositionInsertionType.Each
-                && ((this.LastOutputLineNumber + 1) % this.SecondArgumentAsULong == 0))
-                || this.Parameters.OperationType == PositionInsertionType.Last)
+            if ((InsertionType == PositionInsertionType.Position
+                && InsertionLineCount == LastOutputLineNumber + 1)
+                || (InsertionType == PositionInsertionType.Each
+                && ((LastOutputLineNumber + 1) % InsertionLineCount == 0))
+                || InsertionType == PositionInsertionType.Last)
             {
-                this.OutputWriter.WriteLine(this.Parameters.FirstArgument);
+                OutputWriter.WriteLine(LineToInsert);
             }
 
             base.CompleteExecution();

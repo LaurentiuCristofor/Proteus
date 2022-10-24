@@ -13,23 +13,14 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
     public class BaseGenerationParameters
     {
         /// <summary>
-        /// A seed value to use when initializing the random number generator.
-        ///
-        /// If set to a negative value, no seed will be used.
-        /// </summary>
-        public int Seed { get; set; }
-
-        /// <summary>
         /// The count of data that should be generated.
         /// </summary>
         public ulong GenerationCount { get; set; }
 
         public BaseGenerationParameters(
-            int seed,
             ulong generationCount)
         {
-            this.Seed = seed;
-            this.GenerationCount = generationCount;
+            GenerationCount = generationCount;
         }
     }
 }

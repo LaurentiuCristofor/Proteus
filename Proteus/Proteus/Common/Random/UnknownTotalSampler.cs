@@ -5,8 +5,6 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-
 namespace LaurentiuCristofor.Proteus.Common.Random
 {
     /// <summary>
@@ -38,24 +36,24 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// <summary>
         /// The uniform random generator source.
         /// </summary>
-        private System.Random UniformGenerator { get; set; }
+        private System.Random RandomGenerator { get; set; }
 
         /// <summary>
         /// Creates a new random sampler that will produce sampleCount distinct values from an unknown number of calls
         /// using a specific instance of System.Random.
         /// </summary>
         /// <param name="sampleCount">The size of the sample.</param>
-        /// <param name="uniformGenerator">The System.Random instance to use, or null to generate a new instance.</param>
-        public UnknownTotalSampler(int sampleCount, System.Random uniformGenerator = null)
+        /// <param name="randomGenerator">The System.Random instance to use, or null to generate a new instance.</param>
+        public UnknownTotalSampler(int sampleCount, System.Random randomGenerator = null)
         {
-            ArgumentChecker.CheckStrictlyPositive(sampleCount);
+            ArgumentChecker.CheckGreaterThanOrEqualTo(sampleCount, 1);
 
-            this.SampleCount = sampleCount;
-            this.UniformGenerator = uniformGenerator ?? new System.Random();
+            SampleCount = sampleCount;
+            RandomGenerator = randomGenerator ?? new System.Random();
 
             // R1. [Initialize]
             //
-            this.ElementCount = this.SampleCount;
+            ElementCount = SampleCount;
         }
 
         /// <summary>
@@ -66,13 +64,13 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         {
             // R3. [Generate and test]
             //
-            ++this.ElementCount;
+            ++ElementCount;
 
-            // Generate an integer value between 1 and this.ElementCount (inclusive).
+            // Generate an integer value between 1 and ElementCount (inclusive).
             //
-            int M = this.UniformGenerator.Next(1, this.ElementCount + 1);
+            int M = RandomGenerator.Next(1, ElementCount + 1);
 
-            if (M <= this.SampleCount)
+            if (M <= SampleCount)
             {
                 // R4. [Add to reservoir]
                 //

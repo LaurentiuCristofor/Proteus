@@ -12,12 +12,12 @@ using LaurentiuCristofor.Proteus.Common.Types;
 namespace LaurentiuCristofor.Cabeiro.Common
 {
     /// <summary>
-    /// A collection of methods for parsing command line arguments.
+    /// A collection of methods for parsing Cabeiro's command line arguments.
     /// </summary>
     public abstract class ArgumentParser
     {
         /// <summary>
-        /// Checks if argument value equals the given command name.
+        /// Checks if the argument's value equals the given command name.
         /// </summary>
         /// <param name="argument">The argument value to check.</param>
         /// <param name="commandName">The command name to check against.</param>
@@ -28,7 +28,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
         }
 
         /// <summary>
-        /// Checks if the argument number matches the expected argument numbers
+        /// Checks if the number of arguments falls into the expected range
         /// and throws an exception if it does not.
         /// </summary>
         /// <param name="argumentNumber">The argument number to check.</param>
@@ -44,16 +44,16 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
             if (argumentNumber < minimumArgumentNumber)
             {
-                throw new CabeiroException($"Command expects at least {minimumArgumentNumber} arguments, but has received only {argumentNumber} arguments!");
+                throw new CabeiroException($"Too few arguments: expected at least {minimumArgumentNumber}, but only received {argumentNumber}!");
             }
             else if (argumentNumber > maximumArgumentNumber)
             {
-                throw new CabeiroException($"Command expects no more than {maximumArgumentNumber} arguments, but has received {argumentNumber} arguments!");
+                throw new CabeiroException($"Too many arguments: expected up to {maximumArgumentNumber}, but received {argumentNumber}!");
             }
         }
 
         /// <summary>
-        /// Checks if the argument number matches the expected argument number
+        /// Checks if the number of arguments matches the expected number
         /// and throws an exception if it does not.
         /// </summary>
         /// <param name="argumentNumber">The argument number to check.</param>
@@ -67,7 +67,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
             if (argumentNumber != expectedArgumentNumber)
             {
-                throw new CabeiroException($"Command expected {expectedArgumentNumber} arguments, but has received {argumentNumber} arguments!");
+                throw new CabeiroException($"Incorrect number of arguments: expected {expectedArgumentNumber}, but received {argumentNumber}!");
             }
         }
 
@@ -133,7 +133,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
         {
             if (expectedArgumentIndex >= arguments.Length)
             {
-                throw new CabeiroException($"Command is missing arguments!");
+                throw new CabeiroException($"An expected argument is missing!");
             }
 
             return arguments[expectedArgumentIndex];
@@ -160,9 +160,9 @@ namespace LaurentiuCristofor.Cabeiro.Common
         /// </summary>
         /// <param name="expectedOperationArguments">The number or arguments required for the current operation.</param>
         /// <param name="nextArgumentIndex">The index from where to extract the next argument.</param>
-        /// <param name="arguments">The arguments that we work on.</param>
-        /// <param name="operationArguments">Will collect the arguments, or will be set to an empty array if no arguments were expected.</param>
-        /// <param name="outputFilePath">Will get set to the output file path, or null if no argument was available.</param>
+        /// <param name="arguments">The arguments array that we operate on.</param>
+        /// <param name="operationArguments">Will collect the extracted arguments.</param>
+        /// <param name="outputFilePath">Will get set to the output file path or to null if no argument was available.</param>
         public static void ExtractLastArguments(
             int expectedOperationArguments,
             int nextArgumentIndex,
@@ -191,6 +191,17 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
 
             outputFilePath = GetOptionalArgument(arguments, nextArgumentIndex);
+            if (outputFilePath != null)
+            {
+                ++nextArgumentIndex;
+            }
+
+            // Check for unexpected arguments.
+            //
+            if (nextArgumentIndex < arguments.Length)
+            {
+                throw new CabeiroException($"Too many arguments: argument '{arguments[nextArgumentIndex]}' was not expected!");
+            }
         }
 
         /// <summary>
@@ -239,7 +250,42 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid data type argument: {argument}!");
+                throw new CabeiroException($"Invalid data type argument: '{argument}'!");
+            }
+        }
+
+        /// <summary>
+        /// Parses argument value as a SortingAlgorithmType indicator.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the SortingAlgorithmType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<SortingAlgorithmType, int> ParseSortingAlgorithmType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.SortingAlgorithmTypeInsertion))
+            {
+                return new Tuple<SortingAlgorithmType, int>(SortingAlgorithmType.Insertion, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.SortingAlgorithmTypeShell))
+            {
+                return new Tuple<SortingAlgorithmType, int>(SortingAlgorithmType.Shell, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.SortingAlgorithmTypeMerge))
+            {
+                return new Tuple<SortingAlgorithmType, int>(SortingAlgorithmType.Merge, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.SortingAlgorithmTypeQuicksort))
+            {
+                return new Tuple<SortingAlgorithmType, int>(SortingAlgorithmType.Quicksort, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.SortingAlgorithmTypeHeap))
+            {
+                return new Tuple<SortingAlgorithmType, int>(SortingAlgorithmType.Heap, 0);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid sorting algorithm type argument: '{argument}'!");
             }
         }
 
@@ -458,7 +504,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid string edit type argument: {argument}!");
+                throw new CabeiroException($"Invalid string edit type argument: '{argument}'!");
             }
         }
 
@@ -493,7 +539,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid value edit type argument: {argument}!");
+                throw new CabeiroException($"Invalid value edit type argument: '{argument}'!");
             }
         }
 
@@ -520,7 +566,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid position insertion type argument: {argument}!");
+                throw new CabeiroException($"Invalid position insertion type argument: '{argument}'!");
             }
         }
 
@@ -543,7 +589,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid join type argument: {argument}!");
+                throw new CabeiroException($"Invalid join type argument: '{argument}'!");
             }
         }
 
@@ -566,7 +612,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid line transformation type argument: {argument}!");
+                throw new CabeiroException($"Invalid line transformation type argument: '{argument}'!");
             }
         }
 
@@ -589,7 +635,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid column transformation type argument: {argument}!");
+                throw new CabeiroException($"Invalid column transformation type argument: '{argument}'!");
             }
         }
 
@@ -644,7 +690,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid comparison type argument: {argument}!");
+                throw new CabeiroException($"Invalid comparison type argument: '{argument}'!");
             }
         }
 
@@ -683,7 +729,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid position selection type argument: {argument}!");
+                throw new CabeiroException($"Invalid position selection type argument: '{argument}'!");
             }
         }
 
@@ -744,9 +790,17 @@ namespace LaurentiuCristofor.Cabeiro.Common
             {
                 return new Tuple<StringSelectionType, int>(StringSelectionType.NotEquals, 1);
             }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeIncludesBefore))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.IncludesBefore, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeNotIncludesBefore))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.NotIncludesBefore, 2);
+            }
             else
             {
-                throw new CabeiroException($"Invalid string selection type argument: {argument}!");
+                throw new CabeiroException($"Invalid string selection type argument: '{argument}'!");
             }
         }
 
@@ -772,7 +826,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid relative value selection type argument: {argument}!");
+                throw new CabeiroException($"Invalid relative value selection type argument: '{argument}'!");
             }
         }
 
@@ -803,7 +857,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid relative value selection type argument: {argument}!");
+                throw new CabeiroException($"Invalid relative value selection type argument: '{argument}'!");
             }
         }
 
@@ -826,38 +880,73 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid lookup type argument: {argument}!");
+                throw new CabeiroException($"Invalid lookup type argument: '{argument}'!");
             }
         }
 
         /// <summary>
-        /// Parses argument value as a DataDistributionType indicator.
+        /// Parses argument value as a DistributionType indicator.
         /// </summary>
         /// <param name="argument">The argument value to parse.</param>
-        /// <returns>A tuple containing the DataDistributionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
-        public static Tuple<DataDistributionType, int> ParseDataDistributionType(string argument)
+        /// <returns>A tuple containing the DistributionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<DistributionType, int> ParseDistributionType(string argument)
         {
             string lowercaseValue = argument.ToLower();
 
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.DataDistributionTypeNormal))
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.DistributionTypeNormal))
             {
-                return new Tuple<DataDistributionType, int>(DataDistributionType.Normal, 0);
+                return new Tuple<DistributionType, int>(DistributionType.Normal, 0);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.DataDistributionTypeUniform))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.DistributionTypeUniform))
             {
-                return new Tuple<DataDistributionType, int>(DataDistributionType.Uniform, 0);
+                return new Tuple<DistributionType, int>(DistributionType.Uniform, 0);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.DataDistributionTypeExponential))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.DistributionTypeExponential))
             {
-                return new Tuple<DataDistributionType, int>(DataDistributionType.Exponential, 1);
+                return new Tuple<DistributionType, int>(DistributionType.Exponential, 1);
             }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.DataDistributionTypePoisson))
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.DistributionTypePoisson))
             {
-                return new Tuple<DataDistributionType, int>(DataDistributionType.Poisson, 1);
+                return new Tuple<DistributionType, int>(DistributionType.Poisson, 1);
             }
             else
             {
-                throw new CabeiroException($"Invalid data distribution type argument: {argument}!");
+                throw new CabeiroException($"Invalid distribution type argument: '{argument}'!");
+            }
+        }
+
+        /// <summary>
+        /// Parses argument value as a ProgressionType indicator.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the ProgressionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<ProgressionType, int> ParseProgressionType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.ProgressionTypeArithmetic))
+            {
+                return new Tuple<ProgressionType, int>(ProgressionType.Arithmetic, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ProgressionTypeGeometric))
+            {
+                return new Tuple<ProgressionType, int>(ProgressionType.Geometric, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ProgressionTypeHarmonic))
+            {
+                return new Tuple<ProgressionType, int>(ProgressionType.Harmonic, 2);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ProgressionTypeFactorial))
+            {
+                return new Tuple<ProgressionType, int>(ProgressionType.Factorial, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ProgressionTypeFibonacci))
+            {
+                return new Tuple<ProgressionType, int>(ProgressionType.Fibonacci, 0);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid progression type argument: '{argument}'!");
             }
         }
     }

@@ -15,18 +15,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class OutputProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, string>
     {
-        protected BaseOutputParameters Parameters { get; set; }
-
         public void Initialize(BaseOutputParameters processingParameters)
         {
-            this.Parameters = processingParameters;
-
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, string line)
         {
-            this.OutputWriter.WriteLine(line);
+            OutputWriter.WriteLine(line);
 
             return true;
         }

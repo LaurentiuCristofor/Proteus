@@ -5,6 +5,7 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+using LaurentiuCristofor.Proteus.Common;
 using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
 using LaurentiuCristofor.Proteus.FileOperations;
 
@@ -12,16 +13,26 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
 {
     /// <summary>
     /// A data processor that concatenates lines from two files.
+    /// 
+    /// OutputExtraParameters is expected to contain:
+    /// StringParameters[0] - line separator
     /// </summary>
-    public class ConcatenateProcessor: BaseOutputProcessor, IDualDataProcessor<OutputStringParameters, string>
+    public class ConcatenateProcessor: BaseOutputProcessor, IDualDataProcessor<OutputExtraParameters, string>
     {
-        protected OutputStringParameters Parameters { get; set; }
+        protected const int LineSeparatorIndex = 0;
 
-        public void Initialize(OutputStringParameters processingParameters)
+        /// <summary>
+        /// The line separator parameter.
+        /// </summary>
+        protected string LineSeparator { get; set; }
+
+        public void Initialize(OutputExtraParameters processingParameters)
         {
-            this.Parameters = processingParameters;
+            ArgumentChecker.CheckPresence(processingParameters.StringParameters, LineSeparatorIndex);
+            LineSeparator = processingParameters.StringParameters[LineSeparatorIndex];
+            ArgumentChecker.CheckNotNull(LineSeparator);
 
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public ProcessingActionType Execute(
@@ -33,9 +44,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
                 return ProcessingActionType.Terminate;
             }
 
-            string concatenatedLines = firstLine + this.Parameters.StringValue + secondLine;
+            string concatenatedLines = firstLine + LineSeparator + secondLine;
 
-            this.OutputWriter.WriteLine(concatenatedLines);
+            OutputWriter.WriteLine(concatenatedLines);
 
             return ProcessingActionType.AdvanceBoth;
         }

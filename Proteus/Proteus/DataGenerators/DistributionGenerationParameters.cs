@@ -12,12 +12,12 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
     /// <summary>
     /// Includes parameters for generating data according to a specific distribution.
     /// </summary>
-    public class DistributionGenerationParameters : BaseGenerationParameters
+    public class DistributionGenerationParameters : RandomGenerationParameters
     {
         /// <summary>
         /// The type of data distribution that should be used for the data generation.
         /// </summary>
-        public DataDistributionType DistributionType { get; set; }
+        public DistributionType DistributionType { get; set; }
 
         /// <summary>
         /// The mean of the distribution, if applicable.
@@ -27,12 +27,12 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
         public DistributionGenerationParameters(
             int seed,
             ulong generationCount,
-            DataDistributionType distributionType,
+            DistributionType distributionType,
             string distributionMean)
             : base(seed, generationCount)
         {
-            this.DistributionType = distributionType;
-            this.DistributionMean = distributionMean;
+            DistributionType = distributionType;
+            DistributionMean = distributionMean;
         }
     }
 }

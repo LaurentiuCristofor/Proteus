@@ -18,10 +18,20 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
     /// A data processor that samples the input lines.
+    /// 
+    /// OutputExtraParameters is expected to contain:
+    /// IntParameters[0] - randomization seed value
+    /// IntParameters[1] - sample size
     /// </summary>
-    public class SampleProcessor : BaseOutputProcessor, IDataProcessor<OutputIntParameters, string>
+    public class SampleProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraParameters, string>
     {
-        protected OutputIntParameters Parameters { get; set; }
+        protected const int SeedIndex = 0;
+        protected const int SampleSizeIndex = 1;
+
+        /// <summary>
+        /// The sample size parameter.
+        /// </summary>
+        protected int SampleSize { get; set; }
 
         /// <summary>
         /// The sampler used to sample the lines.
@@ -31,34 +41,39 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         /// <summary>
         /// Data structure used for holding the sample lines along their line numbers.
         /// </summary>
-        protected List<Tuple<ulong, string>> SampleLinesWithNumbers { get; set; }
+        protected List<DataPair<ulong, string>> SampleLinesWithNumbers { get; set; }
 
-        public void Initialize(OutputIntParameters processingParameters)
+        public void Initialize(OutputExtraParameters processingParameters)
         {
-            this.Parameters = processingParameters;
+            ArgumentChecker.CheckPresence(processingParameters.IntParameters, SeedIndex);
+            ArgumentChecker.CheckPresence(processingParameters.IntParameters, SampleSizeIndex);
 
-            this.Sampler = new UnknownTotalSampler(this.Parameters.IntValue);
+            int seed = processingParameters.IntParameters[SeedIndex];
+            SampleSize = processingParameters.IntParameters[SampleSizeIndex];
 
-            this.SampleLinesWithNumbers = new List<Tuple<ulong, string>>();
+            Random randomGenerator = (seed >= 0) ? new Random(seed) : new Random();
+            Sampler = new UnknownTotalSampler(SampleSize, randomGenerator);
 
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath, trackProgress: true);
+            SampleLinesWithNumbers = new List<DataPair<ulong, string>>();
+
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: true);
         }
 
         public bool Execute(ulong lineNumber, string line)
         {
-            if (lineNumber <= (ulong)this.Parameters.IntValue)
+            if (lineNumber <= (ulong)SampleSize)
             {
-                this.SampleLinesWithNumbers.Add(new Tuple<ulong, string>(lineNumber, line));
+                SampleLinesWithNumbers.Add(new DataPair<ulong, string>(lineNumber, line));
             }
             else
             {
                 // Check if the current line should replace a sample line.
                 // Convert the number to an index for the replacement.
                 //
-                int sampleLineReplacementNumber = this.Sampler.EvaluateAnotherElement();
+                int sampleLineReplacementNumber = Sampler.EvaluateAnotherElement();
                 if (sampleLineReplacementNumber > 0)
                 {
-                    this.SampleLinesWithNumbers[sampleLineReplacementNumber - 1] = new Tuple<ulong, string>(lineNumber, line);
+                    SampleLinesWithNumbers[sampleLineReplacementNumber - 1] = new DataPair<ulong, string>(lineNumber, line);
                 }
             }
 
@@ -67,18 +82,18 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public override void CompleteExecution()
         {
-            if (this.SampleLinesWithNumbers.Count < this.Parameters.IntValue)
+            if (SampleLinesWithNumbers.Count < SampleSize)
             {
-                throw new ProteusException($"The input file is smaller than the requested sample size! The requested sample size was {this.Parameters.IntValue} but only {this.SampleLinesWithNumbers.Count} lines were found.");
+                throw new ProteusException($"The input file is smaller than the requested sample size! The requested sample size was {SampleSize} but only {SampleLinesWithNumbers.Count} lines were found.");
             }
 
             Timer timer = new Timer($"\n{Constants.Messages.SortingStart}", Constants.Messages.SortingEnd, countFinalLineEndings: 0);
-            this.SampleLinesWithNumbers.Sort();
+            SampleLinesWithNumbers.Sort();
             timer.StopAndReport();
 
-            foreach (Tuple<ulong, string> tuple in this.SampleLinesWithNumbers)
+            foreach (DataPair<ulong, string> dataPair in SampleLinesWithNumbers)
             {
-                this.OutputWriter.WriteLine(tuple.Item2);
+                OutputWriter.WriteLine(dataPair.SecondData);
             }
 
             base.CompleteExecution();

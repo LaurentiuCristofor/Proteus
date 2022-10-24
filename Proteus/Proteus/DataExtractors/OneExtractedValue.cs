@@ -6,7 +6,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using LaurentiuCristofor.Proteus.Common.DataHolders;
-using LaurentiuCristofor.Proteus.Common.Types;
 
 namespace LaurentiuCristofor.Proteus.DataExtractors
 {
@@ -36,8 +35,8 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             int extractedColumnNumber)
             : base(originalLine, columns, columnSeparator)
         {
-            this.ExtractedData = extractedData;
-            this.ExtractedColumnNumber = extractedColumnNumber;
+            ExtractedData = extractedData;
+            ExtractedColumnNumber = extractedColumnNumber;
         }
 
         /// <summary>
@@ -51,8 +50,8 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
             string originalLine)
             : base(originalLine, null, null)
         {
-            this.ExtractedData = new StringDataHolder(originalLine);
-            this.ExtractedColumnNumber = 0;
+            ExtractedData = new StringDataHolder(originalLine);
+            ExtractedColumnNumber = 0;
         }
     }
 }

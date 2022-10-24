@@ -5,6 +5,8 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+using System;
+
 using LaurentiuCristofor.Proteus.Common.Random;
 
 namespace LaurentiuCristofor.Proteus.DataGenerators
@@ -14,8 +16,6 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
     /// </summary>
     public class SampleGenerator : IDataGenerator<SampleGenerationParameters>
     {
-        protected SampleGenerationParameters Parameters { get; set; }
-
         /// <summary>
         /// The sampler to use for sampling the lines.
         /// </summary>
@@ -23,28 +23,18 @@ namespace LaurentiuCristofor.Proteus.DataGenerators
 
         public void Initialize(SampleGenerationParameters generationParameters)
         {
-            this.Parameters = generationParameters;
-
             // If we have a positive seed value, use it for the initialization of the uniform distribution generator.
             //
-            System.Random uniformGenerator;
-            if (generationParameters.Seed >= 0)
-            {
-                uniformGenerator = new System.Random(generationParameters.Seed);
-            }
-            else
-            {
-                uniformGenerator = new System.Random();
-            }
+            Random uniformGenerator = (generationParameters.Seed >= 0) ? new Random(generationParameters.Seed) : new Random();
 
             // Initialize our sampler.
             //
-            this.Sampler = new KnownTotalSampler(this.Parameters.TotalCount, this.Parameters.GenerationCount, uniformGenerator);
+            Sampler = new KnownTotalSampler(generationParameters.TotalCount, generationParameters.GenerationCount, uniformGenerator);
         }
 
-        public string Generate()
+        public string NextString()
         {
-            ulong nextSampleValue = this.Sampler.NextSampleValue();
+            ulong nextSampleValue = Sampler.Next();
 
             if (nextSampleValue == 0)
             {

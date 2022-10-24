@@ -107,8 +107,8 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
             string secondInputFilePath, TExtractionParameters secondExtractionParameters,
             TProcessingParameters processingParameters)
         {
-            this.FirstInputFilePath = firstInputFilePath;
-            this.SecondInputFilePath = secondInputFilePath;
+            FirstInputFilePath = firstInputFilePath;
+            SecondInputFilePath = secondInputFilePath;
 
             this.firstFileExtractor = new TDataExtractor();
             this.firstFileExtractor.Initialize(firstExtractionParameters);
@@ -116,16 +116,16 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
             this.secondFileExtractor = new TDataExtractor();
             this.secondFileExtractor.Initialize(secondExtractionParameters);
 
-            this.DataProcessor = new TDataProcessor();
-            this.DataProcessor.Initialize(processingParameters);
+            DataProcessor = new TDataProcessor();
+            DataProcessor.Initialize(processingParameters);
 
-            this.firstInputReader = new StreamReader(this.FirstInputFilePath);
-            this.secondInputReader = new StreamReader(this.SecondInputFilePath);
+            this.firstInputReader = new StreamReader(FirstInputFilePath);
+            this.secondInputReader = new StreamReader(SecondInputFilePath);
 
             this.firstLineCounter = 0;
             this.secondLineCounter = 0;
 
-            this.NextAction = ProcessingActionType.AdvanceBoth;
+            NextAction = ProcessingActionType.AdvanceBoth;
         }
 
         /// <summary>
@@ -197,7 +197,7 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         /// <returns>True if processing should continue; false otherwise.</returns>
         protected bool PerformNextAction()
         {
-            switch (this.NextAction)
+            switch (NextAction)
             {
                 case ProcessingActionType.AdvanceFirst:
                     AdvanceInFile(ref this.firstInputReader, ref this.firstFileExtractor, ref this.nextFirstFileData, ref this.hasProcessedFirstFile, ref this.firstLineCounter, this.secondLineCounter);
@@ -216,12 +216,12 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
                     return EndProcessing();
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling processing action type '{this.NextAction}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling processing action type '{NextAction}'!");
             }
 
             // Then perform the processing step.
             //
-            this.NextAction = this.DataProcessor.Execute(
+            NextAction = DataProcessor.Execute(
                 this.hasProcessedFirstFile, this.firstLineCounter, this.nextFirstFileData,
                 this.hasProcessedSecondFile, this.secondLineCounter, this.nextSecondFileData);
 
@@ -234,14 +234,14 @@ namespace LaurentiuCristofor.Proteus.FileProcessors
         /// <returns>Always returns false to indicate that execution should terminate.</returns>
         protected bool EndProcessing()
         {
-            this.DataProcessor.CompleteExecution();
+            DataProcessor.CompleteExecution();
 
             this.firstInputReader.Close();
             this.secondInputReader.Close();
 
             ILogger logger = LoggingManager.GetLogger();
-            logger.LogLine($"\n{this.firstLineCounter:N0} {Constants.Messages.LinesReadFromFirstFile} '{Path.GetFileName(this.FirstInputFilePath)}'.");
-            logger.LogLine($"\n{this.secondLineCounter:N0} {Constants.Messages.LinesReadFromSecondFile} '{Path.GetFileName(this.SecondInputFilePath)}'.");
+            logger.LogLine($"\n{this.firstLineCounter:N0} {Constants.Messages.LinesReadFromFirstFile} '{Path.GetFileName(FirstInputFilePath)}'.");
+            logger.LogLine($"\n{this.secondLineCounter:N0} {Constants.Messages.LinesReadFromSecondFile} '{Path.GetFileName(SecondInputFilePath)}'.");
 
             return false;
         }

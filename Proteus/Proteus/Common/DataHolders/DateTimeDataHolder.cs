@@ -17,7 +17,7 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
 
         public DateTimeDataHolder(DateTime data)
         {
-            this.Data = data;
+            Data = data;
         }
 
         public DataType GetDataType()
@@ -47,12 +47,12 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
 
         public DateTime GetDateTimeValue()
         {
-            return this.Data;
+            return Data;
         }
 
         public override string ToString()
         {
-            return this.Data.ToString();
+            return Data.ToString();
         }
 
         public IDataHolder Add(IDataHolder otherData)
@@ -82,13 +82,13 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
                 throw new ProteusException("Attempting to compare with null!");
             }
 
-            return this.Data.CompareTo(otherData.GetDateTimeValue());
+            return Data.CompareTo(otherData.GetDateTimeValue());
         }
 
         public int CompareTo(object otherObject)
         {
             DateTimeDataHolder otherData = (DateTimeDataHolder)otherObject;
-            return this.CompareTo(otherData);
+            return CompareTo(otherData);
         }
 
         public override bool Equals(Object otherObject)
@@ -102,7 +102,7 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
 
             try
             {
-                comparison = this.CompareTo(otherObject);
+                comparison = CompareTo(otherObject);
             }
             catch (ProteusException)
             {
@@ -114,7 +114,7 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
 
         public override int GetHashCode()
         {
-            return this.Data.GetHashCode();
+            return Data.GetHashCode();
         }
     }
 }

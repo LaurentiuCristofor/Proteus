@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 
 using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.Algorithms;
 using LaurentiuCristofor.Proteus.Common.Random;
 using LaurentiuCristofor.Proteus.Common.Utilities;
 using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
@@ -18,46 +19,57 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
     /// A data processor that shuffles the input lines.
+    /// 
+    /// OutputExtraParameters is expected to contain:
+    /// IntParameters[0] - randomization seed value
     /// </summary>
-    public class ShuffleProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, string>
+    public class ShuffleProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraParameters, string>
     {
-        protected BaseOutputParameters Parameters { get; set; }
+        protected const int SeedIndex = 0;
+
+        /// <summary>
+        /// The randomization seed used for shuffling.
+        /// A negative value indicates that no seed will be used.
+        /// </summary>
+        protected int Seed { get; set; }
 
         /// <summary>
         /// Data structure used for loading the lines before sorting them.
         /// </summary>
         protected List<string> Lines { get; set; }
 
-        public void Initialize(BaseOutputParameters processingParameters)
+        public void Initialize(OutputExtraParameters processingParameters)
         {
-            this.Parameters = processingParameters;
+            Lines = new List<string>();
 
-            this.Lines = new List<string>();
+            ArgumentChecker.CheckPresence(processingParameters.IntParameters, SeedIndex);
+            Seed = processingParameters.IntParameters[SeedIndex];
 
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath, trackProgress: true);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: true);
         }
 
         public bool Execute(ulong lineNumber, string line)
         {
-            this.Lines.Add(line);
+            Lines.Add(line);
 
             return true;
         }
 
         public override void CompleteExecution()
         {
-            if (this.Lines == null)
+            if (Lines == null)
             {
                 throw new ProteusException("Internal error: An expected data structure has not been initialized!");
             }
 
-            Shuffler shuffler = new Shuffler(this.Lines.Count);
+            Random randomGenerator = (Seed >= 0) ? new Random(Seed) : new Random();
+            Shuffler shuffler = new Shuffler(Lines.Count, randomGenerator);
 
             Timer timer = new Timer($"\n{Constants.Messages.ShufflingStart}", Constants.Messages.ShufflingEnd, countFinalLineEndings: 0);
 
             while (true)
             {
-                Tuple<int, int> shuffle = shuffler.NextShuffle();
+                Tuple<int, int> shuffle = shuffler.Next();
 
                 if (shuffle == null)
                 {
@@ -76,16 +88,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 // Exchange the lines indicated by the pair of indices.
                 //
-                string line = this.Lines[indexFirstLine];
-                this.Lines[indexFirstLine] = this.Lines[indexSecondLine];
-                this.Lines[indexSecondLine] = line;
+                ListOperations.Exchange(Lines, indexFirstLine, indexSecondLine);
             }
 
             timer.StopAndReport();
 
-            foreach (string line in this.Lines)
+            foreach (string line in Lines)
             {
-                this.OutputWriter.WriteLine(line);
+                OutputWriter.WriteLine(line);
             }
 
             base.CompleteExecution();

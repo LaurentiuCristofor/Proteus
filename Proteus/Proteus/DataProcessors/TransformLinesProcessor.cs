@@ -17,82 +17,85 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
     /// A data processor that transforms lines.
+    ///
+    /// OutputExtraOperationParameters is expected to contain:
+    /// IntParameters[0] - count of lines to unite (if required)
     /// </summary>
-    public class TransformLinesProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<LineTransformationType>, ExtractedColumnStrings>
+    public class TransformLinesProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraOperationParameters<LineTransformationType>, ExtractedColumnStrings>
     {
-        protected OutputOperationParameters<LineTransformationType> Parameters { get; set; }
+        protected const int CountOfLinesToUniteIndex = 0;
+
+        protected LineTransformationType TransformationType { get; set; }
 
         /// <summary>
-        /// First argument, as an integer value, if expected.
+        /// The count of lines to unite, if expected.
         /// </summary>
-        protected int FirstArgumentAsInt { get; set; }
+        protected int CountOfLinesToUnite { get; set; }
 
         /// <summary>
         /// A list collecting the lines to unite.
         /// </summary>
         protected List<string> LinesToUnite { get; set; }
 
-        public void Initialize(OutputOperationParameters<LineTransformationType> processingParameters)
+        public void Initialize(OutputExtraOperationParameters<LineTransformationType> processingParameters)
         {
-            this.Parameters = processingParameters;
+            TransformationType = processingParameters.OperationType;
 
-            switch (this.Parameters.OperationType)
+            switch (TransformationType)
             {
                 case LineTransformationType.Break:
                     break;
 
                 case LineTransformationType.Unite:
-                    ArgumentChecker.CheckNotNull(this.Parameters.FirstArgument);
+                    ArgumentChecker.CheckPresence(processingParameters.IntParameters, CountOfLinesToUniteIndex);
+                    CountOfLinesToUnite = processingParameters.IntParameters[CountOfLinesToUniteIndex];
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(CountOfLinesToUnite, 2);
 
-                    this.FirstArgumentAsInt = int.Parse(this.Parameters.FirstArgument);
-
-                    ArgumentChecker.CheckStrictlyPositive(this.FirstArgumentAsInt);
-
-                    this.LinesToUnite = new List<string>();
+                    LinesToUnite = new List<string>();
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling line transformation type '{this.Parameters.OperationType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling line transformation type '{TransformationType}'!");
             }
 
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, ExtractedColumnStrings lineData)
         {
-            switch (this.Parameters.OperationType)
+            switch (TransformationType)
             {
                 case LineTransformationType.Break:
                     {
                         foreach (string line in lineData.Columns)
                         {
-                            this.OutputWriter.WriteLine(line);
+                            OutputWriter.WriteLine(line);
                         }
                         break;
                     }
 
                 case LineTransformationType.Unite:
                     {
-                        this.LinesToUnite.Add(lineData.OriginalLine);
+                        LinesToUnite.Add(lineData.OriginalLine);
 
                         // If we collected enough lines to unite,
                         // then concatenate them all together.
                         //
-                        if (this.LinesToUnite.Count == this.FirstArgumentAsInt)
+                        if (LinesToUnite.Count == CountOfLinesToUnite)
                         {
-                            string unitedLine = string.Join(lineData.ColumnSeparator, this.LinesToUnite.ToArray());
-                            this.OutputWriter.WriteLine(unitedLine);
+                            string unitedLine = string.Join(lineData.ColumnSeparator, LinesToUnite.ToArray());
+                            OutputWriter.WriteLine(unitedLine);
 
                             // Clear list to start collecting a new set of lines.
                             //
-                            this.LinesToUnite.Clear();
+                            LinesToUnite.Clear();
                         }
 
                         break;
                     }
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling line transformation type '{this.Parameters.OperationType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling line transformation type '{TransformationType}'!");
             }
 
             return true;

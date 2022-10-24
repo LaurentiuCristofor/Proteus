@@ -21,12 +21,10 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class SortBySecondColumnValueProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, TwoExtractedValues>
     {
-        protected BaseOutputParameters Parameters { get; set; }
-
         /// <summary>
         /// Data structure used for loading the lines before sorting them.
         /// </summary>
-        protected List<Tuple<IDataHolder, string>> ColumnLineTuples { get; set; }
+        protected List<DataPair<IDataHolder, string>> ColumnLinePairs { get; set; }
 
         /// <summary>
         /// The value being currently processed for the primary sort column.
@@ -35,63 +33,61 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(BaseOutputParameters processingParameters)
         {
-            this.Parameters = processingParameters;
+            ColumnLinePairs = new List<DataPair<IDataHolder, string>>();
 
-            this.ColumnLineTuples = new List<Tuple<IDataHolder, string>>();
-
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, TwoExtractedValues lineData)
         {
             // We will also execute these steps when processing the very first line, but nothing will be output.
             //
-            if (!lineData.ExtractedData.Equals(this.CurrentPrimaryColumnData))
+            if (!lineData.ExtractedData.Equals(CurrentPrimaryColumnData))
             {
                 // Sort and output the lines we have collected so far for the CurrentPrimaryColumnData value.
                 //
-                this.ColumnLineTuples.Sort();
+                ColumnLinePairs.Sort();
 
-                foreach (Tuple<IDataHolder, string> tuple in this.ColumnLineTuples)
+                foreach (DataPair<IDataHolder, string> dataPair in ColumnLinePairs)
                 {
-                    this.OutputWriter.WriteLine(tuple.Item2);
+                    OutputWriter.WriteLine(dataPair.SecondData);
                 }
 
                 // Clear our tuples array - we'll start collecting a new set of rows.
                 //
-                this.ColumnLineTuples.Clear();
+                ColumnLinePairs.Clear();
 
                 // Verify that the input file is sorted on the primary column.
                 //
-                if (this.CurrentPrimaryColumnData != null && lineData.ExtractedData.CompareTo(this.CurrentPrimaryColumnData) < 0)
+                if (CurrentPrimaryColumnData != null && lineData.ExtractedData.CompareTo(CurrentPrimaryColumnData) < 0)
                 {
-                    throw new ProteusException($"Input file is not sorted as expected! Value '{lineData.ExtractedData}' succeeds value '{this.CurrentPrimaryColumnData}'.");
+                    throw new ProteusException($"Input file is not sorted as expected! Value '{lineData.ExtractedData}' succeeds value '{CurrentPrimaryColumnData}'.");
                 }
 
                 // Update CurrentPrimaryColumnData to the newly seen value.
                 //
-                this.CurrentPrimaryColumnData = lineData.ExtractedData;
+                CurrentPrimaryColumnData = lineData.ExtractedData;
             }
 
-            this.ColumnLineTuples.Add(new Tuple<IDataHolder, string>(lineData.SecondExtractedData, lineData.OriginalLine));
+            ColumnLinePairs.Add(new DataPair<IDataHolder, string>(lineData.SecondExtractedData, lineData.OriginalLine));
 
             return true;
         }
 
         public override void CompleteExecution()
         {
-            if (this.ColumnLineTuples == null)
+            if (ColumnLinePairs == null)
             {
                 throw new ProteusException("Internal error: An expected data structure has not been initialized!");
             }
 
             // Output the last remaining batch of lines.
             //
-            this.ColumnLineTuples.Sort();
+            ColumnLinePairs.Sort();
 
-            foreach (Tuple<IDataHolder, string> tuple in this.ColumnLineTuples)
+            foreach (DataPair<IDataHolder, string> dataPair in ColumnLinePairs)
             {
-                this.OutputWriter.WriteLine(tuple.Item2);
+                OutputWriter.WriteLine(dataPair.SecondData);
             }
 
             base.CompleteExecution();

@@ -17,23 +17,35 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
     /// A data processor that splits a file into multiple ones based on the value of a specified column.
+    /// 
+    /// OutputExtraParameters is expected to contain:
+    /// StringParameters[0] - output file extension
     /// </summary>
-    public class SplitColumnValuesProcessor : BaseOutputProcessor, IDataProcessor<OutputStringParameters, OneExtractedValue>
+    public class SplitColumnValuesProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraParameters, OneExtractedValue>
     {
-        protected OutputStringParameters Parameters { get; set; }
+        protected const int OutputFileExtensionIndex = 0;
+
+        protected string OutputFilePath { get; set; }
+
+        /// <summary>
+        /// The file extension that should be used for the output files.
+        /// </summary>
+        protected string OutputFileExtension { get; set; }
 
         /// <summary>
         /// A dictionary to help us manage the file writers that we will use for each column value.
         /// </summary>
         protected Dictionary<IDataHolder, FileWriter> MapColumnValueToFileWriter { get; set; }
 
-        public void Initialize(OutputStringParameters processingParameters)
+        public void Initialize(OutputExtraParameters processingParameters)
         {
-            this.Parameters = processingParameters;
+            OutputFilePath = processingParameters.OutputFilePath;
 
-            ArgumentChecker.CheckNotNullAndNotEmpty(this.Parameters.StringValue);
+            ArgumentChecker.CheckPresence(processingParameters.StringParameters, OutputFileExtensionIndex);
+            OutputFileExtension = processingParameters.StringParameters[OutputFileExtensionIndex];
+            ArgumentChecker.CheckNotNullAndNotEmpty(OutputFileExtension);
 
-            this.MapColumnValueToFileWriter = new Dictionary<IDataHolder, FileWriter>();
+            MapColumnValueToFileWriter = new Dictionary<IDataHolder, FileWriter>();
         }
 
         public bool Execute(ulong lineNumber, OneExtractedValue lineData)
@@ -45,27 +57,27 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
             // File names must be unique and because column values may contain characters that are forbidden in file names,
             // we will instead generate an identifier value for each unique column value.
             //
-            if (!this.MapColumnValueToFileWriter.ContainsKey(data))
+            if (!MapColumnValueToFileWriter.ContainsKey(data))
             {
                 // Assign as identifier the number of the unique values seen so far, including this one.
                 //
-                int columnValueIdentifier = this.MapColumnValueToFileWriter.Count + 1;
+                int columnValueIdentifier = MapColumnValueToFileWriter.Count + 1;
 
-                this.MapColumnValueToFileWriter.Add(
+                MapColumnValueToFileWriter.Add(
                     data,
-                    new FileWriter(this.Parameters.OutputFilePath + $".{columnValueIdentifier}{this.Parameters.StringValue}"));
+                    new FileWriter(OutputFilePath + $".{columnValueIdentifier}{OutputFileExtension}"));
             }
 
-            this.MapColumnValueToFileWriter[data].WriteLine(lineData.OriginalLine);
+            MapColumnValueToFileWriter[data].WriteLine(lineData.OriginalLine);
 
             return true;
         }
 
         public override void CompleteExecution()
         {
-            foreach (IDataHolder columnValue in this.MapColumnValueToFileWriter.Keys)
+            foreach (IDataHolder columnValue in MapColumnValueToFileWriter.Keys)
             {
-                this.MapColumnValueToFileWriter[columnValue].CloseAndReport();
+                MapColumnValueToFileWriter[columnValue].CloseAndReport();
             }
 
             base.CompleteExecution();

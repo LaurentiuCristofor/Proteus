@@ -17,56 +17,61 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
     /// A data processor that selects a subset of columns to output.
+    ///
+    /// OutputExtraOperationParameters is expected to contain:
+    /// IntParameters[0] - first column count
+    /// IntParameters[1] - second column count (if required)
     /// </summary>
-    public class SelectColumnByNumberProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<PositionSelectionType>, ExtractedColumnStrings>
+    public class SelectColumnByNumberProcessor : BaseOutputProcessor, IDataProcessor<OutputExtraOperationParameters<PositionSelectionType>, ExtractedColumnStrings>
     {
-        protected OutputOperationParameters<PositionSelectionType> Parameters { get; set; }
+        protected const int FirstColumnCountIndex = 0;
+        protected const int SecondColumnCountIndex = 1;
+
+        protected PositionSelectionType SelectionType { get; set; }
 
         /// <summary>
-        /// First line number comparison argument, as an integer value.
+        /// First column count argument, if expected.
         /// </summary>
-        protected int FirstArgumentAsInt { get; set; }
+        protected int FirstColumnCount { get; set; }
 
         /// <summary>
-        /// Second line number comparison argument, as an integer value.
+        /// Second column count argument, if expected.
         /// </summary>
-        protected int SecondArgumentAsInt { get; set; }
+        protected int SecondColumnCount { get; set; }
 
-        public void Initialize(OutputOperationParameters<PositionSelectionType> processingParameters)
+        public void Initialize(OutputExtraOperationParameters<PositionSelectionType> processingParameters)
         {
-            this.Parameters = processingParameters;
+            SelectionType = processingParameters.OperationType;
 
-            switch (this.Parameters.OperationType)
+            switch (SelectionType)
             {
                 case PositionSelectionType.Last:
                 case PositionSelectionType.NotLast:
                 case PositionSelectionType.Each:
                 case PositionSelectionType.NotEach:
-                    ArgumentChecker.CheckNotNull(this.Parameters.FirstArgument);
-
-                    this.FirstArgumentAsInt = int.Parse(this.Parameters.FirstArgument);
-
-                    ArgumentChecker.CheckStrictlyPositive(this.FirstArgumentAsInt);
+                    ArgumentChecker.CheckPresence(processingParameters.IntParameters, FirstColumnCountIndex);
+                    FirstColumnCount = processingParameters.IntParameters[FirstColumnCountIndex];
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(FirstColumnCount, 1);
                     break;
 
                 case PositionSelectionType.Between:
                 case PositionSelectionType.NotBetween:
-                    ArgumentChecker.CheckNotNull(this.Parameters.FirstArgument);
-                    ArgumentChecker.CheckNotNull(this.Parameters.SecondArgument);
+                    ArgumentChecker.CheckPresence(processingParameters.IntParameters, FirstColumnCountIndex);
+                    ArgumentChecker.CheckPresence(processingParameters.IntParameters, SecondColumnCountIndex);
 
-                    this.FirstArgumentAsInt = int.Parse(this.Parameters.FirstArgument);
-                    this.SecondArgumentAsInt = int.Parse(this.Parameters.SecondArgument);
+                    FirstColumnCount = processingParameters.IntParameters[FirstColumnCountIndex];
+                    SecondColumnCount = processingParameters.IntParameters[SecondColumnCountIndex];
 
-                    ArgumentChecker.CheckStrictlyPositive(this.FirstArgumentAsInt);
-                    ArgumentChecker.CheckStrictlyPositive(this.SecondArgumentAsInt);
-                    ArgumentChecker.CheckInterval(this.FirstArgumentAsInt, this.SecondArgumentAsInt);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(FirstColumnCount, 1);
+                    ArgumentChecker.CheckGreaterThanOrEqualTo(SecondColumnCount, 1);
+                    ArgumentChecker.CheckInterval(FirstColumnCount, SecondColumnCount);
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling number selection type '{this.Parameters.OperationType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling position selection type '{SelectionType}'!");
             }
 
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, ExtractedColumnStrings lineData)
@@ -75,14 +80,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
             int countColumns = lineData.Columns.Length;
 
-            switch (this.Parameters.OperationType)
+            switch (SelectionType)
             {
                 case PositionSelectionType.Between:
                     {
                         // Columns numbers start from 1 - convert them to indexes in the column array.
                         //
-                        int beginColumnRangeIndex = this.FirstArgumentAsInt - 1;
-                        int endColumnRangeIndex = this.SecondArgumentAsInt - 1;
+                        int beginColumnRangeIndex = FirstColumnCount - 1;
+                        int endColumnRangeIndex = SecondColumnCount - 1;
 
                         if (beginColumnRangeIndex >= countColumns)
                         {
@@ -105,8 +110,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     {
                         // Columns numbers start from 1 - convert them to indexes in the column array.
                         //
-                        int beginColumnRangeIndex = this.FirstArgumentAsInt - 1;
-                        int endColumnRangeIndex = this.SecondArgumentAsInt - 1;
+                        int beginColumnRangeIndex = FirstColumnCount - 1;
+                        int endColumnRangeIndex = SecondColumnCount - 1;
 
                         if (beginColumnRangeIndex >= countColumns)
                         {
@@ -139,7 +144,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case PositionSelectionType.Last:
                     {
-                        int countLast = this.FirstArgumentAsInt;
+                        int countLast = FirstColumnCount;
 
                         if (countLast >= countColumns)
                         {
@@ -158,7 +163,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case PositionSelectionType.NotLast:
                     {
-                        int countLast = this.FirstArgumentAsInt;
+                        int countLast = FirstColumnCount;
 
                         // If there are more columns than those that need to be removed, output them.
                         // Otherwise, the line will be removed entirely.
@@ -172,7 +177,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case PositionSelectionType.Each:
                     {
-                        int countEach = this.FirstArgumentAsInt;
+                        int countEach = FirstColumnCount;
 
                         // Iterate over all columns and output each Nth one.
                         //
@@ -195,7 +200,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
                 case PositionSelectionType.NotEach:
                     {
-                        int countEach = this.FirstArgumentAsInt;
+                        int countEach = FirstColumnCount;
 
                         // Iterate over all columns and output each one that isn't an Nth one.
                         //
@@ -217,10 +222,10 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
                     }
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling number selection type '{this.Parameters.OperationType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling position selection type '{SelectionType}'!");
             }
 
-            this.OutputWriter.WriteLine(line);
+            OutputWriter.WriteLine(line);
 
             return true;
         }

@@ -41,7 +41,7 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// <summary>
         /// The uniform random generator source.
         /// </summary>
-        private System.Random UniformGenerator { get; set; }
+        private System.Random RandomGenerator { get; set; }
 
         /// <summary>
         /// Creates a new random sampler that will produce sampleCount distinct values between the values 1 and totalCount,
@@ -49,31 +49,31 @@ namespace LaurentiuCristofor.Proteus.Common.Random
         /// </summary>
         /// <param name="totalCount">The largest value to sample; the smallest being 1.</param>
         /// <param name="sampleCount">The size of the sample.</param>
-        /// <param name="uniformGenerator">The System.Random instance to use, or null to generate a new instance.</param>
-        public KnownTotalSampler(ulong totalCount, ulong sampleCount, System.Random uniformGenerator = null)
+        /// <param name="randomGenerator">The System.Random instance to use, or null to generate a new instance.</param>
+        public KnownTotalSampler(ulong totalCount, ulong sampleCount, System.Random randomGenerator = null)
         {
             if (sampleCount < 1 || sampleCount > totalCount)
             {
                 throw new ProteusException("Sample count and total count must satisfy the following relationship: 0 < sample count <= total count");
             }
 
-            this.TotalCount = totalCount;
-            this.SampleCount = sampleCount;
-            this.UniformGenerator = uniformGenerator ?? new System.Random();
+            TotalCount = totalCount;
+            SampleCount = sampleCount;
+            RandomGenerator = randomGenerator ?? new System.Random();
 
             // S1. [Initialize]
             //
-            this.EvaluatedCount = 0;
-            this.GeneratedCount = 0;
+            EvaluatedCount = 0;
+            GeneratedCount = 0;
         }
 
         /// <summary>
         /// Returns the next value in the sample, between 1 and totalCount.
         /// </summary>
         /// <returns>The next value from the requested sample, or 0 if the method has been called after the sampling was completed.</returns>
-        public ulong NextSampleValue()
+        public ulong Next()
         {
-            if (this.GeneratedCount == this.SampleCount)
+            if (GeneratedCount == SampleCount)
             {
                 return 0;
             }
@@ -82,24 +82,24 @@ namespace LaurentiuCristofor.Proteus.Common.Random
             {
                 // S2. [Generate U]
                 //
-                double U = this.UniformGenerator.NextDouble();
+                double U = RandomGenerator.NextDouble();
 
                 // S3. [Test]
                 //
-                if ((this.TotalCount - this.EvaluatedCount) * U >= this.SampleCount - this.GeneratedCount)
+                if ((TotalCount - EvaluatedCount) * U >= SampleCount - GeneratedCount)
                 {
                     // S5. [Skip]
                     //
-                    ++this.EvaluatedCount;
+                    ++EvaluatedCount;
                 }
                 else
                 {
                     // S4. [Select]
                     //
-                    ulong generatedValue = this.EvaluatedCount + 1;
+                    ulong generatedValue = EvaluatedCount + 1;
 
-                    ++this.GeneratedCount;
-                    ++this.EvaluatedCount;
+                    ++GeneratedCount;
+                    ++EvaluatedCount;
 
                     return generatedValue;
                 }

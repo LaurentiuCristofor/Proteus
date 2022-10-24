@@ -64,6 +64,22 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
         }
 
         /// <summary>
+        /// Variant of BuildDataHolder that throws an exception if the build failed.
+        /// </summary>
+        /// <param name="dataType">The data type to interpret the string as.</param>
+        /// <param name="stringValue">The string to interpret.</param>
+        /// <returns>An instance of IDataHolder.</returns>
+        public static IDataHolder BuildAndCheckDataHolder(DataType dataType, string stringValue)
+        {
+            IDataHolder dataHolder = DataHolderOperations.BuildDataHolder(dataType, stringValue);
+            if (dataHolder == null)
+            {
+                throw new ProteusException($"Value '{stringValue}' is not a valid {dataType} value!");
+            }
+            return dataHolder;
+        }
+
+        /// <summary>
         /// Returns whether a specified data type is a numerical one.
         /// </summary>
         /// <param name="dataType">The data type.</param>
@@ -81,7 +97,7 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
         /// <param name="firstArgument">The first argument for the comparison.</param>
         /// <param name="secondArgument">The second argument for the comparison.</param>
         /// <returns>True if the comparison holds; false otherwise.</returns>
-        public static bool Compare(IDataHolder data, ComparisonType comparisonType, string firstArgument, string secondArgument)
+        public static bool Compare(IDataHolder data, ComparisonType comparisonType, IDataHolder firstArgument, IDataHolder secondArgument)
         {
             switch (comparisonType)
             {
@@ -127,17 +143,11 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
         /// <param name="comparisonType">The comparison type.</param>
         /// <param name="threshold">The threshold argument for the comparison.</param>
         /// <returns>True if the comparison holds; false otherwise.</returns>
-        protected static bool ThresholdCompare(IDataHolder data, ComparisonType comparisonType, string threshold)
+        protected static bool ThresholdCompare(IDataHolder data, ComparisonType comparisonType, IDataHolder threshold)
         {
             ArgumentChecker.CheckNotNull(threshold);
 
-            IDataHolder thresholdData = BuildDataHolder(data.GetDataType(), threshold);
-            if (thresholdData == null)
-            {
-                throw new ProteusException($"Comparison argument '{threshold}' is not a valid {data.GetDataType()} value!");
-            }
-
-            int comparisonResult = data.CompareTo(thresholdData);
+            int comparisonResult = data.CompareTo(threshold);
             switch (comparisonType)
             {
                 case ComparisonType.LessThan:
@@ -171,27 +181,14 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
         /// <param name="firstThreshold">The first threshold argument for the comparison.</param>
         /// <param name="secondThreshold">The second threshold argument for the comparison.</param>
         /// <returns>True if the comparison holds; false otherwise.</returns>
-        protected static bool ThresholdCompare(IDataHolder data, ComparisonType comparisonType, string firstThreshold, string secondThreshold)
+        protected static bool ThresholdCompare(IDataHolder data, ComparisonType comparisonType, IDataHolder firstThreshold, IDataHolder secondThreshold)
         {
             ArgumentChecker.CheckNotNull(firstThreshold);
             ArgumentChecker.CheckNotNull(secondThreshold);
+            ArgumentChecker.CheckInterval(firstThreshold, secondThreshold);
 
-            IDataHolder lowerBound = BuildDataHolder(data.GetDataType(), firstThreshold);
-            IDataHolder upperBound = BuildDataHolder(data.GetDataType(), secondThreshold);
-
-            if (lowerBound == null)
-            {
-                throw new ProteusException($"Comparison argument '{firstThreshold}' is not a valid {data.GetDataType()} value!");
-            }
-            if (upperBound == null)
-            {
-                throw new ProteusException($"Comparison argument '{secondThreshold}' is not a valid {data.GetDataType()} value!");
-            }
-
-            ArgumentChecker.CheckInterval(lowerBound, upperBound);
-
-            int lowerBoundComparisonResult = data.CompareTo(lowerBound);
-            int upperBoundComparisonResult = data.CompareTo(upperBound);
+            int lowerBoundComparisonResult = data.CompareTo(firstThreshold);
+            int upperBoundComparisonResult = data.CompareTo(secondThreshold);
 
             switch (comparisonType)
             {

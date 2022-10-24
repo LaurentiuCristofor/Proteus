@@ -21,9 +21,9 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public virtual void CompleteExecution()
         {
-            if (this.OutputWriter != null)
+            if (OutputWriter != null)
             {
-                this.OutputWriter.CloseAndReport();
+                OutputWriter.CloseAndReport();
             }
         }
     }

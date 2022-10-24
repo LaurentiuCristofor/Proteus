@@ -8,17 +8,16 @@
 namespace LaurentiuCristofor.Proteus.Common.Types
 {
     /// <summary>
-    /// Types of data distributions.
+    /// Types of progressions.
     /// </summary>
-    public enum DataDistributionType
+    public enum ProgressionType
     {
         NotSet = 0,
 
-        // Standard distributions.
-        //
-        Uniform = 1,
-        Normal = 2,
-        Exponential = 3,
-        Poisson = 4,
+        Arithmetic = 1,
+        Geometric = 2,
+        Harmonic = 3,
+        Factorial = 4,
+        Fibonacci = 5,
     }
 }

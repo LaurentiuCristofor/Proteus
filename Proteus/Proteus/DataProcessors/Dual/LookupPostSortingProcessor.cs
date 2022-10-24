@@ -18,13 +18,13 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
     /// </summary>
     public class LookupPostSortingProcessor: BaseOutputProcessor, IDualDataProcessor<OutputOperationParameters<LookupType>, OneExtractedValue>
     {
-        protected OutputOperationParameters<LookupType> Parameters { get; set; }
+        protected LookupType LookupType { get; set; }
 
         public void Initialize(OutputOperationParameters<LookupType> processingParameters)
         {
-            this.Parameters = processingParameters;
+            LookupType = processingParameters.OperationType;
 
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public ProcessingActionType Execute(
@@ -43,7 +43,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
                 // If we're writing them out (if ProcessLine() returns true), then continue writing them all;
                 // otherwise, terminate processing.
                 //
-                if (ProcessLine(firstLineData.OriginalLine, this.Parameters.OperationType, isIncluded: false))
+                if (ProcessLine(firstLineData.OriginalLine, LookupType, isIncluded: false))
                 {
                     return ProcessingActionType.AdvanceFirst;
                 }
@@ -60,7 +60,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
             {
                 // The line did not match. Process it and move to the next one.
                 //
-                ProcessLine(firstLineData.OriginalLine, this.Parameters.OperationType, isIncluded: false);
+                ProcessLine(firstLineData.OriginalLine, LookupType, isIncluded: false);
 
                 return ProcessingActionType.AdvanceFirst;
             }
@@ -68,7 +68,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
             {
                 // The line matched. Process it and move to the next one.
                 //
-                ProcessLine(firstLineData.OriginalLine, this.Parameters.OperationType, isIncluded: true);
+                ProcessLine(firstLineData.OriginalLine, LookupType, isIncluded: true);
 
                 return ProcessingActionType.AdvanceFirst;
             }
@@ -88,7 +88,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
         /// <param name="lookupType">The lookup criteria that we're using.</param>
         /// <param name="isIncluded">True if the lookup was successful; false otherwise.</param>
         /// <returns></returns>
-        private bool ProcessLine(string line, LookupType lookupType, bool isIncluded)
+        protected bool ProcessLine(string line, LookupType lookupType, bool isIncluded)
         {
             bool shouldOutputLine;
             switch (lookupType)
@@ -102,12 +102,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
                     break;
 
                 default:
-                    throw new ProteusException($"Internal error: Proteus is not handling lookup type '{this.Parameters.OperationType}'!");
+                    throw new ProteusException($"Internal error: Proteus is not handling lookup type '{LookupType}'!");
             }
 
             if (shouldOutputLine)
             {
-                this.OutputWriter.WriteLine(line);
+                OutputWriter.WriteLine(line);
             }
 
             return shouldOutputLine;

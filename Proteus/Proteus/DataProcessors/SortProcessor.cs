@@ -8,6 +8,7 @@
 using System.Collections.Generic;
 
 using LaurentiuCristofor.Proteus.Common;
+using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.Common.Utilities;
 using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
 using LaurentiuCristofor.Proteus.FileOperations;
@@ -16,46 +17,47 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
     /// A data processor that sorts the input lines.
+    /// Uses the specified custom sorting algorithm or the default sorting algorithm if no custom sorting algorithm is specified.
     /// </summary>
-    public class SortProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, string>
+    public class SortProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<SortingAlgorithmType>, string>
     {
-        protected BaseOutputParameters Parameters { get; set; }
+        protected SortingAlgorithmType SortingType { get; set; }
 
         /// <summary>
         /// Data structure used for loading the lines before sorting them.
         /// </summary>
         protected List<string> Lines { get; set; }
 
-        public void Initialize(BaseOutputParameters processingParameters)
+        public void Initialize(OutputOperationParameters<SortingAlgorithmType> processingParameters)
         {
-            this.Parameters = processingParameters;
+            SortingType = processingParameters.OperationType;
 
-            this.Lines = new List<string>();
+            Lines = new List<string>();
 
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath, trackProgress: true);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: true);
         }
 
         public bool Execute(ulong lineNumber, string line)
         {
-            this.Lines.Add(line);
+            Lines.Add(line);
 
             return true;
         }
 
         public override void CompleteExecution()
         {
-            if (this.Lines == null)
+            if (Lines == null)
             {
                 throw new ProteusException("Internal error: An expected data structure has not been initialized!");
             }
 
             Timer timer = new Timer($"\n{Constants.Messages.SortingStart}", Constants.Messages.SortingEnd, countFinalLineEndings: 0);
-            this.Lines.Sort();
+            CustomSorting.Sort(Lines, SortingType);
             timer.StopAndReport();
 
-            foreach (string line in this.Lines)
+            foreach (string line in Lines)
             {
-                this.OutputWriter.WriteLine(line);
+                OutputWriter.WriteLine(line);
             }
 
             base.CompleteExecution();

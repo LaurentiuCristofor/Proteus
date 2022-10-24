@@ -22,7 +22,7 @@ namespace LaurentiuCristofor.Proteus.DataExtractors
         public ColumnStringsExtractionParameters(
             string separator)
         {
-            this.Separators = new string[] { separator };
+            Separators = new string[] { separator };
         }
     }
 }

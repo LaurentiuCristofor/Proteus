@@ -74,12 +74,12 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 throw new CabeiroException($"Internal error: invalid arguments string for CommandDescription: {arguments}");
             }
 
-            this.Command = command;
-            this.Category = category;
-            this.ShortDescription = shortDescription;
-            this.LongDescription = longDescription;
-            this.Arguments = arguments;
-            this.Notes = notes;
+            Command = command;
+            Category = category;
+            ShortDescription = shortDescription;
+            LongDescription = longDescription;
+            Arguments = arguments;
+            Notes = notes;
         }
 
         /// <summary>
@@ -87,22 +87,22 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
         /// </summary>
         public void Display()
         {
-            Console.WriteLine($"{Constants.Formatting.TextEmphasisWings} {this.Command.ToUpper()} command {Constants.Formatting.TextEmphasisWings}\n");
+            Console.WriteLine($"{Constants.Formatting.TextEmphasisWings} {Command.ToUpper()} command {Constants.Formatting.TextEmphasisWings}\n");
 
-            Console.WriteLine($"Category: {this.Category}\n");
+            Console.WriteLine($"Category: {Category}\n");
 
-            Console.WriteLine($"Description:\n\n\t{this.ShortDescription}\n");
+            Console.WriteLine($"Description:\n\n\t{ShortDescription}\n");
 
-            if (!String.IsNullOrEmpty(this.LongDescription))
+            if (!String.IsNullOrEmpty(LongDescription))
             {
-                Console.WriteLine($"{this.LongDescription}\n");
+                Console.WriteLine($"{LongDescription}\n");
             }
 
-            Console.WriteLine($"Arguments:\n\n\t{this.Arguments}\n");
+            Console.WriteLine($"Arguments:\n\n\t{Arguments}\n");
 
-            if (!string.IsNullOrWhiteSpace(this.Notes))
+            if (!string.IsNullOrWhiteSpace(Notes))
             {
-                Console.WriteLine($"Notes:\n\n{this.Notes}");
+                Console.WriteLine($"Notes:\n\n{Notes}");
             }
         }
     }

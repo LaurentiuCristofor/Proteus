@@ -60,6 +60,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string Invert = "i";
             public const string Sort = "s";
             public const string SortByColumnValue = "sbcv";
+            public const string CustomSort = "cs";
+            public const string CustomSortByColumnValue = "csbcv";
             public const string Shuffle = "sh";
             public const string OrderColumns = "oc";
 
@@ -87,6 +89,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string SplitLineRanges = "splr";
             public const string SplitColumns = "spc";
             public const string SplitColumnValues = "spcv";
+            public const string SplitLinesIntoRandomSets = "splirs";
 
             public const string SortBySecondColumnValue = "sb2cv";
             public const string MergeLines = "ml";
@@ -99,6 +102,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string FindStateTransitions = "fst";
 
             public const string GenerateDistribution = "gend";
+            public const string GenerateProgression = "genp";
             public const string GenerateSample = "gens";
 
             // Command descriptions.
@@ -121,6 +125,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string SplitLineRanges = "Splits a file into multiple files, each containing a range of lines of specified size. Last file will likely have fewer lines than the rest.";
                 public const string SplitColumns = "Splits a file into multiple files, one for each column. Resulting files may have different size than the original file, if the original file contained lines with varying number of columns.";
                 public const string SplitColumnValues = "Splits a file into multiple files, one for each different value present in a specified column. Lines that do not have the specified column present are ignored.";
+                public const string SplitLinesIntoRandomSets = "Randomly splits the lines of a file into the specified number of sets. If the number of sets is larger than the number of lines, some of the sets will be empty and no output files will be created for them.";
 
                 public const string MergeLines = "Merges lines from two sorted files. Does not verify the correct sorting of the input files.";
                 public const string MergeLinesByColumnValue = "Merges lines from two files sorted on a specific column. Does not verify the correct sorting of the input files.";
@@ -132,6 +137,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string FindStateTransitions = "Selects pairs of lines from a column-sorted file, which match on the sorted column's values, but differ on a second column's 'state' values. Two consecutive transitions will result in duplicate lines being output; for example, ABA will output AB and BA.";
 
                 public const string GenerateDistribution = "Generates a number of values with the specified distribution.";
+                public const string GenerateProgression = "Generates a number of values from the specified numerical progression.";
                 public const string GenerateSample = "Generates a sample of values out of values ranging from 1 to a specified total count.";
             }
 
@@ -147,6 +153,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string MemoryRequirementLinearUnique = "Memory requirement: O(N), where N is the total size of unique data values found.";
                 public const string MemoryRequirementLinearTotal = "Memory requirement: O(N), where N is the total size of the input data file.";
                 public const string MemoryRequirementLinearSample = "Memory requirement: O(N), where N is the size of the requested sample.";
+                public const string MemoryRequirementLinearSets = "Memory requirement: O(N), where N is the number of requested sets.";
                 public const string MemoryRequirementLinearTotalSecond = "Memory requirement: O(N), where N is the total size of the second input data file.";
                 public const string MemoryRequirementLinearUniqueLookup = "Memory requirement: O(N), where N is the total size of unique data found in the lookup file.";
                 public const string MemoryRequirementLinearPrimaryColumnRepetitions = "Memory requirement: O(N), where N is the largest number of lines having the same primary column value.";
@@ -170,57 +177,11 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string DataTypeFloatingPoint = "f";
                 public const string DataTypeDateTime = "dt";
 
-                public const string ComparisonTypeLessThan = "lt";
-                public const string ComparisonTypeLessThanOrEqual = "lte";
-                public const string ComparisonTypeEqual = "eq";
-                public const string ComparisonTypeGreaterThanOrEqual = "gte";
-                public const string ComparisonTypeGreaterThan = "gt";
-                public const string ComparisonTypeNotEqual = "neq";
-                public const string ComparisonTypeBetween = "btwn";
-                public const string ComparisonTypeStrictlyBetween = "sbtwn";
-                public const string ComparisonTypeNotBetween = "nbtwn";
-                public const string ComparisonTypeNotStrictlyBetween = "nsbtwn";
-
-                public const string PositionSelectionTypeLast = "last";
-                public const string PositionSelectionTypeNotLast = "nlast";
-                public const string PositionSelectionTypeBetween = "btwn";
-                public const string PositionSelectionTypeNotBetween = "nbtwn";
-                public const string PositionSelectionTypeEach = "each";
-                public const string PositionSelectionTypeNotEach = "neach";
-
-                public const string PositionInsertionTypePosition = "pos";
-                public const string PositionInsertionTypeEach = "each";
-                public const string PositionInsertionTypeLast = "last";
-
-                public const string StringSelectionTypeHasLengthBetween = "btwn";
-                public const string StringSelectionTypeHasLengthNotBetween = "nbtwn";
-                public const string StringSelectionTypeIncludes = "incl";
-                public const string StringSelectionTypeNotIncludes = "nincl";
-                public const string StringSelectionTypeStartsWith = "start";
-                public const string StringSelectionTypeNotStartsWith = "nstart";
-                public const string StringSelectionTypeEndsWith = "end";
-                public const string StringSelectionTypeNotEndsWith = "nend";
-                public const string StringSelectionTypeStartsAndEndsWith = "startend";
-                public const string StringSelectionTypeNotStartsAndEndsWith = "nstartend";
-                public const string StringSelectionTypeEquals = "eq";
-                public const string StringSelectionTypeNotEquals = "neq";
-
-                public const string RelativeValueSelectionFirst = "first";
-                public const string RelativeValueSelectionNotFirst = "nfirst";
-                public const string RelativeValueSelectionLast = "last";
-                public const string RelativeValueSelectionNotLast = "nlast";
-
-                public const string JoinTypeInner = "in";
-                public const string JoinTypeLeftOuter = "lo";
-
-                public const string LookupTypeIncluded = "incl";
-                public const string LookupTypeNotIncluded = "nincl";
-
-                public const string LineTransformationTypeBreak = "break";
-                public const string LineTransformationTypeUnite = "unite";
-
-                public const string ColumnTransformationTypePack = "pack";
-                public const string ColumnTransformationTypeUnpack = "unpack";
+                public const string SortingAlgorithmTypeInsertion = "i";
+                public const string SortingAlgorithmTypeShell = "sh";
+                public const string SortingAlgorithmTypeMerge = "m";
+                public const string SortingAlgorithmTypeQuicksort = "qs";
+                public const string SortingAlgorithmTypeHeap = "h";
 
                 public const string StringEditTypeRewrite = "rw";
                 public const string StringEditTypeInvert = "i";
@@ -261,16 +222,16 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string StringEditTypeInsertContentAfterLastMarker = "icalm";
                 public const string StringEditTypeDeleteContentBetweenMarkers = "dcb2m";
                 public const string StringEditTypeKeepContentBetweenMarkers = "kcb2m";
-                public const string StringEditTypeKeepContentOutsideMarkers= "kco2m";
-                public const string StringEditTypeDeleteContentBetweenLastMarkers = "dcb2lm";
-                public const string StringEditTypeKeepContentBetweenLastMarkers = "kcb2lm";
-                public const string StringEditTypeKeepContentOutsideLastMarkers = "kco2lm";
-                public const string StringEditTypeDeleteContentBetweenInnermostMarkers = "dcb2im";
-                public const string StringEditTypeKeepContentBetweenInnermostMarkers = "kcb2im";
-                public const string StringEditTypeKeepContentOutsideInnermostMarkers = "kco2im";
-                public const string StringEditTypeDeleteContentBetweenOutermostMarkers = "dcb2om";
-                public const string StringEditTypeKeepContentBetweenOutermostMarkers = "kcb2om";
-                public const string StringEditTypeKeepContentOutsideOutermostMarkers = "kco2om";
+                public const string StringEditTypeKeepContentOutsideMarkers = "kco2m";
+                public const string StringEditTypeDeleteContentBetweenLastMarkers = "dcbl2m";
+                public const string StringEditTypeKeepContentBetweenLastMarkers = "kcbl2m";
+                public const string StringEditTypeKeepContentOutsideLastMarkers = "kcol2m";
+                public const string StringEditTypeDeleteContentBetweenInnermostMarkers = "dcbi2m";
+                public const string StringEditTypeKeepContentBetweenInnermostMarkers = "kcbi2m";
+                public const string StringEditTypeKeepContentOutsideInnermostMarkers = "kcoi2m";
+                public const string StringEditTypeDeleteContentBetweenOutermostMarkers = "dcbo2m";
+                public const string StringEditTypeKeepContentBetweenOutermostMarkers = "kcbo2m";
+                public const string StringEditTypeKeepContentOutsideOutermostMarkers = "kcoo2m";
                 public const string StringEditTypeSet = "s";
                 public const string StringEditTypeSetIfEquals = "sie";
 
@@ -280,10 +241,70 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string ValueEditTypeMultiply = "mul";
                 public const string ValueEditTypeDivide = "div";
 
-                public const string DataDistributionTypeUniform = "u";
-                public const string DataDistributionTypeNormal = "n";
-                public const string DataDistributionTypeExponential = "e";
-                public const string DataDistributionTypePoisson = "p";
+                public const string PositionInsertionTypePosition = "pos";
+                public const string PositionInsertionTypeEach = "each";
+                public const string PositionInsertionTypeLast = "last";
+
+                public const string JoinTypeInner = "in";
+                public const string JoinTypeLeftOuter = "lo";
+
+                public const string LineTransformationTypeBreak = "break";
+                public const string LineTransformationTypeUnite = "unite";
+
+                public const string ColumnTransformationTypePack = "pack";
+                public const string ColumnTransformationTypeUnpack = "unpack";
+
+                public const string ComparisonTypeLessThan = "lt";
+                public const string ComparisonTypeLessThanOrEqual = "lte";
+                public const string ComparisonTypeEqual = "eq";
+                public const string ComparisonTypeGreaterThanOrEqual = "gte";
+                public const string ComparisonTypeGreaterThan = "gt";
+                public const string ComparisonTypeNotEqual = "neq";
+                public const string ComparisonTypeBetween = "btwn";
+                public const string ComparisonTypeStrictlyBetween = "sbtwn";
+                public const string ComparisonTypeNotBetween = "nbtwn";
+                public const string ComparisonTypeNotStrictlyBetween = "nsbtwn";
+
+                public const string PositionSelectionTypeLast = "last";
+                public const string PositionSelectionTypeNotLast = "nlast";
+                public const string PositionSelectionTypeBetween = "btwn";
+                public const string PositionSelectionTypeNotBetween = "nbtwn";
+                public const string PositionSelectionTypeEach = "each";
+                public const string PositionSelectionTypeNotEach = "neach";
+
+                public const string StringSelectionTypeHasLengthBetween = "btwn";
+                public const string StringSelectionTypeHasLengthNotBetween = "nbtwn";
+                public const string StringSelectionTypeIncludes = "incl";
+                public const string StringSelectionTypeNotIncludes = "nincl";
+                public const string StringSelectionTypeStartsWith = "start";
+                public const string StringSelectionTypeNotStartsWith = "nstart";
+                public const string StringSelectionTypeEndsWith = "end";
+                public const string StringSelectionTypeNotEndsWith = "nend";
+                public const string StringSelectionTypeStartsAndEndsWith = "startend";
+                public const string StringSelectionTypeNotStartsAndEndsWith = "nstartend";
+                public const string StringSelectionTypeEquals = "eq";
+                public const string StringSelectionTypeNotEquals = "neq";
+                public const string StringSelectionTypeIncludesBefore = "inclb";
+                public const string StringSelectionTypeNotIncludesBefore = "ninclb";
+
+                public const string RelativeValueSelectionFirst = "first";
+                public const string RelativeValueSelectionNotFirst = "nfirst";
+                public const string RelativeValueSelectionLast = "last";
+                public const string RelativeValueSelectionNotLast = "nlast";
+
+                public const string LookupTypeIncluded = "incl";
+                public const string LookupTypeNotIncluded = "nincl";
+
+                public const string DistributionTypeUniform = "u";
+                public const string DistributionTypeNormal = "n";
+                public const string DistributionTypeExponential = "e";
+                public const string DistributionTypePoisson = "p";
+
+                public const string ProgressionTypeArithmetic = "a";
+                public const string ProgressionTypeGeometric = "g";
+                public const string ProgressionTypeHarmonic = "h";
+                public const string ProgressionTypeFactorial = "fact";
+                public const string ProgressionTypeFibonacci = "fib";
 
                 // Command argument description strings.
                 //
@@ -308,6 +329,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                     public const string SortedColumnDataType = "<sorted_column_data_type>";
 
                     public const string ColumnSeparator = "<column_separator>";
+                    public const string LineSeparator = "<line_separator>";
 
                     public const string FirstArgument = "<first_argument>";
                     public const string SecondArgument = "<second_argument>";
@@ -316,10 +338,10 @@ namespace LaurentiuCristofor.Cabeiro.Common
                     public const string LineValue = "<line_value>";
                     public const string RangeSize = "<range_size>";
                     public const string SampleSize = "<sample_size>";
+                    public const string SetsCount = "<sets_count>";
                     public const string SeedValue = "<seed_value>";
                     public const string GenerationCount = "<generation_count>";
                     public const string TotalCount = "<total_count>";
-                    public const string DistributionMean = "<distribution_mean>";
 
                     public static readonly string HelpCategoriesText = $"{CommandName} will produce detailed information on the specified command."
                         + $"\n\n'{Commands.Arguments.All}' will list all available commands."
@@ -339,6 +361,18 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.DataTypeUnsignedInteger}' = unsigned integer"
                         + $"\n\t- '{Constants.Commands.Arguments.DataTypeFloatingPoint}' = floating point"
                         + $"\n\t- '{Constants.Commands.Arguments.DataTypeDateTime}' = datetime"
+                        ;
+
+                    public const string AlgorithmType = "<algorithm_type>";
+
+                    // List less performant algorithms last.
+                    //
+                    public static readonly string SortingAlgorithmTypeText = $"{Constants.Commands.Arguments.Descriptions.AlgorithmType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.SortingAlgorithmTypeMerge}' = merge sorting (stable)"
+                        + $"\n\t- '{Constants.Commands.Arguments.SortingAlgorithmTypeQuicksort}' = quicksort (in-place)"
+                        + $"\n\t- '{Constants.Commands.Arguments.SortingAlgorithmTypeHeap}' = heap sorting (in-place)"
+                        + $"\n\t- '{Constants.Commands.Arguments.SortingAlgorithmTypeShell}' = Shell sorting (in-place)"
+                        + $"\n\t- '{Constants.Commands.Arguments.SortingAlgorithmTypeInsertion}' = insertion sorting (quadratic!, stable, in-place)"
                         ;
 
                     public const string NewFirstColumnsList = "<new_first_columns_list>";
@@ -398,7 +432,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentBetweenOutermostMarkers}' = keep content between outermost occurrences of markers; arguments: <first_marker> <second_marker>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeKeepContentOutsideOutermostMarkers}' = keep content outside outermost occurrences of markers; arguments: <first_marker> <second_marker>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeSet}' = set; arguments: <replacement>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeSetIfEquals}' = set if equals value; arguments: <value_to_match> <replacement>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringEditTypeSetIfEquals}' = set if equals; arguments: <value_to_match> <replacement>"
                         ;
 
                     public static readonly string ValueEditTypeText = $"{Constants.Commands.Arguments.Descriptions.EditType} can take the values:"
@@ -467,7 +501,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                     public static readonly string StringSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeHasLengthBetween}' = has length between; arguments: <start_value> <end_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeHasLengthNotBetween}' = has length not between; arguments: <start_value> <end_value>"
-                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeIncludes }' = includes; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeIncludes}' = includes; arguments: <string_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotIncludes}' = not includes; arguments: <string_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeStartsWith}' = starts with; arguments: <string_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotStartsWith}' = not starts with; arguments: <string_value>"
@@ -477,6 +511,8 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotStartsAndEndsWith}' = not starts and ends with; arguments: <starting_value> <ending_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeEquals}' = equals; arguments: <string_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotEquals}' = not equals; arguments: <string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeIncludesBefore}' = includes before; arguments: <string_value> <succeeding_string_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotIncludesBefore}' = not includes before; arguments: <string_value> <succeeding_string_value>"
                         ;
 
                     public static readonly string RelativeLineSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
@@ -500,13 +536,23 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
                     public static readonly string SeedValueText = $"{Constants.Commands.Arguments.Descriptions.SeedValue} is an integer value that can be used to initialize the RNG for repeatable results. To not use a seed, just set this parameter to any negative value.";
 
-                    public const string DataDistributionType = "<data_distribution_type>";
+                    public const string DistributionType = "<distribution_type>";
 
-                    public static readonly string DataDistributionTypeText = $"{Constants.Commands.Arguments.Descriptions.DataDistributionType} can take the values:"
-                        + $"\n\t- '{Constants.Commands.Arguments.DataDistributionTypeUniform}' = uniform"
-                        + $"\n\t- '{Constants.Commands.Arguments.DataDistributionTypeNormal}' = normal"
-                        + $"\n\t- '{Constants.Commands.Arguments.DataDistributionTypeExponential}' = exponential; arguments: <distribution_mean> (double)"
-                        + $"\n\t- '{Constants.Commands.Arguments.DataDistributionTypePoisson}' = Poisson; arguments: <distribution_mean> (ulong)"
+                    public static readonly string DistributionTypeText = $"{Constants.Commands.Arguments.Descriptions.DistributionType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.DistributionTypeUniform}' = uniform"
+                        + $"\n\t- '{Constants.Commands.Arguments.DistributionTypeNormal}' = normal"
+                        + $"\n\t- '{Constants.Commands.Arguments.DistributionTypeExponential}' = exponential; arguments: <distribution_mean> (double)"
+                        + $"\n\t- '{Constants.Commands.Arguments.DistributionTypePoisson}' = Poisson; arguments: <distribution_mean> (ulong)"
+                        ;
+
+                    public const string ProgressionType = "<progression_type>";
+
+                    public static readonly string ProgressionTypeText = $"{Constants.Commands.Arguments.Descriptions.ProgressionType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.ProgressionTypeArithmetic}' = arithmetic; arguments: <starting_value> <delta_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ProgressionTypeGeometric}' = geometric; arguments: <starting_value> <ratio_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ProgressionTypeHarmonic}' = harmonic; arguments: <starting_value> <delta_value>"
+                        + $"\n\t- '{Constants.Commands.Arguments.ProgressionTypeFactorial}' = factorial"
+                        + $"\n\t- '{Constants.Commands.Arguments.ProgressionTypeFibonacci}' = Fibonacci"
                         ;
                 }
             }

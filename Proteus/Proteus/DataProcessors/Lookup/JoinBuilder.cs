@@ -24,7 +24,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
 
         public JoinBuilder()
         {
-            this.LookupDictionary = new Dictionary<IDataHolder, List<string>>();
+            LookupDictionary = new Dictionary<IDataHolder, List<string>>();
         }
 
         public Dictionary<IDataHolder, List<string>> Execute(OneExtractedValue lineData)
@@ -38,14 +38,14 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Lookup
 
             // If this is the first time we see this key, initalize a List<string>.
             //
-            if (!this.LookupDictionary.ContainsKey(lineKey))
+            if (!LookupDictionary.ContainsKey(lineKey))
             {
-                this.LookupDictionary.Add(lineKey, new List<string>());
+                LookupDictionary.Add(lineKey, new List<string>());
             }
 
-            this.LookupDictionary[lineKey].Add(lineToJoin);
+            LookupDictionary[lineKey].Add(lineToJoin);
 
-            return this.LookupDictionary;
+            return LookupDictionary;
         }
     }
 }

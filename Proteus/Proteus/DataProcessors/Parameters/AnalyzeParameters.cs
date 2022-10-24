@@ -10,7 +10,7 @@ using LaurentiuCristofor.Proteus.Common.Types;
 namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
 {
     /// <summary>
-    /// Includes parameters for performing an analyze operation.
+    /// Includes parameters for performing an 'analyze' operation.
     /// </summary>
     public class AnalyzeParameters
     {
@@ -28,8 +28,8 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Parameters
             DataType dataType,
             int outputLimit)
         {
-            this.DataType = dataType;
-            this.OutputLimit = outputLimit;
+            DataType = dataType;
+            OutputLimit = outputLimit;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
 
         public StringDataHolder(string data)
         {
-            this.Data = data;
+            Data = data;
         }
 
         public DataType GetDataType()
@@ -52,12 +52,12 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
 
         public override string ToString()
         {
-            return this.Data;
+            return Data;
         }
 
         public IDataHolder Add(IDataHolder otherData)
         {
-            this.Data += otherData.ToString();
+            Data += otherData.ToString();
             return this;
         }
 
@@ -83,13 +83,13 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
                 throw new ProteusException("Attempting to compare with null!");
             }
 
-            return this.Data.CompareTo(otherData.ToString());
+            return Data.CompareTo(otherData.ToString());
         }
 
         public int CompareTo(object otherObject)
         {
             StringDataHolder otherData = (StringDataHolder)otherObject;
-            return this.CompareTo(otherData);
+            return CompareTo(otherData);
         }
 
         public override bool Equals(Object otherObject)
@@ -103,7 +103,7 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
 
             try
             {
-                comparison = this.CompareTo(otherObject);
+                comparison = CompareTo(otherObject);
             }
             catch (ProteusException)
             {
@@ -115,7 +115,7 @@ namespace LaurentiuCristofor.Proteus.Common.DataHolders
 
         public override int GetHashCode()
         {
-            return this.Data.GetHashCode();
+            return Data.GetHashCode();
         }
     }
 }

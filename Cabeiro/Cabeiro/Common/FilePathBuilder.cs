@@ -38,11 +38,11 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
         public FilePathBuilder(string inputFilePath, string outputFileExtension, string[] operationArguments, string outputFilePath)
         {
-            this.InputFilePath = inputFilePath;
-            this.OutputFileExtension = outputFileExtension;
-            this.OperationArguments = operationArguments;
-            this.OutputFilePath = outputFilePath;
-            this.HasProcessedArguments = false;
+            InputFilePath = inputFilePath;
+            OutputFileExtension = outputFileExtension;
+            OperationArguments = operationArguments;
+            OutputFilePath = outputFilePath;
+            HasProcessedArguments = false;
         }
 
         /// <summary>
@@ -53,37 +53,37 @@ namespace LaurentiuCristofor.Cabeiro.Common
         {
             // If we already have a path, return it.
             //
-            if (this.OutputFilePath != null)
+            if (OutputFilePath != null)
             {
-                return this.OutputFilePath;
+                return OutputFilePath;
             }
 
             // Just in case we get called repeatedly,
             // check to avoid redundant processing.
             //
-            if (!this.HasProcessedArguments)
+            if (!HasProcessedArguments)
             {
-                this.ProcessArguments();
+                ProcessArguments();
             }
 
             // Append the arguments to the extension.
             //
-            this.AppendArgumentsToExtension();
+            AppendArgumentsToExtension();
 
             // Append final extension.
             //
             if (!excludeTextExtension)
             {
-                this.OutputFileExtension += Constants.Files.Extensions.Txt;
+                OutputFileExtension += Constants.Files.Extensions.Txt;
             }
 
             // Build the output path.
             //
-            this.OutputFilePath = BuildFilePath(this.InputFilePath, this.OutputFileExtension);
+            OutputFilePath = BuildFilePath(InputFilePath, OutputFileExtension);
 
             // Return the path.
             //
-            return this.OutputFilePath;
+            return OutputFilePath;
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
         /// </summary>
         protected virtual void ProcessArguments()
         {
-            this.HasProcessedArguments = true;
+            HasProcessedArguments = true;
         }
 
         /// <summary>
@@ -99,18 +99,18 @@ namespace LaurentiuCristofor.Cabeiro.Common
         /// </summary>
         protected virtual void AppendArgumentsToExtension()
         {
-            if (this.OperationArguments == null)
+            if (OperationArguments == null)
             {
                 return;
             }
 
             // Append arguments to extension, if they're available.
             //
-            for (int i = 0; i < this.OperationArguments.Length; ++i)
+            for (int i = 0; i < OperationArguments.Length; ++i)
             {
-                if (this.OperationArguments[i] != null)
+                if (OperationArguments[i] != null)
                 {
-                    this.OutputFileExtension += $".{this.OperationArguments[i]}";
+                    OutputFileExtension += $".{OperationArguments[i]}";
                 }
             }
         }

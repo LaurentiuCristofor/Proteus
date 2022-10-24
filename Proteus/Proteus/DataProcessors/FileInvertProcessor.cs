@@ -18,8 +18,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class FileInvertProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, string>
     {
-        protected BaseOutputParameters Parameters { get; set; }
-
         /// <summary>
         /// Data structure used for loading the lines before outputting them in reverse order.
         /// </summary>
@@ -27,30 +25,28 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(BaseOutputParameters processingParameters)
         {
-            this.Parameters = processingParameters;
+            LineStack = new Stack<string>();
 
-            this.LineStack = new Stack<string>();
-
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath, trackProgress: true);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: true);
         }
 
         public bool Execute(ulong lineNumber, string line)
         {
-            this.LineStack.Push(line);
+            LineStack.Push(line);
 
             return true;
         }
 
         public override void CompleteExecution()
         {
-            if (this.LineStack == null)
+            if (LineStack == null)
             {
                 throw new ProteusException("Internal error: An expected data structure has not been initialized!");
             }
 
-            foreach (string line in this.LineStack)
+            foreach (string line in LineStack)
             {
-                this.OutputWriter.WriteLine(line);
+                OutputWriter.WriteLine(line);
             }
 
             base.CompleteExecution();

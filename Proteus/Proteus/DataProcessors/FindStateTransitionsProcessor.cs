@@ -19,8 +19,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
     /// </summary>
     public class FindStateTransitionsProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, TwoExtractedValues>
     {
-        protected BaseOutputParameters Parameters { get; set; }
-
         /// <summary>
         /// A copy of the data seen for the previous line.
         /// </summary>
@@ -28,32 +26,30 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 
         public void Initialize(BaseOutputParameters processingParameters)
         {
-            this.Parameters = processingParameters;
-
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public bool Execute(ulong lineNumber, TwoExtractedValues lineData)
         {
             // Verify that the input file is sorted on the primary column.
             //
-            if (this.PreviousLineData != null && lineData.ExtractedData.CompareTo(this.PreviousLineData.ExtractedData) < 0)
+            if (PreviousLineData != null && lineData.ExtractedData.CompareTo(PreviousLineData.ExtractedData) < 0)
             {
-                throw new ProteusException($"Input file is not sorted as expected! Value '{lineData.ExtractedData}' succeeds value '{this.PreviousLineData.ExtractedData}'.");
+                throw new ProteusException($"Input file is not sorted as expected! Value '{lineData.ExtractedData}' succeeds value '{PreviousLineData.ExtractedData}'.");
             }
 
             // If we find two consecutive rows with the same primary column data, but with different secondary column data,
             // output the pair of rows.
             //
-            if (this.PreviousLineData != null
-                && lineData.ExtractedData.Equals(this.PreviousLineData.ExtractedData)
-                && !lineData.SecondExtractedData.Equals(this.PreviousLineData.SecondExtractedData))
+            if (PreviousLineData != null
+                && lineData.ExtractedData.Equals(PreviousLineData.ExtractedData)
+                && !lineData.SecondExtractedData.Equals(PreviousLineData.SecondExtractedData))
             {
-                this.OutputWriter.WriteLine(this.PreviousLineData.OriginalLine);
-                this.OutputWriter.WriteLine(lineData.OriginalLine);
+                OutputWriter.WriteLine(PreviousLineData.OriginalLine);
+                OutputWriter.WriteLine(lineData.OriginalLine);
             }
 
-            this.PreviousLineData = lineData;
+            PreviousLineData = lineData;
 
             return true;
         }

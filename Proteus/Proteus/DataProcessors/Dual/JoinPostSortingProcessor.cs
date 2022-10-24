@@ -18,10 +18,20 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
 {
     /// <summary>
     /// A data processor that joins lines from two files based on the values of two columns.
+    /// 
+    /// OutputExtraOperationParameters is expected to contain:
+    /// StringParameters[0] - outer join default value (if required)
     /// </summary>
-    public class JoinPostSortingProcessor: BaseOutputProcessor, IDualDataProcessor<OutputOperationParameters<JoinType>, OneExtractedValue>
+    public class JoinPostSortingProcessor: BaseOutputProcessor, IDualDataProcessor<OutputExtraOperationParameters<JoinType>, OneExtractedValue>
     {
-        protected OutputOperationParameters<JoinType> Parameters { get; set; }
+        protected const int OuterJoinDefaultValueIndex = 0;
+
+        protected JoinType JoinType { get; set; }
+
+        /// <summary>
+        /// The default value to use for LeftOuterJoin, when there is no matching row "on the right".
+        /// </summary>
+        protected string OuterJoinDefaultValue { get; set; }
 
         /// <summary>
         /// The last key we matched on.
@@ -33,13 +43,20 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
         /// </summary>
         protected List<string> LinesToJoinOnLastMatchedKey { get; set; }
 
-        public void Initialize(OutputOperationParameters<JoinType> processingParameters)
+        public void Initialize(OutputExtraOperationParameters<JoinType> processingParameters)
         {
-            this.Parameters = processingParameters;
+            JoinType = processingParameters.OperationType;
 
-            this.LinesToJoinOnLastMatchedKey = new List<string>();
+            if (JoinType == JoinType.LeftOuter)
+            {
+                ArgumentChecker.CheckPresence(processingParameters.StringParameters, OuterJoinDefaultValueIndex);
+                OuterJoinDefaultValue = processingParameters.StringParameters[OuterJoinDefaultValueIndex];
+                ArgumentChecker.CheckNotNull(OuterJoinDefaultValue);
+            }
 
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath);
+            LinesToJoinOnLastMatchedKey = new List<string>();
+
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath);
         }
 
         public ProcessingActionType Execute(
@@ -57,7 +74,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
                 // We can complete processing the second file while collecting lines to join with the first.
                 // Check if the line from the first file can be joined with the last matched key.
                 //
-                if (firstLineData.ExtractedData.Equals(this.LastMatchedKey))
+                if (firstLineData.ExtractedData.Equals(LastMatchedKey))
                 {
                     JoinLineAndOutput(firstLineData);
                     return ProcessingActionType.AdvanceFirst;
@@ -66,7 +83,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
                 // None of the remaining lines in the first file will be able to match anything in the second file.
                 // Proceed according to the type of join.
                 //
-                switch (this.Parameters.OperationType)
+                switch (JoinType)
                 {
                     case JoinType.Inner:
                         // We don't output anything for an inner join.
@@ -76,19 +93,19 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
                     case JoinType.LeftOuter:
                         // For a left outer join, we'll output the first line combined with the string provided by the user.
                         //
-                        this.OutputWriter.WriteLine(firstLineData.OriginalLine + firstLineData.ColumnSeparator + this.Parameters.FirstArgument);
+                        OutputWriter.WriteLine(firstLineData.OriginalLine + firstLineData.ColumnSeparator + OuterJoinDefaultValue);
                         return ProcessingActionType.AdvanceFirst;
 
                     default:
-                        throw new ProteusException($"Internal error: Proteus is not handling join type '{this.Parameters.OperationType}'!");
+                        throw new ProteusException($"Internal error: Proteus is not handling join type '{JoinType}'!");
                 }
             }
 
             // Initialize LastMatchedKey.
             //
-            if (this.LastMatchedKey == null)
+            if (LastMatchedKey == null)
             {
-                this.LastMatchedKey = secondLineData.ExtractedData;
+                LastMatchedKey = secondLineData.ExtractedData;
             }
 
             // Compare the extracted data from both lines.
@@ -98,10 +115,10 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
             {
                 // If the key has changed, reset the information about it.
                 //
-                if (!secondLineData.ExtractedData.Equals(this.LastMatchedKey))
+                if (!secondLineData.ExtractedData.Equals(LastMatchedKey))
                 {
-                    this.LastMatchedKey = secondLineData.ExtractedData;
-                    this.LinesToJoinOnLastMatchedKey.Clear();
+                    LastMatchedKey = secondLineData.ExtractedData;
+                    LinesToJoinOnLastMatchedKey.Clear();
                 }
 
                 // The line matched.
@@ -110,7 +127,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
                 // Hence, processing will continue in the "< 0" branch.
                 //
                 string lineToJoin = secondLineData.AssembleWithoutColumn(secondLineData.ExtractedColumnNumber);
-                this.LinesToJoinOnLastMatchedKey.Add(lineToJoin);
+                LinesToJoinOnLastMatchedKey.Add(lineToJoin);
 
                 return ProcessingActionType.AdvanceSecond;
             }
@@ -118,7 +135,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
             {
                 // Check if we should join this line.
                 //
-                if (firstLineData.ExtractedData.Equals(this.LastMatchedKey))
+                if (firstLineData.ExtractedData.Equals(LastMatchedKey))
                 {
                     JoinLineAndOutput(firstLineData);
                 }
@@ -141,7 +158,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
         /// <param name="firstLineData">The data from the first file.</param>
         protected void JoinLineAndOutput(OneExtractedValue firstLineData)
         {
-            foreach (string joinLine in this.LinesToJoinOnLastMatchedKey)
+            foreach (string joinLine in LinesToJoinOnLastMatchedKey)
             {
                 // Special case: if there is no join line (the line in the join file only contained the join key and no other columns),
                 // then we will still output the current line as is.
@@ -155,7 +172,7 @@ namespace LaurentiuCristofor.Proteus.DataProcessors.Dual
                     outputLine += firstLineData.ColumnSeparator + joinLine;
                 }
 
-                this.OutputWriter.WriteLine(outputLine);
+                OutputWriter.WriteLine(outputLine);
             }
         }
     }

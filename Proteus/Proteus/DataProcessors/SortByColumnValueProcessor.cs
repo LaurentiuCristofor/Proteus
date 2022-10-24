@@ -5,11 +5,11 @@
 /// Do not use it if you have not received an associated LICENSE file.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
 using System.Collections.Generic;
 
 using LaurentiuCristofor.Proteus.Common;
 using LaurentiuCristofor.Proteus.Common.DataHolders;
+using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.Common.Utilities;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
@@ -19,46 +19,47 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
     /// A data processor that sorts the input lines by the value of a specific column.
+    /// Uses the specified custom sorting algorithm or the default sorting algorithm if no custom sorting algorithm is specified.
     /// </summary>
-    public class SortByColumnValueProcessor : BaseOutputProcessor, IDataProcessor<BaseOutputParameters, OneExtractedValue>
+    public class SortByColumnValueProcessor : BaseOutputProcessor, IDataProcessor<OutputOperationParameters<SortingAlgorithmType>, OneExtractedValue>
     {
-        protected BaseOutputParameters Parameters { get; set; }
+        protected SortingAlgorithmType SortingType { get; set; }
 
         /// <summary>
         /// Data structure used for loading the lines before sorting them.
         /// </summary>
-        protected List<Tuple<IDataHolder, string>> ColumnLineTuples { get; set; }
+        protected List<DataPair<IDataHolder, string>> ColumnLinePairs { get; set; }
 
-        public void Initialize(BaseOutputParameters processingParameters)
+        public void Initialize(OutputOperationParameters<SortingAlgorithmType> processingParameters)
         {
-            this.Parameters = processingParameters;
+            SortingType = processingParameters.OperationType;
 
-            this.ColumnLineTuples = new List<Tuple<IDataHolder, string>>();
+            ColumnLinePairs = new List<DataPair<IDataHolder, string>>();
 
-            this.OutputWriter = new FileWriter(this.Parameters.OutputFilePath, trackProgress: true);
+            OutputWriter = new FileWriter(processingParameters.OutputFilePath, trackProgress: true);
         }
 
         public bool Execute(ulong lineNumber, OneExtractedValue lineData)
         {
-            this.ColumnLineTuples.Add(new Tuple<IDataHolder, string>(lineData.ExtractedData, lineData.OriginalLine));
+            ColumnLinePairs.Add(new DataPair<IDataHolder, string>(lineData.ExtractedData, lineData.OriginalLine));
 
             return true;
         }
 
         public override void CompleteExecution()
         {
-            if (this.ColumnLineTuples == null)
+            if (ColumnLinePairs == null)
             {
                 throw new ProteusException("Internal error: An expected data structure has not been initialized!");
             }
 
             Timer timer = new Timer($"\n{Constants.Messages.SortingStart}", Constants.Messages.SortingEnd, countFinalLineEndings: 0);
-            this.ColumnLineTuples.Sort();
+            CustomSorting.Sort(ColumnLinePairs, SortingType);
             timer.StopAndReport();
 
-            foreach (Tuple<IDataHolder, string> tuple in this.ColumnLineTuples)
+            foreach (DataPair<IDataHolder, string> dataPair in ColumnLinePairs)
             {
-                this.OutputWriter.WriteLine(tuple.Item2);
+                OutputWriter.WriteLine(dataPair.SecondData);
             }
 
             base.CompleteExecution();
