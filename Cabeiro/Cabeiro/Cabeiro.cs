@@ -69,8 +69,8 @@ namespace LaurentiuCristofor.Cabeiro
         /// </summary>
         private static void ValidateProteusVersion()
         {
-            const int expectedProteusMajorVersion = 1;
-            const int expectedProteusMinorVersion = 3;
+            const int expectedProteusMajorVersion = 2;
+            const int expectedProteusMinorVersion = 0;
 
             AssemblyName proteusInfo = ProteusInfo.GetAssemblyInfo();
             AssemblyName cabeiroInfo = CabeiroInfo.GetAssemblyInfo();
