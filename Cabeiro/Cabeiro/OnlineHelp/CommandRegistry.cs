@@ -329,6 +329,23 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
             RegisterCommandDescription(commandDescription);
 
             commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.SelectLinesByTwoColumnValues,
+                CommandCategory.Selection,
+                "(S)elect (L)ines (B)y (2) (C)olumn (V)alues",
+                CabeiroConstants.Commands.Descriptions.SelectLinesByTwoColumnValues,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.DataType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ComparisonType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondColumnNumber}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
+                + $"\n\n{CabeiroConstants.Commands.Arguments.Descriptions.OneThresholdComparisonTypeText}"
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
+            RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
                 CabeiroConstants.Commands.SelectLinesByNumber,
                 CommandCategory.Selection,
                 "(S)elect (L)ines (B)y (N)umber",

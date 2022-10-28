@@ -104,6 +104,7 @@ To eliminate some lines, just select the ones you want to keep.
 To handle duplicate values, use the "(R)elative to other lines" selection commands.
 
 * SLBCV - (S)elect (L)ines (B)y (C)olumn (V)alue
+* SLB2CV - (S)elect (L)ines (B)y (2) (C)olumn (V)alues
 * SLBN - (S)elect (L)ines (B)y (N)umber
 * SCBN - (S)elect (C)olumns (B)y (N)umber
 * SLBLS - (S)elect (L)ines (B)y (L)ine (S)tring

@@ -75,6 +75,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string TransformColumns = "tc";
 
             public const string SelectLinesByColumnValue = "slbcv";
+            public const string SelectLinesByTwoColumnValues = "slb2cv";
             public const string SelectLinesByNumber = "slbn";
             public const string SelectColumnsByNumber = "scbn";
             public const string SelectLinesByLineString = "slbls";
@@ -115,6 +116,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string AnalyzeColumnValues = "Produces a report about a specified column's values.";
 
                 public const string SelectLinesByColumnValue = "Selects lines by comparing a column's value against specified arguments.";
+                public const string SelectLinesByTwoColumnValues = "Selects lines by comparing a column's value against another column's value.";
                 public const string SelectLinesByLineString = "Selects lines based on their string value matching specified properties.";
                 public const string SelectLinesByColumnString = "Selects lines based on a column's string value matching specified properties.";
                 public const string SelectLinesByLineStringRelativeToOtherLines = "Selects lines, based on their relationship to other lines.";
@@ -321,6 +323,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                     public const string OutputFilePath = "<output_file_path>";
 
                     public const string ColumnNumber = "<column_number>";
+                    public const string SecondColumnNumber = "<second_column_number>";
                     public const string FirstFileColumnNumber = "<first_file_column_number>";
                     public const string SecondFileColumnNumber = "<second_file_column_number>";
                     public const string DataFileColumnNumber = "<data_file_column_number>";
@@ -474,13 +477,16 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
                     public const string ComparisonType = "<comparison_type>";
 
-                    public static readonly string ComparisonTypeText = $"{Constants.Commands.Arguments.Descriptions.ComparisonType} can take the values:"
+                    public static readonly string OneThresholdComparisonTypeText = $"{Constants.Commands.Arguments.Descriptions.ComparisonType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeLessThan}' = less than; arguments: <value>"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeLessThanOrEqual}' = less than or equal; arguments: <value>"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeEqual}' = equal; arguments: <value>"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeGreaterThanOrEqual}' = greater than or equal; arguments: <value>"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeGreaterThan}' = greater than; arguments: <value>"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeNotEqual}' = not equal; arguments: <value>"
+                        ;
+
+                    public static readonly string ComparisonTypeText = $"{Constants.Commands.Arguments.Descriptions.OneThresholdComparisonTypeText}"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeBetween}' = between; arguments: <start_value> <end_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeStrictlyBetween}' = strictly between; arguments: <start_value> <end_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeNotBetween}' = not between; arguments: <start_value> <end_value>"

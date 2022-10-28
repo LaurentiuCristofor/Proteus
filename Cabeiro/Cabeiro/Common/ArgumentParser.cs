@@ -695,6 +695,46 @@ namespace LaurentiuCristofor.Cabeiro.Common
         }
 
         /// <summary>
+        /// Special parsing of argument value as a ComparisonType indicator.
+        /// This is used when the comparison type is of "one-threshold" type and its argument does not have to be explicitly specified.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the ComparisonType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<ComparisonType, int> ParseOneThresholdComparisonTypeHavingImplicitArgument(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeLessThan))
+            {
+                return new Tuple<ComparisonType, int>(ComparisonType.LessThan, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeLessThanOrEqual))
+            {
+                return new Tuple<ComparisonType, int>(ComparisonType.LessThanOrEqual, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeEqual))
+            {
+                return new Tuple<ComparisonType, int>(ComparisonType.Equal, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeGreaterThanOrEqual))
+            {
+                return new Tuple<ComparisonType, int>(ComparisonType.GreaterThanOrEqual, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeGreaterThan))
+            {
+                return new Tuple<ComparisonType, int>(ComparisonType.GreaterThan, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.ComparisonTypeNotEqual))
+            {
+                return new Tuple<ComparisonType, int>(ComparisonType.NotEqual, 0);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid comparison type argument: '{argument}'!");
+            }
+        }
+
+        /// <summary>
         /// Parses argument value as a PositionSelectionType indicator.
         /// </summary>
         /// <param name="argument">The argument value to parse.</param>
@@ -839,15 +879,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
         {
             string lowercaseValue = argument.ToLower();
 
-            if (lowercaseValue.Equals(Constants.Commands.Arguments.RelativeValueSelectionFirst))
-            {
-                return new Tuple<RelativeValueSelectionType, int>(RelativeValueSelectionType.First, 0);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.RelativeValueSelectionNotFirst))
-            {
-                return new Tuple<RelativeValueSelectionType, int>(RelativeValueSelectionType.NotFirst, 0);
-            }
-            else if (lowercaseValue.Equals(Constants.Commands.Arguments.RelativeValueSelectionLast))
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.RelativeValueSelectionLast))
             {
                 return new Tuple<RelativeValueSelectionType, int>(RelativeValueSelectionType.Last, 0);
             }
@@ -857,7 +889,9 @@ namespace LaurentiuCristofor.Cabeiro.Common
             }
             else
             {
-                throw new CabeiroException($"Invalid relative value selection type argument: '{argument}'!");
+                // Reuse specialized line parsing method.
+                //
+                return ParseRelativeLineSelectionType(argument);
             }
         }
 
