@@ -476,7 +476,7 @@ namespace LaurentiuCristofor.Cabeiro
                 int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
                 string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
                 DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
-                Tuple<ComparisonType, int> operationInfo = ArgumentParser.ParseOneThresholdComparisonTypeHavingImplicitArgument(arguments[5]);
+                Tuple<ComparisonType, int> operationInfo = ArgumentParser.ParseTwoColumnComparisonType(arguments[5]);
                 int secondColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[6]);
                 ArgumentParser.ExtractLastArguments(operationInfo.Item2, 7, arguments, out _, out string outputFilePath);
 
@@ -561,6 +561,28 @@ namespace LaurentiuCristofor.Cabeiro
                     columnSeparator,
                     operationInfo.Item1, arguments[4],
                     operationArguments,
+                    outputFilePath);
+                return;
+            }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.SelectLinesByTwoColumnStrings))
+            {
+                const int minimumArgumentNumber = 6;
+                const int maximumArgumentNumber = 7;
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
+
+                string inputFilePath = arguments[1];
+                int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
+                string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
+                Tuple<StringSelectionType, int> operationInfo = ArgumentParser.ParseTwoColumnSelectionType(arguments[4]);
+                int secondColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[5]);
+                ArgumentParser.ExtractLastArguments(operationInfo.Item2, 6, arguments, out _, out string outputFilePath);
+
+                SelectLinesByTwoColumnStrings(
+                    inputFilePath,
+                    columnNumber,
+                    columnSeparator,
+                    operationInfo.Item1, arguments[4],
+                    secondColumnNumber,
                     outputFilePath);
                 return;
             }
@@ -1702,6 +1724,38 @@ namespace LaurentiuCristofor.Cabeiro
 
             var fileProcessor
                 = new FileProcessor<OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue, SelectLineByStringProcessor, OutputExtraOperationParameters<StringSelectionType>>(
+                    inputFilePath,
+                    extractionParameters,
+                    processingParameters);
+
+            fileProcessor.ProcessFile();
+        }
+
+        private static void SelectLinesByTwoColumnStrings(
+            string inputFilePath,
+            int columnNumber,
+            string columnSeparator,
+            StringSelectionType selectionType, string selectionTypeString,
+            int secondColumnNumber,
+            string outputFilePath)
+        {
+            var extractionParameters = new TwoColumnValuesExtractionParameters(
+                columnSeparator,
+                columnNumber,
+                DataType.String,
+                secondColumnNumber,
+                DataType.String);
+
+            string outputFileExtension = $".{CabeiroConstants.Commands.SelectLinesByColumnString}.{columnNumber}.{selectionTypeString.ToLower()}.{secondColumnNumber}";
+            var filePathBuilder = new FilePathBuilder(inputFilePath, outputFileExtension, null, outputFilePath);
+            outputFilePath = filePathBuilder.BuildOutputFilePath();
+
+            var processingParameters = new OutputOperationParameters<StringSelectionType>(
+                outputFilePath,
+                selectionType);
+
+            var fileProcessor
+                = new FileProcessor<TwoColumnValuesExtractor, TwoColumnValuesExtractionParameters, TwoExtractedValues, SelectLineByTwoColumnStringsProcessor, OutputOperationParameters<StringSelectionType>>(
                     inputFilePath,
                     extractionParameters,
                     processingParameters);

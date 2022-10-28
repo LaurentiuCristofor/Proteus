@@ -696,11 +696,11 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
         /// <summary>
         /// Special parsing of argument value as a ComparisonType indicator.
-        /// This is used when the comparison type is of "one-threshold" type and its argument does not have to be explicitly specified.
+        /// Used for comparisons of the values of two columns.
         /// </summary>
         /// <param name="argument">The argument value to parse.</param>
         /// <returns>A tuple containing the ComparisonType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
-        public static Tuple<ComparisonType, int> ParseOneThresholdComparisonTypeHavingImplicitArgument(string argument)
+        public static Tuple<ComparisonType, int> ParseTwoColumnComparisonType(string argument)
         {
             string lowercaseValue = argument.ToLower();
 
@@ -837,6 +837,54 @@ namespace LaurentiuCristofor.Cabeiro.Common
             else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeNotIncludesBefore))
             {
                 return new Tuple<StringSelectionType, int>(StringSelectionType.NotIncludesBefore, 2);
+            }
+            else
+            {
+                throw new CabeiroException($"Invalid string selection type argument: '{argument}'!");
+            }
+        }
+
+        /// <summary>
+        /// Parses argument value as a StringSelectionType indicator.
+        /// Used for selection based on the string values of two columns.
+        /// </summary>
+        /// <param name="argument">The argument value to parse.</param>
+        /// <returns>A tuple containing the StringSelectionType and its number of associated arguments if the parsing was successful; an exception will be thrown otherwise.</returns>
+        public static Tuple<StringSelectionType, int> ParseTwoColumnSelectionType(string argument)
+        {
+            string lowercaseValue = argument.ToLower();
+
+            if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeIncludes))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.Includes, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeNotIncludes))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.NotIncludes, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeStartsWith))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.StartsWith, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeNotStartsWith))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.NotStartsWith, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeEndsWith))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.EndsWith, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeNotEndsWith))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.NotEndsWith, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeEquals))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.Equals, 0);
+            }
+            else if (lowercaseValue.Equals(Constants.Commands.Arguments.StringSelectionTypeNotEquals))
+            {
+                return new Tuple<StringSelectionType, int>(StringSelectionType.NotEquals, 0);
             }
             else
             {

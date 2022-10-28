@@ -341,7 +341,7 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondColumnNumber}"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.DataTypeText}"
-                + $"\n\n{CabeiroConstants.Commands.Arguments.Descriptions.OneThresholdComparisonTypeText}"
+                + $"\n\n{CabeiroConstants.Commands.Arguments.Descriptions.TwoColumnComparisonTypeText}"
                 + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
 
@@ -398,6 +398,21 @@ namespace LaurentiuCristofor.Cabeiro.OnlineHelp
                 + $" {CabeiroConstants.Commands.Arguments.Descriptions.FirstArgument} [{CabeiroConstants.Commands.Arguments.Descriptions.SecondArgument}]"
                 + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
                 $"{CabeiroConstants.Commands.Arguments.Descriptions.StringSelectionTypeText}"
+                + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
+            RegisterCommandDescription(commandDescription);
+
+            commandDescription = new CommandDescription(
+                CabeiroConstants.Commands.SelectLinesByTwoColumnStrings,
+                CommandCategory.Selection,
+                "(S)elect (L)ines (B)y (2) (C)olumn (S)trings",
+                CabeiroConstants.Commands.Descriptions.SelectLinesByTwoColumnStrings,
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.InputFilePath}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnNumber}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.ColumnSeparator}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SelectionType}"
+                + $" {CabeiroConstants.Commands.Arguments.Descriptions.SecondColumnNumber}"
+                + $" [{CabeiroConstants.Commands.Arguments.Descriptions.OutputFilePath}]",
+                $"{CabeiroConstants.Commands.Arguments.Descriptions.TwoColumnSelectionTypeText}"
                 + $"\n\n{CabeiroConstants.Commands.Notes.MemoryRequirementConstantLine}");
             RegisterCommandDescription(commandDescription);
 

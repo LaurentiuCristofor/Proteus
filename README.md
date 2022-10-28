@@ -109,6 +109,7 @@ To handle duplicate values, use the "(R)elative to other lines" selection comman
 * SCBN - (S)elect (C)olumns (B)y (N)umber
 * SLBLS - (S)elect (L)ines (B)y (L)ine (S)tring
 * SLBCS - (S)elect (L)ines (B)y (C)olumn (S)tring
+* SLB2CS - (S)elect (L)ines (B)y (2) (C)olumn (S)trings
 * SLBCC - (S)elect (L)ines (B)y (C)olumn (C)ount
 * SLBLSR - (S)elect (L)ines (B)y (L)ine (S)tring (R)elative to other lines
 * SLBCVR - (S)elect (L)ines (B)y (C)olumn (V)alue (R)elative to other lines

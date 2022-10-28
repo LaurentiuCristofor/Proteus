@@ -80,6 +80,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string SelectColumnsByNumber = "scbn";
             public const string SelectLinesByLineString = "slbls";
             public const string SelectLinesByColumnString = "slbcs";
+            public const string SelectLinesByTwoColumnStrings = "slb2cs";
             public const string SelectLinesByColumnCount = "slbcc";
             public const string SelectLinesByLineStringRelativeToOtherLines = "slblsr";
             public const string SelectLinesByColumnValueRelativeToOtherLines = "slbcvr";
@@ -119,6 +120,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string SelectLinesByTwoColumnValues = "Selects lines by comparing a column's value against another column's value.";
                 public const string SelectLinesByLineString = "Selects lines based on their string value matching specified properties.";
                 public const string SelectLinesByColumnString = "Selects lines based on a column's string value matching specified properties.";
+                public const string SelectLinesByTwoColumnStrings = "Selects lines based on whether the string values of two columns match specific criteria.";
                 public const string SelectLinesByLineStringRelativeToOtherLines = "Selects lines, based on their relationship to other lines.";
                 public const string SelectLinesByColumnValueRelativeToOtherLines = "Selects lines, based on a column value's relationship to those of other lines.";
                 public const string SelectLinesByLookupInFile = "Selects lines based on whether they appear in another file or not.";
@@ -477,20 +479,26 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
                     public const string ComparisonType = "<comparison_type>";
 
-                    public static readonly string OneThresholdComparisonTypeText = $"{Constants.Commands.Arguments.Descriptions.ComparisonType} can take the values:"
+                    public static readonly string ComparisonTypeText = $"{Constants.Commands.Arguments.Descriptions.ComparisonType} can take the values:"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeLessThan}' = less than; arguments: <value>"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeLessThanOrEqual}' = less than or equal; arguments: <value>"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeEqual}' = equal; arguments: <value>"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeGreaterThanOrEqual}' = greater than or equal; arguments: <value>"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeGreaterThan}' = greater than; arguments: <value>"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeNotEqual}' = not equal; arguments: <value>"
-                        ;
-
-                    public static readonly string ComparisonTypeText = $"{Constants.Commands.Arguments.Descriptions.OneThresholdComparisonTypeText}"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeBetween}' = between; arguments: <start_value> <end_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeStrictlyBetween}' = strictly between; arguments: <start_value> <end_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeNotBetween}' = not between; arguments: <start_value> <end_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeNotStrictlyBetween}' = not strictly between; arguments: <start_value> <end_value>"
+                        ;
+
+                    public static readonly string TwoColumnComparisonTypeText = $"{Constants.Commands.Arguments.Descriptions.ComparisonType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeLessThan}' = less than"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeLessThanOrEqual}' = less than or equal"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeEqual}' = equal"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeGreaterThanOrEqual}' = greater than or equal"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeGreaterThan}' = greater than"
+                        + $"\n\t- '{Constants.Commands.Arguments.ComparisonTypeNotEqual}' = not equal"
                         ;
 
                     public const string SelectionType = "<selection_type>";
@@ -519,6 +527,17 @@ namespace LaurentiuCristofor.Cabeiro.Common
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotEquals}' = not equals; arguments: <string_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeIncludesBefore}' = includes before; arguments: <string_value> <succeeding_string_value>"
                         + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotIncludesBefore}' = not includes before; arguments: <string_value> <succeeding_string_value>"
+                        ;
+
+                    public static readonly string TwoColumnSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeIncludes}' = includes"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotIncludes}' = not includes"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeStartsWith}' = starts with"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotStartsWith}' = not starts with"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeEndsWith}' = ends with"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotEndsWith}' = not ends with"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeEquals}' = equals"
+                        + $"\n\t- '{Constants.Commands.Arguments.StringSelectionTypeNotEquals}' = not equals"
                         ;
 
                     public static readonly string RelativeLineSelectionTypeText = $"{Constants.Commands.Arguments.Descriptions.SelectionType} can take the values:"
