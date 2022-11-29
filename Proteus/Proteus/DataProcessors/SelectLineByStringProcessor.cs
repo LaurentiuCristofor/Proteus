@@ -6,7 +6,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using LaurentiuCristofor.Proteus.Common;
-using LaurentiuCristofor.Proteus.Common.Algorithms;
+using LaurentiuCristofor.Proteus.Common.Utilities;
 using LaurentiuCristofor.Proteus.Common.Types;
 using LaurentiuCristofor.Proteus.DataExtractors;
 using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
@@ -60,7 +60,6 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         {
             SelectionType = processingParameters.OperationType;
 
-            // Validate arguments for the operation.
             switch (SelectionType)
             {
                 case StringSelectionType.HasLengthBetween:
@@ -119,69 +118,12 @@ namespace LaurentiuCristofor.Proteus.DataProcessors
         {
             string data = lineData.ExtractedData.ToString();
 
-            if (Select(data))
+            if (StringSelection.Select(data, SelectionType, FirstString, SecondString, FirstCharCount, SecondCharCount))
             {
                 OutputWriter.WriteLine(lineData.OriginalLine);
             }
 
             return true;
-        }
-
-        /// <summary>
-        /// Performs an edit operation of a string using the initializationg parameters.
-        /// </summary>
-        /// <param name="data">The data to edit.</param>
-        /// <param name="lineNumber">The line number of the data. It is produced internally.</param>
-        /// <returns></returns>
-        protected bool Select(string data)
-        {
-            switch (SelectionType)
-            {
-                case StringSelectionType.HasLengthBetween:
-                    return data.Length >= FirstCharCount && data.Length <= SecondCharCount;
-
-                case StringSelectionType.HasLengthNotBetween:
-                    return data.Length < FirstCharCount || data.Length > SecondCharCount;
-
-                case StringSelectionType.Includes:
-                    return data.IndexOf(FirstString) != -1;
-
-                case StringSelectionType.NotIncludes:
-                    return data.IndexOf(FirstString) == -1;
-
-                case StringSelectionType.StartsWith:
-                    return data.StartsWith(FirstString);
-
-                case StringSelectionType.NotStartsWith:
-                    return !data.StartsWith(FirstString);
-
-                case StringSelectionType.EndsWith:
-                    return data.EndsWith(FirstString);
-
-                case StringSelectionType.NotEndsWith:
-                    return !data.EndsWith(FirstString);
-
-                case StringSelectionType.StartsAndEndsWith:
-                    return data.StartsWith(FirstString) && data.EndsWith(SecondString);
-
-                case StringSelectionType.NotStartsAndEndsWith:
-                    return !data.StartsWith(FirstString) || !data.EndsWith(SecondString);
-
-                case StringSelectionType.Equals:
-                    return data.Equals(FirstString);
-
-                case StringSelectionType.NotEquals:
-                    return !data.Equals(FirstString);
-
-                case StringSelectionType.IncludesBefore:
-                    return StringOperations.FindMarkers(data, FirstString, SecondString, out _, out _);
-
-                case StringSelectionType.NotIncludesBefore:
-                    return !StringOperations.FindMarkers(data, FirstString, SecondString, out _, out _);
-
-                default:
-                    throw new ProteusException($"Internal error: Proteus is not handling string selection type '{SelectionType}'!");
-            }
         }
     }
 }
