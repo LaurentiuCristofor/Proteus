@@ -61,41 +61,41 @@ This distinction is important because, for example, `0` and `0.0` would be seen 
 
 #### HELP commands
 
-* HELP - Obtain help on Cabeiro functionality.
+ * HELP - Obtain help on Cabeiro functionality.
 
 #### INFORMATION commands
 
 These commands report information about the content of a file.
 
-* C - (C)ount lines
-* AL - (A)nalyze (L)ines
-* ACV - (A)nalyze (C)olumn (V)alues
+ * C - (C)ount lines
+ * AL - (A)nalyze (L)ines
+ * ACV - (A)nalyze (C)olumn (V)alues
 
 #### ORDERING commands
 
 These commands change the order of the lines or columns of a file.
 
-* I - (I)nvert file
-* S - (S)ort file
-* SBCV - (S)ort file (B)y (C)olumn (V)alue
-* CS - (C)ustom (S)ort file
-* CSBCV - (C)ustom (S)ort file (B)y (C)olumn (V)alue
-* SH - (SH)uffle file
-* OC - (O)rder (C)olumns
+ * I - (I)nvert file
+ * S - (S)ort file
+ * SBCV - (S)ort file (B)y (C)olumn (V)alue
+ * CS - (C)ustom (S)ort file
+ * CSBCV - (C)ustom (S)ort file (B)y (C)olumn (V)alue
+ * SH - (SH)uffle file
+ * OC - (O)rder (C)olumns
 
 #### EDITING commands
 
 These commands modify the content of a file.
 You can edit data, insert new data, or combine data from two files.
 
-* EL - (E)dit (L)ines
-* ECS - (E)dit (C)olumn (S)trings
-* ECV - (E)dit (C)olumn (V)alues
-* IL - (I)nsert (L)ine
-* JL - (J)oin (L)ines
-* CL - (C)oncatenate (L)ines
-* TL - (T)ransform (L)ines
-* TC - (T)ransform (C)olumns
+ * EL - (E)dit (L)ines
+ * ECS - (E)dit (C)olumn (S)trings
+ * ECV - (E)dit (C)olumn (V)alues
+ * IL - (I)nsert (L)ine
+ * JL - (J)oin (L)ines
+ * CL - (C)oncatenate (L)ines
+ * TL - (T)ransform (L)ines
+ * TC - (T)ransform (C)olumns
 
 #### SELECTION commands
 
@@ -103,19 +103,19 @@ These commands extract a subset of a file, according to various criteria.
 To eliminate some lines, just select the ones you want to keep.
 To handle duplicate values, use the "(R)elative to other lines" selection commands.
 
-* SLBCV - (S)elect (L)ines (B)y (C)olumn (V)alue
-* SLB2CV - (S)elect (L)ines (B)y (2) (C)olumn (V)alues
-* SLBN - (S)elect (L)ines (B)y (N)umber
-* SCBN - (S)elect (C)olumns (B)y (N)umber
-* SLBLS - (S)elect (L)ines (B)y (L)ine (S)tring
-* SLBCS - (S)elect (L)ines (B)y (C)olumn (S)tring
-* SLB2CS - (S)elect (L)ines (B)y (2) (C)olumn (S)trings
-* SLBCC - (S)elect (L)ines (B)y (C)olumn (C)ount
-* SLBLSR - (S)elect (L)ines (B)y (L)ine (S)tring (R)elative to other lines
-* SLBCVR - (S)elect (L)ines (B)y (C)olumn (V)alue (R)elative to other lines
-* SLBLIF - (S)elect (L)ines (B)y (L)ookup (I)n (F)ile
-* SLBCVLIF - (S)elect (L)ines (B)y (C)olumn (V)alue (L)ookup (I)n (F)ile
-* SLS - (S)elect (L)ines (S)ample
+ * SLBCV - (S)elect (L)ines (B)y (C)olumn (V)alue
+ * SLB2CV - (S)elect (L)ines (B)y (2) (C)olumn (V)alues
+ * SLBN - (S)elect (L)ines (B)y (N)umber
+ * SCBN - (S)elect (C)olumns (B)y (N)umber
+ * SLBLS - (S)elect (L)ines (B)y (L)ine (S)tring
+ * SLBCS - (S)elect (L)ines (B)y (C)olumn (S)tring
+ * SLB2CS - (S)elect (L)ines (B)y (2) (C)olumn (S)trings
+ * SLBCC - (S)elect (L)ines (B)y (C)olumn (C)ount
+ * SLBLSR - (S)elect (L)ines (B)y (L)ine (S)tring (R)elative to other lines
+ * SLBCVR - (S)elect (L)ines (B)y (C)olumn (V)alue (R)elative to other lines
+ * SLBLIF - (S)elect (L)ines (B)y (L)ookup (I)n (F)ile
+ * SLBCVLIF - (S)elect (L)ines (B)y (C)olumn (V)alue (L)ookup (I)n (F)ile
+ * SLS - (S)elect (L)ines (S)ample
 
 #### SPLITTING commands
 
@@ -131,23 +131,23 @@ These commands split the content of a file across multiple files, based on vario
 These commands expect that their input files had been previously sorted; column value variants expect files to be sorted on the respective column.
 Some of these commands provide memory-efficient alternatives to commands from other categories.
 
-* SB2CV - (S)ort file (B)y (2)nd (C)olumn (V)alue
-* ML - (M)erge (L)ines
-* MLBCV - (M)erge (L)ines (B)y (C)olumn (V)alue
-* SLPSBLSR - (S)elect (L)ines (P)ost (S)orting (B)y (L)ine (S)tring (R)elative to other lines
-* SLPSBCVR - (S)elect (L)ines (P)ost (S)orting (B)y (C)olumn (V)alue (R)elative to other lines
-* SLPSBLIF - (S)elect (L)ines (P)ost (S)orting (B)y (L)ookup (I)n (F)ile
-* SLPSBCVLIF - (S)elect (L)ines (P)ost (S)orting (B)y (C)olumn (V)alue (L)ookup (I)n (F)ile
-* JLPS - (J)oin (L)ines (P)ost (S)orting
-* FST - (F)ind (S)tate (T)ransitions
+ * SB2CV - (S)ort file (B)y (2)nd (C)olumn (V)alue
+ * ML - (M)erge (L)ines
+ * MLBCV - (M)erge (L)ines (B)y (C)olumn (V)alue
+ * SLPSBLSR - (S)elect (L)ines (P)ost (S)orting (B)y (L)ine (S)tring (R)elative to other lines
+ * SLPSBCVR - (S)elect (L)ines (P)ost (S)orting (B)y (C)olumn (V)alue (R)elative to other lines
+ * SLPSBLIF - (S)elect (L)ines (P)ost (S)orting (B)y (L)ookup (I)n (F)ile
+ * SLPSBCVLIF - (S)elect (L)ines (P)ost (S)orting (B)y (C)olumn (V)alue (L)ookup (I)n (F)ile
+ * JLPS - (J)oin (L)ines (P)ost (S)orting
+ * FST - (F)ind (S)tate (T)ransitions
 
 #### GENERATION commands
 
 These commands generate data.
 
-* GEND - (GEN)erate (D)istribution
-* GENP - (GEN)erate (P)rogression
-* GENS - (GEN)erate (S)ample
+ * GEND - (GEN)erate (D)istribution
+ * GENP - (GEN)erate (P)rogression
+ * GENS - (GEN)erate (S)ample
 
 # Build instructions
 
