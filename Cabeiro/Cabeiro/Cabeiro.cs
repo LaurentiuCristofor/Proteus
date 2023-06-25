@@ -1239,14 +1239,14 @@ namespace LaurentiuCristofor.Cabeiro
 
                 case StringEditType.PadLeft:
                 case StringEditType.PadRight:
-                    // These operations that a string and an int argument, in this order.
+                    // These operations take a string and an int argument, in this order.
                     //
                     stringArguments = new string[] { editArguments[0] };
                     intArguments = new int[] { int.Parse(editArguments[1]) };
                     break;
 
                 case StringEditType.InsertContentAtIndex:
-                    // These operations that an int and a string argument, int this order.
+                    // These operations take an int and a string argument, int this order.
                     //
                     stringArguments = new string[] { editArguments[1] };
                     intArguments = new int[] { int.Parse(editArguments[0]) };
