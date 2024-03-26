@@ -9,9 +9,9 @@
     <Description>Cabeiro text file processing utility.</Description>
     <RepositoryUrl>https://github.com/LaurentiuCristofor/Proteus</RepositoryUrl>
     <ApplicationIcon />
-    <AssemblyVersion>2.3.0.0</AssemblyVersion>
-    <FileVersion>2.3.0.0</FileVersion>
-    <Version>2.3.0.0</Version>
+    <AssemblyVersion>2.4.0.0</AssemblyVersion>
+    <FileVersion>2.4.0.0</FileVersion>
+    <Version>2.4.0.0</Version>
     <Copyright>Laurentiu Cristofor</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReleaseNotes></PackageReleaseNotes>
