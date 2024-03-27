@@ -23,6 +23,7 @@ namespace LaurentiuCristofor.Proteus.Common
             public const string LongestStringRepresentation = "LongestStringRepresentation";
             public const string AverageStringRepresentationLength = "AverageStringRepresentationLength";
             public const string Entropy = "Entropy";
+            public const string ConditionalEntropy = "Conditional Entropy";
 
             public const string Bottom = "Bottom";
             public const string Top = "Top";
@@ -33,10 +34,13 @@ namespace LaurentiuCristofor.Proteus.Common
             public const string LineTooShortForColumnExtractionFormat = "\nLine {0} is too short for extracting column number {1}!";
             public const string InvalidValueForColumnExtractionFormat = "\nFound an invalid value for column {0} of type {1} in line {2}: '{3}'!";
 
-            public const string NoDataFoundForAnalysis = "No data was found to analyze!";
+            public const string NoDataFoundForProcessing = "No data was found for processing!";
 
             public const string AnalysisPostProcessingStart = "Post-processing analyzed data...";
             public const string AnalysisPostProcessingEnd = "done! Post-processing time: ";
+
+            public const string ConditionalEntropyCalculationStart = "Calculating conditional entropy...";
+            public const string ConditionalEntropyCalculationEnd = "done! Conditional entropy calculation time: ";
 
             public const string SortingStart = "Sorting...";
             public const string SortingEnd = "done! Sorting time: ";

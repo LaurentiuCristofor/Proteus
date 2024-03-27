@@ -56,6 +56,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
             public const string CountLines = "c";
             public const string AnalyzeLines = "al";
             public const string AnalyzeColumnValues = "acv";
+            public const string CalculateConditionalEntropy = "cce";
 
             public const string Invert = "i";
             public const string Sort = "s";
@@ -115,6 +116,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
                 public const string AnalyzeLines = "Produces a report about the line values.";
                 public const string AnalyzeColumnValues = "Produces a report about a specified column's values.";
+                public const string CalculateConditionalEntropy = "Calculates the conditional entropy between two columns.";
 
                 public const string SelectLinesByColumnValue = "Selects lines by comparing a column's value against specified arguments.";
                 public const string SelectLinesByTwoColumnValues = "Selects lines by comparing a column's value against another column's value.";
@@ -163,6 +165,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
                 public const string MemoryRequirementLinearPrimaryColumnRepetitions = "Memory requirement: O(N), where N is the largest number of lines having the same primary column value.";
                 public const string MemoryRequirementLinearJoinKeyRepetitions = "Memory requirement: O(N), where N is the largest number of lines having the same join column value in the second input data file.";
                 public const string MemoryRequirementExceptionLast = "Exception: `last` and `nlast` require O(N) where N is the argument to these commands.";
+                public const string MemoryRequirementCartesianProduct = "Memory requirement: O(M*N), where M and N represent the number of unique values for the first and second columns, respectively.";
             }
 
             // Command argument strings.
@@ -326,6 +329,7 @@ namespace LaurentiuCristofor.Cabeiro.Common
 
                     public const string ColumnNumber = "<column_number>";
                     public const string SecondColumnNumber = "<second_column_number>";
+                    public const string SecondColumnDataType = "<second_column_data_type>";
                     public const string FirstFileColumnNumber = "<first_file_column_number>";
                     public const string SecondFileColumnNumber = "<second_file_column_number>";
                     public const string DataFileColumnNumber = "<data_file_column_number>";
