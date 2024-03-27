@@ -70,7 +70,7 @@ namespace LaurentiuCristofor.Cabeiro
         private static void ValidateProteusVersion()
         {
             const int expectedProteusMajorVersion = 2;
-            const int expectedProteusMinorVersion = 2;
+            const int expectedProteusMinorVersion = 4;
 
             AssemblyName proteusInfo = ProteusInfo.GetAssemblyInfo();
             AssemblyName cabeiroInfo = CabeiroInfo.GetAssemblyInfo();
@@ -170,6 +170,28 @@ namespace LaurentiuCristofor.Cabeiro
                     columnSeparator,
                     dataType,
                     valuesLimit);
+                return;
+            }
+            else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.CalculateConditionalEntropy))
+            {
+                const int minimumArgumentNumber = 7;
+                const int maximumArgumentNumber = 7;
+                ArgumentParser.CheckExpectedArgumentNumber(arguments.Length, minimumArgumentNumber, maximumArgumentNumber);
+
+                string inputFilePath = arguments[1];
+                int columnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[2]);
+                string columnSeparator = ArgumentParser.ParseSeparator(arguments[3]);
+                DataType dataType = ArgumentParser.ParseDataType(arguments[4]);
+                int secondColumnNumber = ArgumentParser.GetStrictlyPositiveInteger(arguments[5]);
+                DataType secondDataType = ArgumentParser.ParseDataType(arguments[6]);
+
+                CalculateConditionalEntropy(
+                    inputFilePath,
+                    columnNumber,
+                    columnSeparator,
+                    dataType,
+                    secondColumnNumber,
+                    secondDataType);
                 return;
             }
             else if (ArgumentParser.IsCommand(arguments[0], CabeiroConstants.Commands.Invert))
@@ -978,6 +1000,32 @@ namespace LaurentiuCristofor.Cabeiro
 
             var fileProcessor
                 = new FileProcessor<OneColumnValueExtractor, OneColumnValueExtractionParameters, OneExtractedValue, AnalyzeProcessor, AnalyzeParameters>(
+                    inputFilePath,
+                    extractionParameters,
+                    processingParameters);
+
+            fileProcessor.ProcessFile();
+        }
+
+        private static void CalculateConditionalEntropy(
+            string inputFilePath,
+            int columnNumber,
+            string columnSeparator,
+            DataType dataType,
+            int secondColumnNumber,
+            DataType secondDataType)
+        {
+            var extractionParameters = new TwoColumnValuesExtractionParameters(
+                columnSeparator,
+                columnNumber,
+                dataType,
+                secondColumnNumber,
+                secondDataType);
+
+            var processingParameters = new ConditionalEntropyParameters(dataType, secondDataType);
+
+            var fileProcessor
+                = new FileProcessor<TwoColumnValuesExtractor, TwoColumnValuesExtractionParameters, TwoExtractedValues, ConditionalEntropyProcessor, ConditionalEntropyParameters>(
                     inputFilePath,
                     extractionParameters,
                     processingParameters);

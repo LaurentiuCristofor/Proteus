@@ -20,7 +20,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
     /// Analyzed data must be of the same type used to initialize the DataAnalyzer.
     /// Analysis happens in 3 steps:
     /// (1) Analyze() must be called on each data piece.
-    /// (2) PostProcessAnalyzedData() must be called after all data was passed to analyze
+    /// (2) PostProcessAnalyzedData() must be called after all data was passed to Analyze()
     /// and before requesting analysis results.
     /// (3) OutputReport() must be called last, to obtain the analysis report.
     /// </summary>
@@ -92,6 +92,11 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         protected List<Tuple<ulong, IDataHolder>> ListCountedData { get; set; }
 
         /// <summary>
+        /// Whether PostProcessAnalyzedData() has been called.
+        /// </summary>
+        protected bool HasPostProcessed { get; set; }
+
+        /// <summary>
         /// Creates a new DataAnalyzer instance.
         /// </summary>
         /// <param name="dataType">The type of data that we'll be analyzing.</param>
@@ -111,7 +116,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         /// <param name="data">Data to analyze.</param>
         public void Analyze(IDataHolder data)
         {
-            if (ListCountedData != null || Entropy != 0.0)
+            if (HasPostProcessed)
             {
                 throw new ProteusException($"DataAnalyzer::Analyze() cannot be called after DataAnalyzer::PostProcessAnalyzedData()!");
             }
@@ -187,10 +192,12 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         /// </summary>
         public void PostProcessAnalyzedData()
         {
-            if (ListCountedData != null || Entropy != 0.0)
+            if (HasPostProcessed)
             {
                 throw new ProteusException($"DataAnalyzer::PostProcessAnalyzedData() should not be called more than once!");
             }
+            
+            HasPostProcessed = true;
 
             if ((ulong)MapDataToCount.Keys.Count != UniqueDataCount)
             {
@@ -234,7 +241,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         /// </summary>
         public void OutputReport()
         {
-            if (ListCountedData == null)
+            if (!HasPostProcessed)
             {
                 throw new ProteusException($"DataAnalyzer::OutputReport() should be called after DataAnalyzer::PostProcessAnalyzedData()!");
             }
@@ -245,7 +252,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
             //
             if (TotalDataCount == 0)
             {
-                logger.LogWarning($"\n{Constants.Messages.NoDataFoundForAnalysis}");
+                logger.LogWarning($"\n{Constants.Messages.NoDataFoundForProcessing}");
                 return;
             }
 
