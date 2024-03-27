@@ -15,7 +15,7 @@ using LaurentiuCristofor.Proteus.Common.Types;
 namespace LaurentiuCristofor.Proteus.Common.Utilities
 {
     /// <summary>
-    /// A class that calculates the conditional entropy between a set of value pairs.
+    /// A class that calculates the conditional entropy between a pairing of data values.
     /// 
     /// Calculation happens in 3 steps:
     /// (1) Process() must be called on each data pair.
@@ -36,7 +36,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         public DataType SecondDataType { get; protected set; }
 
         /// <summary>
-        /// The total number of data pair instances analyzed.
+        /// The total number of data pair instances processed.
         /// </summary>
         public ulong TotalDataCount { get; protected set; }
 
@@ -46,7 +46,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         protected Dictionary<IDataHolder, Dictionary<IDataHolder, ulong>> MapFirstDataToSecondDataToCount { get; set; }
 
         /// <summary>
-        /// The Shannon entropy of the analyzed data.
+        /// The conditional entropy of the analyzed data.
         /// </summary>
         public double Entropy { get; protected set; }
 
@@ -58,8 +58,8 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
         /// <summary>
         /// Creates a new ConditionalEntropyCalculator instance.
         /// </summary>
-        /// <param name="firstDataType">The type of the first data that we'll be analyzing.</param>
-        /// <param name="secondDataType">The type of the second data that we'll be analyzing.</param>
+        /// <param name="firstDataType">The type of the first data that we'll be processing.</param>
+        /// <param name="secondDataType">The type of the second data that we'll be processing.</param>
         public ConditionalEntropyCalculator(DataType firstDataType, DataType secondDataType)
         {
             FirstDataType = firstDataType;
@@ -83,7 +83,8 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
             if (firstData.GetDataType() != FirstDataType
                 || secondData.GetDataType() != SecondDataType)
             {
-                throw new ProteusException($"Incorrect input data: a ConditionalEntropyCalculator of type ({FirstDataType}, {SecondDataType}) was called on a pair of data of type ({firstData.GetDataType()}, {secondData.GetDataType()})!");
+                throw new ProteusException(
+                    $"Incorrect input data: a ConditionalEntropyCalculator of type ({FirstDataType}, {SecondDataType}) was called on a pair of data of type ({firstData.GetDataType()}, {secondData.GetDataType()})!");
             }
 
             TotalDataCount++;
@@ -136,7 +137,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
             {
                 Dictionary<IDataHolder, ulong> mapSecondDataToCount = MapFirstDataToSecondDataToCount[firstValue];
 
-                // We could have computed this in the processing step, but it would have complicated the map definition.
+                // We could have computed this in the processing step, but it would have complicated the definition of MapFirstDataToSecondDataToCount.
                 //
                 ulong totalFirstValueCount = 0;
                 foreach (ulong count in mapSecondDataToCount.Values)
@@ -153,7 +154,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
                     firstValueEntropy += -dataPairProbability * Math.Log(dataPairProbability, 2);
                 }
 
-                // We'll normalize the result by the size of each partition block;
+                // We'll scale the entropies by the size of each partition block;
                 // i.e. by multiplying the entropy of each block with the size of the block
                 // and then dividing by the size of the entire set.
                 // We do the multiplication here and we'll do the division at the end.
@@ -188,7 +189,7 @@ namespace LaurentiuCristofor.Proteus.Common.Utilities
                 return;
             }
 
-            // Output the main statistics.
+            // Output the entropy value.
             //
             logger.OutputLine($"{Constants.Strings.ConditionalEntropy}{Constants.Strings.NameValueSeparator}{Entropy:N5}");
         }

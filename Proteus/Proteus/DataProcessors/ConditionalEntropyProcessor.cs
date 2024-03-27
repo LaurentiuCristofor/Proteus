@@ -13,7 +13,7 @@ using LaurentiuCristofor.Proteus.DataProcessors.Parameters;
 namespace LaurentiuCristofor.Proteus.DataProcessors
 {
     /// <summary>
-    /// A data processor that performs data analysis to extract some basic stats.
+    /// A data processor that calculates the conditional entropy between the first and second extracted data.
     /// </summary>
     public class ConditionalEntropyProcessor : IDataProcessor<ConditionalEntropyParameters, TwoExtractedValues>
     {
