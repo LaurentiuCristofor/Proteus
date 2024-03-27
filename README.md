@@ -70,6 +70,7 @@ These commands report information about the content of a file.
  * C - (C)ount lines
  * AL - (A)nalyze (L)ines
  * ACV - (A)nalyze (C)olumn (V)alues
+ * CCE - (C)alculate (C)onditional (E)ntropy
 
 #### ORDERING commands
 
